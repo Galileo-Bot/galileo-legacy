@@ -1,0 +1,21 @@
+{
+	"name": "gali-new-handler",
+	"version": "1.0.0",
+	"description": "A discord bot.",
+	"type": "commonJS",
+	"main": "main.js",
+	"scripts": {
+		"start": "node --trace-warnings src/main.js"
+	},
+	"dependencies": {
+		"node-fetch": "^2.6.0"
+	},
+	"keywords": [
+		"galileo",
+		"discord",
+		"bot"
+	],
+	"author": "Ayfri & Antow",
+	"license": "ISC",
+	"devDependencies": {}
+}

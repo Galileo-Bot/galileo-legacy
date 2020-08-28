@@ -1,0 +1,24 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"target": "ES2020",
+		"sourceMap": true,
+		"allowJs": true,
+		"checkJs": true
+	},
+	"files": [
+		"index.d.ts"
+	],
+	"ts-node": {
+		"compilerOptions": {
+			"types": ["node", "figlet", "node-fetch"],
+			"resolveJsonModule": true
+		}
+	},
+	"typeAcquisition": {
+		"enable": true
+	},
+	"exclude": [
+		"node_modules"
+	]
+}
