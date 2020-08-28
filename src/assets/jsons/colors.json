@@ -1,0 +1,58 @@
+{
+	"ffffff": [
+		"white",
+		"blanc"
+	],
+	"ff0000": [
+		"red",
+		"rouge"
+	],
+	"ff6600": [
+		"orange"
+	],
+	"ffff00": [
+		"yellow",
+		"jaune"
+	],
+	"00ff00": [
+		"vert",
+		"green"
+	],
+	"00ffff": [
+		"turquoise",
+		"aqua"
+	],
+	"0000ff": [
+		"bleu",
+		"blue"
+	],
+	"bb00bb": [
+		"violet",
+		"purple",
+		"magenta"
+	],
+	"000000": [
+		"noir",
+		"black"
+	],
+	"888888": [
+		"gris",
+		"gray",
+		"grey"
+	],
+	"4f280a": [
+		"marron",
+		"maroon",
+		"brown"
+	],
+	"ff77cc": [
+		"rose",
+		"pink"
+	],
+	"36393e": [
+		"transparent"
+	],
+	"4b5afd": [
+		"bot"
+	]
+}
