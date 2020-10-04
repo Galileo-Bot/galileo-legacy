@@ -11,15 +11,15 @@ const {owners, prefixes} = require('../assets/jsons/config.json');
  * @returns {null|String} - Return null si il trouve rien, sinon String.
  */
 function getPrefixFromMessage(message) {
+	const {isCanary} = require('../main.js');
 	let prefix = null;
-	prefixes.push(message.client.user.toString());
-	prefixes.push(`<@!${message.client.user.id}>`);
+	const possiblePrefixes = isCanary ? prefixes.canary : prefixes.prod;
+	possiblePrefixes.push(message.client.user.toString());
+	possiblePrefixes.push(`<@!${message.client.user.id}>`);
 	
-	for (const possiblePrefix of prefixes) {
+	for (const possiblePrefix of possiblePrefixes) {
 		if (message.content.startsWith(possiblePrefix)) prefix = possiblePrefix;
 	}
-	prefixes.pop();
-	prefixes.pop();
 	
 	return prefix;
 }
