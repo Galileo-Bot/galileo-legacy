@@ -26,21 +26,11 @@ module.exports = class GuildEvent extends Event {
 	}
 
 	/**
-	 * @param {GaliClient} client
-	 * @param {Guild} guild
-	 * @returns {Promise<void>}
-	 */
-	async run(client, guild) {
-		await super.run(client);
-		this.guild = guild;
-	}
-
-	/**
 	 * Renvoie l'Embed d'un GuildEvent.
-	 * @returns {Embed} - L'embed.
+	 * @returns {module:"discord.js".MessageEmbed} - L'embed.
 	 */
 	embed() {
-		if (!this.guild.available) return;
+		if (!this.guild.available) return undefined;
 
 		const embed = new MessageEmbed();
 		embed.setTitle(`Le bot a ${this.type === 'remove' ? 'quitté' : 'rejoint'} un serveur.`);
@@ -67,5 +57,15 @@ module.exports = class GuildEvent extends Event {
 Nombre de serveurs actuel : ${this.client.guilds.cache.size}`,
 			`Guild${this.type[0].toUpperCase() + this.type.slice(1)}Event`
 		);
+	}
+
+	/**
+	 * @param {GaliClient} client
+	 * @param {Guild} guild
+	 * @returns {Promise<void>}
+	 */
+	async run(client, guild) {
+		await super.run(client);
+		this.guild = guild;
 	}
 };

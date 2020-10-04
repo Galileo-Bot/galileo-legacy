@@ -2,9 +2,9 @@
  * @module Gali/Event
  */
 module.exports = class Event {
+	client;
 	name;
 	once;
-	client;
 
 	/**
 	 * Créé un nouvel évent.

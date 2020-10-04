@@ -1,4 +1,4 @@
-import {
+import type {
 	Client,
 	ClientEvents,
 	Collection,
@@ -7,6 +7,7 @@ import {
 	MessageEmbed,
 	MessageOptions,
 	PermissionResolvable,
+	PermissionString,
 	Snowflake,
 	StringResolvable,
 } from 'discord.js';
@@ -18,32 +19,31 @@ export class GaliClient extends Client {
 	public commands: Collection<string, Command>;
 	public eventManager: EventManager;
 	public events: Collection<string, Event>;
-	public get isCanary(): boolean;
 }
 
 export class CommandManager {
 	public static commands: Collection<string, Command>;
-	
+
 	public static findCommand(name: string): Command;
-	
+
 	public loadCommands(dirName: string): Promise<void>;
-	
+
 	public loadCommand(command: Command): void;
-	
+
 	public unloadCommand(command: Command): void;
 }
 
 export class EventManager {
 	public static events: Collection<string, Event>;
-	
+
 	public readonly client: GaliClient;
-	
+
 	constructor(client: GaliClient);
-	
+
 	public loadEvents(dirName: string): Promise<void>;
-	
+
 	public bind(event: Event): void;
-	
+
 	public unbind(event: Event): void;
 }
 
@@ -57,41 +57,38 @@ export class Command {
 	public tags: Tag[];
 	public usage: string;
 	public userPermissions: PermissionResolvable[];
-	
+
 	public message: Message;
 	public client: GaliClient;
 	public args: string[];
-	
+
 	public constructor(options: CommandOptions);
-	
+
 	public run(client: GaliClient, message: Message, args?: string[]): Promise<void>;
-	
-	public send(
-		content: StringResolvable,
-		options?: MessageOptions | (MessageOptions & { split?: false }) | MessageAdditions,
-	): Promise<Message>;
+
+	public send(content: StringResolvable, options?: MessageOptions | (MessageOptions & {split?: false}) | MessageAdditions): Promise<Message>;
 }
 
 export class Event {
 	public client: GaliClient;
 	public name: keyof ClientEvents;
-	
+
 	public constructor(options: EventOptions);
-	
+
 	public run(client: GaliClient, ...args: any[]): Promise<void>;
 }
 
 export class Logger {
 	public static process(message: string, type: LogType, title?: string): void;
-	
+
 	public static log(message: any, title?: string): void;
-	
+
 	public static info(message: any, title?: string): void;
-	
+
 	public static debug(message: any, title?: string): void;
-	
+
 	public static warn(message: any, title?: string): void;
-	
+
 	public static error(message: any, title?: string): void;
 }
 
@@ -100,9 +97,9 @@ export class Logger {
 //#region enum
 
 export enum ArgType {
-	user = 'Nom/Mention/ID d\'utilisateur',
-	user_id = 'ID d\'utilisateur',
-	user_username = 'Nom d\'utilisateur',
+	user = "Nom/Mention/ID d'utilisateur",
+	user_id = "ID d'utilisateur",
+	user_username = "Nom d'utilisateur",
 	member = 'Nom/Mention/ID de membre',
 	channel = 'Nom/Mention/ID de salon.',
 	channel_id = 'ID de salon',
@@ -115,7 +112,7 @@ export enum ArgType {
 	role_name = 'Nom de rôle',
 	command = 'Commande',
 	number = 'Nombre',
-	string = 'Texte'
+	string = 'Texte',
 }
 
 export enum Tag {
@@ -124,10 +121,10 @@ export enum Tag {
 	dm_only = 'Seulement disponible en messages privés.',
 	nsfw_only = 'Seulement disponible dans un salon NSFW.',
 	guild_owner_only = 'Seulement disponible pour le propriétaire du serveur.',
-	help_command = 'Commande d\'aide.',
+	help_command = "Commande d'aide.",
 	prefix_command = 'Commande des préfixes.',
 	hidden = 'Cachée.',
-	wip = 'Non finie (potentiellement instable).'
+	wip = 'Non finie (potentiellement instable).',
 }
 
 export enum LogType {
@@ -135,7 +132,7 @@ export enum LogType {
 	log = '37',
 	info = '34',
 	warn = '33',
-	error = '31'
+	error = '31',
 }
 
 export enum Category {
@@ -146,7 +143,7 @@ export enum Category {
 	moderation = 'Modération',
 	owner = 'Gérants bot',
 	utils = 'Utilitaires',
-	wip = 'Non finies. (instables)'
+	wip = 'Non finies. (instables)',
 }
 
 //#endregion enum
@@ -188,8 +185,8 @@ export interface GuildEventOptions extends EventOptions {
 }
 
 export interface MissingPermissions {
-	client: PermissionResolvable[];
-	user: PermissionResolvable[];
+	client: PermissionString[] | [];
+	user: PermissionString[] | [];
 }
 
 export interface CommandFail {

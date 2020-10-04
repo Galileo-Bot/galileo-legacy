@@ -34,7 +34,7 @@ function verifyPermissionsFromCommand(command, message) {
 }
 
 /**
- * Supprime le message en vérifiant si il peut (pour éviter les erreurs, on peut mettre un timeout aussi).
+ * Supprime le message en vérifiant s’il peut (pour éviter les erreurs, on peut mettre un timeout aussi).
  * @param {Message} message - Le message à supprimer.
  * @param {number} [after = 0] - Le timemout (en ms).
  */
@@ -50,7 +50,7 @@ function tryDeleteMessage(message, after = 0) {
 /**
  * Envoie les messages nécéssaires en cas d'erreur de commande.
  * @param {CommandFail} fail - Les erreurs faites.
- * @param {Message} message - Le message pour récupérer la guild et le salon.
+ * @param {module:"discord.js".Message} message - Le message pour récupérer la guild et le salon.
  * @param {Command} command - La commande pour les messages d'erreurs.
  * @retuns {void}
  */
@@ -81,7 +81,7 @@ function processCommandFail(fail, message, command) {
 		const {cooldown} = require('../events/message.js');
 		const cooldownCommand = cooldown.get(message.author.id).find(c => c.command === command.name);
 
-		return message.channel.send(`Veuillez attendre encore **${((cooldownCommand.releasingAt.getTime() - Date.now()) / 1000).toFixed(2)}** secondes pour ré-effectuer la commande.`);
+		return message.channel?.send(`Veuillez attendre encore **${((cooldownCommand.releasingAt.getTime() - Date.now()) / 1000).toFixed(2)}** secondes pour ré-effectuer la commande.`);
 	}
 }
 

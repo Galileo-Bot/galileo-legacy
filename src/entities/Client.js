@@ -7,8 +7,8 @@ const EventManager = require('./EventManager.js');
  */
 module.exports = class GaliClient extends Client {
 	commandManager;
-	eventManager;
 	commands;
+	eventManager;
 	events;
 
 	constructor() {
@@ -17,8 +17,8 @@ module.exports = class GaliClient extends Client {
 			messageSweepInterval: 60 * 5,
 			ws: {
 				/*intents: [
-					'GUILDS', 'GUILD_BANS', 'GUILDS_MEMBER', 'GUILD_EMOJIS', 'GUILD_INVITES', 'GUILD_VOICE_STATES', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'DIRECT_MESSAGES', 'DIRECT_MESSAGE_REACTIONS'
-				]*/
+				 'GUILDS', 'GUILD_BANS', 'GUILDS_MEMBER', 'GUILD_EMOJIS', 'GUILD_INVITES', 'GUILD_VOICE_STATES', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'DIRECT_MESSAGES', 'DIRECT_MESSAGE_REACTIONS'
+				 ]*/
 			},
 		});
 

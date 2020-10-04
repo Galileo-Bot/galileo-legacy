@@ -13,10 +13,6 @@ module.exports = class ImageCommand extends SlowCommand {
 		super(options);
 	}
 
-	async run(client, message, args) {
-		await super.run(client, message, args);
-	}
-
 	/**
 	 * Fait une commande image, la fonction étant personnalisable.
 	 * @param {Message} message - Le message.
@@ -45,7 +41,7 @@ module.exports = class ImageCommand extends SlowCommand {
 					embed.setImage(json.data.link);
 					embed.setFooter(message.client.user.username, message.client.user.displayAvatarURL());
 
-					message.channel.send(embed);
+					message.channel?.send(embed);
 					this.stopWait();
 				})
 			)
@@ -54,8 +50,12 @@ module.exports = class ImageCommand extends SlowCommand {
 					runError(message, this, error);
 					Logger.warn(error.stack, `${super.name}Command`);
 				} else {
-					message.channel.send("Oups !\nQuelque chose n'a pas marché, l'erreur est reportée aux dirigeants du bot. :eyes:");
+					this.send("Oups !\nQuelque chose n'a pas marché, l'erreur est reportée aux dirigeants du bot. :eyes:");
 				}
 			});
+	}
+
+	async run(client, message, args) {
+		await super.run(client, message, args);
 	}
 };

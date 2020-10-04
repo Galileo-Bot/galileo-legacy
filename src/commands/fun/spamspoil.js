@@ -26,7 +26,7 @@ module.exports = class SpamSpoilCommand extends Command {
 			finalText += `||${text.charAt(i)}||`;
 		}
 
-		await message.channel.send(finalText, {
+		await message.channel?.send(finalText, {
 			split: {
 				char: '|',
 			},

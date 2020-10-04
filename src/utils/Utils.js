@@ -7,7 +7,7 @@ const {owners, prefixes} = require('../assets/jsons/config.json');
 /**
  * Récupère le préfixe du message par rapport à la config.
  * @param {Message} message - Le message.
- * @returns {null|String} - Return null si il trouve rien, sinon String.
+ * @returns {null|String} - Return null s’il trouve rien, sinon String.
  */
 function getPrefixFromMessage(message) {
 	const {isCanary} = require('../main.js');
@@ -84,7 +84,7 @@ function random(array) {
  * Permet d'envoyer un message de log sur le serveur de gali.
  * @param {GaliClient|Client} client - Le client pour récupérer les salons etc.
  * @param {'addGuild'|'bug'|'command'|'mp'|'removeGuild'} channelType - Type de salon.
- * @param {string | module:"discord.js".StringResolvable | Embed | module:"discord.js".MessageAttachment} content - Le contenu.
+ * @param {string | module:"discord.js".StringResolvable | module:"discord.js".MessageEmbed | module:"discord.js".MessageAttachment} content - Le contenu.
  */
 function sendLogMessage(client, channelType, content) {
 	if (client.user.id === '579003487237570561') {

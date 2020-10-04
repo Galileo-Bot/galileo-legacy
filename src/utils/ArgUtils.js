@@ -5,8 +5,8 @@ const CommandManager = require('../entities/CommandManager.js');
 const {client} = require('../main.js');
 
 /**
- * Donne les args depuis un message.
- * @param {Message} message - Le message.
+ * Donne les arguments depuis un message.
+ * @param {module:"discord.js".Message} message - Le message.
  * @returns {string[]}
  */
 function getArgListFromMessage(message) {
@@ -26,9 +26,9 @@ function getArgListFromMessage(message) {
  * const arg3 = getArg("g/avatar Ayfri", 1, argTypes.user_username);
  * console.log(arg3); // 'Ayfri'
  *
- * @param {Message} content - Contenu.
+ * @param {module:"discord.js".Message|string} content - Contenu.
  * @param {number} index - L'index, arg[0] avant est égal à l'index 1 !
- * @param {argTypes|String} argType - Type d'argument.
+ * @param {argTypes|string} argType - Type d'argument.
  * @returns {module:"discord.js".User|module:"discord.js".Snowflake|Command|String|number|null} - Le résultat.
  */
 function getArg(content, index, argType) {
@@ -44,7 +44,7 @@ function getArg(content, index, argType) {
 
 /**
  * Permet de récupérer un argument avec le message (il vaut mieux utiliser {@link getArg}).
- * @param {Message} message - Le message.
+ * @param {module:"discord.js".Message} message - Le message.
  * @param {argTypes} argType - Type d'argument.
  * @param {number} [index = 1] - Index pour ensuite faire les tests sur l'argument [index].
  * @return {any} Si c'est valide ou non.

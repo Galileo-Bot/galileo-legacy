@@ -25,7 +25,7 @@ function argError(message, command, error) {
 	embed.setFooter(message.client.user.username, message.client.user.displayAvatarURL());
 	embed.setTimestamp();
 
-	message.channel.send(embed);
+	message.channel?.send(embed);
 	Logger.info(`'${message.author.tag}' (${message.author.id} a raté la commande '${command.name}', raison : ${error}`, 'MessageEvent');
 }
 
@@ -52,7 +52,7 @@ function permsError(message, command, missingPermissions, fromBot = false) {
 	embed.setFooter(message.client.user.username, message.client.user.displayAvatarURL());
 	embed.setTimestamp();
 
-	message.channel.send(embed);
+	message.channel?.send(embed);
 }
 
 /**
@@ -83,13 +83,13 @@ function runError(message, command, error) {
 	if (message.guild) embed.setThumbnail(message.guild.iconURL());
 
 	if (isOwner(message.author.id)) {
-		return message.channel.send(embedLog);
+		return message.channel?.send(embedLog);
 	}
 
 	embed.setDescription(`> Une erreur a eu lieu avec la commande : **${command.name}**.\n\n**__L'erreur a été avertie aux développeurs.__**`);
 	embed.setColor('RANDOM');
 
-	message.channel.send(embed);
+	message.channel?.send(embed);
 	sendLogMessage(message.client, 'bug', embedLog);
 }
 
