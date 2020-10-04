@@ -86,7 +86,7 @@ function parseRelativeDate(pattern, relativeDate = new Date()) {
 }
 
 /**
- * Ajoute le(s) zéro(s) manquant(s) à un nombre avec une taille maximale cherchée.
+ * Ajoute les zéros manquants à un nombre avec une taille maximale cherchée.
  * @param {string|number} number - Le nombre.
  * @param {number} size - La taille voulue.
  * @returns {string} - Le résultat.

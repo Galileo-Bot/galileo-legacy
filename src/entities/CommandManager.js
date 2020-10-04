@@ -29,6 +29,15 @@ module.exports = class CommandManager {
 	}
 
 	/**
+	 * Charge une commande.
+	 * @param {Command} command
+	 */
+	loadCommand(command) {
+		CommandManager.commands.set(command.name, command);
+		Logger.log(`Commande '${command.name}' chargée.`, 'CommandManager');
+	}
+
+	/**
 	 * Charge toutes les commandes dans le dossier en question.
 	 * @param {string} dirName - Le nom du dossier.
 	 */
@@ -47,15 +56,6 @@ module.exports = class CommandManager {
 				await this.loadCommands(`${dirName}${sep}${commandFile}`);
 			}
 		}
-	}
-
-	/**
-	 * Charge une commande.
-	 * @param {Command} command
-	 */
-	loadCommand(command) {
-		CommandManager.commands.set(command.name, command);
-		Logger.log(`Commande '${command.name}' chargée.`, 'CommandManager');
 	}
 
 	/**

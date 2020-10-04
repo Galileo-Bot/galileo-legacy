@@ -25,7 +25,7 @@ module.exports = class TweetCommand extends Command {
 		if (text.length > 140) return m.edit(`**Le tweet est trop long, 140 caractères sont le maximum ${message.author}.**`);
 
 		const body = await (await fetch(`https://nekobot.xyz/api/imagegen?type=tweet&username=${user}&text=${text}`, {method: 'GET'})).json();
-		await message.channel.send(`<:CheckMark:539078939365343257> **Voici le tweet que vous avez demandé ${message.author} !**`, {
+		await message.channel?.send(`<:CheckMark:539078939365343257> **Voici le tweet que vous avez demandé ${message.author} !**`, {
 			files: [
 				{
 					attachment: body.message,

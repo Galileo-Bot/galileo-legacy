@@ -36,7 +36,7 @@ module.exports.imageCommand = async (message, command, imageFunction, ...argsFun
 				embed.setImage(json.data.link);
 				embed.setFooter(message.client.user.username, message.client.user.displayAvatarURL());
 
-				message.channel.send(embed);
+				message.channel?.send(embed);
 				message.reactions.cache.find(reaction => reaction.emoji === waitEmoji).users.remove(message.client.user.id);
 			})
 		)
@@ -45,7 +45,7 @@ module.exports.imageCommand = async (message, command, imageFunction, ...argsFun
 				runError(message, command, error.stack);
 				Logger.warn(error.stack);
 			} else {
-				message.channel.send("Oups !\nQuelque chose n'a pas marché, l'erreur est reportée aux dirigeants du bot. :eyes:");
+				message.channel?.send("Oups !\nQuelque chose n'a pas marché, l'erreur est reportée aux dirigeants du bot. :eyes:");
 			}
 		});
 };

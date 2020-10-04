@@ -7,41 +7,29 @@ const {writeInJSON} = require('../utils/Utils.js');
 const {tryDeleteMessage} = require('../utils/CommandUtils.js');
 
 module.exports = class SanctionCommand extends Command {
-	userData;
 	type;
+	userData;
 
 	constructor(options) {
 		super(options);
 		this.type = options.type;
 	}
 
-	async run(client, message, args) {
-		await super.run(client, message, args);
-		this.userData = readJSON('./assets/jsons/userdata.json');
-	}
-
 	/**
-	 * Récupère le membre à sanctionner.
-	 * @param {Message} message
-	 * @returns {module:"discord.js".GuildMember|void|Promise<void>}
+	 * Applique la sanction si celle-ci a un impact sur discord.
+	 * @param {GuildMember} person - La personne à sanctionner.
+	 * @param {String} reason - La raison.
+	 * @returns {Promise<void>}
 	 */
-	getPerson(message) {
-		const person = getArg(message, 1, argTypes.member);
-		if (!person) return argError(message, this, "La personne n'a pas été trouvée.");
-
-		if (message.member.roles.cache.map(r => r).sort((b, a) => a.position - b.position)[0].position < person.roles.cache.map(r => r).sort((b, a) => a.position - b.position)[0].position) {
-			return argError(
-				message,
-				this,
-				`Votre rôle est plus bas que la personne que vous tentez ${this.type === 'ban' ? 'de bannir' : this.type === 'kick' ? "d'éjecter" : "d'avertir"}, vous n'avez donc pas le droit.`
-			);
+	async applySanction(person, reason) {
+		if (this.type === 'ban') {
+			await person.ban({
+				days: 7,
+				reason: reason,
+			});
+		} else if (this.type === 'kick') {
+			await person.kick(reason);
 		}
-
-		if (person.user.id === this.client.user.id && this.type !== 'warn') {
-			return super.send(`Désolé mais je ne peux pas ${this.type === 'ban' ? 'me bannir' : "m'éjecter"} moi-même.`);
-		}
-
-		return person;
 	}
 
 	/**
@@ -96,19 +84,31 @@ module.exports = class SanctionCommand extends Command {
 	}
 
 	/**
-	 * Applique la sanction si celle-ci a un impacte sur discord.
-	 * @param {GuildMember} person - La personne à sanctionner.
-	 * @param {String} reason - La raison.
-	 * @returns {Promise<void>}
+	 * Récupère le membre à sanctionner.
+	 * @param {Message} message
+	 * @returns {module:"discord.js".User|module:"discord.js".Snowflake|Command|String|number|void}
 	 */
-	async applySanction(person, reason) {
-		if (this.type === 'ban') {
-			await person.ban({
-				days: 7,
-				reason: reason,
-			});
-		} else if (this.type === 'kick') {
-			await person.kick(reason);
+	getPerson(message) {
+		const person = getArg(message, 1, argTypes.member);
+		if (!person) return argError(message, this, "La personne n'a pas été trouvée.");
+
+		if (message.member.roles.cache.map(r => r).sort((b, a) => a.position - b.position)[0].position < person.roles.cache.map(r => r).sort((b, a) => a.position - b.position)[0].position) {
+			return argError(
+				message,
+				this,
+				`Votre rôle est plus bas que la personne que vous tentez ${this.type === 'ban' ? 'de bannir' : this.type === 'kick' ? "d'éjecter" : "d'avertir"}, vous n'avez donc pas le droit.`
+			);
 		}
+
+		if (person.user.id === this.client.user.id && this.type !== 'warn') {
+			return super.send(`Désolé mais je ne peux pas ${this.type === 'ban' ? 'me bannir' : "m'éjecter"} moi-même.`);
+		}
+
+		return person;
+	}
+
+	async run(client, message, args) {
+		await super.run(client, message, args);
+		this.userData = readJSON('./assets/jsons/userdata.json');
 	}
 };

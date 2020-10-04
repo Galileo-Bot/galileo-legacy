@@ -2,10 +2,10 @@ const SlowCommand = require('./SlowCommand.js');
 const ImgFlip = require('imgflip').default;
 
 module.exports = class MemeCommand extends SlowCommand {
-	templateID;
-	argsNumber = 2;
 	argsMaxLength = 20;
+	argsNumber = 2;
 	font;
+	templateID;
 
 	/**
 	 *
@@ -17,33 +17,6 @@ module.exports = class MemeCommand extends SlowCommand {
 		this.argsNumber = options.argsNumber;
 		this.argsMaxLength = options.argsMaxLength;
 		this.font = options.font;
-	}
-
-	async run(client, message, args) {
-		await super.run(client, message, args);
-	}
-
-	async processMeme(args, message) {
-		const username = 'Ayfri';
-		const password = 'galileo_optifdp';
-		const texts = [];
-		const imgFlip = new ImgFlip({
-			username,
-			password,
-		});
-
-		args = args.join(' ').split(' ; ');
-
-		for (let i = 0; i < this.argsNumber; i++) {
-			texts[i] = args[i] ? args[i] || message.mentions.members?.first() : message.guild?.members.cache.random()?.displayName || message.member?.displayName || message.author.username;
-			if (texts[i].length > this.argsMaxLength) {
-				return message.channel.send(`<a:attention:613714368647135245> **L'argument numéro ${i + 1} est trop long ${message.author}** _(${this.argsMaxLength} caractères maximum)_ **!**`);
-			}
-		}
-
-		await this.startWait();
-		await this.createMeme(imgFlip, texts);
-		await this.stopWait();
 	}
 
 	async createMeme(imgFlipInstance, texts) {
@@ -60,5 +33,32 @@ module.exports = class MemeCommand extends SlowCommand {
 				},
 			],
 		});
+	}
+
+	async processMeme(args, message) {
+		const username = 'Ayfri';
+		const password = 'galileo_optifdp';
+		const texts = [];
+		const imgFlip = new ImgFlip({
+			username,
+			password,
+		});
+
+		args = args.join(' ').split(' ; ');
+
+		for (let i = 0; i < this.argsNumber; i++) {
+			texts[i] = args[i] ? args[i] || message.mentions.members?.first() : message.guild?.members.cache.random()?.displayName || message.member?.displayName || message.author.username;
+			if (texts[i].length > this.argsMaxLength) {
+				return message.channel?.send(`<a:attention:613714368647135245> **L'argument numéro ${i + 1} est trop long ${message.author}** _(${this.argsMaxLength} caractères maximum)_ **!**`);
+			}
+		}
+
+		await this.startWait();
+		await this.createMeme(imgFlip, texts);
+		await this.stopWait();
+	}
+
+	async run(client, message, args) {
+		await super.run(client, message, args);
 	}
 };

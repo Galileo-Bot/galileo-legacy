@@ -4,18 +4,17 @@ const {MessageEmbed} = require('discord.js');
 
 module.exports = class Command {
 	aliases;
+	args = [];
 	category;
+	client;
 	clientPermissions;
 	cooldown;
 	description;
+	message;
 	name;
 	tags;
 	usage;
 	userPermissions;
-
-	message;
-	client;
-	args = [];
 
 	/**
 	 * Créé une nouvelle commande.
@@ -83,6 +82,6 @@ module.exports = class Command {
 			if (options?.content) options.content = options?.content.replace(/@(everyone|here)/, '@**$1**');
 		}
 
-		return await this.message.channel.send(content, options);
+		return await this.message.channel?.send(content, options);
 	}
 };
