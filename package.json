@@ -3,12 +3,12 @@
 	"version": "1.0.0",
 	"description": "A discord bot.",
 	"type": "commonjs",
-	"main": "main.js",
+	"main": "src/main.js",
 	"scripts": {
 		"canary": "npm run start:canary",
 		"start": "npm run start:prod",
-		"start:prod": "node --trace-warnings src/main.js",
-		"start:canary": "node --trace-warnings src/main.js --canary",
+		"start:prod": "node --trace-warnings .",
+		"start:canary": "node --trace-warnings . --canary",
 		"prettier": "prettier ./ --write"
 	},
 	"dependencies": {

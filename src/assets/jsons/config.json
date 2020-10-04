@@ -1,15 +1,23 @@
 {
-	"tokens": {
-		"prod": "NTM0MDg3MzQ2NDcyMDkxNjQ4.XDuNmg.u0-0Y3IpfSjMdsd9ZzUvKwo2l2c",
-		"canary": "NTc5MDAzNDg3MjM3NTcwNTYx.XtufLg.3GHGrVK-eClrDl_bXQ4GZpcDCrY"
-	},
-	"owners": ["386893236498857985", "216214448203890688", "533965831642677250"],
-	"prefixes": {
-		"prod": ["g/"],
-		"canary": ["g!"]
-	},
-	"botVersion": "Bêta Pre-1.0",
-	"dateUpdate": "05/10/2020",
-	"statut": "stopped",
-	"cacheChannel": "515327531021500446"
+    "tokens": {
+        "prod": "NTM0MDg3MzQ2NDcyMDkxNjQ4.XDuNmg.u0-0Y3IpfSjMdsd9ZzUvKwo2l2c",
+        "canary": "NTc5MDAzNDg3MjM3NTcwNTYx.XtufLg.3GHGrVK-eClrDl_bXQ4GZpcDCrY"
+    },
+    "owners": [
+        "386893236498857985",
+        "216214448203890688",
+        "533965831642677250"
+    ],
+    "prefixes": {
+        "prod": [
+            "g/"
+        ],
+        "canary": [
+            "g!"
+        ]
+    },
+    "botVersion": "Bêta Pre-1.0",
+    "dateUpdate": "05/10/2020",
+    "statut": "stopped",
+    "cacheChannel": "515327531021500446"
 }
