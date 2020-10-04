@@ -2,13 +2,22 @@
 	"name": "gali-new-handler",
 	"version": "1.0.0",
 	"description": "A discord bot.",
-	"type": "commonJS",
+	"type": "commonjs",
 	"main": "main.js",
 	"scripts": {
-		"start": "node --trace-warnings src/main.js"
+		"canary": "npm run start:canary",
+		"start": "npm run start:prod",
+		"start:prod": "node --trace-warnings src/main.js",
+		"start:canary": "node --trace-warnings src/main.js --canary"
 	},
 	"dependencies": {
-		"node-fetch": "^2.6.0"
+		"discord.js": "^12.3.1",
+		"figlet": "^1.5.0",
+		"godembed": "^1.0.4",
+		"imgflip": "^2.0.0",
+		"imgur": "^0.3.1",
+		"jimp": "^0.16.1",
+		"node-fetch": "^2.6.1"
 	},
 	"keywords": [
 		"galileo",

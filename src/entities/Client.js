@@ -27,8 +27,4 @@ module.exports = class GaliClient extends Client {
 		this.commands = CommandManager.commands;
 		this.events = EventManager.events;
 	}
-	
-	get isCanary() {
-		return this.user.id === '579003487237570561';
-	}
 };
