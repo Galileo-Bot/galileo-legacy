@@ -4,7 +4,6 @@ import type {
 	Collection,
 	Message as DiscordMessage,
 	MessageAdditions,
-	MessageEmbed,
 	MessageOptions,
 	PermissionResolvable,
 	PermissionString,
@@ -150,7 +149,6 @@ export enum Category {
 
 //#region types
 export type Message = DiscordMessage;
-export type Embed = MessageEmbed;
 export type GuildEventType = 'add' | 'remove';
 //#endregion types
 
