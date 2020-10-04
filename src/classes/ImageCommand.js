@@ -12,11 +12,11 @@ module.exports = class ImageCommand extends SlowCommand {
 	constructor(options) {
 		super(options);
 	}
-	
+
 	async run(client, message, args) {
 		await super.run(client, message, args);
 	}
-	
+
 	/**
 	 * Fait une commande image, la fonction étant personnalisable.
 	 * @param {Message} message - Le message.
@@ -26,32 +26,36 @@ module.exports = class ImageCommand extends SlowCommand {
 	 */
 	async imageCommand(message, imageFunction, ...argsFunction) {
 		await this.startWait();
-		
+
 		let imageLink = getArg(message, 1, argTypes.user)?.displayAvatarURL({format: 'png'}) || message.author.displayAvatarURL({format: 'png'});
 		if (message.attachments.array()[0]?.height) imageLink = message.attachments.array()[0].url;
-		
-		jimp.read(imageLink).then((image) => {
-			image[imageFunction](...argsFunction);
-			image.write(`./assets/images/${imageFunction}.png`);
-		}).then(() => imgur.uploadFile(`./assets/images/${imageFunction}.png`).then((json) => {
-			const embed = new MessageEmbed();
-			embed.setTitle('Image traitée : ');
-			embed.setDescription(`[Cliquez pour ouvrir l'image.](${json.data.link})`);
-			embed.setColor('#4b5afd');
-			embed.setTimestamp();
-			embed.setImage(json.data.link);
-			embed.setFooter(message.client.user.username, message.client.user.displayAvatarURL());
-			
-			message.channel.send(embed);
-			this.stopWait();
-		})).catch((error) => {
-			if (isOwner(message.author.id)) {
-				runError(message, this, error);
-				Logger.warn(error.stack, `${super.name}Command`);
-			} else {
-				message.channel.send('Oups !\nQuelque chose n\'a pas marché, l\'erreur est reportée aux dirigeants du bot. :eyes:');
-			}
-		});
-	};
-};
 
+		jimp.read(imageLink)
+			.then(image => {
+				image[imageFunction](...argsFunction);
+				image.write(`./assets/images/${imageFunction}.png`);
+			})
+			.then(() =>
+				imgur.uploadFile(`./assets/images/${imageFunction}.png`).then(json => {
+					const embed = new MessageEmbed();
+					embed.setTitle('Image traitée : ');
+					embed.setDescription(`[Cliquez pour ouvrir l'image.](${json.data.link})`);
+					embed.setColor('#4b5afd');
+					embed.setTimestamp();
+					embed.setImage(json.data.link);
+					embed.setFooter(message.client.user.username, message.client.user.displayAvatarURL());
+
+					message.channel.send(embed);
+					this.stopWait();
+				})
+			)
+			.catch(error => {
+				if (isOwner(message.author.id)) {
+					runError(message, this, error);
+					Logger.warn(error.stack, `${super.name}Command`);
+				} else {
+					message.channel.send("Oups !\nQuelque chose n'a pas marché, l'erreur est reportée aux dirigeants du bot. :eyes:");
+				}
+			});
+	}
+};

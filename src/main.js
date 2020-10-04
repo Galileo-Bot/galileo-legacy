@@ -4,7 +4,7 @@ const Logger = require('./utils/Logger.js');
 const GaliClient = require('./entities/Client.js');
 const {tokens} = require('./assets/jsons/config.json');
 const client = new GaliClient();
-const isCanary = process.argv[2] === "--canary";
+const isCanary = process.argv[2] === '--canary';
 
 Logger.error('Démarrage...', 'Starting');
 Logger.warn('Chargement des évents.', 'Loading');
@@ -22,5 +22,3 @@ module.exports = {client, isCanary};
  Fixer la commande help qui renvoie parfois une erreur.
  Fixer les intents.
  */
-
-

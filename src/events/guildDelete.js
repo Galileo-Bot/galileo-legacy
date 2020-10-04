@@ -5,10 +5,10 @@ module.exports = class GuildDeleteEvent extends GuildEvent {
 	constructor() {
 		super({
 			name: 'guildCreate',
-			type: 'remove'
+			type: 'remove',
 		});
 	}
-	
+
 	async run(client, guild) {
 		await super.run(client, guild);
 		super.log();

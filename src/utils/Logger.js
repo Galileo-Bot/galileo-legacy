@@ -2,7 +2,6 @@ const {parseDate} = require('./FormatUtils.js');
 const {logTypes} = require('../constants.js');
 const {getKeyByValue} = require('./Utils.js');
 
-
 module.exports = class Logger {
 	/**
 	 * Process le message pour le log suivant les arguments.
@@ -18,16 +17,16 @@ module.exports = class Logger {
 		function addSquareBrackets(string) {
 			return `[${string}]`;
 		}
-		
+
 		let result = `\x1b[${type}m${parseDate('[yyyy-MM-jj hh:mm:ss.SSSS]')}${addSquareBrackets(getKeyByValue(logTypes, type).toUpperCase())}`;
 		if (title) {
 			result += addSquareBrackets(title);
 		}
 		result += ` ${String(message)}\x1b[39;0m`;
-		
+
 		console.log(result);
 	}
-	
+
 	/**
 	 *  Log un message (white).
 	 * @param {any} message - Message à log.
@@ -36,7 +35,7 @@ module.exports = class Logger {
 	static log(message, title = '') {
 		Logger.process(message, logTypes.log, title);
 	}
-	
+
 	/**
 	 *  Log un message d'info (blue).
 	 * @param {any} message - Message à log.
@@ -45,7 +44,7 @@ module.exports = class Logger {
 	static info(message, title = '') {
 		Logger.process(message, logTypes.info, title);
 	}
-	
+
 	/**
 	 *  Log un message de débug (magenta).
 	 * @param {any} message - Message à log.
@@ -54,8 +53,7 @@ module.exports = class Logger {
 	static debug(message, title = '') {
 		Logger.process(message, logTypes.debug, title);
 	}
-	
-	
+
 	/**
 	 *  Log un message de warn (yellow).
 	 * @param {any} message - Message à log.
@@ -64,7 +62,7 @@ module.exports = class Logger {
 	static warn(message, title = '') {
 		Logger.process(message, logTypes.warn, title);
 	}
-	
+
 	/**
 	 *  Log un message d'erreur (rouge).
 	 * @param {any} message - Message à log.

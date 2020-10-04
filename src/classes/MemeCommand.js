@@ -6,7 +6,7 @@ module.exports = class MemeCommand extends SlowCommand {
 	argsNumber = 2;
 	argsMaxLength = 20;
 	font;
-	
+
 	/**
 	 *
 	 * @param {MemeCommandOptions} options
@@ -18,45 +18,45 @@ module.exports = class MemeCommand extends SlowCommand {
 		this.argsMaxLength = options.argsMaxLength;
 		this.font = options.font;
 	}
-	
+
 	async run(client, message, args) {
 		await super.run(client, message, args);
 	}
-	
+
 	async processMeme(args, message) {
 		const username = 'Ayfri';
 		const password = 'galileo_optifdp';
 		const texts = [];
 		const imgFlip = new ImgFlip({
 			username,
-			password
+			password,
 		});
-		
+
 		args = args.join(' ').split(' ; ');
-		
+
 		for (let i = 0; i < this.argsNumber; i++) {
 			texts[i] = args[i] ? args[i] || message.mentions.members?.first() : message.guild?.members.cache.random()?.displayName || message.member?.displayName || message.author.username;
 			if (texts[i].length > this.argsMaxLength) {
 				return message.channel.send(`<a:attention:613714368647135245> **L'argument numéro ${i + 1} est trop long ${message.author}** _(${this.argsMaxLength} caractères maximum)_ **!**`);
 			}
 		}
-		
+
 		await this.startWait();
 		await this.createMeme(imgFlip, texts);
 		await this.stopWait();
 	}
-	
+
 	async createMeme(imgFlipInstance, texts) {
 		const memeURL = await imgFlipInstance.meme(this.templateID, {
 			captions: texts,
-			font: this.font ? this.font : 'impact'
+			font: this.font ? this.font : 'impact',
 		});
-		
+
 		await super.send('Voici votre image :', {
 			files: [
 				{
 					attachment: memeURL,
-					name:       'meme.png',
+					name: 'meme.png',
 				},
 			],
 		});

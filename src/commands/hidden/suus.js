@@ -2,19 +2,18 @@ const {MessageEmbed} = require('discord.js');
 const {random, readJSON} = require('../../utils/Utils.js');
 const Command = require('../../entities/Command.js');
 
-
 module.exports = class SuusCommand extends Command {
 	constructor() {
 		super({
 			name: 'suus',
 			description: 'Jeej, jaaj. (affiche une image aléatoire de saucisse).',
-			aliases: ['jeej', 'jaaj']
+			aliases: ['jeej', 'jaaj'],
 		});
 	}
-	
+
 	async run(client, message, args) {
 		await super.run(client, message, args);
-		
+
 		const {sausages} = readJSON('./assets/jsons/commandConstants.json');
 		const embed = new MessageEmbed();
 		embed.setTimestamp();
@@ -26,7 +25,7 @@ module.exports = class SuusCommand extends Command {
 		} else {
 			embed.setImage(random(sausages));
 		}
-		
+
 		await super.send(embed);
 	}
 };

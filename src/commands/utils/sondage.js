@@ -3,7 +3,6 @@ const {tryDeleteMessage} = require('../../utils/CommandUtils.js');
 const {argError} = require('../../utils/Errors.js');
 const Command = require('../../entities/Command.js');
 
-
 module.exports = class SondageCommand extends Command {
 	constructor() {
 		super({
@@ -11,14 +10,13 @@ module.exports = class SondageCommand extends Command {
 			description: 'Permet de faire des sondages avec un nombre de choix personnalisé, si vous attachez une image à la commande, elle sera affiché sur le sondage.',
 			usage: 'sondage <Question> ; [choix1] ; [choix2] ; [choix3] etc...\n sondage <Question>',
 			aliases: ['vote', 'poll'],
-			clientPermissions: ['ADD_REACTIONS', 'USE_EXTERNAL_EMOJIS']
+			clientPermissions: ['ADD_REACTIONS', 'USE_EXTERNAL_EMOJIS'],
 		});
 	}
-	
+
 	async run(client, message, args) {
 		super.run(client, message, args);
 
-		
 		let image = null;
 		let description = '';
 		const text = args.join(' ');
@@ -29,13 +27,13 @@ module.exports = class SondageCommand extends Command {
 		embed.setFooter(client.user.username, client.user.displayAvatarURL());
 		embed.setColor('#4b5afd');
 		embed.setAuthor(`Question de ${message.author.tag} :`, message.author.displayAvatarURL());
-		
+
 		if (question === '****\n\n') return argError(message, this, 'Veuillez mettre une question.');
 		if (message.attachments.size > 0 && message.attachments.first().height) image = message.attachments.first().url;
-		
+
 		const choices = text.substring(text.length + 2, question.length - 3).split(` ; `);
 		if (image) embed.setImage(image);
-		
+
 		if (choices.length === 1) {
 			if (choices[0].length === 0) {
 				embed.setDescription(args.join(' '));
@@ -43,26 +41,26 @@ module.exports = class SondageCommand extends Command {
 				description = `> ${choices[0]}`;
 				embed.setDescription(question + description);
 			}
-			
+
 			const m = await super.send(embed);
 			await m.react('✅');
 			await m.react('❌');
 			return;
 		}
-		
+
 		if (choices.length > 11) return argError(message, this, 'Le maximum de choix possibles est 10.');
 		choices.forEach((choice, index) => {
 			description += `:${emotes[index]}: : ${choice}\n`;
 		});
-		
+
 		embed.setDescription(question + description);
 		const m = await super.send(embed);
-		
+
 		for (let i = 0; i < choices.length; i++) {
-			const emoji = client.guilds.cache.get('561646328317476866').emojis.cache.find((e) => e.name === emotes[i]);
+			const emoji = client.guilds.cache.get('561646328317476866').emojis.cache.find(e => e.name === emotes[i]);
 			await m.react(emoji);
 		}
-		
+
 		tryDeleteMessage(message);
 	}
 };

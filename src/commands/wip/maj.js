@@ -4,17 +4,15 @@ module.exports = class MajCommand extends Command {
 	constructor() {
 		super({
 			name: 'maj',
-			description: 'Permet d\'avoir des informations sur une mise à jour, la dernière en date, ou d\'avoir la liste des mises à jour.',
+			description: "Permet d'avoir des informations sur une mise à jour, la dernière en date, ou d'avoir la liste des mises à jour.",
 			usage: 'maj <version>\nmaj liste\nmaj',
-			aliases: ['màj']
+			aliases: ['màj'],
 		});
 	}
-	
+
 	async run(client, message, args) {
 		super.run(client, message, args);
 
-		
-		
 		/* 	let versions = [];
 		 let arg = args.join(' ');
 		 Object.keys(update).forEach((version) => {
