@@ -4,7 +4,6 @@ const {TextChannel} = require('discord.js');
 const {channels} = require('../constants.js');
 const {owners, prefixes} = require('../assets/jsons/config.json');
 
-
 /**
  * Récupère le préfixe du message par rapport à la config.
  * @param {Message} message - Le message.
@@ -16,11 +15,11 @@ function getPrefixFromMessage(message) {
 	const possiblePrefixes = isCanary ? prefixes.canary : prefixes.prod;
 	possiblePrefixes.push(message.client.user.toString());
 	possiblePrefixes.push(`<@!${message.client.user.id}>`);
-	
+
 	for (const possiblePrefix of possiblePrefixes) {
 		if (message.content.startsWith(possiblePrefix)) prefix = possiblePrefix;
 	}
-	
+
 	return prefix;
 }
 
@@ -49,14 +48,14 @@ function getKeyByValue(object, value) {
  * @param {Object} content - Contenu du JSON.
  */
 function writeInJSON(path, content) {
-	if(!fs.existsSync(path)) {
+	if (!fs.existsSync(path)) {
 		return Logger.warn(`Tentative d'écriture dans le fichier '${path}', le fichier n'a pas été trouvé.`, 'WriteInJSON');
 	}
-	
+
 	if (content.size === 0 || JSON.stringify(content, null, 4).length === 0) {
 		return Logger.warn(`L'objet que vous avez essayé de sauvegarder dans $ {path} a un problème et est vide. Le processus a été abandonné.`, 'WriteInJSON');
 	}
-	
+
 	fs.writeFile(path, JSON.stringify(content, null, 4), err => {
 		if (err) return Error(`Erreur sur l'enregistrement du fichier !\n${err}`);
 	});
@@ -94,7 +93,7 @@ function sendLogMessage(client, channelType, content) {
 	} else {
 		const channel = client.channels.cache.get(channels.galiChannels[channelType]);
 		if (channel && channel instanceof TextChannel) channel.send(content);
-		
+
 		if (channelType === 'addGuild' || channelType === 'removeGuild') {
 			const addOrRemoveChannel = client.channels.cache.get(channels.addOrRemoveChannel);
 			if (channel && channel instanceof TextChannel) addOrRemoveChannel.send(content);
@@ -109,5 +108,5 @@ module.exports = {
 	random,
 	readJSON,
 	sendLogMessage,
-	writeInJSON
+	writeInJSON,
 };

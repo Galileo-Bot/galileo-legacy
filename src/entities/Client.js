@@ -10,7 +10,7 @@ module.exports = class GaliClient extends Client {
 	eventManager;
 	commands;
 	events;
-	
+
 	constructor() {
 		super({
 			messageCacheLifetime: 60 * 20,
@@ -19,9 +19,9 @@ module.exports = class GaliClient extends Client {
 				/*intents: [
 					'GUILDS', 'GUILD_BANS', 'GUILDS_MEMBER', 'GUILD_EMOJIS', 'GUILD_INVITES', 'GUILD_VOICE_STATES', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'DIRECT_MESSAGES', 'DIRECT_MESSAGE_REACTIONS'
 				]*/
-			}
+			},
 		});
-		
+
 		this.eventManager = new EventManager(this);
 		this.commandManager = new CommandManager();
 		this.commands = CommandManager.commands;

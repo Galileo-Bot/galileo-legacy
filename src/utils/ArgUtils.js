@@ -38,7 +38,7 @@ function getArg(content, index, argType) {
 	} else {
 		result = getArgWithContent(content, argType);
 	}
-	
+
 	return result;
 }
 
@@ -51,18 +51,20 @@ function getArg(content, index, argType) {
  */
 function getArgWithMessage(message, argType, index = 1) {
 	const firstArg = getArgListFromMessage(message)[index];
-	
+
 	let result;
 	switch (argType) {
 		case argTypes.member:
 			if (message.mentions.members.size > 0 || message.mentions.users.size > 0) {
 				result = message.mentions.members.array()[index - 1] || message.mentions.users.array()[index - 1]; // todo: refaire ce système car c'est rangé par l'API et pas le contenu (look doc)
-			} else if(firstArg) {
-				result = message.guild.members.cache.find(m => m.user.id === firstArg || m.user.username.toLowerCase().includes(firstArg?.toLowerCase()) || m.nickname?.toLowerCase().includes(firstArg?.toLowerCase()));
+			} else if (firstArg) {
+				result = message.guild.members.cache.find(
+					m => m.user.id === firstArg || m.user.username.toLowerCase().includes(firstArg?.toLowerCase()) || m.nickname?.toLowerCase().includes(firstArg?.toLowerCase())
+				);
 			}
-			
+
 			break;
-		
+
 		case argTypes.user:
 			if (message.mentions.users.size > 0) {
 				result = message.mentions.users.array()[index - 1]; // todo: refaire ce système car c'est rangé par l'API et pas le contenu (look doc)
@@ -70,41 +72,41 @@ function getArgWithMessage(message, argType, index = 1) {
 				result = getArgWithContent(firstArg, argTypes.user_username) || getArgWithContent(firstArg, argTypes.user_id);
 			}
 			break;
-		
+
 		case argTypes.guild:
 			result = getArgWithContent(firstArg, argTypes.guild_id) || getArgWithContent(firstArg, argTypes.guild_name);
 			break;
-			
+
 		case argTypes.role:
 			result = message.guild.roles.cache.find(r => r.id === firstArg || r.name.toLowerCase().includes(firstArg?.toLowerCase()));
 			break;
-		
+
 		case argTypes.channel:
 			if (message.mentions.channels.size > 0) {
 				result = message.mentions.channels.array()[index - 1]; // todo refaire parce que...
 			} else {
 				result = getArgWithContent(firstArg, argTypes.channel_id) || getArgWithContent(firstArg, argTypes.channel_name);
 			}
-			
+
 			break;
-		
+
 		case argTypes.command:
 			result = getArgWithContent(firstArg, argTypes.command);
 			break;
-		
+
 		case argTypes.number:
 			result = getArgWithContent(firstArg, argTypes.number);
 			break;
-		
+
 		case argTypes.string:
 			result = getArgWithContent(firstArg, argTypes.string);
 			break;
-		
+
 		default:
 			result = null;
 			break;
 	}
-	
+
 	return result;
 }
 
@@ -116,52 +118,50 @@ function getArgWithMessage(message, argType, index = 1) {
  */
 function getArgWithContent(content, argType) {
 	let result;
-	if ( !content || typeof content !== 'string') return null;
-	
+	if (!content || typeof content !== 'string') return null;
+
 	switch (argType) {
 		case argTypes.command:
 			result = CommandManager.commands.find(c => c.name.toLowerCase() === content.toLowerCase() || c.aliases?.map(c => c.toLowerCase())?.includes(content.toLowerCase()));
 			break;
-		
+
 		case argTypes.number:
 			result = Number.isNaN(Number(content)) ? null : Number(content);
 			break;
-		
+
 		case argTypes.string:
 			result = content.toString() === content;
 			break;
-		
+
 		case argTypes.channel_id:
 			result = client.channels.cache.get(content);
 			break;
-		
+
 		case argTypes.channel_name:
-			result = client.channels.cache
-			                .filter(channel => !channel.deleted && channel instanceof GuildChannel)
-			                .find(channel => channel.name?.toLowerCase().includes(content.toLowerCase()));
+			result = client.channels.cache.filter(channel => !channel.deleted && channel instanceof GuildChannel).find(channel => channel.name?.toLowerCase().includes(content.toLowerCase()));
 			break;
-		
+
 		case argTypes.guild_id:
 			result = client.guilds.cache.get(content);
 			break;
-		
+
 		case argTypes.guild_name:
 			result = client.guilds.cache.find(guild => guild.name.toLowerCase().includes(content.toLowerCase()));
 			break;
-		
+
 		case argTypes.user_id:
 			result = client.users.cache.get(content);
 			break;
-		
+
 		case argTypes.user_username:
 			result = client.users.cache.find(user => user.username.toLowerCase().includes(content.toLowerCase()));
 			break;
-		
+
 		default:
 			result = null;
 			break;
 	}
-	
+
 	return result;
 }
 

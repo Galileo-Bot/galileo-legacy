@@ -5,21 +5,19 @@ module.exports = class RetenirCommand extends Command {
 	constructor() {
 		super({
 			name: 'retenir',
-			description: 'Permet d\'avoir un rappel de texte dans un temps que vous donnez.',
+			description: "Permet d'avoir un rappel de texte dans un temps que vous donnez.",
 			usage: 'retenir <texte> <temps> (exemple : 4h, 5j, 12m)',
-			aliases: ['rappel', 'remind', 'rmd']
-			
+			aliases: ['rappel', 'remind', 'rmd'],
 		});
 	}
-	
+
 	async run(client, message, args) {
 		super.run(client, message, args);
 
-		
 		/**
 		 * Attention la commande n'est pas refaite
 		 */
-		
+
 		/*if (args.length === 0) return super.send(argError("<a:attention:613714368647135245> **Veuillez mettre du [texte] à se souvenir.**", "**3 arguments attendus.**", this));
 		 
 		 let voyelles = ["a", "e", "i", "o", "u", "y", "ù", "à", "é", "è", "ê", "ô", "î"];
