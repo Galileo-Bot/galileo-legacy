@@ -52,15 +52,13 @@ module.exports = class ServeurListeCommand extends Command {
 					case '◀':
 						p--;
 						if (p < 0 || !p) p = 0;
-						await sl.reactions.cache.find(emote => emote === '◀').users.remove(message.author.id);
-
+						await sl.reactions.cache.find(r => r.emoji.name === reaction.emoji.name).users.remove(message.author.id);
 						return sl.edit(sortGuildsWithPage(p));
 
 					case '▶':
 						p++;
-						if (!p || p > Math.round(client.guilds.cache.size / 20)) p = 0; // pas sûr
-						await sl.reactions.cache.find(emote => emote === '▶').users.remove(message.author.id);
-
+						if (!p || p > Math.round(client.guilds.cache.size / 20)) p = 0;
+						await sl.reactions.cache.find(r => r.emoji.name === reaction.emoji.name).users.remove(message.author.id);
 						return sl.edit(sortGuildsWithPage(p));
 				}
 			});
