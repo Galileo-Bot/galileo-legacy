@@ -78,6 +78,11 @@ module.exports = class Command {
 				?.map(m => m.user.id)
 				.includes(this.message.author.id)
 		) {
+			if (typeof content !== 'string') {
+				options = content;
+				content = '';
+			}
+
 			options = Object.assign(options ?? {}, {
 				disableMentions: 'everyone',
 			});
