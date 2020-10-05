@@ -1,4 +1,3 @@
 node_modules
 .idea
-src/assets/images/*
-!src/assets/images/.gitkeep
+src/assets/*
