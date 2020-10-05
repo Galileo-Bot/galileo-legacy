@@ -84,11 +84,11 @@ module.exports = class MessageEvent extends Event {
 	 */
 	executeCommand(client, message, args, command) {
 		// Cooldowns
-		if (!MessageEvent.cooldown.has(message.author.id) /*&& !isOwner(message.author.id)*/) {
+		if (!MessageEvent.cooldown.has(message.author.id)) {
 			MessageEvent.cooldown.set(message.author.id, []);
 		}
 
-		if (!MessageEvent.cooldown.get(message.author.id).find(c => c.command === command.name)) {
+		if (!MessageEvent.cooldown.get(message.author.id).find(c => c.command === command.name) && !isOwner(message.author.id)) {
 			const date = new Date(Date.now() + command.cooldown * 1000);
 			MessageEvent.cooldown.get(message.author.id).push({
 				command: command.name,
