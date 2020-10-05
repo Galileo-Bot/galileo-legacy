@@ -12,6 +12,33 @@ module.exports = class ListerStaffCommand extends Command {
 		});
 	}
 
+	/**
+	 * Renvoie la liste des admins du serveur.
+	 * @param {Message} message - Le message du serveur.
+	 * @returns {Collection<module:"discord.js".Snowflake, module:"discord.js".GuildMember>}
+	 */
+	static getAdmins(message) {
+		return message.guild?.members.cache.filter(m => message.guild.ownerID !== m.user.id && !m.user.bot && m.permissions.has('ADMINISTRATOR'));
+	}
+
+	/**
+	 * Renvoie la liste des bots du serveur.
+	 * @param {Message} message - Le message du serveur.
+	 * @returns {Collection<module:"discord.js".Snowflake, module:"discord.js".GuildMember>}
+	 */
+	static getBots(message) {
+		return message.guild?.members.cache.filter(m => m.user.bot);
+	}
+
+	/**
+	 * Renvoie la liste des modérateurs du serveur.
+	 * @param {Message} message - Le message du serveur.
+	 * @returns {Collection<module:"discord.js".Snowflake, module:"discord.js".GuildMember>}
+	 */
+	static getMods(message) {
+		return message.guild?.members.cache.filter(m => message.guild.owner !== m && !m.user.bot && (m.permissions.has('BAN_MEMBERS', false) || m.permissions.has('KICK_MEMBERS', false)));
+	}
+
 	async run(client, message, args) {
 		await super.run(client, message, args);
 
@@ -51,32 +78,5 @@ module.exports = class ListerStaffCommand extends Command {
 			);
 
 		await super.send(embed);
-	}
-
-	/**
-	 * Renvoie la liste des bots du serveur.
-	 * @param {Message} message - Le message du serveur.
-	 * @returns {Collection<module:"discord.js".Snowflake, module:"discord.js".GuildMember>}
-	 */
-	static getBots(message) {
-		return message.guild?.members.cache.filter(m => m.user.bot);
-	}
-
-	/**
-	 * Renvoie la liste des modérateurs du serveur.
-	 * @param {Message} message - Le message du serveur.
-	 * @returns {Collection<module:"discord.js".Snowflake, module:"discord.js".GuildMember>}
-	 */
-	static getMods(message) {
-		return message.guild?.members.cache.filter(m => message.guild.owner !== m && !m.user.bot && (m.permissions.has('BAN_MEMBERS', false) || m.permissions.has('KICK_MEMBERS', false)));
-	}
-
-	/**
-	 * Renvoie la liste des admins du serveur.
-	 * @param {Message} message - Le message du serveur.
-	 * @returns {Collection<module:"discord.js".Snowflake, module:"discord.js".GuildMember>}
-	 */
-	static getAdmins(message) {
-		return message.guild?.members.cache.filter(m => message.guild.ownerID !== m.user.id && !m.user.bot && m.permissions.has('ADMINISTRATOR'));
 	}
 };

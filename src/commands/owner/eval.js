@@ -22,8 +22,8 @@ async function wait(callback) {
 
 module.exports = class EvalCommand extends Command {
 	static debug = false;
-	static log = false;
 	static functionsPassages = [];
+	static log = false;
 
 	constructor() {
 		super({
@@ -53,45 +53,19 @@ module.exports = class EvalCommand extends Command {
 		return newText;
 	}
 
-	static sendJS(channel, text) {
-		if (EvalCommand.log) EvalCommand.functionsPassages.push('sendJS');
-		text = EvalCommand.cutText(text);
-		for (let i = 0; i < text.length; i++) {
-			EvalCommand.sendMarkdown(channel, text[i], 'js');
-		}
+	static del(guild, message) {
+		EvalCommand.delMsg(guild, message);
 	}
 
-	static verifyText(channel, text) {
-		if (EvalCommand.log) EvalCommand.functionsPassages.push('verifyText');
-		if (EvalCommand.debug) channel.send(text);
-
-		if (!text) text = 'undefined';
-		if (!text.toString() && !text.toString().length) text = text.toString();
-		if (!text.length) return EvalCommand.sendJS(channel, 'EvalError : Cannot send an empty message.');
-		if (text.length > 2048) return EvalCommand.sendJS(channel, 'EvalError : Cannot send much than 2000 characters in one message.');
+	static delMsg(guild, message) {
+		if (EvalCommand.log) EvalCommand.functionsPassages.push('delMsg');
+		if (guild.me.permissions.has('MANAGE_MESSAGES', false)) message.delete();
 	}
 
-	static send(channel, text) {
-		if (EvalCommand.log) EvalCommand.functionsPassages.push('send');
-		EvalCommand.verifyText(text);
-		if (channel.type === 'text') return channel.send(text);
-	}
-
-	static sendMarkdown(channel, text, lang) {
-		if (EvalCommand.log) EvalCommand.functionsPassages.push('sendMarkdown');
-		return EvalCommand.send(channel, `\`\`\`${lang}\n${text}\`\`\``);
-	}
-
-	static sendBig(channel, text, markdown) {
-		if (EvalCommand.log) EvalCommand.functionsPassages.push('sendBig');
-		text = EvalCommand.cutText(text.toString());
-		markdown ? (typeof markdown === 'string' ? text.forEach(t => EvalCommand.sendMarkdown(channel, t, markdown)) : text.forEach(t => EvalCommand.sendJS(channel, t))) : text.forEach(t => send(t));
-	}
-
-	static sendMp(user, text) {
-		if (EvalCommand.log) EvalCommand.functionsPassages.push('sendMp');
-		EvalCommand.verifyText(text);
-		user.send(text);
+	static getChannel(guild, find) {
+		if (EvalCommand.log) EvalCommand.functionsPassages.push('getChannel');
+		find = find.toLowerCase();
+		return guild.channels.cache.get(find) || guild.channels.cache.find(m => m['name'].toLowerCase().includes(find)) || EvalCommand.sendJS('GetError : Nothing found.');
 	}
 
 	static getMember(guild, find) {
@@ -104,22 +78,6 @@ module.exports = class EvalCommand extends Command {
 		);
 	}
 
-	static getChannel(guild, find) {
-		if (EvalCommand.log) EvalCommand.functionsPassages.push('getChannel');
-		find = find.toLowerCase();
-		return guild.channels.cache.get(find) || guild.channels.cache.find(m => m['name'].toLowerCase().includes(find)) || EvalCommand.sendJS('GetError : Nothing found.');
-	}
-
-	static sendTo(channel, client, text, id) {
-		if (EvalCommand.log) EvalCommand.functionsPassages.push('sendTo');
-		if (EvalCommand.debug) channel.send(text);
-		return client.channels.cache.has(id)
-			? client.channels.cache.get(id).send(text)
-			: client.users.cache.has(id)
-			? client.users.cache.get(id).send(text)
-			: EvalCommand.sendJS('GetError : Nothing found.');
-	}
-
 	static inspect(object, depth = 2) {
 		return inspect(object, {
 			depth: depth,
@@ -129,18 +87,10 @@ module.exports = class EvalCommand extends Command {
 		});
 	}
 
-	static stringify(channel, object, depth = 2) {
-		if (EvalCommand.log) EvalCommand.functionsPassages.push('stringify');
-		return EvalCommand.sendBig(channel, EvalCommand.inspect(object, depth), true);
-	}
-
-	static delMsg(guild, message) {
-		if (EvalCommand.log) EvalCommand.functionsPassages.push('delMsg');
-		if (guild.me.permissions.has('MANAGE_MESSAGES', false)) message.delete();
-	}
-
-	static del(guild, message) {
-		EvalCommand.delMsg(guild, message);
+	static listKeys(object) {
+		if (EvalCommand.log) EvalCommand.functionsPassages.push('listKeys');
+		if (typeof object !== 'object') return EvalCommand.sendJS(`ConvertError : ${object} is not an object.`);
+		return EvalCommand.sendJS(Object.keys(object).sort().join('\n'));
 	}
 
 	static listProps(object, lang = 'js') {
@@ -159,10 +109,49 @@ module.exports = class EvalCommand extends Command {
 		return EvalCommand.sendMarkdown(toSend, lang);
 	}
 
-	static listKeys(object) {
-		if (EvalCommand.log) EvalCommand.functionsPassages.push('listKeys');
-		if (typeof object !== 'object') return EvalCommand.sendJS(`ConvertError : ${object} is not an object.`);
-		return EvalCommand.sendJS(Object.keys(object).sort().join('\n'));
+	static logFunctionsPassages() {
+		EvalCommand.sendJS(EvalCommand.functionsPassages.join('➡\n'));
+	}
+
+	static send(channel, text) {
+		if (EvalCommand.log) EvalCommand.functionsPassages.push('send');
+		EvalCommand.verifyText(text);
+		if (channel.type === 'text') return channel.send(text);
+	}
+
+	static sendBig(channel, text, markdown) {
+		if (EvalCommand.log) EvalCommand.functionsPassages.push('sendBig');
+		text = EvalCommand.cutText(text.toString());
+		markdown ? (typeof markdown === 'string' ? text.forEach(t => EvalCommand.sendMarkdown(channel, t, markdown)) : text.forEach(t => EvalCommand.sendJS(channel, t))) : text.forEach(t => send(t));
+	}
+
+	static sendJS(channel, text) {
+		if (EvalCommand.log) EvalCommand.functionsPassages.push('sendJS');
+		text = EvalCommand.cutText(text);
+		for (let i = 0; i < text.length; i++) {
+			EvalCommand.sendMarkdown(channel, text[i], 'js');
+		}
+	}
+
+	static sendMarkdown(channel, text, lang) {
+		if (EvalCommand.log) EvalCommand.functionsPassages.push('sendMarkdown');
+		return EvalCommand.send(channel, `\`\`\`${lang}\n${text}\`\`\``);
+	}
+
+	static sendMp(user, text) {
+		if (EvalCommand.log) EvalCommand.functionsPassages.push('sendMp');
+		EvalCommand.verifyText(text);
+		user.send(text);
+	}
+
+	static sendTo(channel, client, text, id) {
+		if (EvalCommand.log) EvalCommand.functionsPassages.push('sendTo');
+		if (EvalCommand.debug) channel.send(text);
+		return client.channels.cache.has(id)
+			? client.channels.cache.get(id).send(text)
+			: client.users.cache.has(id)
+			? client.users.cache.get(id).send(text)
+			: EvalCommand.sendJS('GetError : Nothing found.');
 	}
 
 	static sizeOf(object) {
@@ -200,8 +189,19 @@ module.exports = class EvalCommand extends Command {
 		return formatByteSize(recurse(object));
 	}
 
-	static logFunctionsPassages() {
-		EvalCommand.sendJS(EvalCommand.functionsPassages.join('➡\n'));
+	static stringify(channel, object, depth = 2) {
+		if (EvalCommand.log) EvalCommand.functionsPassages.push('stringify');
+		return EvalCommand.sendBig(channel, EvalCommand.inspect(object, depth), true);
+	}
+
+	static verifyText(channel, text) {
+		if (EvalCommand.log) EvalCommand.functionsPassages.push('verifyText');
+		if (EvalCommand.debug) channel.send(text);
+
+		if (!text) text = 'undefined';
+		if (!text.toString() && !text.toString().length) text = text.toString();
+		if (!text.length) return EvalCommand.sendJS(channel, 'EvalError : Cannot send an empty message.');
+		if (text.length > 2000) return EvalCommand.sendJS(channel, 'EvalError : Cannot send more than 2000 characters in one message.');
 	}
 
 	async run(client, message, args) {

@@ -16,17 +16,16 @@ module.exports = class GetCodeCommand extends Command {
 		});
 	}
 
+	getFileCode(path) {
+		return readFileSync(path);
+	}
+
 	async run(client, message, args) {
 		await super.run(client, message, args);
 
 		const command = getArg(message, 1, argTypes.command);
-		if (command) {
-			await this.sendFileCode(message, join('commands', command.category, `${command.name}.js`));
-		} else if (existsSync(args.join(' '))) {
-			return this.sendFileCode(message, args.join(' '));
-		} else {
-			return argError(message, this, `Fichier \`${process.cwd()}/${args.join(' ')}\` non trouvé.`);
-		}
+		if (command) await this.sendFileCode(message, join('commands', command.category, `${command.name}.js`));
+		else return existsSync(args.join(' ')) ? this.sendFileCode(message, args.join(' ')) : argError(message, this, `Fichier \`${process.cwd()}/${args.join(' ')}\` non trouvé.`);
 	}
 
 	async sendFileCode(message, path) {
@@ -37,9 +36,5 @@ module.exports = class GetCodeCommand extends Command {
 				append: `\`\`\``,
 			},
 		});
-	}
-
-	getFileCode(path) {
-		return readFileSync(path);
 	}
 };

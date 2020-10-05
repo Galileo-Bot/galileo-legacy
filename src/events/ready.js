@@ -23,17 +23,6 @@ module.exports = class ReadyEvent extends Event {
 			.catch();
 	}
 
-	setRandomPresence() {
-		this.client.user.setPresence({
-			activity: {
-				name: random(randomActivities),
-				type: 'STREAMING',
-				url: 'https://www.twitch.tv/Terracid',
-			},
-			status: 'dnd',
-		});
-	}
-
 	async run(client) {
 		await super.run(client);
 		// Status
@@ -76,6 +65,17 @@ module.exports = class ReadyEvent extends Event {
 			this.logInfosOfBot();
 			this.updateCommandsStats();
 		}, 20 * 60 * 1000);
+	}
+
+	setRandomPresence() {
+		this.client.user.setPresence({
+			activity: {
+				name: random(randomActivities),
+				type: 'STREAMING',
+				url: 'https://www.twitch.tv/Terracid',
+			},
+			status: 'dnd',
+		});
 	}
 
 	/**
