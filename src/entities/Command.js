@@ -78,8 +78,11 @@ module.exports = class Command {
 				?.map(m => m.user.id)
 				.includes(this.message.author.id)
 		) {
-			if (typeof content === 'string') content = content.replace(/@(everyone|here)/, '@ $1');
-			if (options?.content) options.content = options?.content.replace(/@(everyone|here)/, '@**$1**');
+			options = Object.assign(options ?? {}, {
+				disableMentions: 'everyone',
+			});
+
+			return await this.message.channel?.send(content, options);
 		}
 
 		return await this.message.channel?.send(content, options);
