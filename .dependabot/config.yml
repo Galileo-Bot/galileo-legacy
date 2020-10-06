@@ -1,11 +1,11 @@
 version: 1
-        update_configs:
-        - package_manager: "javascript"
-        directory: "/"
-        update_schedule: "live"
-        target_branch: "update-deps"
+update_configs:
+  - package_manager: "javascript"
+    directory: "/"
+    update_schedule: "live"
+    target_branch: "update-deps"
 
-        default_reviewers:
-        - "ayfri"
-        default_labels:
-        - "dependencies"
+    default_reviewers:
+      - "ayfri"
+    default_labels:
+      - "dependencies"
