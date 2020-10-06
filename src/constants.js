@@ -1,3 +1,4 @@
+const {isCanary} = require('./main.js');
 const argTypes = {
 	user: "Nom/Mention/ID d'utilisateur",
 	user_id: "ID d'utilisateur",
@@ -114,7 +115,13 @@ const permissions = {
 	VIEW_GUILD_INSIGHTS: 'Voir les informations du serveur.',
 };
 
-const randomActivities = ['[g!help] Alpha', "😷 N'oubliez pas votre masque !", '💻 Développeurs : Ayfri, Antow.', 'Support disponible ici : https://discord.gg/n7HWd4P', '💻 | https://galileo-bot.tk'];
+const randomActivities = [
+	`[${isCanary ? 'g!' : 'g/'}help] Alpha`,
+	"😷 N'oubliez pas votre masque !",
+	'💻 Développeurs : Ayfri, Antow.',
+	'Support disponible ici : https://discord.gg/n7HWd4P',
+	'💻 | https://galileo-bot.tk',
+];
 
 const channels = {
 	addOrRemoveChannel: '544550120310439936',
