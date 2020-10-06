@@ -23,7 +23,7 @@
 	"engineStrict": true,
 	"eslintConfig": {
 		"ecmaFeatures": {
-			"impliedStrict": true,
+			"impliedStrict": true
 		},
 		"parserOptions": {
 			"ecmaVersion": 2020
