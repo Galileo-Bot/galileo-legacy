@@ -23,7 +23,7 @@ module.exports = class StatsCommand extends Command {
 
 	/**
 	 * Renvoie des statistiques sur le CPU.
-	 * @returns {{total: number, idle: number}}
+	 * @returns {{total: number, idle: number}} - Les statistiques du CPU.
 	 */
 	static getCPUInfos() {
 		const cpus = os.cpus();
@@ -49,13 +49,13 @@ module.exports = class StatsCommand extends Command {
 
 		return {
 			idle: cpuStat.idle,
-			total: total,
+			total,
 		};
 	}
 
 	/**
 	 * Retourne l'utilisation du CPU.
-	 * @returns {Promise<CPUUsage>}
+	 * @returns {Promise<CPUUsage>} - L'objet contenant les statistiques du CPU.
 	 */
 	static getCPUUsage() {
 		const stats = StatsCommand.getCPUInfos();
@@ -85,7 +85,7 @@ module.exports = class StatsCommand extends Command {
 
 	/**
 	 * Retourne l'utilisation de la mémoire dans le serveur.
-	 * @returns {string} - Le nombre de mégas utilisés dans un String.
+	 * @returns {string} - Le nombre de mégas utilisés par le PC.
 	 */
 	static getMemoryUsed() {
 		return ((os.totalmem() - os.freemem()) / (1024 * 1024)).toFixed(2);
@@ -93,7 +93,7 @@ module.exports = class StatsCommand extends Command {
 
 	/**
 	 * Retourne l'utilisation de la mémoire du process.
-	 * @returns {string}
+	 * @returns {string} - Le nombre de mégas utilisés par le processus.
 	 */
 	static getProcessMemoryUsage() {
 		return (process.memoryUsage().heapUsed / (1024 * 1024)).toFixed(2);

@@ -9,6 +9,16 @@ function formatWithRange(text, maxLength) {
 }
 
 /**
+ * Ajoute les zéros manquants à un nombre avec une taille maximale cherchée.
+ * @param {string|number} number - Le nombre.
+ * @param {number} size - La taille voulue.
+ * @returns {string} - Le résultat.
+ */
+function addMissingZeros(number, size) {
+	return String(number).length < size ? '0'.repeat(size - String(number).length) + number : number;
+}
+
+/**
  * Formatte le pattern pour pouvoir ajouter des éléments d'une date, un peu comme moments mais ne fonctionne qu'avec :
  * * Année `(yyyy)`
  * * Mois `(MM) | (MMM (pour le nom complet))`
@@ -86,16 +96,6 @@ function parseRelativeDate(pattern, relativeDate = new Date()) {
 }
 
 /**
- * Ajoute les zéros manquants à un nombre avec une taille maximale cherchée.
- * @param {string|number} number - Le nombre.
- * @param {number} size - La taille voulue.
- * @returns {string} - Le résultat.
- */
-function addMissingZeros(number, size) {
-	return String(number).length < size ? '0'.repeat(size - String(number).length) + number : number;
-}
-
-/**
  * Utile pour la commande "remind" par exemple.
  * @example
  * const result = getTime("Je veux attendre 5h");
@@ -105,7 +105,7 @@ function addMissingZeros(number, size) {
  *   value: 18000000 (1000 * 60 * 60 * 5)
  * }
  *
- * @param {String|String[]} args - Texte.
+ * @param {string | string[]} args - Texte.
  * @returns {{type: string, value: number}} - Retourne un objet contenant le type de temps et le nombre de millisecondes.
  */
 function getTime(args) {

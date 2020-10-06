@@ -61,25 +61,24 @@ module.exports = class SayEmbedCommand extends Command {
 			channel = client.channels.cache.find(c => c.type === 'text' && c.id === args[0]);
 		}
 
-		let text = args.join(' ');
-		text = text.replace(/\\n/g, '\n');
-		text = text.replace(/\${username}/gi, message.author.username);
-		text = text.replace(/\${userImage}/gi, message.author.displayAvatarURL());
-		text = text.replace(/\${tag}/gi, message.author.tag);
+		let text = args
+			.join(' ')
+			.replace(/\\n/g, '\n')
+			.replace(/\${username}/gi, message.author.username)
+			.replace(/\${userImage}/gi, message.author.displayAvatarURL())
+			.replace(/\${tag}/gi, message.author.tag);
 		if (message.guild) {
-			text = text.replace(/\${nickname}/gi, message.member.nickname);
-			text = text.replace(/\${guild}/gi, message.guild.name);
-			text = text.replace(/\${guildImage}/gi, message.guild.iconURL());
-			text = text.replace(/\${memberCount}/gi, message.guild.memberCount.toString());
+			text = text
+				.replace(/\${nickname}/gi, message.member.nickname)
+				.replace(/\${guild}/gi, message.guild.name)
+				.replace(/\${guildImage}/gi, message.guild.iconURL())
+				.replace(/\${memberCount}/gi, message.guild.memberCount.toString());
 		}
 
 		const {embed, errors} = toEmbed(text);
-		if (errors.length > 0) {
-			await super.send(`\`\`\`js\n${errors.join('\n')}\`\`\``);
-		} else {
-			tryDeleteMessage(message);
-		}
+		if (errors.length > 0) await super.send(`\`\`\`js\n${errors.join('\n')}\`\`\``);
+		else tryDeleteMessage(message);
 
-		await channel.send({embed: embed});
+		await channel.send({embed});
 	}
 };

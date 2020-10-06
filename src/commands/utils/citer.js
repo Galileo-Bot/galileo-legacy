@@ -75,7 +75,7 @@ module.exports = class CiterCommand extends SlowCommand {
 
 		await message.channel?.send({
 			embed,
-			 files,
+			files,
 		});
 	}
 };

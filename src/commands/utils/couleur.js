@@ -1,5 +1,5 @@
 const {MessageEmbed} = require('discord.js');
-const jimp = require('jimp');
+const Jimp = require('jimp');
 const Command = require('../../entities/Command.js');
 const {argError} = require('../../utils/Errors.js');
 const {random, readJSON} = require('../../utils/Utils.js');
@@ -50,7 +50,7 @@ module.exports = class CouleurCommand extends Command {
 		}
 
 		do {
-			image = new jimp(256, 128, color);
+			image = new Jimp(256, 128, color);
 			await image.write('./assets/images/color.png', err => {
 				if (err) console.error(err);
 			});

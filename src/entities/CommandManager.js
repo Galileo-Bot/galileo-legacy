@@ -6,7 +6,7 @@ const {sep} = require('path');
 module.exports = class CommandManager {
 	/**
 	 * Les commandes
-	 * @type {Collection<String, Command>}
+	 * @type {Collection<string, Command>}
 	 */
 	static commands = new Collection();
 
@@ -21,7 +21,7 @@ module.exports = class CommandManager {
 
 	/**
 	 * La même chose que {@link CommandManager.findCommand}.
-	 * @param {String} name - Nom ou alias de la commande.
+	 * @param {string} name - Nom ou alias de la commande.
 	 * @returns {Command} - La commande trouvée.
 	 */
 	findCommand(name) {
@@ -30,7 +30,8 @@ module.exports = class CommandManager {
 
 	/**
 	 * Charge une commande.
-	 * @param {Command} command
+	 * @param {Command} command - La commande à charger.
+	 * @returns {void}
 	 */
 	loadCommand(command) {
 		CommandManager.commands.set(command.name, command);
@@ -40,12 +41,13 @@ module.exports = class CommandManager {
 	/**
 	 * Charge toutes les commandes dans le dossier en question.
 	 * @param {string} dirName - Le nom du dossier.
+	 * @returns {void}
 	 */
 	async loadCommands(dirName) {
 		const path = `./${dirName}`;
 		const commandDir = fs.readdirSync(path);
 		Logger.info(`Recherche de commandes dans le dossier '${dirName}'.`, 'LoadingCommands');
-		
+
 		for (const commandFile of commandDir) {
 			if (commandFile.endsWith('.js')) {
 				const command = new (require(`../${path}/${commandFile}`))();
@@ -62,6 +64,7 @@ module.exports = class CommandManager {
 	/**
 	 * Décharge une commande.
 	 * @param {Command} command
+	 * @returns {void}
 	 */
 	unloadCommand(command) {
 		CommandManager.commands.delete(command.name);

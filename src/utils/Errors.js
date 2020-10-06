@@ -59,9 +59,9 @@ function permsError(message, command, missingPermissions, fromBot = false) {
 
 /**
  * Exécute une erreur pour le bot.
- * @param {Message} message
- * @param {Command} command
- * @param {any} error
+ * @param {Message} message - Le message de l'erreur.
+ * @param {Command} command - La commande qui a provoquée cette erreur.
+ * @param {any} error - L'erreur.
  * @returns {*}
  */
 function runError(message, command, error) {

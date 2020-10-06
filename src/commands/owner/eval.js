@@ -80,7 +80,7 @@ module.exports = class EvalCommand extends Command {
 
 	static inspect(object, depth = 2) {
 		return inspect(object, {
-			depth: depth,
+			depth,
 			sorted: true,
 			maxArrayLength: 200,
 			showHidden: true,
@@ -122,7 +122,11 @@ module.exports = class EvalCommand extends Command {
 	static sendBig(channel, text, markdown) {
 		if (EvalCommand.log) EvalCommand.functionsPassages.push('sendBig');
 		text = EvalCommand.cutText(text.toString());
-		markdown ? (typeof markdown === 'string' ? text.forEach(t => EvalCommand.sendMarkdown(channel, t, markdown)) : text.forEach(t => EvalCommand.sendJS(channel, t))) : text.forEach(t => send(t));
+		markdown
+			? typeof markdown === 'string'
+				? text.forEach(t => EvalCommand.sendMarkdown(channel, t, markdown))
+				: text.forEach(t => EvalCommand.sendJS(channel, t))
+			: text.forEach(t => EvalCommand.send(t));
 	}
 
 	static sendJS(channel, text) {
@@ -178,8 +182,10 @@ module.exports = class EvalCommand extends Command {
 			} else if (typeof value === 'object' && objectList.indexOf(value) === -1) {
 				objectList[objectList.length] = value;
 				for (const i in value) {
-					bytes += 8; // an assumed existence overhead
-					bytes += recurse(value[i]);
+					if (value.hasOwnProperty(i)) {
+						bytes += 8; // an assumed existence overhead
+						bytes += recurse(value[i]);
+					}
 				}
 			}
 

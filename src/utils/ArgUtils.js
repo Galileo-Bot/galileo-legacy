@@ -151,17 +151,10 @@ function getArgWithMessage(message, argType, index = 1) {
  * @param {module:"discord.js".Message|string} content - Contenu.
  * @param {number} index - L'index, arg[0] avant est égal à l'index 1 !
  * @param {argTypes|string} argType - Type d'argument.
- * @returns {module:"discord.js".User|module:"discord.js".Snowflake|Command|String|number|null} - Le résultat.
+ * @returns {module:"discord.js".User | module:"discord.js".Snowflake | Command | string | number | null} - Le résultat.
  */
 function getArg(content, index, argType) {
-	let result;
-	if (content instanceof Message) {
-		result = getArgWithMessage(content, argType, index);
-	} else {
-		result = getArgWithContent(content, argType);
-	}
-
-	return result;
+	return content instanceof Message ? getArgWithMessage(content, argType, index) : getArgWithContent(content, argType);
 }
 
 module.exports = {
