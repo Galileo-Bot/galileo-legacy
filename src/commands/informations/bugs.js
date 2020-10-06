@@ -16,7 +16,7 @@ module.exports = class BugsCommand extends Command {
 	/**
 	 * Retourne un bug en le cherchant dans le salon des bugs.
 	 * @param {number | null} bugNumber - Le numéro du bug.
-	 * @param {module:"discord.js".Collection<string, module:"discord.js".Message>} messages
+	 * @param {module:"discord.js".Collection<string, module:"discord.js".Message>} messages - Les messages dans lesquels rechercher le bug.
 	 * @param {module:"discord.js".MessageEmbed} embed - L'embed.
 	 * @returns {string} - L'embed.
 	 */

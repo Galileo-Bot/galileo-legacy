@@ -5,6 +5,7 @@ const {getArg} = require('../utils/ArgUtils.js');
 const {argError} = require('../utils/Errors.js');
 const {writeInJSON} = require('../utils/Utils.js');
 const {tryDeleteMessage} = require('../utils/CommandUtils.js');
+const {MessageEmbed} = require('discord.js');
 
 module.exports = class SanctionCommand extends Command {
 	type;
@@ -19,13 +20,13 @@ module.exports = class SanctionCommand extends Command {
 	 * Applique la sanction si celle-ci a un impact sur discord.
 	 * @param {GuildMember} person - La personne à sanctionner.
 	 * @param {string} reason - La raison.
-	 * @returns {Promise<void>}
+	 * @returns {Promise<void>} - Rien.
 	 */
 	async applySanction(person, reason) {
 		if (this.type === 'ban') {
 			await person.ban({
 				days: 7,
-				reason: reason,
+				reason,
 			});
 		} else if (this.type === 'kick') {
 			await person.kick(reason);
@@ -49,7 +50,7 @@ module.exports = class SanctionCommand extends Command {
 
 		this.userData[this.message.guild.id][person.user.id].sanctions.push({
 			sanction: this.type,
-			reason: reason,
+			reason,
 			date: Date.now(),
 			case: this.userData.sanctionsLastNumber,
 		});

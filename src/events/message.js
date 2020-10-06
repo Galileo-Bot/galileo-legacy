@@ -9,7 +9,7 @@ const {getPrefixFromMessage, isOwner, sendLogMessage, readJSON, writeInJSON} = r
 
 module.exports = class MessageEvent extends Event {
 	/**
-	 * @type {Collection<module:"discord.js".Snowflake, [CooldownCommand]>}
+	 * @type {Collection<module:"discord.js".Snowflake, CooldownCommand[]>}
 	 */
 	static cooldown = new Collection();
 

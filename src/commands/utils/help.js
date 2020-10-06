@@ -46,7 +46,7 @@ module.exports = class HelpCommand extends Command {
 			}
 
 			for (const category in customCategories) {
-				if (!customCategories.hasOwnProperty(category) || customCategories[category] === undefined) continue;
+				if (!customCategories.hasOwnProperty(category) || !customCategories[category]) continue;
 
 				const commands = client.commands.filter(c => c.category === category);
 				const categoriesCommandsString = `\`${commands

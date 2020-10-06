@@ -18,7 +18,8 @@ module.exports = class GuildEvent extends Event {
 	type;
 
 	/**
-	 * @param {GuildEventOptions} options
+	 * Créé un nouvel évent Guild.
+	 * @param {GuildEventOptions} options - Les options.
 	 */
 	constructor(options) {
 		super(options);

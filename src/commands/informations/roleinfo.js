@@ -1,6 +1,6 @@
 const {MessageEmbed} = require('discord.js');
 const imgur = require('imgur');
-const jimp = require('jimp');
+const Jimp = require('jimp');
 const {argTypes, tags} = require('../../constants.js');
 const {getArg} = require('../../utils/ArgUtils.js');
 const {argError} = require('../../utils/Errors.js');
@@ -31,7 +31,7 @@ module.exports = class RoleInfoCommand extends Command {
 		const color = role.hexColor === '#000000' ? '#7289da' : role.hexColor;
 
 		await message.react(waitEmoji);
-		const image = await new jimp(256, 256, color);
+		const image = await new Jimp(256, 256, color);
 		await image.write('./assets/images/colorRole.png');
 
 		while (!thumbnailColor) {

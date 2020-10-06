@@ -8,8 +8,8 @@ module.exports = class MemeCommand extends SlowCommand {
 	templateID;
 
 	/**
-	 *
-	 * @param {MemeCommandOptions} options
+	 * Créé une nouvelle commande de Meme.
+	 * @param {MemeCommandOptions} options - Les options du constructeur.
 	 */
 	constructor(options) {
 		super(options);

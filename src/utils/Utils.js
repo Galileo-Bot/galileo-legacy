@@ -34,7 +34,7 @@ function isOwner(userId) {
 
 /**
  * Retourne la clé via la propriété de l'objet.
- * @param {Object} object - L'object.
+ * @param {object} object - L'object.
  * @param {any} value - La valeur.
  * @returns {string} - La clé.
  */
@@ -65,7 +65,7 @@ function writeInJSON(path, content) {
 /**
  * Lis un JSON via son chemin.
  * @param {string} path - Le chemin du fichier.
- * @returns {object|any[]} Un JSON.
+ * @returns {any | any[]} Un JSON.
  */
 function readJSON(path) {
 	const bufferedData = fs.readFileSync(path);
@@ -86,6 +86,7 @@ function random(array) {
  * @param {GaliClient|Client} client - Le client pour récupérer les salons etc.
  * @param {'addGuild'|'bug'|'command'|'mp'|'removeGuild'} channelType - Type de salon.
  * @param {string | module:"discord.js".StringResolvable | module:"discord.js".MessageEmbed | module:"discord.js".MessageAttachment} content - Le contenu.
+ * @returns {void}
  */
 function sendLogMessage(client, channelType, content) {
 	if (client.user.id === '579003487237570561') {
