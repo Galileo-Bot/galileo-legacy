@@ -1,7 +1,7 @@
 const SlowCommand = require('./SlowCommand.js');
 const {MessageEmbed} = require('discord.js');
 const Logger = require('../utils/Logger.js');
-const jimp = require('jimp');
+const Jimp = require('jimp');
 const imgur = require('imgur');
 const {isOwner} = require('../utils/Utils.js');
 const {runError} = require('../utils/Errors.js');
@@ -9,10 +9,6 @@ const {argTypes} = require('../constants.js');
 const {getArg} = require('../utils/ArgUtils.js');
 
 module.exports = class ImageCommand extends SlowCommand {
-	constructor(options) {
-		super(options);
-	}
-
 	/**
 	 * Fait une commande image, la fonction étant personnalisable.
 	 * @param {Message} message - Le message.
@@ -26,7 +22,7 @@ module.exports = class ImageCommand extends SlowCommand {
 		let imageLink = getArg(message, 1, argTypes.user)?.displayAvatarURL({format: 'png'}) || message.author.displayAvatarURL({format: 'png'});
 		if (message.attachments.array()[0]?.height) imageLink = message.attachments.array()[0].url;
 
-		jimp.read(imageLink)
+		Jimp.read(imageLink)
 			.then(image => {
 				image[imageFunction](...argsFunction);
 				image.write(`./assets/images/${imageFunction}.png`);

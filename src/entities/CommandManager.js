@@ -45,6 +45,7 @@ module.exports = class CommandManager {
 		const path = `./${dirName}`;
 		const commandDir = fs.readdirSync(path);
 		Logger.info(`Recherche de commandes dans le dossier '${dirName}'.`, 'LoadingCommands');
+		
 		for (const commandFile of commandDir) {
 			if (commandFile.endsWith('.js')) {
 				const command = new (require(`../${path}/${commandFile}`))();

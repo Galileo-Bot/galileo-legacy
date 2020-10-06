@@ -16,7 +16,7 @@ module.exports = class EventManager {
 		Logger.log(`Évènement '${event.name}' chargé..`, 'EventManager');
 	}
 
-	async loadEvents(dirName) {
+	loadEvents(dirName) {
 		const path = `./${dirName}`;
 		const eventDir = fs.readdirSync(path);
 		Logger.info(`Chargement des évènements dans le dossier '${dirName}'.`, 'LoadingEvents');

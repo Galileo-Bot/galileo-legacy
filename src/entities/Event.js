@@ -1,6 +1,3 @@
-/**
- * @module Gali/Event
- */
 module.exports = class Event {
 	client;
 	name;

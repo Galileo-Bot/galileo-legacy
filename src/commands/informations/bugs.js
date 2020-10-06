@@ -13,6 +13,33 @@ module.exports = class BugsCommand extends Command {
 		});
 	}
 
+	/**
+	 * Retourne un bug en le cherchant dans le salon des bugs.
+	 * @param {number | null} bugNumber - Le numéro du bug.
+	 * @param {module:"discord.js".Collection<string, module:"discord.js".Message>} messages
+	 * @param {module:"discord.js".MessageEmbed} embed - L'embed.
+	 * @returns {string} - L'embed.
+	 */
+	getBugOrBugs(bugNumber, messages, embed) {
+		let description;
+		if (bugNumber) {
+			const bug = messages.find(msg => msg.number === bugNumber);
+			if (!bug) {
+				return this.getBugOrBugs(null, messages, embed);
+			}
+
+			description = bug.content;
+			embed.setTitle(`Informations sur le bug numéro ${bug.number}:`);
+			embed.addField('Présent depuis : ', `${Math.round((Date.now() - bug.since.getTime()) / (1000 * 60 * 60 * 24))} jours.`);
+		} else {
+			embed.setTitle('Liste des bugs existants :');
+			messages = messages.sort((a, b) => parseInt(a.number) - parseInt(b.number));
+			description = messages.map(message => message.content).join('\n\n');
+		}
+
+		return description ?? "Aucun bug n'a été trouvé.";
+	}
+
 	async run(client, message, args) {
 		super.run(client, message, args);
 
@@ -33,7 +60,7 @@ module.exports = class BugsCommand extends Command {
 				since: msg.createdAt,
 			}));
 
-		const description = getBugOrBugs(bugNumber, messages, embed);
+		const description = this.getBugOrBugs(bugNumber, messages, embed);
 		embed.setDescription(description);
 		embed.setColor('#4b5afd');
 		embed.setTimestamp();
@@ -41,23 +68,3 @@ module.exports = class BugsCommand extends Command {
 		await super.send(embed);
 	}
 };
-
-function getBugOrBugs(bugNumber, messages, embed) {
-	let description;
-	if (bugNumber) {
-		const bug = messages.find(msg => msg.number === bugNumber);
-		if (!bug) {
-			return getBugOrBugs(null, messages, embed);
-		}
-
-		description = bug.content;
-		embed.setTitle(`Informations sur le bug numéro ${bug.number}:`);
-		embed.addField('Présent depuis : ', `${Math.round((Date.now() - bug.since.getTime()) / (1000 * 60 * 60 * 24))} jours.`);
-	} else {
-		embed.setTitle('Liste des bugs existants :');
-		messages = messages.sort((a, b) => parseInt(a.number) - parseInt(b.number));
-		description = messages.map(message => message.content).join('\n\n');
-	}
-
-	return description ?? "Aucun bug n'a été trouvé.";
-}

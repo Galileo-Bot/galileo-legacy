@@ -10,16 +10,15 @@ function formatWithRange(text, maxLength) {
 
 /**
  * Formatte le pattern pour pouvoir ajouter des éléments d'une date, un peu comme moments mais ne fonctionne qu'avec :
- *
- *   * Année `(yyyy)`
- *   * Mois `(MM) | (MMM (pour le nom complet))`
- *   * Nom des jours de la semaine. `(DD)`
- *   * Jours `(jj)`
- *   * Heures `(hh)`
- *   * Minutes `(mm)`
- *   * Secondes `(ss)`
- *   * Millisecondes `(SSSS)`
- *   * Nom du fuseau horraire `(TTTT)`
+ * * Année `(yyyy)`
+ * * Mois `(MM) | (MMM (pour le nom complet))`
+ * * Nom des jours de la semaine. `(DD)`
+ * * Jours `(jj)`
+ * * Heures `(hh)`
+ * * Minutes `(mm)`
+ * * Secondes `(ss)`
+ * * Millisecondes `(SSSS)`
+ * * Nom du fuseau horraire `(TTTT)`
  *
  * @example
  * const pattern = "Il est hh heure et mm minutes et on est DDD.";
@@ -29,8 +28,8 @@ function formatWithRange(text, maxLength) {
  *
  * @param {string} pattern - Le patterne demandé.
  * @param {Date} [date = new Date()] - La date.
- * @param {Boolean} [removeOneDay = false] - Si on doit supprimer un jour ({@param options
-@link parseRelativeDate}).
+ * @param {boolean} [removeOneDay = false] - Si on doit supprimer un jour ({@param options
+@see parseRelativeDate}).
  * @param {Intl.DateTimeFormatOptions} [options = {}] - Les options pour Intl.
  * @returns {string} - La date reformatté.
  */
@@ -47,6 +46,7 @@ function parseDate(pattern, date = new Date(), removeOneDay = false, options = {
 		timeZone: 'Europe/Paris',
 		timeZoneName: 'long',
 	};
+
 	Object.keys(options).forEach(key => {
 		settings[key] = options[key];
 	});
@@ -61,7 +61,7 @@ function parseDate(pattern, date = new Date(), removeOneDay = false, options = {
 		.replace(/M{2}/g, parts.get('month'))
 		.replace(/M{3}/g, new Intl.DateTimeFormat('fr', {month: 'long'}).format(date))
 		.replace(/D{2}/g, parts.get('weekday'))
-		.replace(/[d|j]{2}/g, addMissingZeros(removeOneDay ? parts.get('day') - 1 : parts.get('day')))
+		.replace(/[d|j]{2}/g, addMissingZeros(removeOneDay ? parts.get('day') - 1 : parts.get('day'), 2))
 		.replace(/h{2}/g, parts.get('hour'))
 		.replace(/m{2}/g, parts.get('minute'))
 		.replace(/s{2}/g, parts.get('second'))
@@ -111,16 +111,16 @@ function addMissingZeros(number, size) {
 function getTime(args) {
 	function setTime(text, time) {
 		if (['d', 'j', 'jour', 'jours'].some(s => text.endsWith(s))) {
-			time.value = 1000 * 60 * 60 * 24 * parseInt(text.slice(0, text.length - 1));
+			time.value = 1000 * 60 * 60 * 24 * parseInt(text.slice(0, text.length - 1), 10);
 			time.type = 'd';
 		} else if (['h', 'heure', 'heures', 'hour', 'hours'].some(s => text.endsWith(s))) {
-			time.value = 1000 * 60 * 60 * parseInt(text.slice(0, text.length - 1));
+			time.value = 1000 * 60 * 60 * parseInt(text.slice(0, text.length - 1), 10);
 			time.type = 'h';
 		} else if (['m', 'minute', 'minutes'].some(s => text.endsWith(s))) {
-			time.value = 1000 * 60 * parseInt(text.slice(0, text.length - 1));
+			time.value = 1000 * 60 * parseInt(text.slice(0, text.length - 1), 10);
 			time.type = 'm';
 		} else if (['s', 'seconde', 'secondes', 'second', 'seconds'].some(s => text.endsWith(s))) {
-			time.value = 1000 * parseInt(text.slice(0, text.length - 1));
+			time.value = 1000 * parseInt(text.slice(0, text.length - 1), 10);
 			time.type = 's';
 		}
 	}
@@ -137,6 +137,7 @@ function getTime(args) {
 	if (time.value === 0) {
 		setTime(args[0], time);
 	}
+
 	return time;
 }
 
@@ -146,10 +147,7 @@ function getTime(args) {
  * @returns {string} - Le résultat.
  */
 function formatByteSize(bytes) {
-	if (bytes < 1000) return `${bytes} octets`;
-	else if (bytes < 1000000) return `${(bytes / 1000).toFixed(3)} KB`;
-	else if (bytes < 1000000000) return `${(bytes / 1000000).toFixed(3)} MB`;
-	else return `${(bytes / 1000000000).toFixed(3)} GB`;
+	return bytes < 1000 ? `${bytes} octets` : bytes < 1000000 ? `${(bytes / 1000).toFixed(3)} KB` : bytes < 1000000000 ? `${(bytes / 1000000).toFixed(3)} MB` : `${(bytes / 1000000000).toFixed(3)} GB`;
 }
 
 module.exports = {

@@ -9,6 +9,7 @@ const {getPrefixFromMessage, isOwner, sendLogMessage} = require('./Utils.js');
  * @param {Message} message - Message où envoyer l'argError.
  * @param {Command} command - La commande erronnée.
  * @param {string} error - L'erreur.
+ * @returns {void}
  */
 function argError(message, command, error) {
 	const {verifyCommand} = require('./CommandUtils.js');
@@ -35,6 +36,7 @@ function argError(message, command, error) {
  * @param {Command} command - La commande erronée.
  * @param {string[]} missingPermissions - Les permissions manquantes.
  * @param {boolean} [fromBot = false] - Si ça vient d'un bot faut mettre true (ça change un peu le message).
+ * @returns {void}
  */
 function permsError(message, command, missingPermissions, fromBot = false) {
 	const embed = new MessageEmbed();
@@ -56,9 +58,11 @@ function permsError(message, command, missingPermissions, fromBot = false) {
 }
 
 /**
+ * Exécute une erreur pour le bot.
  * @param {Message} message
  * @param {Command} command
  * @param {any} error
+ * @returns {*}
  */
 function runError(message, command, error) {
 	const embed = new MessageEmbed();

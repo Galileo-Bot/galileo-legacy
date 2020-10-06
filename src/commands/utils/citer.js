@@ -17,7 +17,7 @@ module.exports = class CiterCommand extends SlowCommand {
 
 		if (!args[0]) return argError(message, this, 'Veuillez mettre un lien de message ou une ID de message.');
 		const files = [];
-		let link = (link = args[0].split('/'));
+		let link = args[0].split('/');
 		let channel = message.channel;
 		let msg;
 
@@ -74,8 +74,8 @@ module.exports = class CiterCommand extends SlowCommand {
 		}
 
 		await message.channel?.send({
-			embed: embed,
-			files: files,
+			embed,
+			 files,
 		});
 	}
 };

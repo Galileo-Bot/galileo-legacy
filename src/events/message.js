@@ -124,7 +124,7 @@ module.exports = class MessageEvent extends Event {
 	/**
 	 * Envoie dans les logs les informations nécessaires quand une commande est exécutée.
 	 * @param {Message} message - Le message qui a exécuté la commande.
-	 * @param {String} command - Le nom de la commande exécutée.
+	 * @param {string} command - Le nom de la commande exécutée.
 	 */
 	logCommandExecution(message, command) {
 		Logger.log(
