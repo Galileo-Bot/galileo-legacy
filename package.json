@@ -1,16 +1,12 @@
 {
-	"name": "gali-new-handler",
-	"version": "1.0.0",
-	"description": "A discord bot.",
-	"type": "commonjs",
-	"main": "src/main.js",
-	"scripts": {
-		"canary": "npm run start:canary",
-		"start": "npm run start:prod",
-		"start:prod": "node --trace-warnings .",
-		"start:canary": "node --trace-warnings . --canary",
-		"prettier": "prettier ./ --write"
+	"author": "Ayfri & Antow",
+	"bugs": {
+		"url": "https://github.com/Galileo-Bot/galileo/issues"
 	},
+	"contributors": [
+		"Ayfri",
+		"Antow"
+	],
 	"dependencies": {
 		"discord.js": "^12.3.1",
 		"figlet": "^1.5.0",
@@ -20,16 +16,27 @@
 		"jimp": "^0.16.1",
 		"node-fetch": "^2.6.1"
 	},
+	"description": "A discord bot.",
+	"devDependencies": {
+		"prettier": "^2.1.2"
+	},
+	"engineStrict": true,
+	"eslintConfig": {
+		"ecmaFeatures": {
+			"impliedStrict": true,
+		},
+		"parserOptions": {
+			"ecmaVersion": 2020
+		}
+	},
 	"keywords": [
 		"galileo",
 		"discord",
 		"bot"
 	],
-	"author": "Ayfri & Antow",
 	"license": "ISC",
-	"devDependencies": {
-		"prettier": "^2.1.2"
-	},
+	"main": "src/main.js",
+	"name": "gali-new-handler",
 	"prettier": {
 		"arrowParens": "avoid",
 		"bracketSpacing": false,
@@ -41,5 +48,22 @@
 		"tabWidth": 4,
 		"trailingComma": "es5",
 		"useTabs": true
-	}
+	},
+	"private": true,
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Galileo-Bot/galileo/issues"
+	},
+	"scripts": {
+		"canary": "npm run start:canary",
+		"start": "npm run start:prod",
+		"start:prod": "node --trace-warnings .",
+		"start:canary": "node --trace-warnings . --canary",
+		"prettier": "prettier ./ --write"
+	},
+	"engines": {
+		"node": ">=14.0.0"
+	},
+	"type": "commonjs",
+	"version": "1.0.0"
 }
