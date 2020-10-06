@@ -15,7 +15,7 @@ module.exports = class ListerStaffCommand extends Command {
 	/**
 	 * Renvoie la liste des admins du serveur.
 	 * @param {Message} message - Le message du serveur.
-	 * @returns {Collection<module:"discord.js".Snowflake, module:"discord.js".GuildMember>}
+	 * @returns {Collection<module:"discord.js".Snowflake, module:"discord.js".GuildMember>} - Les admins.
 	 */
 	static getAdmins(message) {
 		return message.guild?.members.cache.filter(m => message.guild.ownerID !== m.user.id && !m.user.bot && m.permissions.has('ADMINISTRATOR'));
@@ -24,7 +24,7 @@ module.exports = class ListerStaffCommand extends Command {
 	/**
 	 * Renvoie la liste des bots du serveur.
 	 * @param {Message} message - Le message du serveur.
-	 * @returns {Collection<module:"discord.js".Snowflake, module:"discord.js".GuildMember>}
+	 * @returns {Collection<module:"discord.js".Snowflake, module:"discord.js".GuildMember>} - Les bots.
 	 */
 	static getBots(message) {
 		return message.guild?.members.cache.filter(m => m.user.bot);
@@ -33,7 +33,7 @@ module.exports = class ListerStaffCommand extends Command {
 	/**
 	 * Renvoie la liste des modérateurs du serveur.
 	 * @param {Message} message - Le message du serveur.
-	 * @returns {Collection<module:"discord.js".Snowflake, module:"discord.js".GuildMember>}
+	 * @returns {Collection<module:"discord.js".Snowflake, module:"discord.js".GuildMember>} - Les modérateurs.
 	 */
 	static getMods(message) {
 		return message.guild?.members.cache.filter(m => message.guild.owner !== m && !m.user.bot && (m.permissions.has('BAN_MEMBERS', false) || m.permissions.has('KICK_MEMBERS', false)));

@@ -18,7 +18,7 @@ module.exports = class SanctionCommand extends Command {
 	/**
 	 * Applique la sanction si celle-ci a un impact sur discord.
 	 * @param {GuildMember} person - La personne à sanctionner.
-	 * @param {String} reason - La raison.
+	 * @param {string} reason - La raison.
 	 * @returns {Promise<void>}
 	 */
 	async applySanction(person, reason) {
@@ -85,10 +85,13 @@ module.exports = class SanctionCommand extends Command {
 
 	/**
 	 * Récupère le membre à sanctionner.
-	 * @param {Message} message
-	 * @returns {module:"discord.js".User|module:"discord.js".Snowflake|Command|String|number|void}
+	 * @param {module:"discord.js".Message} message - Le message.
+	 * @returns {module:"discord.js".GuildMember|void} - Le membre ou une erreur.
 	 */
 	getPerson(message) {
+		/**
+		 * @type {module:"discord.js".GuildMember}
+		 */
 		const person = getArg(message, 1, argTypes.member);
 		if (!person) return argError(message, this, "La personne n'a pas été trouvée.");
 

@@ -37,7 +37,7 @@ module.exports = class Command {
 	 * @param {GaliClient} client - Le client.
 	 * @param {Message} message - Le message.
 	 * @param {string[]} [args = []] - Les arguments.
-	 * @returns {Promise<void>}
+	 * @returns {Promise<void>} - N'importe.
 	 */
 	async run(client, message, args = []) {
 		this.client = client;

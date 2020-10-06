@@ -7,7 +7,7 @@ const {owners, prefixes} = require('../assets/jsons/config.json');
 /**
  * Récupère le préfixe du message par rapport à la config.
  * @param {Message} message - Le message.
- * @returns {null|String} - Return null s’il trouve rien, sinon String.
+ * @returns {null|string} - Return null s’il trouve rien, sinon String.
  */
 function getPrefixFromMessage(message) {
 	const {isCanary} = require('../main.js');
@@ -45,7 +45,8 @@ function getKeyByValue(object, value) {
 /**
  * Sauvegarde un objet dans un JSON.
  * @param {string} path - Chemin du JSON.
- * @param {Object} content - Contenu du JSON.
+ * @param {object} content - Contenu du JSON.
+ * @returns {void}
  */
 function writeInJSON(path, content) {
 	if (!fs.existsSync(path)) {
@@ -53,7 +54,7 @@ function writeInJSON(path, content) {
 	}
 
 	if (content.size === 0 || JSON.stringify(content, null, 4).length === 0) {
-		return Logger.warn(`L'objet que vous avez essayé de sauvegarder dans $ {path} a un problème et est vide. Le processus a été abandonné.`, 'WriteInJSON');
+		return Logger.warn(`L'objet que vous avez essayé de sauvegarder dans '${path}' a un problème et est vide. Le processus a été abandonné.`, 'WriteInJSON');
 	}
 
 	fs.writeFile(path, JSON.stringify(content, null, 4), err => {
@@ -62,9 +63,9 @@ function writeInJSON(path, content) {
 }
 
 /**
- * Lis un JSON via son chemin (require n'existe plus).
+ * Lis un JSON via son chemin.
  * @param {string} path - Le chemin du fichier.
- * @returns {Object|Array} Un JSON.
+ * @returns {object|any[]} Un JSON.
  */
 function readJSON(path) {
 	const bufferedData = fs.readFileSync(path);
@@ -73,7 +74,7 @@ function readJSON(path) {
 
 /**
  * Retourne une valeur aléatoire de l'array mis en argument.
- * @param {Array} array - Un tableau.
+ * @param {any[]} array - Un tableau.
  * @returns {*} - Une des valeurs random.
  */
 function random(array) {

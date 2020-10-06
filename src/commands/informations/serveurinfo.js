@@ -34,7 +34,7 @@ module.exports = class ServeurInfoCommand extends Command {
 		embed.setFooter(client.user.username, client.user.displayAvatarURL());
 		embed.setAuthor(`Informations sur le serveur ${name} : `, message.guild.iconURL());
 		embed.addField('🆔 :', id, true);
-		if (owner !== undefined) embed.addField('<:owner:577839458393784320> Propriétaire :', `${owner.user} (${owner.user.id})`);
+		if (owner) embed.addField('<:owner:577839458393784320> Propriétaire :', `${owner.user} (${owner.user.id})`);
 
 		embed.addField(
 			'<:hey:635159039831048202> Membres :',

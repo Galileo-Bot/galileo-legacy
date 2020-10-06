@@ -13,7 +13,7 @@ module.exports = class Logger {
 	}
 
 	/**
-	 *  Log un message d'erreur (rouge).
+	 * Log un message d'erreur (rouge).
 	 * @param {any} message - Message à log.
 	 * @param {string} [title = ''] - Titre du log.
 	 */
@@ -64,7 +64,7 @@ module.exports = class Logger {
 	}
 
 	/**
-	 *  Log un message de warn (yellow).
+	 * Log un message de warn (yellow).
 	 * @param {any} message - Message à log.
 	 * @param {string} [title = ''] - Titre du log.
 	 */
