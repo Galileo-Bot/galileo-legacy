@@ -13,7 +13,7 @@ module.exports = class CommandManager {
 	/**
 	 * Cherche une commande via son nom.
 	 * @param {string} name - Le nom de la commande.
-	 * @returns {Command}
+	 * @returns {Command | undefined} - La commande trouvée.
 	 */
 	static findCommand(name) {
 		return CommandManager.commands.find(command => command.name?.toLowerCase() === name.toLowerCase() || command.aliases?.includes(name.toLowerCase()));
@@ -63,7 +63,7 @@ module.exports = class CommandManager {
 
 	/**
 	 * Décharge une commande.
-	 * @param {Command} command
+	 * @param {Command} command - La commande à décharger.
 	 * @returns {void}
 	 */
 	unloadCommand(command) {

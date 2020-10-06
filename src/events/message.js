@@ -61,9 +61,7 @@ module.exports = class MessageEvent extends Event {
 		if (command) {
 			this.logCommandExecution(message, command.name);
 			const fail = verifyCommand(command, message);
-			if (fail.isFailed) {
-				processCommandFail(fail, message, command);
-			} else this.executeCommand(client, message, args, command);
+			if (fail.isFailed) processCommandFail(fail, message, command); else this.executeCommand(client, message, args, command);
 		} else {
 			return CommandManager.commands
 				.filter(command => command.tags?.includes(tags.help_command))
@@ -81,6 +79,7 @@ module.exports = class MessageEvent extends Event {
 	 * @param {Message} message - Le message.
 	 * @param {string[]} args - Les arguments.
 	 * @param {Command} command - La commande.
+	 * @returns {void}
 	 */
 	executeCommand(client, message, args, command) {
 		// Cooldowns
@@ -125,6 +124,7 @@ module.exports = class MessageEvent extends Event {
 	 * Envoie dans les logs les informations nécessaires quand une commande est exécutée.
 	 * @param {Message} message - Le message qui a exécuté la commande.
 	 * @param {string} command - Le nom de la commande exécutée.
+	 * @returns {void}
 	 */
 	logCommandExecution(message, command) {
 		Logger.log(

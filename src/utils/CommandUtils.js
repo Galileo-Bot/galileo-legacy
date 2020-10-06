@@ -50,7 +50,7 @@ function tryDeleteMessage(message, after = 0) {
 
 /**
  * Envoie les messages nécéssaires en cas d'erreur de commande.
- * @param {CommandFail} fail - Les erreurs faites.
+ * @param {CommandFail} fail - Les erreurs faîtes.
  * @param {module:"discord.js".Message} message - Le message pour récupérer la guild et le salon.
  * @param {Command} command - La commande pour les messages d'erreurs.
  * @returns {void}
@@ -58,25 +58,15 @@ function tryDeleteMessage(message, after = 0) {
 function processCommandFail(fail, message, command) {
 	if (!fail.isFailed) return;
 
-	if (fail.missingPermissions.client.length > 0) {
-		return permsError(message, command, fail.missingPermissions.client, true);
-	} else if (fail.missingPermissions.user.length > 0) {
-		return permsError(message, command, fail.missingPermissions.user);
-	} else if (fail.tags.includes(tags.dm_only)) {
-		return argError(message, command, "Commande exécutée sur un serveur alors que la commande n'est autorisé qu'en privé.");
-	} else if (fail.tags.includes(tags.owner_only)) {
-		return argError(message, command, 'Commande autorisée uniquement par les gérants du bot.');
-	}
+	if (fail.missingPermissions.client.length > 0) return permsError(message, command, fail.missingPermissions.client, true);
+	else if (fail.missingPermissions.user.length > 0) return permsError(message, command, fail.missingPermissions.user);
+	else if (fail.tags.includes(tags.dm_only)) return argError(message, command, "Commande exécutée sur un serveur alors que la commande n'est autorisé qu'en privé.");
+	else if (fail.tags.includes(tags.owner_only)) return argError(message, command, 'Commande autorisée uniquement par les gérants du bot.');
 
 	if (message.guild) {
-		if (fail.tags.includes(tags.guild_owner_only)) {
-			return argError(message, command, 'Commande autorisée uniquement par le propriétaire du serveur.');
-		} else if (fail.tags.includes(tags.nsfw_only)) {
-			return argError(message, command, 'Commande autorisée uniquement sur les salons NSFW.');
-		}
-	} else if (fail.tags.includes(tags.guild_only)) {
-		return argError(message, command, "Commande exécutée en privé alors que la commande n'est autorisé que sur serveur.");
-	}
+		if (fail.tags.includes(tags.guild_owner_only)) return argError(message, command, 'Commande autorisée uniquement par le propriétaire du serveur.');
+		else if (fail.tags.includes(tags.nsfw_only)) return argError(message, command, 'Commande autorisée uniquement sur les salons NSFW.');
+	} else if (fail.tags.includes(tags.guild_only)) return argError(message, command, "Commande exécutée en privé alors que la commande n'est autorisé que sur serveur.");
 
 	if (fail.cooldown) {
 		const {cooldown} = require('../events/message.js');

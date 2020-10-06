@@ -62,7 +62,7 @@ function permsError(message, command, missingPermissions, fromBot = false) {
  * @param {Message} message - Le message de l'erreur.
  * @param {Command} command - La commande qui a provoquée cette erreur.
  * @param {any} error - L'erreur.
- * @returns {*}
+ * @returns {any} - Je sais pas xD
  */
 function runError(message, command, error) {
 	const embed = new MessageEmbed();
