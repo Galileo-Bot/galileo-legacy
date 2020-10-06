@@ -4,7 +4,7 @@ const {getKeyByValue} = require('./Utils.js');
 
 module.exports = class Logger {
 	/**
-	 *  Log un message de débug (magenta).
+	 * Log un message de débug (magenta).
 	 * @param {any} message - Message à log.
 	 * @param {string} [title = ''] - Titre du log.
 	 */
@@ -22,7 +22,7 @@ module.exports = class Logger {
 	}
 
 	/**
-	 *  Log un message d'info (blue).
+	 * Log un message d'info (blue).
 	 * @param {any} message - Message à log.
 	 * @param {string} [title = ''] - Titre du log.
 	 */
@@ -31,7 +31,7 @@ module.exports = class Logger {
 	}
 
 	/**
-	 *  Log un message (white).
+	 * Log un message (white).
 	 * @param {any} message - Message à log.
 	 * @param {string} [title = ''] - Titre du log.
 	 */

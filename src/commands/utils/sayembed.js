@@ -26,8 +26,8 @@ module.exports = class SayEmbedCommand extends Command {
 		if (args[0] === 'info') {
 			const embed = new MessageEmbed();
 			embed.setTimestamp();
+			embed.setAuthor("Informations en plus sur la génération d'embeds :");
 			embed.setFooter(client.user.username, client.user.displayAvatarURL());
-			embed.setTitle("Informations en plus sur la génération d'embeds :");
 			embed.setDescription("> __**Page d'aide complète : https://www.npmjs.com/package/godembed**__");
 			embed.addField(
 				'Variables :',
@@ -37,7 +37,7 @@ module.exports = class SayEmbedCommand extends Command {
 \`\${userImage}\` => Votre avatar.
 \`\${tag}\` => Votre tag.
 
-> **Disponible uniquement sur serveur :**
+> **Variables uniquement disponibles sur serveur :**
 \`\${guild}\` => Nom du serveur.
 \`\${guildImage}\` => Lien de l'image du serveur.
 \`\${memberCount}\` => Nombre de membre du serveur.
@@ -50,7 +50,7 @@ module.exports = class SayEmbedCommand extends Command {
 \`$end\` => Forcer la fin d'une balise.
 \`$and\` => Indiquer qu'il faut passer à l'argument suivant.
 \`$blank\` => Texte vide.
-\`[Text]\(lien)\` => Transforme le texte en texte cliquable qui renvoie vers le lien comme [ceci](https://github.com/Ayfri).`
+\`[Text](lien)\` => Transforme le texte en texte cliquable qui renvoie vers le lien comme [ceci](https://github.com/Ayfri).`
 			);
 
 			return super.send(embed);
