@@ -25,7 +25,7 @@ module.exports = class HelpCommand extends Command {
 		 * @type {null|Command}
 		 */
 		let command = null;
-		customCategories.hidden = undefined;
+		customCategories.hidden = null;
 
 		if (args?.length > 0) {
 			command = getArg(message, 1, argTypes.command);
@@ -41,8 +41,8 @@ module.exports = class HelpCommand extends Command {
 			embed.setDescription("❔ **help <commande>** : Vous permet d'avoir des informations sur la commande ciblée.");
 
 			if (!isOwner(message.author.id)) {
-				customCategories.owner = undefined;
-				customCategories.wip = undefined;
+				customCategories.owner = null;
+				customCategories.wip = null;
 			}
 
 			for (const category in customCategories) {

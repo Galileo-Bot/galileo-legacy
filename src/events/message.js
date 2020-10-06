@@ -61,7 +61,8 @@ module.exports = class MessageEvent extends Event {
 		if (command) {
 			this.logCommandExecution(message, command.name);
 			const fail = verifyCommand(command, message);
-			if (fail.isFailed) processCommandFail(fail, message, command); else this.executeCommand(client, message, args, command);
+			if (fail.isFailed) processCommandFail(fail, message, command);
+			else this.executeCommand(client, message, args, command);
 		} else {
 			return CommandManager.commands
 				.filter(command => command.tags?.includes(tags.help_command))

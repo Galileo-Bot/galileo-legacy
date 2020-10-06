@@ -220,9 +220,9 @@ module.exports = class EvalCommand extends Command {
 		EvalCommand.log = code.includes('$log');
 
 		// noinspection ES6ConvertLetToConst
-		let {guild, content, member, author, channel} = message;
+		const {guild, content, member, author, channel} = message;
 		// noinspection ES6ConvertLetToConst
-		let members = guild ? guild.members.cache : undefined;
+		const members = guild ? guild.members.cache : null;
 
 		if (code.includes('```')) {
 			code = code.replace(/```([a-z0-9]+)?/g, '');
