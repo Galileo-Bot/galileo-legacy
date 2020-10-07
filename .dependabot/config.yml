@@ -3,7 +3,7 @@ update_configs:
     - package_manager: 'javascript'
       directory: '/'
       update_schedule: 'live'
-      target_branch: 'update-deps'
+      target_branch: 'new-handler'
 
       default_reviewers:
           - 'ayfri'

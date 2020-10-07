@@ -1,4 +1,5 @@
 const {isCanary} = require('./main.js');
+
 const argTypes = {
 	user: "Nom/Mention/ID d'utilisateur",
 	user_id: "ID d'utilisateur",
