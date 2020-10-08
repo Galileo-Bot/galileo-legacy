@@ -5,7 +5,7 @@ module.exports = class SlapCommand extends MemeCommand {
 	constructor() {
 		super({
 			name: 'slap',
-			description: 'On dirait que ce petit ami est distrait.',
+			description: 'Vous avez dit une grosse bêtise, en voici la conséquence, une bonne baffe.',
 			usage: 'slap <Texte Robin> ; <Texte Batman>',
 			aliases: ['tarte', 'claque', 'slape'],
 			tags: [tags.guild_only],
