@@ -31,9 +31,19 @@ module.exports = class ServeurInfoCommand extends Command {
 		const embed = new MessageEmbed();
 		embed.setTimestamp();
 		embed.setColor('#21fd20');
-		embed.setThumbnail(message.guild.iconURL());
+		embed.setThumbnail(
+			message.guild.iconURL({
+				dynamic: true,
+			})
+		);
 		embed.setFooter(client.user.username, client.user.displayAvatarURL());
-		embed.setAuthor(`Informations sur le serveur ${name} : `, message.guild.iconURL());
+		embed.setAuthor(
+			`Informations sur le serveur ${name} : `,
+			message.guild.iconURL({
+				dynamic: true,
+			})
+		);
+
 		embed.addField('🆔 :', id, true);
 		if (owner) embed.addField('<:owner:577839458393784320> Propriétaire :', `${owner.user} (${owner.user.id})`);
 
@@ -68,6 +78,7 @@ module.exports = class ServeurInfoCommand extends Command {
 		embed.addField('<:carte:635159034395361330> Rôles :', roles.cache.size);
 		embed.addField('<a:disload:635159109280333874> Date de création : ', `Le ${parseDate('dd/MM/yyyy à hh:mm', createdAt)}`, true);
 		embed.addField("<:richtext:635163364875698215> Date d'invitation du bot :", `Le ${parseDate('dd/MM/yyyy à hh:mm', me.joinedAt)}`);
+
 		if (premiumTier > 0) embed.addField('Niveau de boost : ', premiumTier, true);
 		if (premiumSubscriptionCount > 0) embed.addField('Nombre de personnes boostant le serveur : ', premiumSubscriptionCount, true);
 		if (features.length > 0)

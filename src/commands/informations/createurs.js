@@ -17,20 +17,17 @@ module.exports = class CreateursCommand extends Command {
 		const {creators} = readJSON('./assets/jsons/commandConstants.json');
 		const ayfri = client.users.resolve('386893236498857985');
 		const antow = client.users.resolve('216214448203890688');
+
+		await this.sendCreator(ayfri, creators.ayfri);
+		await this.sendCreator(antow, creators.antow);
+	}
+
+	async sendCreator(user, creator) {
 		const embed = new MessageEmbed();
-
-		// Ayfri
-		embed.setTitle('Informations sur Ayfri');
+		embed.setTitle(`Informations sur ${user.username} :`);
 		embed.setColor('#4b5afd');
-		embed.setThumbnail(ayfri.displayAvatarURL());
-		embed.setDescription(creators.ayfri);
-		await super.send(embed);
-
-		// Antow
-		embed.setTitle('Informations sur Antow');
-		embed.setColor('#7289da');
-		embed.setThumbnail(antow.displayAvatarURL());
-		embed.setDescription(creators.antow);
+		embed.setThumbnail(user.displayAvatarURL());
+		embed.setDescription(creator);
 		await super.send(embed);
 	}
 };

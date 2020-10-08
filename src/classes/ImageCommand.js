@@ -11,7 +11,7 @@ const {getArg} = require('../utils/ArgUtils.js');
 module.exports = class ImageCommand extends SlowCommand {
 	/**
 	 * Fait une commande image, la fonction étant personnalisable.
-	 * @param {Message} message - Le message.
+	 * @param {module:"discord.js".Message} message - Le message.
 	 * @param {string} imageFunction - Le nom de la fonction.
 	 * @param {*} argsFunction - Les arguments de la fonction.
 	 * @returns {Promise<void>}
@@ -19,7 +19,7 @@ module.exports = class ImageCommand extends SlowCommand {
 	async imageCommand(message, imageFunction, ...argsFunction) {
 		await this.startWait();
 
-		let imageLink = getArg(message, 1, argTypes.user)?.displayAvatarURL({format: 'png'}) || message.author.displayAvatarURL({format: 'png'});
+		let imageLink = getArg(message, 1, argTypes.user)?.displayAvatarURL({format: 'png'}) ?? message.author.displayAvatarURL({format: 'png'});
 		if (message.attachments.array()[0]?.height) imageLink = message.attachments.array()[0].url;
 
 		Jimp.read(imageLink)
@@ -45,9 +45,7 @@ module.exports = class ImageCommand extends SlowCommand {
 				if (isOwner(message.author.id)) {
 					runError(message, this, error);
 					Logger.warn(error.stack, `${super.name}Command`);
-				} else {
-					this.send("Oups !\nQuelque chose n'a pas marché, l'erreur est reportée aux dirigeants du bot. :eyes:");
-				}
+				} else this.send("Oups !\nQuelque chose n'a pas marché, l'erreur est reportée aux dirigeants du bot. :eyes:");
 			});
 	}
 

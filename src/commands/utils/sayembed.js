@@ -65,13 +65,25 @@ module.exports = class SayEmbedCommand extends Command {
 			.join(' ')
 			.replace(/\\n/g, '\n')
 			.replace(/\${username}/gi, message.author.username)
-			.replace(/\${userImage}/gi, message.author.displayAvatarURL())
+			.replace(
+				/\${userImage}/gi,
+				message.author.displayAvatarURL({
+					dynamic: true,
+					format: 'png',
+				})
+			)
 			.replace(/\${tag}/gi, message.author.tag);
 		if (message.guild) {
 			text = text
 				.replace(/\${nickname}/gi, message.member.nickname)
 				.replace(/\${guild}/gi, message.guild.name)
-				.replace(/\${guildImage}/gi, message.guild.iconURL())
+				.replace(
+					/\${guildImage}/gi,
+					message.guild.iconURL({
+						dynamic: true,
+						format: 'png',
+					})
+				)
 				.replace(/\${memberCount}/gi, message.guild.memberCount.toString());
 		}
 

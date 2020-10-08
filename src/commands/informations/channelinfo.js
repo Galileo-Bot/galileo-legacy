@@ -42,7 +42,12 @@ module.exports = class ChannelInfoCommand extends Command {
 
 		embed.setTimestamp();
 		embed.setFooter(client.user.username, client.user.displayAvatarURL());
-		embed.setAuthor(`Informations sur le salon : ${channel.name}`, message.guild.iconURL());
+		embed.setAuthor(
+			`Informations sur le salon : ${channel.name}`,
+			message.guild.iconURL({
+				dynamic: true,
+			})
+		);
 		embed.addField('🆔 ID :', channel.id, true);
 		embed.addField('<:textuel:635159053630308391> Nom :', channel.name, true);
 		embed.addField('<:blocnote:613703973345689610> Date de création :', parseDate('dd/MM/yyyy hh:mm', channel.createdAt), true);

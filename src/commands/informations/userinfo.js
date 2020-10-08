@@ -5,6 +5,7 @@ const {getArg} = require('../../utils/ArgUtils.js');
 const {tryDeleteMessage} = require('../../utils/CommandUtils.js');
 const {parseDate} = require('../../utils/FormatUtils.js');
 const Command = require('../../entities/Command.js');
+const {isOwner} = require('../../utils/Utils.js');
 const {userFlags} = require('../../constants.js');
 
 function getActivityTypeInFrench(type) {
@@ -64,7 +65,6 @@ module.exports = class UserInfoCommand extends Command {
 	async run(client, message, args) {
 		await super.run(client, message, args);
 
-		const config = readJSON('./assets/jsons/config.json');
 		let permission = 'Utilisateur(rice)';
 		let permServer = 'Membre';
 		let status = 'Hors ligne';
@@ -82,18 +82,17 @@ module.exports = class UserInfoCommand extends Command {
 		}
 
 		const flags = await person.user.fetchFlags();
-		if (config.owners.includes(person.user.id)) permission = 'Créateur';
+		if (isOwner(person.user.id)) permission = 'Créateur';
 
 		const statusResult = getStatus(person, statusEmoji, status);
 		statusEmoji = statusResult.statusEmoji;
 		status = statusResult.status;
 
 		if (person.user.presence.activities.length > 0) {
-			if (person.user.presence.activities[0].type === 'CUSTOM_STATUS') {
-				status = `**${person.user.presence.activities[0].state}**`;
-			} else {
-				status = `${getActivityTypeInFrench(person.user.presence.activities[0].type)} **${person.user.presence.activities[0].name}**`;
-			}
+			status =
+				person.user.presence.activities[0].type === 'CUSTOM_STATUS'
+					? `**${person.user.presence.activities[0].state}**`
+					: `${getActivityTypeInFrench(person.user.presence.activities[0].type)} **${person.user.presence.activities[0].name}**`;
 		}
 
 		const embed = new MessageEmbed();
@@ -101,7 +100,12 @@ module.exports = class UserInfoCommand extends Command {
 		embed.setColor('#4b5afd');
 		embed.setFooter(client.user.username, client.user.displayAvatarURL());
 		embed.setThumbnail(person.user.displayAvatarURL());
-		embed.setAuthor(`Informations sur ${person.user.tag} :`, person.user.displayAvatarURL());
+		embed.setAuthor(
+			`Informations sur ${person.user.tag} :`,
+			person.user.displayAvatarURL({
+				dynamic: true,
+			})
+		);
 		embed.addField('🆔 : ', person.user.id, true);
 		embed.addField('<:textuel:635159053630308391> Nom : ', person.user, true);
 		if (message.guild) {
