@@ -18,23 +18,25 @@ module.exports = class ChannelInfoCommand extends Command {
 		super.run(client, message, args);
 
 		const embed = new MessageEmbed();
+		const channel = getArg(message, 1, argTypes.channel) ?? message.channel;
 		let topic = 'Aucun.';
 		let type = 'Textuel';
-		let channel = message.channel;
 
-		try {
-			channel = getArg(message, 1, argTypes.channel);
-		} catch (ignored) {}
-
-		if (channel.type === 'voice') {
-			type = 'Vocal';
-		} else if (channel.type === 'category') {
-			type = 'Catégorie';
-		} else if (channel.type === 'news') {
-			type = 'Annonces';
-		} else if (channel.type === 'store') {
-			type = 'Shopping';
-		} else if (channel.topic?.length > 0) {
+		switch (channel.type) {
+			case 'voice':
+				type = 'Vocal';
+				break;
+			case 'category':
+				type = 'Catégorie';
+				break;
+			case 'news':
+				type = 'Annonces';
+				break;
+			case 'store':
+				type = 'Shopping';
+				break;
+		}
+		if (channel.topic?.length > 0) {
 			topic = channel.topic;
 		}
 
