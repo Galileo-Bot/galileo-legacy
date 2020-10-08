@@ -6,9 +6,7 @@
 		"allowJs": true,
 		"checkJs": true
 	},
-	"files": [
-		"index.d.ts"
-	],
+	"files": ["index.d.ts"],
 	"ts-node": {
 		"compilerOptions": {
 			"types": ["node", "figlet", "node-fetch"],
@@ -18,7 +16,5 @@
 	"typeAcquisition": {
 		"enable": true
 	},
-	"exclude": [
-		"node_modules"
-	]
+	"exclude": ["node_modules"]
 }
