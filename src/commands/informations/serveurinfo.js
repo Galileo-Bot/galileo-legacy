@@ -26,6 +26,7 @@ module.exports = class ServeurInfoCommand extends Command {
 		const {size: voiceChannelsSize} = channels.cache.filter(c => c.type === 'voice');
 		const {size: textChannelsSize} = channels.cache.filter(c => c.type === 'text');
 		const {size: categoryChannelsSize} = channels.cache.filter(c => c.type === 'category');
+		const {size: newsChannelsSize} = channels.cache.filter(c => c.type === 'news');
 
 		const embed = new MessageEmbed();
 		embed.setTimestamp();
@@ -59,6 +60,7 @@ module.exports = class ServeurInfoCommand extends Command {
 <:bnote:635163385645760523> Textuels : **${textChannelsSize}** (**${Math.round((textChannelsSize / channels.cache.size) * 1000) / 10}%**)
 <:vocal:635159054582284350> Vocaux : **${voiceChannelsSize}** (**${Math.round((voiceChannelsSize / channels.cache.size) * 1000) / 10}%**)
 <:category:635159053298958366> Catégories : **${categoryChannelsSize}** (**${Math.round((categoryChannelsSize / channels.cache.size) * 1000) / 10}%**)
+<:announce:738916035041820712> Annonceurs : **${newsChannelsSize}** (**${Math.round((newsChannelsSize / channels.cache.size) * 1000) / 10}%**)
 `,
 			true
 		);
@@ -70,7 +72,7 @@ module.exports = class ServeurInfoCommand extends Command {
 		if (premiumSubscriptionCount > 0) embed.addField('Nombre de personnes boostant le serveur : ', premiumSubscriptionCount, true);
 		if (features.length > 0)
 			embed.addField(
-				'Fonctionnalités : ',
+				'Fonctionnalités :',
 				features
 					.map(feature => guildFeatures[feature])
 					.sort()
