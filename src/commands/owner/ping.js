@@ -15,8 +15,8 @@ module.exports = class PingCommand extends Command {
 		super.run(client, message, args);
 
 		const m = await super.send('Ping :thinking: ?');
-
 		const embed = new MessageEmbed();
+
 		embed.setTimestamp();
 		embed.setFooter(client.user.username, client.user.displayAvatarURL());
 		embed.setColor('RANDOM');

@@ -23,7 +23,13 @@ module.exports = class SupportCommand extends Command {
 		const embed = new MessageEmbed();
 		embed.setTimestamp();
 		embed.setFooter(client.user.username, client.user.displayAvatarURL());
-		embed.setAuthor(`${message.author.tag} (${message.author.id}) nous contacte pour :`, message.author.displayAvatarURL());
+		embed.setAuthor(
+			`${message.author.tag} (${message.author.id}) nous contacte pour :`,
+			message.author.displayAvatarURL({
+				dynamic: true,
+				format: 'png',
+			})
+		);
 		embed.setDescription(text);
 		embed.setFooter(message.guild ? `Du serveur : ${message.guild.name} (${message.guild.id})` : 'Envoyé en messages privés.');
 		if (message.attachments.array()[0]?.height) embed.setImage(message.attachments.array()[0].url);

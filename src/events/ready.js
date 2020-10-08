@@ -64,6 +64,10 @@ module.exports = class ReadyEvent extends Event {
 		}, 20 * 60 * 1000);
 	}
 
+	/**
+	 * Met une présence  au botaléatoire parmis celles dans le fichier JSON.
+	 * @returns {void}
+	 */
 	setRandomPresence() {
 		this.client.user.setPresence({
 			activity: {

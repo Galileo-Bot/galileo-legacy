@@ -134,9 +134,7 @@ function getTime(args) {
 	const text = typeof args === 'string' ? argsArray[argsArray.length - 1] : args[args.length - 1];
 	setTime(text, time);
 
-	if (time.value === 0) {
-		setTime(args[0], time);
-	}
+	if (time.value === 0) setTime(args[0], time);
 
 	return time;
 }

@@ -15,8 +15,8 @@ module.exports = class CoupleCommand extends Command {
 	async run(client, message, args) {
 		await super.run(client, message, args);
 
-		const personOne = args[0] ? args[0] || message.mentions.members.first() : args[0] === 'random' ? message.guild.members.cache.random().displayName : message.member.displayName;
-		const personTwo = args[1] ? args[1] || message.mentions.members.array()[1] : message.guild.members.cache.random().displayName;
+		const personOne = args[0] ? args[0] ?? message.mentions.members.first() : args[0] === 'random' ? message.guild.members.cache.random().displayName : message.member.displayName;
+		const personTwo = args[1] ? args[1] ?? message.mentions.members.array()[1] : message.guild.members.cache.random().displayName;
 		const percentage = Math.abs(
 			Math.round(((((personOne.charCodeAt(0) * 102.4 + personTwo.charCodeAt(0) * 52.5) * personOne.length * Math.abs(Math.cos(personTwo.length) * 18.5)) / new Date().getDate()) * 26.2) / 56.2)
 		);

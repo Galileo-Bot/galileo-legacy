@@ -20,11 +20,7 @@ module.exports = class SuusCommand extends Command {
 		embed.setFooter(client.user.username, client.user.displayAvatarURL());
 		embed.setColor('#4b5afd');
 		embed.setDescription('Suus, jeej, jaaj.');
-		if (Math.floor(Math.random() * 1000) === 666) {
-			embed.setImage('https://cdn.discordapp.com/attachments/537627694788116490/547067318409363479/SPOILER_31Bx6VLvAqL.png');
-		} else {
-			embed.setImage(random(sausages));
-		}
+		embed.setImage(Math.floor(Math.random() * 1000) === 666 ? 'https://cdn.discordapp.com/attachments/537627694788116490/547067318409363479/SPOILER_31Bx6VLvAqL.png' : random(sausages));
 
 		await super.send(embed);
 	}

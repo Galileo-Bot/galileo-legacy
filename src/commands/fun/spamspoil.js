@@ -18,9 +18,7 @@ module.exports = class SpamSpoilCommand extends Command {
 		const text = args.join(' ');
 		let finalText = '';
 
-		if (args.length === 0) {
-			return argError(message, this, 'Veuillez mettre du texte.');
-		}
+		if (args.length === 0) return argError(message, this, 'Veuillez mettre du texte.');
 
 		for (let i = 0; i < text.length; i++) {
 			finalText += `||${text.charAt(i)}||`;

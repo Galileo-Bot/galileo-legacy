@@ -1,6 +1,5 @@
 const Logger = require('../utils/Logger.js');
 const Event = require('../entities/Event.js');
-const {sendLogMessage} = require('../utils/Utils.js');
 const {MessageEmbed} = require('discord.js');
 
 module.exports = class GuildEvent extends Event {

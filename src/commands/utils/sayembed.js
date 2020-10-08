@@ -73,6 +73,7 @@ module.exports = class SayEmbedCommand extends Command {
 				})
 			)
 			.replace(/\${tag}/gi, message.author.tag);
+
 		if (message.guild) {
 			text = text
 				.replace(/\${nickname}/gi, message.member.nickname)

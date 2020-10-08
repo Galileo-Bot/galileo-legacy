@@ -35,12 +35,7 @@ module.exports = class SondageCommand extends Command {
 		if (image) embed.setImage(image);
 
 		if (choices.length === 1) {
-			if (choices[0].length === 0) {
-				embed.setDescription(args.join(' '));
-			} else {
-				description = `> ${choices[0]}`;
-				embed.setDescription(question + description);
-			}
+			embed.setDescription(choices[0].length === 0 ? args.join(' ') : `${question}> ${choices[0]}`);
 
 			const m = await super.send(embed);
 			await m.react('✅');

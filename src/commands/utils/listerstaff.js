@@ -39,6 +39,23 @@ module.exports = class ListerStaffCommand extends Command {
 		return message.guild?.members.cache.filter(m => message.guild.owner !== m && !m.user.bot && (m.permissions.has('BAN_MEMBERS', false) || m.permissions.has('KICK_MEMBERS', false)));
 	}
 
+	/**
+	 * Ajoute un field via la collection.
+	 * @param {module:"discord.js".MessageEmbed} embed - L'embed.
+	 * @param {string} text - Le titre du field.
+	 * @param {Collection<module:"discord.js".Snowflake, module:"discord.js".GuildMember>} collection - La collection de membres.
+	 */
+	addField(embed, text, collection) {
+		if (collection.size > 0)
+			embed.addField(
+				text,
+				collection
+					.array()
+					.sort((a, b) => a.displayName.localeCompare(b.displayName))
+					.join('\n')
+			);
+	}
+
 	async run(client, message, args) {
 		await super.run(client, message, args);
 
@@ -52,30 +69,9 @@ module.exports = class ListerStaffCommand extends Command {
 		embed.setDescription(`<:owner:577839458393784320> **Créateur : **${message.guild.owner}`);
 		embed.setColor('#0faf2f');
 
-		if (admins.size > 0)
-			embed.addField(
-				'<:inventaire:635159040510656512> Administrateurs :',
-				admins
-					.array()
-					.sort((a, b) => a.displayName.localeCompare(b.displayName))
-					.join('\n')
-			);
-		if (mods.size > 0)
-			embed.addField(
-				'<:bug:635159047284195328> Modérateurs :',
-				mods
-					.array()
-					.sort((a, b) => a.displayName.localeCompare(b.displayName))
-					.join('\n')
-			);
-		if (bots.size > 0)
-			embed.addField(
-				'<:bot:638858747351007233> Bots :',
-				bots
-					.array()
-					.sort((a, b) => a.displayName.localeCompare(b.displayName))
-					.join('\n')
-			);
+		this.addField(embed, '<:inventaire:635159040510656512> Administrateurs :', admins);
+		this.addField(embed, '<:bug:635159047284195328> Modérateurs :', mods);
+		this.addField(embed, '<:bot:638858747351007233> Bots :', bots);
 
 		await super.send(embed);
 	}

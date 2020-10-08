@@ -16,7 +16,7 @@ module.exports = class AvatarCommand extends Command {
 	async run(client, message, args) {
 		super.run(client, message, args);
 
-		const person = (await getArg(message, 1, argTypes.user)) || message.author;
+		const person = (await getArg(message, 1, argTypes.user)) ?? message.author;
 		const embed = new MessageEmbed();
 		embed.setTitle(`Avatar de ${person.username}`);
 		embed.setDescription(

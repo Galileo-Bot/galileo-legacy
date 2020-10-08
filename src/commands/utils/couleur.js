@@ -35,14 +35,12 @@ module.exports = class CouleurCommand extends Command {
 					break;
 				}
 			}
+
 			if (color !== args[0]) {
 				if ((args[0].startsWith('#') && args[0].length === 7) || !isNaN(parseInt(args[0]))) {
 					if (args[0].startsWith('#')) args[0] = args[0].substring(1);
-					if (args[0].length !== 6 || [...args[0]].some(c => !hexColors.includes(c.toLowerCase()))) {
-						return argError(message, this, 'Veuillez mettre une couleur hexadécimale valable.');
-					} else {
-						color = `#${args[0]}`;
-					}
+					if (args[0].length !== 6 || [...args[0]].some(c => !hexColors.includes(c.toLowerCase()))) return argError(message, this, 'Veuillez mettre une couleur hexadécimale valable.');
+					color = `#${args[0]}`;
 				}
 
 				if (color.length === 0) return argError(message, this, "Veuillez mettre une couleur hexadécimale valable ou le nom d'une couleur valable ou `random`.");
