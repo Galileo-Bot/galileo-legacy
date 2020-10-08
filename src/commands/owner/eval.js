@@ -219,9 +219,7 @@ module.exports = class EvalCommand extends Command {
 		EvalCommand.debug = code.includes('$debug');
 		EvalCommand.log = code.includes('$log');
 
-		// noinspection ES6ConvertLetToConst
 		const {guild, content, member, author, channel} = message;
-		// noinspection ES6ConvertLetToConst
 		const members = guild ? guild.members.cache : null;
 
 		if (code.includes('```')) {

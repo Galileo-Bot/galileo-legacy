@@ -19,8 +19,17 @@ module.exports = class AvatarCommand extends Command {
 		const person = (await getArg(message, 1, argTypes.user)) || message.author;
 		const embed = new MessageEmbed();
 		embed.setTitle(`Avatar de ${person.username}`);
-		embed.setDescription(`<:link:539121207543595008> [Lien de l'avatar.](${person.displayAvatarURL()})`);
-		embed.setImage(person.displayAvatarURL());
+		embed.setDescription(
+			`<:link:539121207543595008> [Lien de l'avatar.](${person.displayAvatarURL({
+				dynamic: true,
+			})})`
+		);
+		embed.setImage(
+			person.displayAvatarURL({
+				dynamic: true,
+				format: 'png',
+			})
+		);
 		embed.setFooter(client.user.username, client.user.displayAvatarURL());
 		embed.setColor('#0faf2f');
 		embed.setTimestamp();

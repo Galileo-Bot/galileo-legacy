@@ -57,7 +57,7 @@ module.exports = class RoleInfoCommand extends Command {
 
 		if (role.permissions.toArray().length > 0)
 			embed.addField(
-				'Permissions',
+				'Permissions :',
 				role.permissions
 					.toArray()
 					.map(perm => permissions[perm])

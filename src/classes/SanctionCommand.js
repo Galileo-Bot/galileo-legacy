@@ -28,9 +28,7 @@ module.exports = class SanctionCommand extends Command {
 				days: 7,
 				reason,
 			});
-		} else if (this.type === 'kick') {
-			await person.kick(reason);
-		}
+		} else if (this.type === 'kick') await person.kick(reason);
 	}
 
 	/**
