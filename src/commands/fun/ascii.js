@@ -18,11 +18,8 @@ module.exports = class AsciiCommand extends Command {
 		figlet.text(args.join(' '), (err, data) => {
 			if (data.trim().length === 0) return argError(message, this, '<a:attention:613714368647135245> **Veuillez mettre du texte.**');
 
-			if (err) {
-				message.reply('<a:attention:613714368647135245> **Une erreur a eu lieu duratn la génération...**');
-			} else {
-				super.send(`\`\`\`${data}\`\`\``);
-			}
+			if (err) message.reply('<a:attention:613714368647135245> **Une erreur a eu lieu durant la génération...**');
+			else super.send(`\`\`\`${data}\`\`\``);
 		});
 	}
 };

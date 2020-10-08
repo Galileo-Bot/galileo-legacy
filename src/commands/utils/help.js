@@ -93,13 +93,8 @@ module.exports = class HelpCommand extends Command {
 			);
 		}
 
-		if (command.tags.length > 0) {
-			embed.addField(`Propriété${command.tags.length > 1 ? 's' : ''} :`, `${command.tags.join('\n')}`);
-		}
-
-		if (command.aliases.length > 0) {
-			embed.addField('📝 Alias de la commande :', `\`${command.aliases.join(', ')}\``);
-		}
+		if (command.tags.length > 0) embed.addField(`Propriété${command.tags.length > 1 ? 's' : ''} :`, `${command.tags.join('\n')}`);
+		if (command.aliases.length > 0) embed.addField('📝 Alias de la commande :', `\`${command.aliases.join(', ')}\``);
 
 		return super.send(embed);
 	}

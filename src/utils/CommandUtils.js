@@ -14,20 +14,14 @@ function verifyPermissionsFromCommand(command, message) {
 		user: [],
 	};
 
-	if (!message.guild) {
-		return result;
-	}
+	if (!message.guild) return result;
 
 	command.clientPermissions.forEach(value => {
-		if (!message.channel.permissionsFor(message.guild.me).has(value, false)) {
-			result.client.push(value);
-		}
+		if (!message.channel.permissionsFor(message.guild.me).has(value, false)) result.client.push(value);
 	});
 
 	command.userPermissions.forEach(perm => {
-		if (!message.channel.permissionsFor(message.member).has(perm, false)) {
-			result.user.push(perm);
-		}
+		if (!message.channel.permissionsFor(message.member).has(perm, false)) result.user.push(perm);
 	});
 
 	return result;

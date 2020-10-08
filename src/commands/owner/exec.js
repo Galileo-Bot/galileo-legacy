@@ -18,9 +18,7 @@ module.exports = class ExecCommand extends SlowCommand {
 	async run(client, message, args) {
 		await super.run(client, message, args);
 
-		if (!args) {
-			return argError(message, this, 'Veuillez mettre une commande à exécuter.');
-		}
+		if (!args) return argError(message, this, 'Veuillez mettre une commande à exécuter.');
 
 		await this.startWait();
 		exec(

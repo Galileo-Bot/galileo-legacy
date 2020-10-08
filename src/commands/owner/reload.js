@@ -49,7 +49,6 @@ module.exports = class ReloadCommand extends Command {
 		for (const file of files) {
 			const path = join(dirPath, file);
 			if (file.endsWith('.js')) {
-				// Sinon il recharge les évents et ça les lance deux fois
 				if ([`src${sep}events${sep}`].some(p => path.includes(p))) continue;
 
 				ReloadCommand.reloadFile(path);
@@ -84,32 +83,21 @@ module.exports = class ReloadCommand extends Command {
 		const command = getArg(message, 1, argTypes.command);
 		if (!args[0]) return argError(message, this, 'Vous devez mettre une commande à recharger.');
 
-		if (['all', 'al', 'a', 'toutes', 'tout'].includes(args[0])) {
-			return await this.reloadCommands(client);
-		}
+		if (['all', 'al', 'a', 'toutes', 'tout'].includes(args[0])) return await this.reloadCommands(client);
 
-		if (['events', 'évents', 'e'].includes(args[0])) {
-			return await this.reloadEvents(client);
-		}
+		if (['events', 'évents', 'e'].includes(args[0])) return await this.reloadEvents(client);
 
-		if (['source', 'src'].includes(args[0])) {
-			return await this.send(`${await this.reloadDir(process.cwd(), 0)} fichiers rechargés.`);
-		}
+		if (['source', 'src'].includes(args[0])) return await this.send(`${await this.reloadDir(process.cwd(), 0)} fichiers rechargés.`);
 
 		const path = args.join(' ');
 		if (fs.existsSync(path)) {
 			if (fs.statSync(path).isDirectory()) {
 				return await this.send(`${await this.reloadDir(join(process.cwd(), path), 0)} fichiers rechargés.`);
-			} else {
-				ReloadCommand.reloadFile(join(process.cwd(), path));
-				return await this.send(`Fichier \`${path}\` rechargé !`);
 			}
+			ReloadCommand.reloadFile(join(process.cwd(), path));
+			return await this.send(`Fichier \`${path}\` rechargé !`);
 		}
 
-		if (command) {
-			return this.reloadCommand(command, client);
-		} else {
-			return argError(message, this, `La commande \`${args[0]}\` n'a pas été trouvée.`);
-		}
+		command ? this.reloadCommand(command, client) : argError(message, this, `La commande \`${args[0]}\` n'a pas été trouvée.`);
 	}
 };

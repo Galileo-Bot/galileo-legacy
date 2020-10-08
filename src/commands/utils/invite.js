@@ -16,7 +16,13 @@ module.exports = class InviteCommand extends Command {
 		const embed = new MessageEmbed();
 		embed.setTimestamp();
 		embed.setFooter(client.user.username, client.user.displayAvatarURL());
-		embed.setAuthor("🔗 Voici le lien d'invitation pour inviter le bot", `${message.author.displayAvatarURL()}`);
+		embed.setAuthor(
+			"🔗 Voici le lien d'invitation pour inviter le bot",
+			`${message.author.displayAvatarURL({
+				dynamic: true,
+				format: 'png',
+			})}`
+		);
 		embed.addField('<:botlogo:638859267771727882> Lien pour inviter le bot : ', "[**Lien d'invitation**](https://discordbots.org/bot/534087346472091648)");
 		embed.addField('<:richtext:635163364875698215> Site web du bot : ', '[**Galileo Bot**](https://www.galileo-bot.tk/)');
 		embed.addField('<:bug:635159047284195328> Nous vous invitons à rejoindre le support : ', '[**Serveur de Support**](https://discord.gg/3xYWhcu)');

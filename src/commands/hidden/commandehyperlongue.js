@@ -13,7 +13,6 @@ module.exports = class CommandeHyperLongueCommand extends Command {
 
 	async run(client, message, args) {
 		await super.run(client, message, args);
-
 		await this.send(`Wesh comment t'as trouvé ça ??? ${message.author}`);
 		tryDeleteMessage(message);
 	}

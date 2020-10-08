@@ -13,6 +13,13 @@ module.exports = class EmojiCommand extends Command {
 		});
 	}
 
+	addEmojis(text, emojis, embed) {
+		if (emojis.join(' ').length > 1024) {
+			embed.addField(text, emojis.slice(0, Math.floor(emojis.length / 2)).join(' '));
+			embed.addField('\u200B', emojis.slice(Math.floor(emojis.length / 2)).join(' '));
+		} else embed.addField(text, emojis.join(' '));
+	}
+
 	async run(client, message, args) {
 		super.run(client, message, args);
 
@@ -39,19 +46,8 @@ module.exports = class EmojiCommand extends Command {
 				.map(e => e.toString());
 
 			embed.setAuthor('Liste des emojis du serveur : ', message.guild.iconURL());
-			if (emojis.join(' ').length > 1024) {
-				embed.addField('<:bnote:635163385645760523> émojis simples :', emojis.slice(0, Math.floor(emojis.length / 2)).join(' '));
-				embed.addField('\u200B', emojis.slice(Math.floor(emojis.length / 2)).join(' '));
-			} else {
-				embed.addField('<:bnote:635163385645760523> émojis simples :', emojis.join(' '));
-			}
-
-			if (animEmojis.join(' ').length > 1024) {
-				embed.addField('<:gif:635159036504834051> émojis animés :', animEmojis.slice(0, Math.floor(animEmojis.length / 2)).join(' '));
-				embed.addField('\u200B', animEmojis.slice(Math.floor(animEmojis.length / 2)).join(' '));
-			} else {
-				embed.addField('<:gif:635159036504834051> émojis animés :', animEmojis.join(' '));
-			}
+			this.addEmojis('<:bnote:635163385645760523> émojis simples :', emojis, embed);
+			this.addEmojis('<:gif:635159036504834051> émojis animés :', animEmojis, embed);
 
 			embed.setColor('#1ae831');
 			return super.send(embed);
@@ -61,9 +57,7 @@ module.exports = class EmojiCommand extends Command {
 		if (emoji.includes('<')) {
 			name = String(emoji.slice(emoji.indexOf(':') + 1, emoji.lastIndexOf(':')));
 			id = emoji.slice(emoji.lastIndexOf(':') + 1, emoji.lastIndexOf('>'));
-		} else {
-			name = args[0];
-		}
+		} else name = args[0];
 
 		const emojiFind = message.guild.emojis.cache.find(e => e.name === name);
 		if (!emojiFind) return argError(message, this, "Cet émoji n'a pas été trouvé sur le serveur ou est un émoji de base.");

@@ -30,15 +30,10 @@ module.exports = class InfractionsCommand extends Command {
 
 		const embedDesc = userData[this.message.guild.id][user.id].sanctions
 			.map(({case: caseNumber, reason, sanction: sanctionType}) => {
-				if (sanctionType === 'warn') {
-					warns++;
-				} else if (['ban', 'tempban'].includes(sanctionType)) {
-					bans++;
-				} else if (sanctionType === 'kick') {
-					kicks++;
-				} else if (['tempmute', 'mute'].includes(sanctionType)) {
-					mutes++;
-				}
+				if (sanctionType === 'warn') warns++;
+				else if (['ban', 'tempban'].includes(sanctionType)) bans++;
+				else if (sanctionType === 'kick') kicks++;
+				else if (['tempmute', 'mute'].includes(sanctionType)) mutes++;
 
 				return `**cas ${caseNumber}** |** __${sanctionType}__**\t|\t${reason}`;
 			})
@@ -62,10 +57,7 @@ module.exports = class InfractionsCommand extends Command {
 		embed.setFooter(client.user.username, client.user.displayAvatarURL());
 		embed.setColor('#4b5afd');
 
-		let page = 0;
-		if (args.length > 2) {
-			page = args[2];
-		}
+		const page = args.length > 2 ? args[2] : 0;
 
 		if (!userData[message.guild.id].hasOwnProperty(person.user.id) || !userData[message.guild.id][person.user.id].hasOwnProperty('sanctions')) {
 			userData[message.guild.id][person.user.id] = {
@@ -91,8 +83,8 @@ module.exports = class InfractionsCommand extends Command {
 				userData[message.guild.id][person.user.id].sanctions.forEach((sanction, index) => {
 					if (args[2] === sanction.case) {
 						if (sanction.sanction === 'ban') message.guild.members.unban(person.user.id);
-						//					if (sanction.sanction === 'mute' && servconfig[message.guild.id]['rolemute'] !== 'Aucun') person.roles.cache.remove(servconfig[message.guild.id]['rolemute']);
-						// ServeurInfo + mute
+						//	if (sanction.sanction === 'mute' && servconfig[message.guild.id]['rolemute'] !== 'Aucun') person.roles.cache.remove(servconfig[message.guild.id]['rolemute']);
+						// todo ServeurInfo + mute
 
 						userData[message.guild.id][person.user.id].sanctions.splice(index, 1);
 						writeInJSON('./assets/jsons/userdata.json', userData);
@@ -100,9 +92,7 @@ module.exports = class InfractionsCommand extends Command {
 					}
 					return argError(message, this, `La sanction ${args[2]} n'a pas été trouvée ou n'est pas valide.`);
 				});
-			} else {
-				return argError(message, this, "Veuillez mettre `toutes` ou le numéro d'une sanction valide.");
-			}
+			} else return argError(message, this, "Veuillez mettre `toutes` ou le numéro d'une sanction valide.");
 		} else if (args[1] === 'modifier') {
 			if (parseInt(args[2])) {
 				userData[message.guild.id][person.user.id].sanctions.forEach(sanction => {

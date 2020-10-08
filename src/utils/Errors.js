@@ -41,7 +41,13 @@ function argError(message, command, error) {
 function permsError(message, command, missingPermissions, fromBot = false) {
 	const embed = new MessageEmbed();
 	embed.setColor('#ffc843');
-	embed.setAuthor(`Permissions ${fromBot ? 'du bot' : ''} manquantes.`, message.author.displayAvatarURL());
+	embed.setAuthor(
+		`Permissions ${fromBot ? 'du bot' : ''} manquantes.`,
+		message.author.displayAvatarURL({
+			dynamic: true,
+			format: 'png',
+		})
+	);
 	embed.setTitle(`Commande : ${command.name}`);
 	embed.setDescription(
 		`\`${missingPermissions
@@ -86,9 +92,7 @@ function runError(message, command, error) {
 	if (!embed.image && message.embeds[0]?.image?.height) embed.setImage(message.embeds[0].image.url);
 	if (message.guild) embed.setThumbnail(message.guild.iconURL());
 
-	if (isOwner(message.author.id)) {
-		return message.channel?.send(embedLog);
-	}
+	if (isOwner(message.author.id)) return message.channel?.send(embedLog);
 
 	embed.setDescription(`> Une erreur a eu lieu avec la commande : **${command.name}**.\n\n**__L'erreur a été avertie aux développeurs.__**`);
 	embed.setColor('RANDOM');
