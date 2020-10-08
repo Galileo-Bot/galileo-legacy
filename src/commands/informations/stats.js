@@ -2,7 +2,8 @@ const {MessageEmbed} = require('discord.js');
 const {parseRelativeDate} = require('../../utils/FormatUtils.js');
 const Command = require('../../entities/Command.js');
 const os = require('os');
-const {botVersion, dateUpdate} = require('../../assets/jsons/config.json');
+const {dateUpdate} = require('../../assets/jsons/config.json');
+const {version} = require('../../../package.json');
 
 module.exports = class StatsCommand extends Command {
 	constructor() {
@@ -134,7 +135,7 @@ module.exports = class StatsCommand extends Command {
 		);
 		embed.addField('<:cpu:736643846812729446> Utilisation du CPU :', `${(await StatsCommand.getCPUUsage()).percentage.toFixed(2)}%`);
 		embed.addField('🕦 Temps de fonctionnement', parseRelativeDate('dd jours hh heures mm minutes ss secondes', new Date(client.uptime)));
-		embed.addField('<:bot:539121198634762261> Version du bot :', botVersion, true);
+		embed.addField('<:bot:539121198634762261> Version du bot :', version, true);
 		embed.addField("📆 Date de l'update :", dateUpdate, true);
 
 		await super.send(embed);
