@@ -1,4 +1,5 @@
 const {isCanary} = require('./main.js');
+const {version} = require('../package.json');
 
 const argTypes = {
 	user: "Nom/Mention/ID d'utilisateur",
@@ -122,6 +123,7 @@ const randomActivities = [
 	'💻 Développeurs : Ayfri, Antow.',
 	'Support disponible ici : https://discord.gg/n7HWd4P',
 	'💻 | https://galileo-bot.tk',
+	`🚀 Version : ${version} !`,
 ];
 
 const channels = {

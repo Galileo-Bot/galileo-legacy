@@ -32,11 +32,8 @@ module.exports = class ReadyEvent extends Event {
 		// REBOOT
 		const config = readJSON('./assets/jsons/config.json');
 		if (config.statut === 'reboot') {
-			if (client.channels.cache.has(config.cacheChannel)) {
-				client.channels.cache.get(config.cacheChannel).send('Relancement du bot fini.');
-			} else if (client.users.cache.has(config.cacheChannel)) {
-				client.users.cache.get(config.cacheChannel).send('Relancement du bot fini.');
-			}
+			if (client.channels.cache.has(config.cacheChannel)) client.channels.cache.get(config.cacheChannel).send('Relancement du bot fini.');
+			else if (client.users.cache.has(config.cacheChannel)) client.users.cache.get(config.cacheChannel).send('Relancement du bot fini.');
 
 			config.statut = 'started';
 			config.cacheChannel = 'Aucun';
