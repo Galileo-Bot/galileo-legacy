@@ -11,7 +11,7 @@ image = os.path.join(dirname, '../assets/images/graphMessages.png')
 jsonPath = os.path.join(dirname, '../assets/jsons/messages.json')
 
 with open(jsonPath, "r") as f:
-	data = json.loads(f.read())
+    data = json.loads(f.read())
 
 plt.style.use('dark_background')
 plt.plot(data["stats"], "#4b5afd")

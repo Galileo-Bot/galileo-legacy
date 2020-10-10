@@ -1,5 +1,4 @@
 const {MessageEmbed, Util} = require('discord.js');
-const {readJSON} = require('../../utils/Utils.js');
 const {argTypes} = require('../../constants.js');
 const {getArg} = require('../../utils/ArgUtils.js');
 const {tryDeleteMessage} = require('../../utils/CommandUtils.js');
