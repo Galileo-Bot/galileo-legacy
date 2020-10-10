@@ -158,8 +158,6 @@ function getArg(content, index, argType) {
 }
 
 module.exports = {
-	getArgListFromMessage,
-	getArgWithMessage,
 	getArg,
 	getArgWithContent,
 };

@@ -151,7 +151,6 @@ function formatByteSize(bytes) {
 module.exports = {
 	getTime,
 	parseDate,
-	addMissingZeros,
 	formatWithRange,
 	parseRelativeDate,
 	formatByteSize,

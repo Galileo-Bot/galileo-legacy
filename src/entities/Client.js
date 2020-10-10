@@ -1,4 +1,4 @@
-const {Client, Intents} = require('discord.js');
+const {Client} = require('discord.js');
 const CommandManager = require('./CommandManager.js');
 const EventManager = require('./EventManager.js');
 
@@ -15,11 +15,20 @@ module.exports = class GaliClient extends Client {
 		super({
 			messageCacheLifetime: 60 * 20,
 			messageSweepInterval: 60 * 5,
-			ws: {
-				/*intents: [
-				 'GUILDS', 'GUILD_BANS', 'GUILDS_MEMBER', 'GUILD_EMOJIS', 'GUILD_INVITES', 'GUILD_VOICE_STATES', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'DIRECT_MESSAGES', 'DIRECT_MESSAGE_REACTIONS'
-				 ]*/
-			},
+			// ! This will be reactived once we reach 100 guilds :
+			/*
+			ws: isCanary
+				? {}
+				: {
+						intents: [
+							Intents.FLAGS.DIRECT_MESSAGES,
+							Intents.FLAGS.GUILDS,
+							Intents.FLAGS.GUILD_MESSAGES,
+							Intents.FLAGS.GUILD_PRESENCES,
+							Intents.FLAGS.GUILD_MEMBERS,
+							Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+						],
+				  },*/
 		});
 
 		this.eventManager = new EventManager(this);
