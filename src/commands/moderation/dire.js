@@ -23,7 +23,7 @@ module.exports = class DireCommand extends Command {
 		let channel = message.channel;
 
 		if (isOwner(message.author.id) && channelID) {
-			args.shift();
+			await args.shift();
 			channel = channelID;
 		}
 

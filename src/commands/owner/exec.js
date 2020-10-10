@@ -25,7 +25,7 @@ module.exports = class ExecCommand extends SlowCommand {
 			`@chcp 65001 & ${args.join(' ')}`,
 			{
 				cwd: process.cwd(),
-				encoding: 'UTF-8',
+				encoding: 'buffer',
 			},
 			async (error, stdout, stderr) => {
 				await this.stopWait();
@@ -35,12 +35,12 @@ module.exports = class ExecCommand extends SlowCommand {
 					return sendJS(message.channel, `ERROR : \n\n${error.stack}`);
 				}
 
-				if (stdout) {
+				if (stdout.toString('utf8').length > 0) {
 					await message.react('✔');
 					sendJS(message.channel, `STDOUT : \n\n${stdout}`);
 				}
 
-				if (stderr) {
+				if (stderr.toString('utf8').length > 0) {
 					await message.react('❗');
 					sendJS(message.channel, `STDERR : \n\n${stderr}`);
 				}
