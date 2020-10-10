@@ -23,21 +23,16 @@ module.exports = class CommandStatsCommand extends Command {
 
 		await message.react(waitEmoji);
 
-		imgur
-			.uploadFile('./assets/images/graphMessages.png')
-			.then(json => {
-				const embed = new MessageEmbed();
-				embed.setFooter(client.user.username, client.user.displayAvatarURL());
-				embed.setTitle("Statistiques sur l'utilisation du bot.");
-				embed.setImage(json.data.link);
-				embed.setColor('#4b5afd');
-				embed.setTimestamp();
+		imgur.uploadFile('./assets/images/graphMessages.png').then(json => {
+			const embed = new MessageEmbed();
+			embed.setFooter(client.user.username, client.user.displayAvatarURL());
+			embed.setTitle("Statistiques sur l'utilisation du bot.");
+			embed.setImage(json.data.link);
+			embed.setColor('#4b5afd');
+			embed.setTimestamp();
 
-				super.send(embed);
-				message.reactions.cache.find(reaction => reaction.emoji === waitEmoji).users.remove(message.client.user.id);
-			})
-			.catch(err => {
-				if (err) console.error(err);
-			});
+			super.send(embed);
+			message.reactions.cache.find(reaction => reaction.emoji === waitEmoji).users.remove(message.client.user.id);
+		});
 	}
 };
