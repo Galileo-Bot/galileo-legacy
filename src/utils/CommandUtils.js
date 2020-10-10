@@ -66,7 +66,7 @@ function processCommandFail(fail, message, command) {
 		const {cooldown} = require('../events/message.js');
 		const cooldownCommand = cooldown.get(message.author.id).find(c => c.command === command.name);
 
-		return message.channel?.send(`Veuillez attendre encore **${((cooldownCommand.releasingAt.getTime() - Date.now()) / 1000).toFixed(2)}** secondes pour ré-effectuer la commande.`);
+		message.channel?.send(`Veuillez attendre encore **${((cooldownCommand.releasingAt.getTime() - Date.now()) / 1000).toFixed(2)}** secondes pour ré-effectuer la commande.`);
 	}
 }
 
@@ -131,5 +131,4 @@ module.exports = {
 	processCommandFail,
 	tryDeleteMessage,
 	verifyCommand,
-	verifyPermissionsFromCommand,
 };
