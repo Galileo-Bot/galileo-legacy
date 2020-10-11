@@ -87,13 +87,13 @@ module.exports = class EvalCommand extends Command {
 		});
 	}
 
-	static listKeys(object) {
+	static listKeys(channel, object) {
 		if (EvalCommand.log) EvalCommand.functionsPassages.push('listKeys');
 		if (typeof object !== 'object') return EvalCommand.sendJS(`ConvertError : ${object} is not an object.`);
-		return EvalCommand.sendJS(Object.keys(object).sort().join('\n'));
+		return EvalCommand.sendJS(channel, Object.keys(object).sort().join('\n'));
 	}
 
-	static listProps(object, lang = 'js') {
+	static listProps(channel, object, lang = 'js') {
 		if (EvalCommand.log) EvalCommand.functionsPassages.push('listProps');
 		let toSend = '';
 		for (const key of Object.getOwnPropertyNames(object).sort()) {
@@ -106,7 +106,7 @@ module.exports = class EvalCommand extends Command {
 			toSend += `${key} = ${value} (${classOfObject})\n`;
 		}
 
-		return EvalCommand.sendMarkdown(toSend, lang);
+		return EvalCommand.sendMarkdown(channel, toSend, lang);
 	}
 
 	static logFunctionsPassages() {
@@ -262,16 +262,16 @@ module.exports = class EvalCommand extends Command {
 			return EvalCommand.sendBig(channel, text, markdown);
 		}
 
-		function delMsg(text) {
+		function delMsg() {
 			return EvalCommand.del(guild, message);
 		}
 
-		function del(text) {
+		function del() {
 			return EvalCommand.del(guild, message);
 		}
 
-		function stringify(object) {
-			return EvalCommand.stringify(object);
+		function stringify(object, depth) {
+			return EvalCommand.stringify(channel, object, depth);
 		}
 
 		function listProps(object, lang) {
@@ -311,7 +311,7 @@ module.exports = class EvalCommand extends Command {
 				'stringify',
 				'verifyText',
 			];
-			return EvalCommand.sendJS(functions.sort().join('\n'));
+			return EvalCommand.sendJS(channel, functions.sort().join('\n'));
 		}
 
 		try {
