@@ -59,7 +59,8 @@
 		"start": "npm run start:prod",
 		"start:prod": "node --trace-warnings .",
 		"start:canary": "node --trace-warnings . --canary",
-		"prettier": "prettier ./ --write"
+		"prettier": "prettier ./ --write",
+		"pull": "git fetch && git stash && git pull origin master && git stash pop"
 	},
 	"engines": {
 		"node": ">=14.0.0"
