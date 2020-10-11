@@ -1,5 +1,5 @@
 const {formatWithRange} = require('../utils/FormatUtils.js');
-const {CommandManager} = require('../entities/CommandManager.js');
+const CommandManager = require('../entities/CommandManager.js');
 const Logger = require('../utils/Logger.js');
 const Event = require('../entities/Event.js');
 const {getPrefixFromMessage, sendLogMessage} = require('../utils/Utils.js');
@@ -20,24 +20,25 @@ module.exports = class RateLimitEvent extends Event {
 	 */
 	async run(client, rateLimitInfo) {
 		await super.run();
+		if (rateLimitInfo.timeout < 5000) return;
 
 		Logger.warn(`RateLimit : ${rateLimitInfo.path}`);
-		const routes = rateLimitInfo.route.split('/');
+		const routes = rateLimitInfo.path.split(/\//g).filter(i => i);
 		const channel = client.channels.cache.get(routes[1]) ?? null;
 		const message = (await channel?.fetch())?.messages.cache.get(routes[3]) ?? null;
 
-		const informations = message ? `[Message](${(await channel.fetch()).messages.cache.get(message).url})\nChannel : ${channel.name}(\`${channel.id}\`)` : null;
+		const informations = message ? `[Message](${message.url})\nChannel : ${channel}\`#${channel.name}\`(\`${channel.id}\`)` : null;
 
 		const embed = new MessageEmbed();
 		embed.setTimestamp();
 		embed.setAuthor(`Rate limit :`);
-		embed.setDescription(`Le bot est en rate limit sur la route : \`\`\`js${rateLimitInfo.route}\`\`\`\nAvec le chemin : \`\`\`js${decodeURI(rateLimitInfo.path)}\`\`\``);
+		embed.setDescription(`Le bot est en rate limit sur la route : \`\`\`js\n${rateLimitInfo.route}\`\`\`\nAvec le chemin : \`\`\`js\n${decodeURI(rateLimitInfo.path)}\`\`\``);
 		embed.addField('Temps à attendre : ', `**${rateLimitInfo.timeout}** ms`);
 		embed.setFooter(client.user.username, client.user.displayAvatarURL());
 
 		if (informations) {
 			embed.addField('Informations : ', informations);
-			embed.addField('Commande :', CommandManager.findCommand(message.content.slice(getPrefixFromMessage(message).length)).name);
+			embed.addField('Commande :', CommandManager.findCommand(message.content.slice(getPrefixFromMessage(message).length).trim().toLowerCase().split(/\s+?/gi)[0]).name);
 			embed.addField('Message :', formatWithRange(message.content, 1024));
 		}
 
