@@ -137,6 +137,7 @@ const channels = {
 		command: '636636369984159806',
 		mp: '636711377674829835',
 		removeServer: '636702929151328295',
+		rateLimit: '764567172839637008',
 	},
 	canaryChannels: {
 		bug: '638476019774259252',

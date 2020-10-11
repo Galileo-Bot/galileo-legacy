@@ -1,6 +1,5 @@
 const {exec} = require('child_process');
 const {tags} = require('../../constants.js');
-const {parseDate} = require('../../utils/FormatUtils.js');
 const {readJSON, writeInJSON} = require('../../utils/Utils.js');
 const Logger = require('../../utils/Logger.js');
 const Command = require('../../entities/Command.js');
