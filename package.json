@@ -59,7 +59,7 @@
 		"start": "npm run start:prod",
 		"start:prod": "node --trace-warnings .",
 		"start:canary": "node --trace-warnings . --canary",
-		"prettier": "prettier ./ --write",
+		"prettier": "prettier package.json index.d.ts README.md tsconfig.json package-lock.json ./ --write",
 		"pull": "git fetch && git stash && git pull origin master && git stash pop"
 	},
 	"engines": {
