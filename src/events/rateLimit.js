@@ -1,9 +1,8 @@
 const {formatWithRange} = require('../utils/FormatUtils.js');
-const {CommandManager} = require('../../index.js');
+const {CommandManager} = require('../entities/CommandManager.js');
 const Logger = require('../utils/Logger.js');
 const Event = require('../entities/Event.js');
-const {getPrefixFromMessage} = require('../utils/Utils.js');
-const {sendLogMessage} = require('../utils/Utils.js');
+const {getPrefixFromMessage, sendLogMessage} = require('../utils/Utils.js');
 const {MessageEmbed} = require('discord.js');
 
 module.exports = class RateLimitEvent extends Event {
