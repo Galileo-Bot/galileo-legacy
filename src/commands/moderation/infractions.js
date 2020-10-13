@@ -18,7 +18,7 @@ module.exports = class InfractionsCommand extends Command {
 		});
 	}
 
-	sortInfractionsWithPage(userData, pageNumber, user, embed) {
+	createPage(userData, pageNumber, user, embed) {
 		const pageMax = Math.floor(userData[this.message.guild.id][user.id].sanctions.length / 10) + 1;
 		let page = pageNumber;
 		let warns = 0;
@@ -109,6 +109,6 @@ module.exports = class InfractionsCommand extends Command {
 			return argError(message, this, "Veuillez mettre le numéro d'une sanction valide.");
 		}
 
-		return this.sortInfractionsWithPage(userData, page, person.user, embed);
+		return this.createPage(userData, page, person.user, embed);
 	}
 };

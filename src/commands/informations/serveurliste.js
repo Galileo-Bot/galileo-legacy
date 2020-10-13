@@ -13,34 +13,41 @@ module.exports = class ServeurListeCommand extends Command {
 		});
 	}
 
+	/**
+	 * Créé la page suivant le nombre.
+	 * @param {number} pageNumber
+	 * @returns {module:"discord.js".MessageEmbed}
+	 */
+	createPage(pageNumber) {
+		/**
+		 * @type {number}
+		 */
+		const pageNumberArg = getArg(this.message, 1, argTypes.number);
+		let page = pageNumber;
+		const embed = new MessageEmbed();
+		const pageMax = Math.ceil(this.client.guilds.cache.size / 20);
+		if (!pageNumber && (!pageNumberArg || pageNumberArg > pageMax || pageNumberArg < 1)) page = pageMax;
+
+		const embedDesc = this.client.guilds.cache
+			.sort((a, b) => b.memberCount - a.memberCount)
+			.map(guild => `**${guild.name}**\t|\t**${guild.memberCount}** membres (**${guild.members.cache.filter(m => m.user.bot).size}** bots)`)
+			.slice(pageNumber * 20 - 20, page * 20)
+			.join('\n');
+
+		embed.setAuthor(`Liste des serveurs de ${page * 20 - 19} à ${page * 20}`);
+		embed.setDescription(`Nombre de serveurs : ${this.client.guilds.cache.size}.\n\n${embedDesc}`);
+		embed.setFooter(`${this.client.user.username} • Page ${page}/${pageMax}`, this.client.user.displayAvatarURL());
+		embed.setColor('#4b5afd');
+		embed.setTimestamp();
+
+		return embed;
+	}
+
 	async run(client, message, args) {
-		super.run(client, message, args);
-
-		const pageNumberArg = getArg(message, 1, argTypes.number);
-
-		function sortGuildsWithPage(pageNumber) {
-			let page = pageNumber;
-			const embed = new MessageEmbed();
-			const pageMax = Math.ceil(client.guilds.cache.size / 20);
-			if (!pageNumber && (!pageNumberArg || pageNumberArg > pageMax || pageNumberArg < 1)) page = pageMax;
-
-			const embedDesc = client.guilds.cache
-				.sort((a, b) => b.memberCount - a.memberCount)
-				.map(guild => `**${guild.name}**\t|\t**${guild.memberCount}** membres (**${guild.members.cache.filter(m => m.user.bot).size}** bots)`)
-				.slice(pageNumber * 20 - 20, page * 20)
-				.join('\n');
-
-			embed.setAuthor(`Liste des serveurs de ${page * 20 - 19} à ${page * 20}`);
-			embed.setDescription(`Nombre de serveurs : ${client.guilds.cache.size}.\n\n${embedDesc}`);
-			embed.setFooter(`${client.user.username} • Page ${page}/${pageMax}`, client.user.displayAvatarURL());
-			embed.setColor('#4b5afd');
-			embed.setTimestamp();
-
-			return embed;
-		}
+		await super.run(client, message, args);
 
 		let p = args.length > 0 ? args[0] : 1;
-		const sl = await super.send(sortGuildsWithPage(p)).catch(err => console.error(err));
+		const sl = await super.send(this.createPage(p)).catch(err => console.error(err));
 		if (client.guilds.cache.size > 20) {
 			await sl.react('◀');
 			await sl.react('▶');
@@ -53,13 +60,13 @@ module.exports = class ServeurListeCommand extends Command {
 						p--;
 						if (p < 0 || !p) p = 0;
 						await sl.reactions.cache.find(r => r.emoji.name === reaction.emoji.name).users.remove(message.author.id);
-						return sl.edit(sortGuildsWithPage(p));
+						return sl.edit(this.createPage(p));
 
 					case '▶':
 						p++;
 						if (!p || p > Math.round(client.guilds.cache.size / 20)) p = 0;
 						await sl.reactions.cache.find(r => r.emoji.name === reaction.emoji.name).users.remove(message.author.id);
-						return sl.edit(sortGuildsWithPage(p));
+						return sl.edit(this.createPage(p));
 				}
 			});
 		}

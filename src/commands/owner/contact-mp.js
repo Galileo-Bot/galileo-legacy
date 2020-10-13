@@ -17,7 +17,7 @@ module.exports = class ContactMpCommand extends Command {
 	async run(client, message, args) {
 		await super.run(client, message, args);
 
-		const person = await getArg(message, 1, argTypes.user);
+		const person = getArg(message, 1, argTypes.user);
 		if (!person) return argError(message, this, 'Veuillez préciser une personne avec son ID/Mention/Nom.');
 		args.splice(0, 1);
 
@@ -27,6 +27,7 @@ module.exports = class ContactMpCommand extends Command {
 		await person.send(text, {
 			files: message.attachments.array(),
 		});
+
 		await super.send(`<a:valid:638509756188983296> Message bien envoyé en privé à ${person}.`);
 	}
 };
