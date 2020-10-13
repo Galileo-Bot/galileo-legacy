@@ -15,7 +15,7 @@ module.exports = class SupportCommand extends Command {
 	}
 
 	async run(client, message, args) {
-		super.run(client, message, args);
+		await super.run(client, message, args);
 
 		if (args.length === 0) return argError(message, this, 'Veuillez mettre du texte.');
 		const text = args.join(' ');
