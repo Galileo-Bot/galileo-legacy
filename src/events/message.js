@@ -1,4 +1,4 @@
-const {Collection, MessageEmbed} = require('discord.js');
+const {Collection, MessageEmbed, MessageFlags} = require('discord.js');
 const {tags} = require('../constants.js');
 const CommandManager = require('../entities/CommandManager.js');
 const Event = require('../entities/Event.js');
@@ -9,6 +9,7 @@ const {getPrefixFromMessage, isOwner, sendLogMessage, readJSON, writeInJSON} = r
 
 module.exports = class MessageEvent extends Event {
 	/**
+	 * Les cooldowns.
 	 * @type {Collection<module:"discord.js".Snowflake, CooldownCommand[]>}
 	 */
 	static cooldown = new Collection();
@@ -19,13 +20,18 @@ module.exports = class MessageEvent extends Event {
 		});
 	}
 
+	/**
+	 *
+	 * @param {GaliClient} client
+	 * @param {Message} message
+	 * @returns {Promise<*>}
+	 */
 	async run(client, message) {
 		await super.run(client);
-		if (message.author.bot || message.system) return;
+		if (message.author.bot || message.system || message.flags.has(MessageFlags.FLAGS.CROSSPOSTED)) return;
 
 		const prefix = getPrefixFromMessage(message);
 
-		// Si mp
 		if (!prefix) {
 			if (message.guild === null) {
 				const embed = new MessageEmbed();
@@ -42,7 +48,6 @@ module.exports = class MessageEvent extends Event {
 			return;
 		}
 
-		// If only prefix
 		if (message.content === prefix) {
 			return CommandManager.commands
 				.filter(command => command.tags.includes(tags.prefix_command))
@@ -57,7 +62,6 @@ module.exports = class MessageEvent extends Event {
 		const command = CommandManager.findCommand(args[0]);
 		args.shift();
 
-		// Command has been found.
 		if (command) {
 			this.logCommandExecution(message, command.name);
 			const fail = verifyCommand(command, message);
@@ -83,10 +87,7 @@ module.exports = class MessageEvent extends Event {
 	 * @returns {void}
 	 */
 	executeCommand(client, message, args, command) {
-		// Cooldowns
-		if (!MessageEvent.cooldown.has(message.author.id)) {
-			MessageEvent.cooldown.set(message.author.id, []);
-		}
+		if (!MessageEvent.cooldown.has(message.author.id)) MessageEvent.cooldown.set(message.author.id, []);
 
 		if (!MessageEvent.cooldown.get(message.author.id).find(c => c.command === command.name) && !isOwner(message.author.id)) {
 			const date = new Date(Date.now() + command.cooldown * 1000);
@@ -130,7 +131,9 @@ module.exports = class MessageEvent extends Event {
 	logCommandExecution(message, command) {
 		Logger.log(
 			`Commande '${command}' exécutée ${
-				message.guild ? `sur le serveur '${message.guild.name}' (${message.guild.id}) dans le salon '${message.channel.name}' (${message.channel.id})` : ' en privé '
+				message.guild
+					? `sur le serveur '${message.guild.name}' (${message.guild.id}) dans le salon '${message.channel.isText() && message.channel.name}' (${message.channel.id})`
+					: ' en privé '
 			} par ${message.author.tag} (${message.author.id})`,
 			'MessageEvent'
 		);

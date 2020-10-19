@@ -67,8 +67,7 @@ module.exports = class ReloadCommand extends Command {
 		for (const event of client.events.values()) {
 			const eventPath = `../../events/${event.name}.js`;
 			ReloadCommand.reloadFile(eventPath);
-			const eventRequired = new (require(eventPath))();
-			client.eventManager.unbind(eventRequired);
+			client.eventManager.unbind(event);
 		}
 
 		await m.edit('Tous les évènements ont été déchargés.');
