@@ -139,11 +139,8 @@ export enum Category {
 //#region types
 export type Message = DiscordMessage;
 export type GuildEventType = 'add' | 'remove';
-//#endregion types
 
-//#region interfaces
-
-export interface CommandOptions {
+export type CommandOptions = {
 	aliases?: string[];
 	category?: Category;
 	clientPermissions?: PermissionResolvable[];
@@ -153,39 +150,39 @@ export interface CommandOptions {
 	tags?: Tag[];
 	usage?: string;
 	userPermissions?: PermissionResolvable[];
-}
+};
 
-export interface MemeCommandOptions extends CommandOptions {
+export type MemeCommandOptions = CommandOptions & {
 	argsNumber: number;
 	argsMaxLength: number;
 	templateID: number | string;
 	font: string;
-}
+};
 
-export interface EventOptions {
+export type EventOptions = {
 	name: string;
 	once?: boolean;
-}
+};
 
-export interface GuildEventOptions extends EventOptions {
+export type GuildEventOptions = EventOptions & {
 	type: GuildEventType;
-}
+};
 
-export interface MissingPermissions {
+export type MissingPermissions = {
 	client: PermissionString[] | [];
 	user: PermissionString[] | [];
-}
+};
 
-export interface CommandFail {
+export type CommandFail = {
 	missingPermissions: MissingPermissions;
 	tags: Tag[];
 	cooldown: Snowflake | null;
 	isFailed: boolean;
-}
+};
 
-export interface CooldownCommand {
+export type CooldownCommand = {
 	command: string;
 	releasingAt: Date;
-}
+};
 
-//#endregion interfaces
+//#endregion types
