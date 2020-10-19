@@ -24,9 +24,7 @@ module.exports = class BugsCommand extends Command {
 		let description;
 		if (bugNumber) {
 			const bug = messages.find(msg => msg.number === bugNumber);
-			if (!bug) {
-				return this.getBugOrBugs(null, messages, embed);
-			}
+			if (!bug) return this.getBugOrBugs(null, messages, embed);
 
 			description = bug.content;
 			embed.setTitle(`Informations sur le bug numéro ${bug.number}:`);

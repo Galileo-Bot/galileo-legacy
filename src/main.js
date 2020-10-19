@@ -17,9 +17,3 @@ client.commandManager.loadCommands('commands');
 client.login(isCanary ? tokens.canary : tokens.prod);
 
 module.exports.client = client;
-
-/* todo :
- Fixer la commande `citer` qui ne trouve parfois pas les messages.
- Fixer la commande help qui renvoie parfois une erreur.
- Fixer les intents.
- */
