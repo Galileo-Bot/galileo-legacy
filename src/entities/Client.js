@@ -2,9 +2,6 @@ const {Client} = require('discord.js');
 const CommandManager = require('./CommandManager.js');
 const EventManager = require('./EventManager.js');
 
-/**
- * @module GaliClient
- */
 module.exports = class GaliClient extends Client {
 	commandManager;
 	commands;
@@ -15,7 +12,7 @@ module.exports = class GaliClient extends Client {
 		super({
 			messageCacheLifetime: 60 * 20,
 			messageSweepInterval: 60 * 5,
-			// ! This will be reactived once we reach 100 guilds :
+			// ! todo This will be reactived once we reach 100 guilds :
 			/*
 			ws: isCanary
 				? {}

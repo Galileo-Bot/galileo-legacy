@@ -48,7 +48,7 @@ module.exports = class Command {
 		embed.setAuthor(`La commande ${this.name} a été exécutée :`, message.author.displayAvatarURL());
 		embed.addField(
 			'Informations :',
-			`Envoyé ${message.guild ? `sur : **${message.guild?.name}** (\`${message.guild?.id}\`)\nDans : ${message.channel} (\`${message.channel.id}\`)` : 'en privé'}\nEnvoyé par : ${
+			`Envoyé ${message.guild ? `sur : **${message.guild.name}** (\`${message.guild.id}\`)\nDans : ${message.channel} (\`${message.channel.id}\`)` : 'en privé'}\nEnvoyé par : ${
 				message.author
 			} (\`${message.author.id}\`)`
 		);
@@ -65,12 +65,11 @@ module.exports = class Command {
 
 	/**
 	 * Envoie un message.
-	 * @param {StringResolvable|APIMessage} [content=''] - Le contenu à envoyer.
-	 * @param {MessageOptions|MessageAdditions} [options={}] - Les options à fournir.
+	 * @param {StringResolvable | APIMessage} [content=''] - Le contenu à envoyer.
+	 * @param {MessageOptions | MessageAdditions} [options={}] - Les options à fournir.
 	 * @returns {Promise<Message>} - Le résultat du message.
 	 */
 	async send(content, options) {
-		// Est censé virer les mentions everyone en texte.
 		if (
 			this.message.guild &&
 			!this.message.guild?.members.cache
