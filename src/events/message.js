@@ -21,10 +21,10 @@ module.exports = class MessageEvent extends Event {
 	}
 
 	/**
-	 *
-	 * @param {GaliClient} client
-	 * @param {Message} message
-	 * @returns {Promise<*>}
+	 * La méthode exécutée quand un message est envoyé n'importe où.
+	 * @param {GaliClient} client - Le client.
+	 * @param {Message} message - Le message.
+	 * @returns {void}
 	 */
 	async run(client, message) {
 		await super.run(client);

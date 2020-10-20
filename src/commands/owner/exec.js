@@ -37,12 +37,12 @@ module.exports = class ExecCommand extends SlowCommand {
 
 				if (stdout.toString('utf8').length > 0) {
 					await message.react('✔');
-					sendJS(message.channel, `STDOUT : \n\n${stdout}`);
+					sendJS(message.channel, `STDOUT : \n\n${stdout.toString('utf8')}`);
 				}
 
 				if (stderr.toString('utf8').length > 0) {
 					await message.react('❗');
-					sendJS(message.channel, `STDERR : \n\n${stderr}`);
+					sendJS(message.channel, `STDERR : \n\n${stderr.toString('utf8')}`);
 				}
 			}
 		);
