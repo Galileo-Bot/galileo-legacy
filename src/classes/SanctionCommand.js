@@ -54,7 +54,7 @@ module.exports = class SanctionCommand extends Command {
 			case: this.userData.sanctionsLastNumber,
 		});
 		this.userData.sanctionsLastNumber++;
-		if (!writeInJSON('./assets/jsons/userData.json', this.userData)) {
+		if (!writeInJSON('./assets/jsons/userdata.json', this.userData)) {
 			return runError(this.message, this, `Tentative d'écriture dans le fichier './assets/jsons/userdata.json', le fichier n'a pas été trouvé.`);
 		}
 

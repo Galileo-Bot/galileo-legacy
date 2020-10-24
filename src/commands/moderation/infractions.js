@@ -1,5 +1,6 @@
 const {MessageEmbed} = require('discord.js');
 const Command = require('../../entities/Command.js');
+const {runError} = require('../../utils/Errors.js');
 const {readJSON} = require('../../utils/Utils.js');
 const {argTypes, tags} = require('../../constants.js');
 const {getArg, getArgWithContent} = require('../../utils/ArgUtils.js');
@@ -63,7 +64,7 @@ module.exports = class InfractionsCommand extends Command {
 			userData[message.guild.id][person.user.id] = {
 				sanctions: [],
 			};
-			writeInJSON('./assets/jsons/userdata.json', userData);
+			this.writeData(userData);
 		}
 
 		if (args[1] === 'supprimer') {
@@ -110,5 +111,9 @@ module.exports = class InfractionsCommand extends Command {
 		}
 
 		return this.createPage(userData, page, person.user, embed);
+	}
+
+	writeData(userData) {
+		if (!writeInJSON('./assets/jsons/userdata.json', userData)) runError(this.message, this, "Tentative d'écriture dans le fichier './assets/jsons/userdata.json', le fichier n'a pas été trouvé.");
 	}
 };

@@ -25,11 +25,10 @@ module.exports = class ReadyEvent extends Event {
 
 	async run(client) {
 		await super.run(client);
-		// Status
+
 		this.setRandomPresence();
 		setInterval(() => this.setRandomPresence(), 10 * 1000);
 
-		// REBOOT
 		const config = readJSON('./assets/jsons/config.json');
 		if (config.statut === 'reboot') {
 			if (client.channels.cache.has(config.cacheChannel)) client.channels.cache.get(config.cacheChannel).send('Relancement du bot fini.');
@@ -52,7 +51,6 @@ module.exports = class ReadyEvent extends Event {
 		config.dateUpdate = parseDate('dd/MM/yyyy');
 		writeInJSON('./assets/jsons/config.json', config);
 
-		// Logging
 		Logger.info(`${client.user.username} (${client.user.id}) Est allumé ! Nombre de serveurs : ${client.guilds.cache.size}.`, 'ReadyEvent');
 
 		this.logInfosOfBot();
