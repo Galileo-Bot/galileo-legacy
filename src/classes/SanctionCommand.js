@@ -1,4 +1,5 @@
 const Command = require('../entities/Command.js');
+const {runError} = require('../utils/Errors.js');
 const {argTypes} = require('../constants.js');
 const {readJSON} = require('../utils/Utils.js');
 const {getArg} = require('../utils/ArgUtils.js');
@@ -53,7 +54,9 @@ module.exports = class SanctionCommand extends Command {
 			case: this.userData.sanctionsLastNumber,
 		});
 		this.userData.sanctionsLastNumber++;
-		writeInJSON('./assets/jsons/userData.json', this.userData);
+		if (!writeInJSON('./assets/jsons/userData.json', this.userData)) {
+			return runError(this.message, this, `Tentative d'écriture dans le fichier './assets/jsons/userdata.json', le fichier n'a pas été trouvé.`);
+		}
 
 		const embed = new MessageEmbed();
 		embed.setTimestamp();
