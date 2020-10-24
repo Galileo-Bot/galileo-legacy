@@ -46,20 +46,23 @@ function getKeyByValue(object, value) {
  * Sauvegarde un objet dans un JSON.
  * @param {string} path - Chemin du JSON.
  * @param {object} content - Contenu du JSON.
- * @returns {void}
+ * @returns {boolean} - Whether the file has been succesfully write.
  */
 function writeInJSON(path, content) {
 	if (!fs.existsSync(path)) {
-		return Logger.warn(`Tentative d'écriture dans le fichier '${path}', le fichier n'a pas été trouvé.`, 'WriteInJSON');
+		Logger.warn(`Tentative d'écriture dans le fichier '${path}', le fichier n'a pas été trouvé.`, 'WriteInJSON');
+		return false;
 	}
 
 	if (content.size === 0 || JSON.stringify(content, null, 4).length === 0) {
-		return Logger.warn(`L'objet que vous avez essayé de sauvegarder dans '${path}' a un problème et est vide. Le processus a été abandonné.`, 'WriteInJSON');
+		Logger.warn(`L'objet que vous avez essayé de sauvegarder dans '${path}' a un problème et est vide. Le processus a été abandonné.`, 'WriteInJSON');
+		return false;
 	}
 
 	fs.writeFile(path, JSON.stringify(content, null, 4), err => {
-		if (err) return Error(`Erreur sur l'enregistrement du fichier !\n${err}`);
+		if (err) return Logger.error(`Erreur sur l'enregistrement du fichier !\n${err.stack}`);
 	});
+	return true;
 }
 
 /**
