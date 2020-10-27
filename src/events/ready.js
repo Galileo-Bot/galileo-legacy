@@ -54,11 +54,11 @@ module.exports = class ReadyEvent extends Event {
 		Logger.info(`${client.user.username} (${client.user.id}) Est allumé ! Nombre de serveurs : ${client.guilds.cache.size}.`, 'ReadyEvent');
 
 		this.logInfosOfBot();
-		this.updateCommandsStats();
+		this.updateCommandsStats(client);
 
 		setInterval(() => {
 			this.logInfosOfBot();
-			this.updateCommandsStats();
+			this.updateCommandsStats(client);
 		}, 20 * 60 * 1000);
 	}
 
@@ -81,17 +81,15 @@ module.exports = class ReadyEvent extends Event {
 	 * Met à jour le JSON contenant les utilisations de commandes.
 	 * @returns {void}
 	 */
-	updateCommandsStats() {
+	updateCommandsStats(client) {
 		const formattedDate = parseDate('dd/MM/yyyy');
-		const messages = readJSON('./assets/jsons/messages.json');
 
-		if (messages.today.length === 0) messages.today = formattedDate;
-		if (messages.today !== formattedDate) {
-			messages.today = formattedDate;
-			messages.stats.shift();
-			messages.stats.push(0);
+		if (!client.dbManager.messages.has('today') || client.dbManager.messages.get('today').length === 0) client.dbManager.messages.set('today', formattedDate);
+		if (!client.dbManager.messages.has('stats')) client.dbManager.messages.set('stats', new Array(30).fill(0));
+		if (client.dbManager.messages.get('today') !== formattedDate) {
+			client.dbManager.messages.set('today', formattedDate);
+			client.dbManager.messages.get('stats').shift();
+			client.dbManager.messages.get('stats').push(0);
 		}
-
-		writeInJSON('./assets/jsons/messages.json', messages);
 	}
 };

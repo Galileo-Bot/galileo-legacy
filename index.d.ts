@@ -3,6 +3,7 @@ import type Enmap from 'enmap';
 //#region classes
 
 export class GaliClient extends Client {
+	public readonly dbManager: DBManager;
 	public commandManager: CommandManager;
 	public commands: Collection<string, Command>;
 	public eventManager: EventManager;
