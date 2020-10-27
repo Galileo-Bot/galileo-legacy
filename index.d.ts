@@ -1,5 +1,5 @@
 import type {Client, ClientEvents, Collection, Message as DiscordMessage, MessageAdditions, MessageOptions, PermissionResolvable, PermissionString, Snowflake, StringResolvable} from 'discord.js';
-
+import type Enmap from 'enmap';
 //#region classes
 
 export class GaliClient extends Client {
@@ -80,6 +80,11 @@ export class Logger {
 	public static error(message: any, title?: string): void;
 }
 
+export class DBManager {
+	public readonly messages: Enmap<string, string | Array<Number>>;
+
+	public readonly userInfos: Enmap<string, Object>;
+}
 //#endregion classes
 
 //#region enum
