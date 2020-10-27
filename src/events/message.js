@@ -109,11 +109,9 @@ module.exports = class MessageEvent extends Event {
 		command
 			.run(client, message, args)
 			.then(() => {
-				const messages = readJSON('./assets/jsons/messages.json');
-				messages.stats[messages.stats.length - 1]++;
-				writeInJSON('./assets/jsons/messages.json', messages);
-
-				// Error in command.
+				const stats = client.dbManager.messages.get('stats');
+				stats[stats.length - 1]++;
+				client.dbManager.messages.set('stats', stats);
 			})
 			.catch(error => {
 				Logger.warn(`Une erreur a eu lieu avec la commande ${command.name}, erreur : \n${error.stack}`, 'CommandExecution');
