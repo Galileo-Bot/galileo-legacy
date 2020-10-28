@@ -84,7 +84,7 @@ export class Logger {
 export class DBManager {
 	public readonly messages: Enmap<string, string | Array<Number>>;
 
-	public readonly userInfos: Enmap<string, Object>;
+	public readonly userInfos: Enmap<string, UserInfo>;
 }
 //#endregion classes
 
@@ -145,6 +145,18 @@ export enum Category {
 //#region types
 export type Message = DiscordMessage;
 export type GuildEventType = 'add' | 'remove';
+
+export type UserInfo = {
+	sanctions: Sanction[];
+};
+
+export type Sanction = {
+	type: 'warn' | 'ban' | 'mute';
+	duration?: number;
+	reason: string;
+	readonly case: number;
+	readonly date: number;
+};
 
 export type CommandOptions = {
 	aliases?: string[];
