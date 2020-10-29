@@ -68,8 +68,8 @@ function parseDate(pattern, date = new Date(), removeOneDay = false, options = {
 	let result = pattern;
 	result = result
 		.replace(/y{4}/g, parts.get('year'))
-		.replace(/M{2}/g, parts.get('month'))
 		.replace(/M{3}/g, new Intl.DateTimeFormat('fr', {month: 'long'}).format(date))
+		.replace(/M{2}/g, parts.get('month'))
 		.replace(/D{2}/g, parts.get('weekday'))
 		.replace(/[d|j]{2}/g, addMissingZeros(removeOneDay ? parts.get('day') - 1 : parts.get('day'), 2))
 		.replace(/h{2}/g, parts.get('hour'))

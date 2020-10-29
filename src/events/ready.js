@@ -48,9 +48,6 @@ module.exports = class ReadyEvent extends Event {
 			});
 		}
 
-		config.dateUpdate = parseDate('dd/MM/yyyy');
-		writeInJSON('./assets/jsons/config.json', config);
-
 		Logger.info(`${client.user.username} (${client.user.id}) Est allumé ! Nombre de serveurs : ${client.guilds.cache.size}.`, 'ReadyEvent');
 
 		this.logInfosOfBot();
