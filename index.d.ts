@@ -84,7 +84,7 @@ export class Logger {
 export class DBManager {
 	public readonly messages: Enmap<string, string | Array<Number>>;
 
-	public readonly userInfos: Enmap<string, UserInfo>;
+	public readonly userInfos: Enmap<string, {[k: string]: UserInfo}>;
 }
 //#endregion classes
 
