@@ -51,23 +51,6 @@ module.exports = class SanctionCommand extends Command {
 			`${person.user.id}.sanctions`
 		);
 
-		/*if (!this.userData[this.message.guild.id]?.hasOwnProperty(person.user.id) || !this.userData[this.message.guild.id][person.user.id].hasOwnProperty('sanctions')) {
-			this.userData[this.message.guild.id][person.user.id] = {
-				sanctions: [],
-			};
-		}
-
-		this.userData[this.message.guild.id][person.user.id].sanctions.push({
-			sanction: this.type,
-			reason,
-			date: Date.now(),
-			case: this.userData.sanctionsLastNumber,
-		});
-		this.userData.sanctionsLastNumber++;
-		if (!writeInJSON('./assets/jsons/userdata.json', this.userData)) {
-			return runError(this.message, this, `Tentative d'écriture dans le fichier './assets/jsons/userdata.json', le fichier n'a pas été trouvé.`);
-		}*/
-
 		const embed = new MessageEmbed();
 		embed.setTimestamp();
 		embed.setFooter(this.client.user.username, this.client.user.displayAvatarURL());
