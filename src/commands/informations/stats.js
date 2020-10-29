@@ -1,5 +1,4 @@
 const {MessageEmbed} = require('discord.js');
-const {exec} = require('child_process');
 const {parseRelativeDate} = require('../../utils/FormatUtils.js');
 const Command = require('../../entities/Command.js');
 const os = require('os');
@@ -117,18 +116,6 @@ module.exports = class StatsCommand extends Command {
 		);
 
 		return users.length;
-	}
-
-	/**
-	 * Récupère le dernier tag du repo.
-	 * @returns {string} - Le tag reçu.
-	 */
-	static getLatestTag() {
-		let release;
-		exec('git describe --tags `git rev-list --tags --max-count=1`', async (error, stdout) => {
-			release = stdout;
-		});
-		return release;
 	}
 
 	async run(client, message, args) {
