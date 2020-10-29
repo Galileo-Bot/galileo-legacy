@@ -1,5 +1,6 @@
 const {MessageEmbed} = require('discord.js');
 const Command = require('../../entities/Command.js');
+const SanctionCommand = require('../../classes/SanctionCommand.js');
 const {runError} = require('../../utils/Errors.js');
 const {readJSON} = require('../../utils/Utils.js');
 const {argTypes, tags} = require('../../constants.js');
@@ -16,27 +17,35 @@ module.exports = class InfractionsCommand extends Command {
 				'infractions <Nom/ID/Mention de membre> modifier <numéro de cas> <nouvelle raison>\ninfractions <Nom/ID/Mention de membre> supprimer <numéro de cas>\ninfractions <Nom/ID/Mention de membre> supprimer toutes\ninfractions [Nom/ID/Mention de membre] [page]',
 			tags: [tags.guild_only],
 			userPermissions: ['KICK_MEMBERS', 'BAN_MEMBERS'],
+			aliases: ['infraction'],
 		});
 	}
 
+	/**
+	 * Créé une page pour l'embed suivant les données de l'utilisateur.
+	 * @param {UserInfo} userData - Les données de l'utilisateur.
+	 * @param {number} pageNumber - La page par défaut à charger.
+	 * @param {module:"discord.js".User} user - L'utilisateur.
+	 * @param {module:"discord.js".MessageEmbed} embed - L'embed.
+	 */
 	createPage(userData, pageNumber, user, embed) {
-		const pageMax = Math.floor(userData[this.message.guild.id][user.id].sanctions.length / 10) + 1;
-		let page = pageNumber;
+		const pageMax = Math.floor(userData.sanctions.length / 10) + 1;
+		let page = pageNumber ?? 0;
 		let warns = 0;
 		let bans = 0;
 		let kicks = 0;
 		let mutes = 0;
 
-		if (this.args[2] > pageMax || this.args[2] < 1 || !parseInt(this.args[2])) page = pageMax;
+		if (this.args[2] > pageMax || this.args[2] < 1 || !Number.parseInt(this.args[2])) page = pageMax;
 
-		const embedDesc = userData[this.message.guild.id][user.id].sanctions
-			.map(({case: caseNumber, reason, sanction: sanctionType}) => {
-				if (sanctionType === 'warn') warns++;
-				else if (['ban', 'tempban'].includes(sanctionType)) bans++;
-				else if (sanctionType === 'kick') kicks++;
-				else if (['tempmute', 'mute'].includes(sanctionType)) mutes++;
+		const embedDesc = userData.sanctions
+			.map(({case: caseNumber, reason, type}) => {
+				if (type === 'warn') warns++;
+				else if (['ban', 'tempban'].includes(type)) bans++;
+				else if (type === 'kick') kicks++;
+				else if (['tempmute', 'mute'].includes(type)) mutes++;
 
-				return `**cas ${caseNumber}** |** __${sanctionType}__**\t|\t${reason}`;
+				return `**cas ${caseNumber}** |** __${type}__**\t|\t${reason}`;
 			})
 			.slice(page * 10 - 10, page * 10)
 			.join('\n');
@@ -58,59 +67,84 @@ module.exports = class InfractionsCommand extends Command {
 		embed.setFooter(client.user.username, client.user.displayAvatarURL());
 		embed.setColor('#4b5afd');
 
-		const page = args.length > 2 ? args[2] : 0;
+		const page = getArg(message, 1, argTypes.number);
 
-		if (!userData[message.guild.id].hasOwnProperty(person.user.id) || !userData[message.guild.id][person.user.id].hasOwnProperty('sanctions')) {
+		SanctionCommand.registerUser(this.client, this.message, person);
+
+		/*if (!userData[message.guild.id].hasOwnProperty(person.user.id) || !userData[message.guild.id][person.user.id].hasOwnProperty('sanctions')) {
 			userData[message.guild.id][person.user.id] = {
 				sanctions: [],
 			};
 			this.writeData(userData);
-		}
+		}*/
 
 		if (args[1] === 'supprimer') {
-			if (args[2] === 'toutes' || !args[2]) {
-				if (userData[message.guild.id][person.user.id].sanctions.find(s => s.sanction === 'ban')) {
+			if (args[2] === 'toutes') {
+				if (
+					userData[message.guild.id][person.user.id].sanctions.find(s => s.sanction === 'ban') ||
+					this.client.dbManager.userInfos.get(message.guild.id, person.user.id).sanctions.find(s => s.type === 'ban')
+				) {
 					message.guild.members
 						.unban(person.user.id)
 						.catch(() => super.send('Une erreur a eu lieu dans le débanissement de ce membre, vérifiez que le bot ait la permission de bannir les membres.'));
 				}
 
-				userData[message.guild.id][person.user.id].sanctions = [];
-				writeInJSON('./assets/jsons/userdata.json', userData);
+				this.client.dbManager.userInfos.set(message.guild.id, [], `${person.user.id}.sanctions`);
+				/*userData[message.guild.id][person.user.id].sanctions = [];
+				writeInJSON('./assets/jsons/userdata.json', userData);*/
 				return super.send(`Toutes les sanctions de ${person.user.tag} ont été supprimées.`);
 			}
 
-			if (getArgWithContent(args[2], argTypes.number)) {
-				userData[message.guild.id][person.user.id].sanctions.forEach((sanction, index) => {
-					if (args[2] === sanction.case) {
-						if (sanction.sanction === 'ban') message.guild.members.unban(person.user.id);
-						//	if (sanction.sanction === 'mute' && servconfig[message.guild.id]['rolemute'] !== 'Aucun') person.roles.cache.remove(servconfig[message.guild.id]['rolemute']);
-						// todo ServeurInfo + mute
+			if (getArg(message, 3, argTypes.number) === null) {
+				return argError(message, this, "Veuillez mettre `toutes` ou le numéro d'une sanction valide.");
+			} else {
+				/*userData[message.guild.id][person.user.id].sanctions.forEach((sanction, index) => {
+				 if (args[2] === sanction.case) {
+				 if (sanction.sanction === 'ban') message.guild.members.unban(person.user.id);
+				 //	if (sanction.sanction === 'mute' && servconfig[message.guild.id]['rolemute'] !== 'Aucun') person.roles.cache.remove(servconfig[message.guild.id]['rolemute']);
+				 // todo ServeurInfo + mute
+				 
+				 userData[message.guild.id][person.user.id].sanctions.splice(index, 1);
+				 writeInJSON('./assets/jsons/userdata.json', userData);
+				 return super.send(`La sanction ${args[2]} a bien été supprimée. (${sanction.sanction})`);
+				 }
+				 return argError(message, this, `La sanction ${args[2]} n'a pas été trouvée ou n'est pas valide.`);
+				 });*/
 
-						userData[message.guild.id][person.user.id].sanctions.splice(index, 1);
-						writeInJSON('./assets/jsons/userdata.json', userData);
-						return super.send(`La sanction ${args[2]} a bien été supprimée. (${sanction.sanction})`);
-					}
-					return argError(message, this, `La sanction ${args[2]} n'a pas été trouvée ou n'est pas valide.`);
-				});
-			} else return argError(message, this, "Veuillez mettre `toutes` ou le numéro d'une sanction valide.");
+				const sanction = this.client.dbManager.userInfos.get(message.guild.id, person.user.id).sanctions.find(s => s.case.toString() === args[2]);
+				if (sanction) {
+					if (sanction.type === 'ban') message.guild.members.unban(person.user.id).catch(() => {});
+					this.client.dbManager.userInfos.remove(message.guild.id, s => s === sanction, `${person.user.id}.sanctions`);
+					return super.send(`La sanction ${args[2]} a bien été supprimée. \`(${sanction.type})\``);
+				} else return argError(message, this, `La sanction ${args[2]} n'a pas été trouvée ou n'est pas valide.`);
+			}
 		} else if (args[1] === 'modifier') {
-			if (parseInt(args[2])) {
-				userData[message.guild.id][person.user.id].sanctions.forEach(sanction => {
+			if (getArg(message, 3, argTypes.number) === null) {
+				return argError(message, this, "Veuillez mettre le numéro d'une sanction valide.");
+			} else {
+				/*userData[message.guild.id][person.user.id].sanctions.forEach(sanction => {
 					if (args[2] === sanction.case) {
 						if (args.length < 4) return argError(message, this, 'Veuillez mettre la nouvelle raison de cette sanction.');
-
+						
 						userData[message.guild.id][person.user.id].sanctions.find(sanction => sanction.case === args[2]).reason = args[3];
 						writeInJSON('./assets/jsons/userdata.json', userData);
-						return super.send(`La sanction ${args[2]} a bien été modifié. (${sanction.sanction})`);
+						return super.send(`La sanction ${args[2]} a bien été modifiée. (${sanction.sanction})`);
 					}
-				});
-			}
+				});*/
 
-			return argError(message, this, "Veuillez mettre le numéro d'une sanction valide.");
+				const sanction = client.dbManager.userInfos.get(message.guild.id, `${person.user.id}.sanctions`).find(s => s.case.toString() === args[2]);
+				if (sanction) {
+					if (args.length === 3) return argError(message, this, 'Veuillez mettre la nouvelle raison de cette sanction.');
+					const sanctions = client.dbManager.userInfos.get(message.guild.id, `${person.user.id}.sanctions`);
+					const reason = args.slice(3).join(' ');
+					sanctions.find(s => s.case.toString() === args[2]).reason = reason;
+					client.dbManager.userInfos.set(message.guild.id, sanctions, `${person.user.id}.sanctions`);
+					return super.send(`La sanction ${args[2]} a bien été modifiée en \`${reason}\`.\n\`(${sanction.type})\``);
+				} else return argError(message, this, `La sanction ${args[2]} n'a pas été trouvée ou n'est pas valide.`);
+			}
 		}
 
-		return this.createPage(userData, page, person.user, embed);
+		this.createPage(client.dbManager.userInfos.get(message.guild.id, person.user.id), page, person.user, embed);
 	}
 
 	writeData(userData) {

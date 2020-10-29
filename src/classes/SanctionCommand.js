@@ -1,10 +1,8 @@
 const Command = require('../entities/Command.js');
-const {runError} = require('../utils/Errors.js');
 const {argTypes} = require('../constants.js');
 const {readJSON} = require('../utils/Utils.js');
 const {getArg} = require('../utils/ArgUtils.js');
 const {argError} = require('../utils/Errors.js');
-const {writeInJSON} = require('../utils/Utils.js');
 const {tryDeleteMessage} = require('../utils/CommandUtils.js');
 const {MessageEmbed} = require('discord.js');
 
@@ -40,8 +38,20 @@ module.exports = class SanctionCommand extends Command {
 	async createSanction(person) {
 		let reason = 'Raison non spécifiée.';
 		if (this.args.length > 1) reason = this.args.slice(1, this.args.length).join(' ');
+		SanctionCommand.registerUser(this.client, this.message, person);
 
-		if (!this.userData[this.message.guild.id]?.hasOwnProperty(person.user.id) || !this.userData[this.message.guild.id][person.user.id].hasOwnProperty('sanctions')) {
+		this.client.dbManager.userInfos.push(
+			this.message.guild.id,
+			{
+				type: this.type,
+				reason,
+				date: Date.now(),
+				case: this.client.dbManager.userInfos.get(this.message.guild.id, person.user.id).sanctions.length + 1,
+			},
+			`${person.user.id}.sanctions`
+		);
+
+		/*if (!this.userData[this.message.guild.id]?.hasOwnProperty(person.user.id) || !this.userData[this.message.guild.id][person.user.id].hasOwnProperty('sanctions')) {
 			this.userData[this.message.guild.id][person.user.id] = {
 				sanctions: [],
 			};
@@ -56,21 +66,19 @@ module.exports = class SanctionCommand extends Command {
 		this.userData.sanctionsLastNumber++;
 		if (!writeInJSON('./assets/jsons/userdata.json', this.userData)) {
 			return runError(this.message, this, `Tentative d'écriture dans le fichier './assets/jsons/userdata.json', le fichier n'a pas été trouvé.`);
-		}
+		}*/
 
 		const embed = new MessageEmbed();
 		embed.setTimestamp();
 		embed.setFooter(this.client.user.username, this.client.user.displayAvatarURL());
-		embed.setTitle(`Bannissement (cas ${this.userData.sanctionsLastNumber - 1}) :`);
+		embed.setTitle(`Bannissement (sanction numéro ${this.client.dbManager.userInfos.get(this.message.guild.id, person.user.id).sanctions.length}) :`);
 		embed.setDescription(
 			`${this.type === 'ban' ? 'Utilisez la commande `infractions` pour dé-bannir la personne.\n\n' : ''}Membre : ${person}\nID : ${person.user.id}\nServeur : \`${this.message.guild.name}\``
 		);
 		embed.addField('Raison : ', reason);
 		embed.setColor('#4b5afd');
 
-		try {
-			await person.user.send(embed);
-		} catch (ignore) {}
+		person.user.send(embed).catch(() => {});
 
 		/* todo SERVCONFIG :
 		 if ( !servconfig.hasOwnProperty(message.guild.id) || !servconfig[message.guild.id].hasOwnProperty('sanctionchannel') || servconfig[message.guild.id].sanctionchannel === 'Aucun') {
@@ -83,6 +91,26 @@ module.exports = class SanctionCommand extends Command {
 		tryDeleteMessage(this.message);
 		await super.send(embed);
 		return reason;
+	}
+
+	/**
+	 * Enregistre un membre dans la DB.
+	 * @param {GaliClient} client - Le client.
+	 * @param {module:"discord.js".Message} message - Message
+	 * @param {module:"discord.js".GuildMember} person - Le membre.
+	 * @returns {void}
+	 */
+	static registerUser(client, message, person) {
+		if (!client.dbManager.userInfos.has(message.guild.id)) client.dbManager.userInfos.set(message.guild.id, {});
+		if (!client.dbManager.userInfos.has(message.guild.id, person.user.id)) {
+			client.dbManager.userInfos.set(
+				message.guild.id,
+				{
+					sanctions: [],
+				},
+				person.user.id
+			);
+		}
 	}
 
 	/**
