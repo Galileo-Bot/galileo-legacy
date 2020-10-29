@@ -29,7 +29,7 @@ function getArgWithContent(content, argType) {
 			break;
 
 		case argTypes.number:
-			result = Number.isNaN(Number(content)) ? null : Number(content);
+			result = Number.isNaN(Number.parseFloat(content)) ? null : Number.parseFloat(content);
 			break;
 
 		case argTypes.string:

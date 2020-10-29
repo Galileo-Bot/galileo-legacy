@@ -1,8 +1,9 @@
 import type {Client, ClientEvents, Collection, Message as DiscordMessage, MessageAdditions, MessageOptions, PermissionResolvable, PermissionString, Snowflake, StringResolvable} from 'discord.js';
-
+import type Enmap from 'enmap';
 //#region classes
 
 export class GaliClient extends Client {
+	public readonly dbManager: DBManager;
 	public commandManager: CommandManager;
 	public commands: Collection<string, Command>;
 	public eventManager: EventManager;
@@ -80,6 +81,11 @@ export class Logger {
 	public static error(message: any, title?: string): void;
 }
 
+export class DBManager {
+	public readonly messages: Enmap<string, string | Array<Number>>;
+
+	public readonly userInfos: Enmap<string, {[k: string]: UserInfo}>;
+}
 //#endregion classes
 
 //#region enum
@@ -139,6 +145,18 @@ export enum Category {
 //#region types
 export type Message = DiscordMessage;
 export type GuildEventType = 'add' | 'remove';
+
+export type UserInfo = {
+	sanctions: Sanction[];
+};
+
+export type Sanction = {
+	type: 'warn' | 'ban' | 'mute';
+	duration?: number;
+	reason: string;
+	readonly case: number;
+	readonly date: number;
+};
 
 export type CommandOptions = {
 	aliases?: string[];
