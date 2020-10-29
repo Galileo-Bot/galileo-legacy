@@ -1,9 +1,8 @@
 const {MessageEmbed} = require('discord.js');
-const {parseRelativeDate} = require('../../utils/FormatUtils.js');
 const Command = require('../../entities/Command.js');
 const os = require('os');
-const {dateUpdate} = require('../../assets/jsons/config.json');
-const {version} = require('../../../package.json');
+const {parseDate, parseRelativeDate} = require('../../utils/FormatUtils.js');
+const {Octokit} = require('@octokit/core');
 
 module.exports = class StatsCommand extends Command {
 	constructor() {
@@ -121,6 +120,14 @@ module.exports = class StatsCommand extends Command {
 	async run(client, message, args) {
 		await super.run(client, message, args);
 
+		const octokit = new Octokit({
+			auth: '06defe331eba34a2d747b5ba8950921b616d2961',
+		});
+		const lastRelease = await octokit.request('GET /repos/{owner}/{repo}/releases/latest', {
+			owner: 'Galileo-Bot',
+			repo: 'galileo',
+		});
+
 		const embed = new MessageEmbed();
 		embed.setColor('DARKER_GREY');
 		embed.setThumbnail(client.user.displayAvatarURL());
@@ -135,8 +142,8 @@ module.exports = class StatsCommand extends Command {
 		);
 		embed.addField('<:cpu:736643846812729446> Utilisation du CPU :', `${(await StatsCommand.getCPUUsage()).percentage.toFixed(2)}%`);
 		embed.addField('🕦 Temps de fonctionnement', parseRelativeDate('dd jours hh heures mm minutes ss secondes', new Date(client.uptime)));
-		embed.addField('<:bot:539121198634762261> Version du bot :', version, true);
-		embed.addField("📆 Date de l'update :", dateUpdate, true);
+		embed.addField('<:bot:539121198634762261> Version du bot :', lastRelease.data.name, true);
+		embed.addField("📆 Date de l'update :", parseDate('jj MMM yyyy', new Date(lastRelease.data.published_at)), true);
 
 		await super.send(embed);
 	}
