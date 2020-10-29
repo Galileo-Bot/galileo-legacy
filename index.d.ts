@@ -82,7 +82,7 @@ export class Logger {
 }
 
 export class DBManager {
-	public readonly messages: Enmap<string, string | Array<Number>>;
+	public readonly messages: Enmap<string, string | number[]>;
 
 	public readonly userInfos: Enmap<string, {[k: string]: UserInfo}>;
 }
