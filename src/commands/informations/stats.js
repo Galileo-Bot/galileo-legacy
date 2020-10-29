@@ -1,8 +1,7 @@
 const {MessageEmbed} = require('discord.js');
-const {parseRelativeDate} = require('../../utils/FormatUtils.js');
 const Command = require('../../entities/Command.js');
 const os = require('os');
-const {parseDate} = require('../../utils/FormatUtils.js');
+const {parseDate, parseRelativeDate} = require('../../utils/FormatUtils.js');
 const {Octokit} = require('@octokit/core');
 
 module.exports = class StatsCommand extends Command {
