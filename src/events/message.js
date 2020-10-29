@@ -5,7 +5,7 @@ const Event = require('../entities/Event.js');
 const {verifyCommand, processCommandFail} = require('../utils/CommandUtils.js');
 const {runError} = require('../utils/Errors.js');
 const Logger = require('../utils/Logger.js');
-const {getPrefixFromMessage, isOwner, sendLogMessage, readJSON, writeInJSON} = require('../utils/Utils.js');
+const {getPrefixFromMessage, isOwner, sendLogMessage} = require('../utils/Utils.js');
 
 module.exports = class MessageEvent extends Event {
 	/**

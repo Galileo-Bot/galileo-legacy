@@ -1,12 +1,10 @@
 const {MessageEmbed} = require('discord.js');
 const Command = require('../../entities/Command.js');
 const SanctionCommand = require('../../classes/SanctionCommand.js');
-const {runError} = require('../../utils/Errors.js');
 const {readJSON} = require('../../utils/Utils.js');
 const {argTypes, tags} = require('../../constants.js');
-const {getArg, getArgWithContent} = require('../../utils/ArgUtils.js');
+const {getArg} = require('../../utils/ArgUtils.js');
 const {argError} = require('../../utils/Errors.js');
-const {writeInJSON} = require('../../utils/Utils.js');
 
 module.exports = class InfractionsCommand extends Command {
 	constructor() {
@@ -116,9 +114,5 @@ module.exports = class InfractionsCommand extends Command {
 		}
 
 		this.createPage(client.dbManager.userInfos.get(message.guild.id, person.user.id), page, person.user, embed);
-	}
-
-	writeData(userData) {
-		if (!writeInJSON('./assets/jsons/userdata.json', userData)) runError(this.message, this, "Tentative d'écriture dans le fichier './assets/jsons/userdata.json', le fichier n'a pas été trouvé.");
 	}
 };
