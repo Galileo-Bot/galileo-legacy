@@ -1,11 +1,10 @@
 const {MessageEmbed, Util} = require('discord.js');
-const {argTypes} = require('../../constants.js');
+const {argTypes, userFlags} = require('../../constants.js');
 const {getArg} = require('../../utils/ArgUtils.js');
 const {tryDeleteMessage} = require('../../utils/CommandUtils.js');
 const {formatDate} = require('../../utils/FormatUtils.js');
 const Command = require('../../entities/Command.js');
 const {isOwner} = require('../../utils/Utils.js');
-const {userFlags} = require('../../constants.js');
 
 function getActivityTypeInFrench(type) {
 	let result;
