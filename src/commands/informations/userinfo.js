@@ -2,7 +2,7 @@ const {MessageEmbed, Util} = require('discord.js');
 const {argTypes} = require('../../constants.js');
 const {getArg} = require('../../utils/ArgUtils.js');
 const {tryDeleteMessage} = require('../../utils/CommandUtils.js');
-const {parseDate} = require('../../utils/FormatUtils.js');
+const {formatDate} = require('../../utils/FormatUtils.js');
 const Command = require('../../entities/Command.js');
 const {isOwner} = require('../../utils/Utils.js');
 const {userFlags} = require('../../constants.js');
@@ -115,9 +115,9 @@ module.exports = class UserInfoCommand extends Command {
 					(person.roles.cache.size / message.guild.roles.cache.size) * 100
 				)}%** des rôles du serveur)`
 			);
-			embed.addField("🛬 Date d'arrivée sur le serveur :", parseDate('dd/MM/yyyy hh:mm', person.joinedAt), true);
+			embed.addField("🛬 Date d'arrivée sur le serveur :", formatDate('dd/MM/yyyy hh:mm', person.joinedAt), true);
 		}
-		embed.addField('🚩 Date de création du compte :', parseDate('dd/MM/yyyy hh:mm', person.user.createdAt), true);
+		embed.addField('🚩 Date de création du compte :', formatDate('dd/MM/yyyy hh:mm', person.user.createdAt), true);
 		if (!person.user.bot) embed.addField('<:richtext:635163364875698215> Permissions sur le bot :', permission, true);
 		embed.addField(`${statusEmoji} Statut :`, status, true);
 

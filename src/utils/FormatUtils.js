@@ -39,11 +39,11 @@ function addMissingZeros(number, size) {
  * @param {string} pattern - Le patterne demandé.
  * @param {Date} [date = new Date()] - La date.
  * @param {boolean} [removeOneDay = false] - Si on doit supprimer un jour ({@param options
-@see parseRelativeDate}).
+@see formatRelativeDate}).
  * @param {Intl.DateTimeFormatOptions} [options = {}] - Les options pour Intl.
  * @returns {string} - La date reformatté.
  */
-function parseDate(pattern, date = new Date(), removeOneDay = false, options = {}) {
+function formatDate(pattern, date = new Date(), removeOneDay = false, options = {}) {
 	const settings = {
 		year: 'numeric',
 		month: '2-digit',
@@ -82,17 +82,17 @@ function parseDate(pattern, date = new Date(), removeOneDay = false, options = {
 }
 
 /**
- * Fait la même chose que {@link parseDate} mais avec une date relative.
- * @see parseDate
+ * Fait la même chose que {@link formatDate} mais avec une date relative.
+ * @see formatDate
  *
  * @param {string} pattern - Le patterne.
  * @param {Date} [relativeDate = new Date()] - La date relative.
  * @returns {string} - La date relative reformatée.
  */
-function parseRelativeDate(pattern, relativeDate = new Date()) {
+function formatRelativeDate(pattern, relativeDate = new Date()) {
 	relativeDate.setFullYear(relativeDate.getFullYear() - 1900);
 	relativeDate.setHours(relativeDate.getHours() - 1);
-	return parseDate(pattern, relativeDate, true);
+	return formatDate(pattern, relativeDate, true);
 }
 
 /**
@@ -150,8 +150,8 @@ function formatByteSize(bytes) {
 
 module.exports = {
 	getTime,
-	parseDate,
+	formatDate,
 	formatWithRange,
-	parseRelativeDate,
+	formatRelativeDate,
 	formatByteSize,
 };
