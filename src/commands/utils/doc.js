@@ -1,5 +1,4 @@
 const {MessageEmbed} = require('discord.js');
-const {readJSON} = require('../../utils/Utils.js');
 const {argError} = require('../../utils/Errors.js');
 const Command = require('../../entities/Command.js');
 
@@ -15,7 +14,7 @@ module.exports = class DocCommand extends Command {
 	async run(client, message, args) {
 		super.run(client, message, args);
 
-		const {languages} = readJSON('./assets/jsons/commandConstants.json');
+		const {languages} = require('../../assets/jsons/commandConstants.json');
 		const embed = new MessageEmbed();
 		embed.setTimestamp();
 		embed.setFooter(client.user.username, client.user.displayAvatarURL());
