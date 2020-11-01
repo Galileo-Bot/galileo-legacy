@@ -21,6 +21,9 @@ module.exports = class ClearCommand extends Command {
 		super.run(client, message, args);
 
 		const person = getArg(message, 2, argTypes.member);
+		/**
+		 * @type {number}
+		 */
 		let nbr = getArg(message, 1, argTypes.number);
 
 		if (!nbr) return argError(message, this, 'Veuillez mettre un nombre.');

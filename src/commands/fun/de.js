@@ -16,7 +16,10 @@ module.exports = class DeCommand extends Command {
 	async run(client, message, args) {
 		super.run(client, message, args);
 
-		let nbrMax = getArg(message, 1, argTypes.number) || 6;
+		/**
+		 * @type {number}
+		 */
+		let nbrMax = getArg(message, 1, argTypes.number) ?? 6;
 		let nbrMin = 1;
 
 		if (args.length === 2) {
