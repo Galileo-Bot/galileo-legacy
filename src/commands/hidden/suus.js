@@ -1,5 +1,5 @@
 const {MessageEmbed} = require('discord.js');
-const {random, readJSON} = require('../../utils/Utils.js');
+const {random} = require('../../utils/Utils.js');
 const Command = require('../../entities/Command.js');
 
 module.exports = class SuusCommand extends Command {
@@ -14,7 +14,7 @@ module.exports = class SuusCommand extends Command {
 	async run(client, message, args) {
 		await super.run(client, message, args);
 
-		const {sausages} = readJSON('./assets/jsons/commandConstants.json');
+		const {sausages} = require('../../assets/jsons/commandConstants.json');
 		const embed = new MessageEmbed();
 		embed.setTimestamp();
 		embed.setFooter(client.user.username, client.user.displayAvatarURL());

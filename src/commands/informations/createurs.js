@@ -1,5 +1,4 @@
 const {MessageEmbed} = require('discord.js');
-const {readJSON} = require('../../utils/Utils.js');
 const Command = require('../../entities/Command.js');
 
 module.exports = class CreateursCommand extends Command {
@@ -14,7 +13,7 @@ module.exports = class CreateursCommand extends Command {
 	async run(client, message, args) {
 		super.run(client, message, args);
 
-		const {creators} = readJSON('./assets/jsons/commandConstants.json');
+		const {creators} = require('../../assets/jsons/commandConstants.json');
 		const ayfri = client.users.resolve('386893236498857985');
 		const antow = client.users.resolve('216214448203890688');
 

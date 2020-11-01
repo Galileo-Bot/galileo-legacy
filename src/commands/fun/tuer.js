@@ -2,7 +2,7 @@ const {argTypes} = require('../../constants.js');
 const Command = require('../../entities/Command.js');
 const {getArg} = require('../../utils/ArgUtils.js');
 const {tryDeleteMessage} = require('../../utils/CommandUtils.js');
-const {random, readJSON} = require('../../utils/Utils.js');
+const {random} = require('../../utils/Utils.js');
 
 module.exports = class TuerCommand extends Command {
 	constructor() {
@@ -17,7 +17,7 @@ module.exports = class TuerCommand extends Command {
 	async run(client, message, args) {
 		await super.run(client, message, args);
 
-		const {killMethods} = readJSON('./assets/jsons/commandConstants.json');
+		const {killMethods} = require('../../assets/jsons/commandConstants.json');
 		const person = getArg(message, 1, argTypes.user) || args.join(' ') || message.author.username;
 		let sentence;
 

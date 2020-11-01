@@ -3,8 +3,7 @@ const Logger = require('../utils/Logger.js');
 const StatsCommand = require('../commands/informations/stats.js');
 const {formatDate} = require('../utils/FormatUtils.js');
 const {randomActivities} = require('../constants.js');
-const {random} = require('../utils/Utils.js');
-const {readJSON, writeInJSON} = require('../utils/Utils.js');
+const {random, readJSON} = require('../utils/Utils.js');
 
 module.exports = class ReadyEvent extends Event {
 	constructor() {
