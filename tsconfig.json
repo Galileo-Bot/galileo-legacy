@@ -4,12 +4,13 @@
 		"target": "ES2020",
 		"sourceMap": true,
 		"allowJs": true,
-		"checkJs": true
+		"checkJs": true,
+		"esModuleInterop": true
 	},
 	"files": ["index.d.ts"],
 	"ts-node": {
 		"compilerOptions": {
-			"types": ["node", "figlet", "node-fetch"],
+			"types": ["node", "figlet", "node-fetch", "enmap"],
 			"resolveJsonModule": true
 		}
 	},
