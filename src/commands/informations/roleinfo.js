@@ -1,12 +1,11 @@
 const {MessageEmbed} = require('discord.js');
 const imgur = require('imgur');
 const Jimp = require('jimp');
-const {argTypes, tags} = require('../../constants.js');
+const {argTypes, tags, permissions} = require('../../constants.js');
 const {getArg} = require('../../utils/ArgUtils.js');
 const {argError} = require('../../utils/Errors.js');
 const {formatDate} = require('../../utils/FormatUtils.js');
 const Command = require('../../entities/Command.js');
-const {permissions} = require('../../constants.js');
 
 module.exports = class RoleInfoCommand extends Command {
 	constructor() {

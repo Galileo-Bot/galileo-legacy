@@ -18,3 +18,5 @@ plt.plot(json.loads(data[1][1]), "#4b5afd")
 plt.ylabel('nombre de commandes utilisées')
 plt.xlabel('nombre de jours')
 plt.savefig(image)
+
+db.close()
