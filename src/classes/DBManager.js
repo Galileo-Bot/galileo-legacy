@@ -23,14 +23,18 @@ module.exports = class DBManager {
 	}
 
 	prepareDB() {
-		this.userInfos.defer.then(() => {
-			Logger.log('Base de données UserInfos prête.', 'DBManager');
+		this.userInfos.defer
+			.then(() => {
+				Logger.log('Base de données UserInfos prête.', 'DBManager');
 
-			this.messages.defer.then(() => {
-				Logger.log('Base de données Messages prête.', 'DBManager');
+				this.messages.defer
+					.then(() => {
+						Logger.log('Base de données Messages prête.', 'DBManager');
 
-				Logger.info('Les bases de données sont prêtes !', 'DBManager');
-			});
-		});
+						Logger.info('Les bases de données sont prêtes !', 'DBManager');
+					})
+					.catch(e => Logger.error(e, 'DBManager'));
+			})
+			.catch(e => Logger.error(e, 'DBManager'));
 	}
 };

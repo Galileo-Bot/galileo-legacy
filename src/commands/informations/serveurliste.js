@@ -1,3 +1,4 @@
+const Logger = require('../../utils/Logger.js');
 const {MessageEmbed} = require('discord.js');
 const {argTypes} = require('../../constants.js');
 const {getArg} = require('../../utils/ArgUtils.js');
@@ -47,7 +48,7 @@ module.exports = class ServeurListeCommand extends Command {
 		await super.run(client, message, args);
 
 		let p = args.length > 0 ? args[0] : 1;
-		const sl = await super.send(this.createPage(p)).catch(err => console.error(err));
+		const sl = await super.send(this.createPage(p)).catch(err => Logger.error(err));
 		if (client.guilds.cache.size > 20) {
 			await sl.react('◀');
 			await sl.react('▶');
