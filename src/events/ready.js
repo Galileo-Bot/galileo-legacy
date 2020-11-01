@@ -1,7 +1,7 @@
 const Event = require('../entities/Event.js');
 const Logger = require('../utils/Logger.js');
 const StatsCommand = require('../commands/informations/stats.js');
-const {parseDate} = require('../utils/FormatUtils.js');
+const {formatDate} = require('../utils/FormatUtils.js');
 const {randomActivities} = require('../constants.js');
 const {random} = require('../utils/Utils.js');
 const {readJSON, writeInJSON} = require('../utils/Utils.js');
@@ -79,7 +79,7 @@ module.exports = class ReadyEvent extends Event {
 	 * @returns {void}
 	 */
 	updateCommandsStats(client) {
-		const formattedDate = parseDate('dd/MM/yyyy');
+		const formattedDate = formatDate('dd/MM/yyyy');
 
 		if (!client.dbManager.messages.has('today') || client.dbManager.messages.get('today').length === 0) client.dbManager.messages.set('today', formattedDate);
 		if (!client.dbManager.messages.has('stats')) client.dbManager.messages.set('stats', new Array(30).fill(0));

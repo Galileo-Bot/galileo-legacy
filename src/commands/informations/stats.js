@@ -1,7 +1,7 @@
 const {MessageEmbed} = require('discord.js');
 const Command = require('../../entities/Command.js');
 const os = require('os');
-const {parseDate, parseRelativeDate} = require('../../utils/FormatUtils.js');
+const {formatDate, formatRelativeDate} = require('../../utils/FormatUtils.js');
 const {Octokit} = require('@octokit/core');
 
 module.exports = class StatsCommand extends Command {
@@ -141,9 +141,9 @@ module.exports = class StatsCommand extends Command {
 			`> Serveur : **${StatsCommand.getMemoryUsed()}** MB / **${(os.totalmem() / (1024 * 1024)).toFixed(0)}** MB\n> Bot : **${StatsCommand.getProcessMemoryUsage()}** MB`
 		);
 		embed.addField('<:cpu:736643846812729446> Utilisation du CPU :', `${(await StatsCommand.getCPUUsage()).percentage.toFixed(2)}%`);
-		embed.addField('🕦 Temps de fonctionnement', parseRelativeDate('dd jours hh heures mm minutes ss secondes', new Date(client.uptime)));
+		embed.addField('🕦 Temps de fonctionnement', formatRelativeDate('dd jours hh heures mm minutes ss secondes', new Date(client.uptime)));
 		embed.addField('<:bot:539121198634762261> Version du bot :', lastRelease.data.name, true);
-		embed.addField("📆 Date de l'update :", parseDate('jj MMM yyyy', new Date(lastRelease.data.published_at)), true);
+		embed.addField("📆 Date de l'update :", formatDate('jj MMM yyyy', new Date(lastRelease.data.published_at)), true);
 
 		await super.send(embed);
 	}

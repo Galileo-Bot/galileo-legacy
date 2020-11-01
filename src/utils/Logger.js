@@ -1,4 +1,4 @@
-const {parseDate} = require('./FormatUtils.js');
+const {formatDate} = require('./FormatUtils.js');
 const {logTypes} = require('../constants.js');
 const {getKeyByValue} = require('./Utils.js');
 
@@ -54,7 +54,7 @@ module.exports = class Logger {
 			return `[${string}]`;
 		}
 
-		let result = `\x1b[${type}m${parseDate('[yyyy-MM-jj hh:mm:ss.SSSS]')}${addSquareBrackets(getKeyByValue(logTypes, type).toUpperCase())}`;
+		let result = `\x1b[${type}m${formatDate('[yyyy-MM-jj hh:mm:ss.SSSS]')}${addSquareBrackets(getKeyByValue(logTypes, type).toUpperCase())}`;
 		if (title) result += addSquareBrackets(title);
 		result += ` ${String(message)}\x1b[39;0m`;
 

@@ -1,5 +1,5 @@
 const {MessageEmbed} = require('discord.js');
-const {parseDate} = require('../../utils/FormatUtils.js');
+const {formatDate} = require('../../utils/FormatUtils.js');
 const Command = require('../../entities/Command.js');
 const {guildFeatures, tags} = require('../../constants.js');
 
@@ -76,8 +76,8 @@ module.exports = class ServeurInfoCommand extends Command {
 		);
 
 		embed.addField('<:carte:635159034395361330> Rôles :', roles.cache.size);
-		embed.addField('<a:disload:635159109280333874> Date de création : ', `Le ${parseDate('dd/MM/yyyy à hh:mm', createdAt)}`, true);
-		embed.addField("<:richtext:635163364875698215> Date d'invitation du bot :", `Le ${parseDate('dd/MM/yyyy à hh:mm', me.joinedAt)}`);
+		embed.addField('<a:disload:635159109280333874> Date de création : ', `Le ${formatDate('dd/MM/yyyy à hh:mm', createdAt)}`, true);
+		embed.addField("<:richtext:635163364875698215> Date d'invitation du bot :", `Le ${formatDate('dd/MM/yyyy à hh:mm', me.joinedAt)}`);
 
 		if (premiumTier > 0) embed.addField('Niveau de boost : ', premiumTier, true);
 		if (premiumSubscriptionCount > 0) embed.addField('Nombre de personnes boostant le serveur : ', premiumSubscriptionCount, true);

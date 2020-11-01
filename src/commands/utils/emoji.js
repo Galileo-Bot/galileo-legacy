@@ -1,6 +1,6 @@
 const {MessageEmbed} = require('discord.js');
 const {argError} = require('../../utils/Errors.js');
-const {parseDate} = require('../../utils/FormatUtils.js');
+const {formatDate} = require('../../utils/FormatUtils.js');
 const Command = require('../../entities/Command.js');
 
 module.exports = class EmojiCommand extends Command {
@@ -68,7 +68,7 @@ module.exports = class EmojiCommand extends Command {
 		if (id) {
 			anim ? embed.setImage(`https://cdn.discordapp.com/emojis/${id}.gif`) : embed.setImage(`https://cdn.discordapp.com/emojis/${id}.png`);
 			embed.setDescription(
-				`<:smiley:635159054989262848> émoji : ${emojiFind}\n🆔 ID : **${id}**\n<:carte:635159034395361330> Nom : **${name}**\n<:richtext:635163364875698215> Créé le : **${parseDate(
+				`<:smiley:635159054989262848> émoji : ${emojiFind}\n🆔 ID : **${id}**\n<:carte:635159034395361330> Nom : **${name}**\n<:richtext:635163364875698215> Créé le : **${formatDate(
 					'dd/MM/yyyy** à **hh:mm'
 				)}**`
 			);
