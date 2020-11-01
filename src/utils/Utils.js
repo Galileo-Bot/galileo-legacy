@@ -1,6 +1,6 @@
-const Logger = require('./Logger.js');
 const fs = require('fs');
 const {isCanary} = require('../main.js');
+const Logger = require('./Logger.js');
 const {TextChannel} = require('discord.js');
 const {channels} = require('../constants.js');
 const {owners, prefixes} = require('../assets/jsons/config.json');
