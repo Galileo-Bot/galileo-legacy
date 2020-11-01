@@ -70,7 +70,7 @@ function permsError(message, command, missingPermissions, fromBot = false) {
  * @param {any} error - L'erreur.
  * @returns {any} - Je sais pas xD
  */
-function runError(message, command, error) {
+async function runError(message, command, error) {
 	const embed = new MessageEmbed();
 	const embedLog = new MessageEmbed();
 	embedLog.setColor('#dd0000');
@@ -98,7 +98,7 @@ function runError(message, command, error) {
 	embed.setColor('RANDOM');
 
 	message.channel?.send(embed);
-	sendLogMessage(message.client, 'bug', embedLog);
+	await sendLogMessage(message.client, 'bug', embedLog);
 }
 
 module.exports = {

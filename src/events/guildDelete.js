@@ -4,14 +4,15 @@ const {sendLogMessage} = require('../utils/Utils.js');
 module.exports = class GuildDeleteEvent extends GuildEvent {
 	constructor() {
 		super({
-			name: 'guildCreate',
+			name: 'guildDelete',
 			type: 'remove',
 		});
 	}
 
 	async run(client, guild) {
+		super.owner = `<@${guild.ownerID}>`;
 		await super.run(client, guild);
-		super.log();
-		sendLogMessage(client, 'removeGuild', super.embed());
+		await super.log();
+		await sendLogMessage(client, 'removeGuild', super.embed());
 	}
 };

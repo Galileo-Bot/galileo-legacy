@@ -132,11 +132,11 @@ const channels = {
 	supportChannel: '544130287894790154',
 	updatesChannel: '515326534727237636',
 	galiChannels: {
-		addServer: '636702915376971796',
+		addGuild: '636702915376971796',
 		bug: '635248014419820545',
 		command: '636636369984159806',
 		mp: '636711377674829835',
-		removeServer: '636702929151328295',
+		removeGuild: '636702929151328295',
 		rateLimit: '764567172839637008',
 	},
 	canaryChannels: {

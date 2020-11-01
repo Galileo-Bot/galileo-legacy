@@ -42,7 +42,7 @@ module.exports = class MessageEvent extends Event {
 				embed.setFooter(client.user.username, client.user.displayAvatarURL());
 				if (message.attachments.array()[0]?.height) embed.setImage(message.attachments.array()[0].url);
 				if (!embed.image && message.embeds[0]?.image?.height) embed.setImage(message.embeds[0].image.url);
-				sendLogMessage(client, 'mp', embed);
+				await sendLogMessage(client, 'mp', embed);
 			}
 
 			return;
@@ -115,10 +115,10 @@ module.exports = class MessageEvent extends Event {
 
 				// Error in command.
 			})
-			.catch(error => {
+			.catch(async error => {
 				Logger.warn(`Une erreur a eu lieu avec la commande ${command.name}, erreur : \n${error.stack}`, 'CommandExecution');
 				Error.stackTraceLimit = 3;
-				runError(message, command, error);
+				await runError(message, command, error);
 			});
 	}
 

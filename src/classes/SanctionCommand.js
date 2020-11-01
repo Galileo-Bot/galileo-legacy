@@ -55,7 +55,7 @@ module.exports = class SanctionCommand extends Command {
 		});
 		this.userData.sanctionsLastNumber++;
 		if (!writeInJSON('./assets/jsons/userdata.json', this.userData)) {
-			return runError(this.message, this, `Tentative d'écriture dans le fichier './assets/jsons/userdata.json', le fichier n'a pas été trouvé.`);
+			return await runError(this.message, this, `Tentative d'écriture dans le fichier './assets/jsons/userdata.json', le fichier n'a pas été trouvé.`);
 		}
 
 		const embed = new MessageEmbed();

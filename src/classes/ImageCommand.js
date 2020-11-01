@@ -41,9 +41,9 @@ module.exports = class ImageCommand extends SlowCommand {
 					this.stopWait();
 				})
 			)
-			.catch(error => {
+			.catch(async error => {
 				if (isOwner(message.author.id)) {
-					runError(message, this, error);
+					await runError(message, this, error);
 					Logger.warn(error.stack, `${super.name}Command`);
 				} else this.send("Oups !\nQuelque chose n'a pas marché, l'erreur est reportée aux dirigeants du bot. :eyes:");
 			});
