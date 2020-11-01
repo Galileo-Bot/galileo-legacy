@@ -36,9 +36,9 @@ module.exports = class GuildEvent extends Event {
 		embed.setTitle(`Le bot a ${this.type === 'remove' ? 'quitté' : 'rejoint'} un serveur.`);
 		embed.setThumbnail(this.guild.iconURL());
 		embed.setDescription(`**${this.guild.name}** (\`${this.guild.id}\`)`);
-		embed.addField('Créateur :', `${this.guild.owner.user} (\`${this.guild.owner.user.id}\`)`);
-		embed.addField('Nombre de membres :', `**$this.{guild.memberCount}** dont **${this.guild.members.cache.filter(m => m.user.bot).size}** bots.`);
-		embed.setColor('#dd2211');
+		embed.addField('Créateur :', `${this.owner?.user ?? this.owner} (\`${this.guild.ownerID}\`)`);
+		embed.addField('Nombre de membres :', `**${this.guild.memberCount}** dont **${this.guild.members.cache.filter(m => m.user.bot).size}** bots.`);
+		embed.setColor(this.type === 'remove' ? '#dd2211' : '#14dd10');
 		embed.setFooter(this.client.user.username, this.client.user.displayAvatarURL());
 		embed.setTimestamp();
 
@@ -49,11 +49,11 @@ module.exports = class GuildEvent extends Event {
 	 * Log l'évent.
 	 * @returns {void}
 	 */
-	log() {
+	async log() {
 		if (!this.guild.available) return;
 
 		Logger.info(
-			`Le bot a ${this.type === 'remove' ? 'quitté' : 'rejoint'} le serveur '${this.guild.name}' (${this.guild.id}), owner : ${this.guild.owner.user.tag} (${this.guild.owner.id})
+			`Le bot a ${this.type === 'remove' ? 'quitté' : 'rejoint'} le serveur '${this.guild.name}' (${this.guild.id}), owner : ${this.owner?.user?.tag ?? this.owner} (${this.guild.ownerID})
 Nombre de serveurs actuel : ${this.client.guilds.cache.size}`,
 			`Guild${this.type[0].toUpperCase() + this.type.slice(1)}Event`
 		);

@@ -10,8 +10,9 @@ module.exports = class GuildCreateEvent extends GuildEvent {
 	}
 
 	async run(client, guild) {
-		await super.run(client, guild);
-		super.log();
-		sendLogMessage(client, `addGuild`, super.embed());
+		super.owner = await guild.members.fetch(guild.ownerID);
+		await super.run(client, await guild.fetch());
+		await super.log();
+		await sendLogMessage(client, `addGuild`, super.embed());
 	}
 };
