@@ -13,7 +13,7 @@ module.exports = class PhraseRandomCommand extends Command {
 	async run(client, message, args) {
 		super.run(client, message, args);
 
-		const {phrase} = require('../../assets/jsons/commandConstants.json');
+		const {phrase} = require('../../assets/jsons/constants.json');
 
 		function setFirstLetterUpper(str) {
 			return str.charAt(0).toUpperCase() + str.slice(1);
