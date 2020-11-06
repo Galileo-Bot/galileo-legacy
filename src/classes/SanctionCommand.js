@@ -1,6 +1,5 @@
 const Command = require('../entities/Command.js');
 const {argTypes} = require('../constants.js');
-const {readJSON} = require('../utils/Utils.js');
 const {getArg} = require('../utils/ArgUtils.js');
 const {argError} = require('../utils/Errors.js');
 const {tryDeleteMessage} = require('../utils/CommandUtils.js');
@@ -8,7 +7,6 @@ const {MessageEmbed} = require('discord.js');
 
 module.exports = class SanctionCommand extends Command {
 	type;
-	userData;
 
 	constructor(options) {
 		super(options);
@@ -125,6 +123,5 @@ module.exports = class SanctionCommand extends Command {
 
 	async run(client, message, args) {
 		await super.run(client, message, args);
-		this.userData = client.dbManager.userInfos.fetchEverything();
 	}
 };
