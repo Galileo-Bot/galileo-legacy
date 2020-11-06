@@ -14,7 +14,7 @@ module.exports = class SuusCommand extends Command {
 	async run(client, message, args) {
 		await super.run(client, message, args);
 
-		const {sausages} = require('../../assets/jsons/commandConstants.json');
+		const {sausages} = require('../../assets/jsons/constants.json');
 		const embed = new MessageEmbed();
 		embed.setTimestamp();
 		embed.setFooter(client.user.username, client.user.displayAvatarURL());

@@ -13,7 +13,7 @@ module.exports = class CreateursCommand extends Command {
 	async run(client, message, args) {
 		super.run(client, message, args);
 
-		const {creators} = require('../../assets/jsons/commandConstants.json');
+		const {creators} = require('../../assets/jsons/constants.json');
 		const ayfri = client.users.resolve('386893236498857985');
 		const antow = client.users.resolve('216214448203890688');
 

@@ -14,7 +14,7 @@ module.exports = class DevineCommand extends Command {
 	async run(client, message, args) {
 		super.run(client, message, args);
 
-		const {guess} = require('../../assets/jsons/commandConstants.json');
+		const {guess} = require('../../assets/jsons/constants.json');
 		const fullText = args.join(' ');
 		if (args.length === 0) return argError(message, this, '<a:attention:613714368647135245> **Veuillez mettre une question.**');
 		if (fullText === '?') return argError(message, this, '<a:attention:613714368647135245> **Une question ne contient pas que un `?` :)**');

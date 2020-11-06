@@ -17,7 +17,7 @@ module.exports = class TuerCommand extends Command {
 	async run(client, message, args) {
 		await super.run(client, message, args);
 
-		const {killMethods} = require('../../assets/jsons/commandConstants.json');
+		const {killMethods} = require('../../assets/jsons/constants.json');
 		const person = getArg(message, 1, argTypes.user) || args.join(' ') || message.author.username;
 		let sentence;
 

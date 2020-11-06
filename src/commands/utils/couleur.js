@@ -3,6 +3,7 @@ const Jimp = require('jimp');
 const Command = require('../../entities/Command.js');
 const {argError} = require('../../utils/Errors.js');
 const {random, readJSON} = require('../../utils/Utils.js');
+const {colors} = require('../../assets/jsons/constants.json');
 
 module.exports = class CouleurCommand extends Command {
 	constructor() {
@@ -17,7 +18,6 @@ module.exports = class CouleurCommand extends Command {
 	async run(client, message, args) {
 		super.run(client, message, args);
 
-		const colors = readJSON('./assets/jsons/colors.json');
 		const hexColors = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
 		const embed = new MessageEmbed();
 		let color = '';
