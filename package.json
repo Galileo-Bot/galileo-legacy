@@ -39,7 +39,7 @@
 	],
 	"license": "ISC",
 	"main": "src/main.js",
-	"name": "gali-new-handler",
+	"name": "galileo",
 	"prettier": {
 		"arrowParens": "avoid",
 		"bracketSpacing": false,
@@ -63,8 +63,7 @@
 		"start:prod": "node --trace-warnings .",
 		"start:canary": "node --trace-warnings . --canary",
 		"prettier": "prettier package.json index.d.ts README.md tsconfig.json package-lock.json ./ --write",
-		"pull": "git fetch && git stash && git pull origin 1.0.0 && git stash pop",
-		"test": "dir"
+		"pull": "git fetch && git stash && git pull origin 1.0.0 && git stash pop"
 	},
 	"engines": {
 		"node": ">=14.0.0"
