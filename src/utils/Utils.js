@@ -1,7 +1,5 @@
 const fs = require('fs');
-const {isCanary} = require('../main.js');
 const Logger = require('./Logger.js');
-const {TextChannel} = require('discord.js');
 const {channels} = require('../constants.js');
 const {owners, prefixes} = require('../assets/jsons/config.json');
 
@@ -93,16 +91,17 @@ function random(array) {
  * @returns {void}
  */
 async function sendLogMessage(client, channelType, content) {
+	const {isCanary} = require('../main.js');
 	if (isCanary) {
 		const channel = await client.channels.fetch(channels.canaryChannels[channelType]);
-		if (channel && channel instanceof TextChannel) channel.send(content);
+		if (channel && channel.isText()) channel.send(content);
 	} else {
 		const channel = await client.channels.fetch(channels.galiChannels[channelType]);
-		if (channel && channel instanceof TextChannel) channel.send(content);
+		if (channel && channel.isText()) channel.send(content);
 
 		if (['addGuild', 'removeGuild'].includes(channelType)) {
 			const addOrRemoveChannel = await client.channels.fetch(channels.addOrRemoveChannel);
-			if (channel && channel instanceof TextChannel) addOrRemoveChannel.send(content);
+			if (channel && channel.isText()) addOrRemoveChannel.send(content);
 		}
 	}
 }
