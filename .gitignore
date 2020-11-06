@@ -1,4 +1,7 @@
 node_modules
 .idea
 src/assets/*
-!src/assets/jsons/config.json
+src/assets/jsons/commandConstants.json
+src/assets/jsons/colors.json
+src/assets/images/*
+src/assets/db/*
