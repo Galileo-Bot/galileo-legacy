@@ -58,7 +58,6 @@ module.exports = class InfractionsCommand extends Command {
 	async run(client, message, args) {
 		await super.run(client, message, args);
 
-		const userData = readJSON('./assets/jsons/userdata.json');
 		const person = getArg(message, 1, argTypes.member) ?? message.member;
 		const embed = new MessageEmbed();
 		embed.setTimestamp();
@@ -70,11 +69,8 @@ module.exports = class InfractionsCommand extends Command {
 		SanctionCommand.registerUser(this.client, this.message, person);
 
 		if (args[1] === 'supprimer') {
-			if (args[2] === 'toutes') {
-				if (
-					userData[message.guild.id][person.user.id].sanctions.find(s => s.sanction === 'ban') ||
-					this.client.dbManager.userInfos.get(message.guild.id, person.user.id).sanctions.find(s => s.type === 'ban')
-				) {
+			if (['toutes', 'all', 'tout'].includes(args[2])) {
+				if (this.client.dbManager.userInfos.get(message.guild.id, person.user.id).sanctions.find(s => s.type === 'ban')) {
 					message.guild.members
 						.unban(person.user.id)
 						.catch(() => super.send('Une erreur a eu lieu dans le débanissement de ce membre, vérifiez que le bot ait la permission de bannir les membres.'));

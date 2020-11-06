@@ -125,6 +125,6 @@ module.exports = class SanctionCommand extends Command {
 
 	async run(client, message, args) {
 		await super.run(client, message, args);
-		this.userData = readJSON('./assets/jsons/userdata.json');
+		this.userData = client.dbManager.userInfos.fetchEverything();
 	}
 };
