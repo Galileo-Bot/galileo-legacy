@@ -1,6 +1,6 @@
 node_modules
 .idea
-src/assets/*
+src/assets/generateGraph.py
 src/assets/jsons/commandConstants.json
 src/assets/jsons/colors.json
 src/assets/images/*
