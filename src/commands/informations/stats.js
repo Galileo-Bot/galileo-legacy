@@ -106,13 +106,16 @@ module.exports = class StatsCommand extends Command {
 	 */
 	getCountUsers() {
 		const users = [];
-		this.client.guilds.cache.forEach(async guild =>
-			guild.members.cache.forEach(member => {
-				if (!users.includes(member.id)) {
+		this.client.guilds.cache.forEach(async guild => {
+			console.log(guild.name);
+			const members = await (await guild.fetch()).members.fetch();
+			members.forEach(member => {
+				if (!users.includes(member.id) && !member.user.bot) {
 					users.push(member.id);
 				}
-			})
-		);
+			});
+			console.log(members);
+		});
 
 		return users.length;
 	}
