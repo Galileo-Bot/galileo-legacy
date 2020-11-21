@@ -43,7 +43,7 @@ module.exports = class ServeurInfoCommand extends Command {
 				dynamic: true,
 			})
 		);
-		embed.setFooter(client.user.username, client.user.displayAvatarURL());
+		embed.setFooter(`Nombre de membres faux à cause d'un bug de Discord sur leur fonctionnalité "Intents".\n\n${client.user.username}`, client.user.displayAvatarURL());
 		embed.setAuthor(
 			`Informations sur le serveur ${name} : `,
 			message.guild.iconURL({
