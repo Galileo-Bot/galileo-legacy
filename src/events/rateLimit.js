@@ -20,7 +20,7 @@ module.exports = class RateLimitEvent extends Event {
 	 */
 	async run(client, rateLimitInfo) {
 		await super.run();
-		if (rateLimitInfo.timeout < 5000) return;
+		if (rateLimitInfo.timeout < 7000) return;
 
 		Logger.warn(`RateLimit : ${rateLimitInfo.path}`);
 		const routes = rateLimitInfo.path.split(/\//g).filter(i => i);
