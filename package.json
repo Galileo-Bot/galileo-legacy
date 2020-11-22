@@ -46,6 +46,7 @@
 		"embeddedLanguageFormatting": "auto",
 		"endOfLine": "lf",
 		"printWidth": 200,
+		"quoteProps": "consistent",
 		"semi": true,
 		"singleQuote": true,
 		"tabWidth": 4,
