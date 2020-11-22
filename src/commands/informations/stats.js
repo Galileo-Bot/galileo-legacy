@@ -101,23 +101,12 @@ module.exports = class StatsCommand extends Command {
 
 	/**
 	 * Renvoie le nombre d'utilisateurs complet du bot.
-	 * @returns {number} - Nombre d'utilisateurs.
+	 * @returns {Promise<number>} - Nombre d'utilisateurs.
 	 * @private
 	 */
-	getCountUsers() {
-		const users = [];
-		this.client.guilds.cache.forEach(async guild => {
-			console.log(guild.name);
-			const members = await (await guild.fetch()).members.fetch();
-			members.forEach(member => {
-				if (!users.includes(member.id) && !member.user.bot) {
-					users.push(member.id);
-				}
-			});
-			console.log(members);
-		});
-
-		return users.length;
+	async getCountUsers() {
+		await Promise.all(this.client.guilds.cache.map(guild => guild.members.fetch()));
+		return this.client.users.cache.size;
 	}
 
 	async run(client, message, args) {
@@ -137,7 +126,7 @@ module.exports = class StatsCommand extends Command {
 		embed.setFooter(client.user.username, client.user.displayAvatarURL());
 		embed.setAuthor('Statistiques du bot', client.user.displayAvatarURL());
 		embed.addField('🖥 Nombre de serveurs :', client.guilds.cache.size, true);
-		embed.addField("👥 Nombre d'utilisateurs :", this.getCountUsers(), true);
+		embed.addField("👥 Nombre d'utilisateurs :", await this.getCountUsers(), true);
 		embed.addField('📋 Nombre de salons : ', client.channels.cache.size, true);
 		embed.addField(
 			'💿 Utilisation de la RAM :',
