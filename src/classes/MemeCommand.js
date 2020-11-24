@@ -1,7 +1,7 @@
 const SlowCommand = require('./SlowCommand.js');
 const ImgFlip = require('imgflip').default;
 
-module.exports = class MemeCommand extends SlowCommand {
+module.exports = class IMGFlipCommand extends SlowCommand {
 	argsMaxLength = 20;
 	argsNumber = 2;
 	font;
@@ -19,23 +19,7 @@ module.exports = class MemeCommand extends SlowCommand {
 		this.font = options.font;
 	}
 
-	async createMeme(imgFlipInstance, texts) {
-		const memeURL = await imgFlipInstance.meme(this.templateID, {
-			captions: texts,
-			font: this.font ? this.font : 'impact',
-		});
-
-		await super.send('Voici votre image :', {
-			files: [
-				{
-					attachment: memeURL,
-					name: 'meme.png',
-				},
-			],
-		});
-	}
-
-	async processMeme(args, message) {
+	connectAPI() {
 		const username = 'Ayfri';
 		const password = 'galileo_optifdp';
 		const texts = [];
@@ -43,6 +27,23 @@ module.exports = class MemeCommand extends SlowCommand {
 			username,
 			password,
 		});
+		return {
+			texts,
+			imgFlip,
+		};
+	}
+
+	async createMeme(imgFlipInstance, texts) {
+		const memeURL = await imgFlipInstance.meme(this.templateID, {
+			captions: texts,
+			font: this.font ? this.font : 'impact',
+		});
+
+		await this.sendMeme(memeURL);
+	}
+
+	async processMeme(args, message) {
+		const {texts, imgFlip} = this.connectAPI();
 
 		args = args.join(' ').split(' ; ');
 
@@ -60,5 +61,16 @@ module.exports = class MemeCommand extends SlowCommand {
 
 	async run(client, message, args) {
 		await super.run(client, message, args);
+	}
+
+	async sendMeme(memeURL) {
+		await super.send('Voici votre image :', {
+			files: [
+				{
+					attachment: memeURL,
+					name: 'meme.png',
+				},
+			],
+		});
 	}
 };
