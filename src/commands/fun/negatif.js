@@ -1,6 +1,8 @@
 const ImageCommand = require('../../classes/ImageCommand.js');
 
-module.exports = class NegatifCommand extends ImageCommand {
+module.exports = class NegatifCommand extends (
+	ImageCommand
+) {
 	constructor() {
 		super({
 			name: 'negatif',

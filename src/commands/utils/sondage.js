@@ -3,7 +3,9 @@ const {tryDeleteMessage} = require('../../utils/CommandUtils.js');
 const {argError} = require('../../utils/Errors.js');
 const Command = require('../../entities/Command.js');
 
-module.exports = class SondageCommand extends Command {
+module.exports = class SondageCommand extends (
+	Command
+) {
 	constructor() {
 		super({
 			name: 'sondage',

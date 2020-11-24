@@ -1,6 +1,8 @@
 const ImageCommand = require('../../classes/ImageCommand.js');
 
-module.exports = class FlouterCommand extends ImageCommand {
+module.exports = class FlouterCommand extends (
+	ImageCommand
+) {
 	constructor() {
 		super({
 			name: 'flouter',

@@ -20,7 +20,9 @@ async function wait(callback) {
 	}
 }
 
-module.exports = class EvalCommand extends Command {
+module.exports = class EvalCommand extends (
+	Command
+) {
 	static debug = false;
 	static functionsPassages = [];
 	static log = false;

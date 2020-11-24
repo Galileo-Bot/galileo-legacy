@@ -3,7 +3,9 @@ const {Client} = require('discord.js');
 const CommandManager = require('./CommandManager.js');
 const EventManager = require('./EventManager.js');
 
-module.exports = class GaliClient extends Client {
+module.exports = class GaliClient extends (
+	Client
+) {
 	commandManager;
 	commands;
 	dbManager;

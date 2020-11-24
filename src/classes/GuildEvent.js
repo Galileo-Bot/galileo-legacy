@@ -2,7 +2,9 @@ const Logger = require('../utils/Logger.js');
 const Event = require('../entities/Event.js');
 const {MessageEmbed} = require('discord.js');
 
-module.exports = class GuildEvent extends Event {
+module.exports = class GuildEvent extends (
+	Event
+) {
 	/**
 	 * Représente un type de GuildEvent :
 	 * * **`add`** - Le bot a rejoint un serveur.

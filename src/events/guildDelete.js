@@ -1,7 +1,9 @@
 const GuildEvent = require('../classes/GuildEvent.js');
 const {sendLogMessage} = require('../utils/Utils.js');
 
-module.exports = class GuildDeleteEvent extends GuildEvent {
+module.exports = class GuildDeleteEvent extends (
+	GuildEvent
+) {
 	constructor() {
 		super({
 			name: 'guildDelete',

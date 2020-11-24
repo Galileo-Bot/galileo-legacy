@@ -3,7 +3,9 @@ const Command = require('../../entities/Command.js');
 const {argTypes, channels} = require('../../constants.js');
 const {getArg} = require('../../utils/ArgUtils.js');
 
-module.exports = class BugsCommand extends Command {
+module.exports = class BugsCommand extends (
+	Command
+) {
 	constructor() {
 		super({
 			name: 'bugs',

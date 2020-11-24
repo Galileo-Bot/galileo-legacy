@@ -1,7 +1,9 @@
 const SlowCommand = require('./SlowCommand.js');
 const ImgFlip = require('imgflip').default;
 
-module.exports = class MemeCommand extends SlowCommand {
+module.exports = class MemeCommand extends (
+	SlowCommand
+) {
 	argsMaxLength = 20;
 	argsNumber = 2;
 	font;

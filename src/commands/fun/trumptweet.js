@@ -2,7 +2,9 @@ const fetch = require('node-fetch');
 const {tryDeleteMessage} = require('../../utils/CommandUtils.js');
 const Command = require('../../entities/Command.js');
 
-module.exports = class TrumpTweetCommand extends Command {
+module.exports = class TrumpTweetCommand extends (
+	Command
+) {
 	constructor() {
 		super({
 			name: 'trumptweet',

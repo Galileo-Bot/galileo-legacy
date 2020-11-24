@@ -1,7 +1,9 @@
 const MemeCommand = require('../../classes/MemeCommand.js');
 const {tags} = require('../../constants.js');
 
-module.exports = class BoyfriendCommand extends MemeCommand {
+module.exports = class BoyfriendCommand extends (
+	MemeCommand
+) {
 	constructor() {
 		super({
 			name: 'boyfriend',

@@ -5,7 +5,9 @@ const Command = require('../../entities/Command.js');
 const {argError} = require('../../utils/Errors.js');
 const {join} = require('path');
 
-module.exports = class GetCodeCommand extends Command {
+module.exports = class GetCodeCommand extends (
+	Command
+) {
 	constructor() {
 		super({
 			name: 'getcode',

@@ -8,7 +8,9 @@ const {runError} = require('../utils/Errors.js');
 const {argTypes} = require('../constants.js');
 const {getArg} = require('../utils/ArgUtils.js');
 
-module.exports = class ImageCommand extends SlowCommand {
+module.exports = class ImageCommand extends (
+	SlowCommand
+) {
 	/**
 	 * Fait une commande image, la fonction étant personnalisable.
 	 * @param {module:"discord.js".Message} message - Le message.

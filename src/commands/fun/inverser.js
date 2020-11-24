@@ -1,6 +1,8 @@
 const ImageCommand = require('../../classes/ImageCommand.js');
 
-module.exports = class InverserCommand extends ImageCommand {
+module.exports = class InverserCommand extends (
+	ImageCommand
+) {
 	constructor() {
 		super({
 			name: 'inverser',

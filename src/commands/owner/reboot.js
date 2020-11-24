@@ -4,7 +4,9 @@ const {readJSON, writeInJSON} = require('../../utils/Utils.js');
 const Logger = require('../../utils/Logger.js');
 const Command = require('../../entities/Command.js');
 
-module.exports = class RebootCommand extends Command {
+module.exports = class RebootCommand extends (
+	Command
+) {
 	constructor() {
 		super({
 			name: 'reboot',

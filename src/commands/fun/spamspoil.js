@@ -2,7 +2,9 @@ const Command = require('../../entities/Command.js');
 const {tryDeleteMessage} = require('../../utils/CommandUtils.js');
 const {argError} = require('../../utils/Errors.js');
 
-module.exports = class SpamSpoilCommand extends Command {
+module.exports = class SpamSpoilCommand extends (
+	Command
+) {
 	constructor() {
 		super({
 			name: 'spamspoil',

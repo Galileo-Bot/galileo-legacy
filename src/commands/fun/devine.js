@@ -1,7 +1,9 @@
 const Command = require('../../entities/Command.js');
 const {argError} = require('../../utils/Errors.js');
 
-module.exports = class DevineCommand extends Command {
+module.exports = class DevineCommand extends (
+	Command
+) {
 	constructor() {
 		super({
 			name: 'devine',

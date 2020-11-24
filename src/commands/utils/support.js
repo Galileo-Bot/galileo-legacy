@@ -3,7 +3,9 @@ const {argError} = require('../../utils/Errors.js');
 const Command = require('../../entities/Command.js');
 const {channels} = require('../../constants.js');
 
-module.exports = class SupportCommand extends Command {
+module.exports = class SupportCommand extends (
+	Command
+) {
 	constructor() {
 		super({
 			name: 'support',

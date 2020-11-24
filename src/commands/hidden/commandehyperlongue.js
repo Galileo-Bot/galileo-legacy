@@ -1,7 +1,9 @@
 const {tryDeleteMessage} = require('../../utils/CommandUtils.js');
 const Command = require('../../entities/Command.js');
 
-module.exports = class CommandeHyperLongueCommand extends Command {
+module.exports = class CommandeHyperLongueCommand extends (
+	Command
+) {
 	constructor() {
 		super({
 			name: 'commandehyperlongue',

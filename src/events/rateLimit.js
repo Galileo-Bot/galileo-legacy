@@ -5,7 +5,9 @@ const Event = require('../entities/Event.js');
 const {getPrefixFromMessage, sendLogMessage} = require('../utils/Utils.js');
 const {MessageEmbed} = require('discord.js');
 
-module.exports = class RateLimitEvent extends Event {
+module.exports = class RateLimitEvent extends (
+	Event
+) {
 	constructor() {
 		super({
 			name: 'rateLimit',

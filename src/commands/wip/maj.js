@@ -1,6 +1,8 @@
 const Command = require('../../entities/Command.js');
 
-module.exports = class MajCommand extends Command {
+module.exports = class MajCommand extends (
+	Command
+) {
 	constructor() {
 		super({
 			name: 'maj',

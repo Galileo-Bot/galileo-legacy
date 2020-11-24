@@ -1,7 +1,9 @@
 const SanctionCommand = require('../../classes/SanctionCommand.js');
 const {tags} = require('../../constants.js');
 
-module.exports = class KickCommand extends SanctionCommand {
+module.exports = class KickCommand extends (
+	SanctionCommand
+) {
 	constructor() {
 		super({
 			name: 'kick',

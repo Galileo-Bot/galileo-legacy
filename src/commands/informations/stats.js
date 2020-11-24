@@ -4,7 +4,9 @@ const os = require('os');
 const {formatDate, formatRelativeDate} = require('../../utils/FormatUtils.js');
 const {Octokit} = require('@octokit/core');
 
-module.exports = class StatsCommand extends Command {
+module.exports = class StatsCommand extends (
+	Command
+) {
 	constructor() {
 		super({
 			name: 'stats',

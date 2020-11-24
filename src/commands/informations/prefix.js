@@ -3,7 +3,9 @@ const {isCanary} = require('../../main.js');
 const {tags} = require('../../constants.js');
 const {readJSON} = require('../../utils/Utils.js');
 
-module.exports = class PrefixCommand extends Command {
+module.exports = class PrefixCommand extends (
+	Command
+) {
 	constructor() {
 		super({
 			name: 'prefix',

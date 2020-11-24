@@ -4,7 +4,9 @@ const imgur = require('imgur');
 const Command = require('../../entities/Command.js');
 const {exec} = require('child_process');
 
-module.exports = class CommandStatsCommand extends Command {
+module.exports = class CommandStatsCommand extends (
+	Command
+) {
 	constructor() {
 		super({
 			name: 'commandants',

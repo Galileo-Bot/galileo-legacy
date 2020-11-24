@@ -1,6 +1,8 @@
 const ImageCommand = require('../../classes/ImageCommand.js');
 
-module.exports = class GriserCommand extends ImageCommand {
+module.exports = class GriserCommand extends (
+	ImageCommand
+) {
 	constructor() {
 		super({
 			name: 'griser',

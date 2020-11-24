@@ -6,7 +6,9 @@ const {argTypes, tags} = require('../../constants.js');
 const {getArg} = require('../../utils/ArgUtils.js');
 const {argError} = require('../../utils/Errors.js');
 
-module.exports = class InfractionsCommand extends Command {
+module.exports = class InfractionsCommand extends (
+	Command
+) {
 	constructor() {
 		super({
 			name: 'infractions',
