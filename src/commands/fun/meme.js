@@ -5,7 +5,7 @@ module.exports = class MemeCommand extends Command {
 	constructor() {
 		super({
 			name: 'meme',
-			description: 'Envoie un mème aléatoire.',
+			description: "Envoie un mème aléatoire depuis le subreddit 'meme' ou celui inscrit.",
 			aliases: ['mème', 'même', 'reddit'],
 			usage: 'meme\nmeme <subreddit>',
 		});
