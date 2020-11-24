@@ -12,14 +12,15 @@ module.exports = class MemeCommand extends Command {
 	}
 
 	static async getRandomMemeFromSubreddit(subreddit) {
-		return random((await (await fetch(`https://imgur.com/r/${subreddit}/hot.json`)).json()).data);
+		const image = random((await (await fetch(`https://imgur.com/r/${subreddit}/hot.json`)).json()).data);
+		return image ? `https://imgur.com/${image.hash}${image.ext.replace(/\?.*/, '')}` : null;
 	}
 
 	async run(client, message, args) {
 		await super.run(client, message, args);
-		const subreddit = args[0].toLowerCase() ?? 'meme';
+		const subreddit = args[0] ? args[0].toLowerCase() : 'meme';
 
 		const meme = await MemeCommand.getRandomMemeFromSubreddit(subreddit);
-		super.send(`https://imgur.com/${meme.hash}${meme.ext.replace(/\?.*/, '')}`);
+		super.send(meme ?? (await MemeCommand.getRandomMemeFromSubreddit('meme')));
 	}
 };
