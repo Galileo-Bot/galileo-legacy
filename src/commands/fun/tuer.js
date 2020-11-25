@@ -4,7 +4,9 @@ const {getArg} = require('../../utils/ArgUtils.js');
 const {tryDeleteMessage} = require('../../utils/CommandUtils.js');
 const {random} = require('../../utils/Utils.js');
 
-module.exports = class TuerCommand extends Command {
+module.exports = class TuerCommand extends (
+	Command
+) {
 	constructor() {
 		super({
 			name: 'tuer',

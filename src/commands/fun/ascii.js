@@ -2,7 +2,9 @@ const figlet = require('figlet');
 const Command = require('../../entities/Command.js');
 const {argError} = require('../../utils/Errors.js');
 
-module.exports = class AsciiCommand extends Command {
+module.exports = class AsciiCommand extends (
+	Command
+) {
 	constructor() {
 		super({
 			name: 'ascii',

@@ -2,7 +2,9 @@ const {MessageEmbed} = require('discord.js');
 const {argError} = require('../../utils/Errors.js');
 const Command = require('../../entities/Command.js');
 
-module.exports = class DocCommand extends Command {
+module.exports = class DocCommand extends (
+	Command
+) {
 	constructor() {
 		super({
 			name: 'doc',

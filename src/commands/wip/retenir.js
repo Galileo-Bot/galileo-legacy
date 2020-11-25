@@ -1,7 +1,9 @@
 //const remindTime = require("../../informations/remindTimes.json");
 const Command = require('../../entities/Command.js');
 
-module.exports = class RetenirCommand extends Command {
+module.exports = class RetenirCommand extends (
+	Command
+) {
 	constructor() {
 		super({
 			name: 'retenir',

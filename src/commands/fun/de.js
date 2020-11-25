@@ -3,7 +3,9 @@ const {getArg} = require('../../utils/ArgUtils.js');
 const Command = require('../../entities/Command.js');
 const {argError} = require('../../utils/Errors.js');
 
-module.exports = class DeCommand extends Command {
+module.exports = class DeCommand extends (
+	Command
+) {
 	constructor() {
 		super({
 			name: 'de',

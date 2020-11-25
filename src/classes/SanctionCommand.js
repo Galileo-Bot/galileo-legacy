@@ -5,7 +5,9 @@ const {argError} = require('../utils/Errors.js');
 const {tryDeleteMessage} = require('../utils/CommandUtils.js');
 const {MessageEmbed} = require('discord.js');
 
-module.exports = class SanctionCommand extends Command {
+module.exports = class SanctionCommand extends (
+	Command
+) {
 	type;
 
 	constructor(options) {

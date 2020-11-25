@@ -1,7 +1,9 @@
 const {random} = require('../../utils/Utils.js');
 const Command = require('../../entities/Command.js');
 
-module.exports = class PhraseRandomCommand extends Command {
+module.exports = class PhraseRandomCommand extends (
+	Command
+) {
 	constructor() {
 		super({
 			name: 'phraserandom',

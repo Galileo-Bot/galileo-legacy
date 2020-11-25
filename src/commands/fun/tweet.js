@@ -2,7 +2,9 @@ const fetch = require('node-fetch');
 const Command = require('../../entities/Command.js');
 const {tryDeleteMessage} = require('../../utils/CommandUtils.js');
 
-module.exports = class TweetCommand extends Command {
+module.exports = class TweetCommand extends (
+	Command
+) {
 	constructor() {
 		super({
 			name: 'tweet',

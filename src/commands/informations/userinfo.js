@@ -50,7 +50,9 @@ function getStatus(person, statusEmoji, status) {
 	};
 }
 
-module.exports = class UserInfoCommand extends Command {
+module.exports = class UserInfoCommand extends (
+	Command
+) {
 	constructor() {
 		super({
 			name: 'userinfo',

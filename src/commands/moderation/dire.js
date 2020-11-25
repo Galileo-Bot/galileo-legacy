@@ -5,7 +5,9 @@ const {argError} = require('../../utils/Errors.js');
 const {isOwner} = require('../../utils/Utils.js');
 const Command = require('../../entities/Command.js');
 
-module.exports = class DireCommand extends Command {
+module.exports = class DireCommand extends (
+	Command
+) {
 	constructor() {
 		super({
 			name: 'dire',

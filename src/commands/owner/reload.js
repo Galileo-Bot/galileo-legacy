@@ -6,7 +6,9 @@ const Command = require('../../entities/Command.js');
 const fs = require('fs');
 const {join, sep} = require('path');
 
-module.exports = class ReloadCommand extends Command {
+module.exports = class ReloadCommand extends (
+	Command
+) {
 	constructor() {
 		super({
 			name: 'reload',

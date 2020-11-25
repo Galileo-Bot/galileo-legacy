@@ -5,7 +5,9 @@ const {formatDate} = require('../utils/FormatUtils.js');
 const {randomActivities} = require('../constants.js');
 const {random, readJSON} = require('../utils/Utils.js');
 
-module.exports = class ReadyEvent extends Event {
+module.exports = class ReadyEvent extends (
+	Event
+) {
 	constructor() {
 		super({
 			name: 'ready',

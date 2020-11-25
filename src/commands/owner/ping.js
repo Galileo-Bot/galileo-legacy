@@ -2,7 +2,9 @@ const {MessageEmbed} = require('discord.js');
 const {tags} = require('../../constants.js');
 const Command = require('../../entities/Command.js');
 
-module.exports = class PingCommand extends Command {
+module.exports = class PingCommand extends (
+	Command
+) {
 	constructor() {
 		super({
 			name: 'ping',

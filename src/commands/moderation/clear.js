@@ -4,7 +4,9 @@ const {argError} = require('../../utils/Errors.js');
 const Command = require('../../entities/Command.js');
 const {tryDeleteMessage} = require('../../utils/CommandUtils.js');
 
-module.exports = class ClearCommand extends Command {
+module.exports = class ClearCommand extends (
+	Command
+) {
 	constructor() {
 		super({
 			name: 'clear',

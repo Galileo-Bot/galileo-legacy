@@ -5,7 +5,9 @@ const {argError} = require('../../utils/Errors.js');
 const {random, readJSON} = require('../../utils/Utils.js');
 const {colors} = require('../../assets/jsons/constants.json');
 
-module.exports = class CouleurCommand extends Command {
+module.exports = class CouleurCommand extends (
+	Command
+) {
 	constructor() {
 		super({
 			name: 'couleur',

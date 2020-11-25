@@ -3,7 +3,9 @@ const {argTypes} = require('../../constants.js');
 const {getArg} = require('../../utils/ArgUtils.js');
 const Command = require('../../entities/Command.js');
 
-module.exports = class AvatarCommand extends Command {
+module.exports = class AvatarCommand extends (
+	Command
+) {
 	constructor() {
 		super({
 			name: 'avatar',

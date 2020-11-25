@@ -4,7 +4,9 @@ const {sendJS} = require('./eval.js');
 const {argError} = require('../../utils/Errors.js');
 const {exec} = require('child_process');
 
-module.exports = class ExecCommand extends SlowCommand {
+module.exports = class ExecCommand extends (
+	SlowCommand
+) {
 	constructor() {
 		super({
 			name: 'exec',

@@ -1,6 +1,8 @@
 const Command = require('../entities/Command.js');
 
-module.exports = class SlowCommand extends Command {
+module.exports = class SlowCommand extends (
+	Command
+) {
 	waitEmoji;
 
 	async run(client, message, args) {

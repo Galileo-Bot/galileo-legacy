@@ -6,7 +6,9 @@ const {getArg} = require('../../utils/ArgUtils.js');
 const {argError} = require('../../utils/Errors.js');
 const {isOwner} = require('../../utils/Utils.js');
 
-module.exports = class HelpCommand extends Command {
+module.exports = class HelpCommand extends (
+	Command
+) {
 	constructor() {
 		super({
 			name: 'help',

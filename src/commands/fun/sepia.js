@@ -1,6 +1,8 @@
 const ImageCommand = require('../../classes/ImageCommand.js');
 
-module.exports = class SepiaCommand extends ImageCommand {
+module.exports = class SepiaCommand extends (
+	ImageCommand
+) {
 	constructor() {
 		super({
 			name: 'sepia',

@@ -4,7 +4,9 @@ const {argTypes} = require('../../constants.js');
 const {getArg} = require('../../utils/ArgUtils.js');
 const Command = require('../../entities/Command.js');
 
-module.exports = class ServeurListeCommand extends Command {
+module.exports = class ServeurListeCommand extends (
+	Command
+) {
 	constructor() {
 		super({
 			name: 'serveurliste',

@@ -1,7 +1,9 @@
 const {MessageEmbed} = require('discord.js');
 const Command = require('../../entities/Command.js');
 
-module.exports = class CreateursCommand extends Command {
+module.exports = class CreateursCommand extends (
+	Command
+) {
 	constructor() {
 		super({
 			name: 'createurs',

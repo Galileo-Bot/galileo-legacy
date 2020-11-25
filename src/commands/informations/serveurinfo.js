@@ -3,7 +3,9 @@ const {formatDate} = require('../../utils/FormatUtils.js');
 const Command = require('../../entities/Command.js');
 const {guildFeatures, tags} = require('../../constants.js');
 
-module.exports = class ServeurInfoCommand extends Command {
+module.exports = class ServeurInfoCommand extends (
+	Command
+) {
 	constructor() {
 		super({
 			name: 'serveurinfo',

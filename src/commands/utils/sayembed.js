@@ -5,7 +5,9 @@ const {tryDeleteMessage} = require('../../utils/CommandUtils.js');
 const {argError} = require('../../utils/Errors.js');
 const {isOwner} = require('../../utils/Utils.js');
 
-module.exports = class SayEmbedCommand extends Command {
+module.exports = class SayEmbedCommand extends (
+	Command
+) {
 	constructor() {
 		super({
 			name: 'sayembed',

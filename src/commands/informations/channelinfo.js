@@ -4,7 +4,9 @@ const {getArg} = require('../../utils/ArgUtils.js');
 const {formatDate} = require('../../utils/FormatUtils.js');
 const Command = require('../../entities/Command.js');
 
-module.exports = class ChannelInfoCommand extends Command {
+module.exports = class ChannelInfoCommand extends (
+	Command
+) {
 	constructor() {
 		super({
 			name: 'channelinfo',

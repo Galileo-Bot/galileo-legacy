@@ -7,7 +7,9 @@ const {runError} = require('../utils/Errors.js');
 const Logger = require('../utils/Logger.js');
 const {getPrefixFromMessage, isOwner, sendLogMessage} = require('../utils/Utils.js');
 
-module.exports = class MessageEvent extends Event {
+module.exports = class MessageEvent extends (
+	Event
+) {
 	/**
 	 * Les cooldowns.
 	 * @type {Collection<module:"discord.js".Snowflake, CooldownCommand[]>}

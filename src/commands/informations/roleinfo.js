@@ -7,7 +7,9 @@ const {argError} = require('../../utils/Errors.js');
 const {formatDate} = require('../../utils/FormatUtils.js');
 const Command = require('../../entities/Command.js');
 
-module.exports = class RoleInfoCommand extends Command {
+module.exports = class RoleInfoCommand extends (
+	Command
+) {
 	constructor() {
 		super({
 			name: 'roleinfo',

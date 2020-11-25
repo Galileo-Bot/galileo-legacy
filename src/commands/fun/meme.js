@@ -1,7 +1,9 @@
 const Command = require('../../entities/Command.js');
 const {random} = require('../../utils/Utils.js');
 const fetch = require('node-fetch');
-module.exports = class MemeCommand extends Command {
+module.exports = class MemeCommand extends (
+	Command
+) {
 	constructor() {
 		super({
 			name: 'meme',

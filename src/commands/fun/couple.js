@@ -1,7 +1,9 @@
 const {tags} = require('../../constants.js');
 const Command = require('../../entities/Command.js');
 
-module.exports = class CoupleCommand extends Command {
+module.exports = class CoupleCommand extends (
+	Command
+) {
 	constructor() {
 		super({
 			name: 'couple',
