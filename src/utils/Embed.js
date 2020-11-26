@@ -1,4 +1,5 @@
 const {MessageEmbed} = require('discord.js');
+const {formatWithRange} = require('./FormatUtils.js');
 
 module.exports = class Embed extends MessageEmbed {
 	static limits = {
@@ -38,7 +39,8 @@ module.exports = class Embed extends MessageEmbed {
 	};
 
 	static fromTemplate(template, values = {}) {
-		if (typeof template === 'string') template = Embed.templates[template] || {};
+		if (!template) throw new Error(`Template '${template}' not found.`);
+		if (typeof template === 'string') Embed.templates[template] ? (template = Embed.templates[template]) : throw new Error(`Template '${template}' now found.`);
 
 		function setValues(object, values) {
 			for (const [name, value] of Object.entries(object)) {
@@ -69,5 +71,18 @@ module.exports = class Embed extends MessageEmbed {
 			if (field.name?.length > Embed.limits.fields.name) throw new RangeError(`embed.fields[${this.fields.indexOf(field)}].name is too long (${Embed.limits.fields.name}).`);
 			if (field.value?.length > Embed.limits.fields.value) throw new RangeError(`embed.fields[${this.fields.indexOf(field)}].value is too long (${Embed.limits.fields.value}).`);
 		});
+	}
+
+	cutIfTooLong() {
+		if (this.author?.name) this.author.name = formatWithRange(this.author.name ?? '', Embed.limits.author.name);
+		this.description = formatWithRange(this.description ?? '', Embed.limits.description);
+		this.title = formatWithRange(this.title ?? '', Embed.limits.title);
+		if (this.fields) {
+			if (this.fields.length > Embed.limits.fields.size) this.fields = this.fields.slice(0, Embed.limits.fields.size) ?? [];
+			this.fields.forEach(field => {
+				field.name = formatWithRange(field.name ?? '', Embed.limits.fields.name);
+				field.value = formatWithRange(field.value ?? '', Embed.limits.fields.value);
+			});
+		}
 	}
 };
