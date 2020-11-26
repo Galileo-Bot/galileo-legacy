@@ -7,7 +7,7 @@ const {exec} = require('child_process');
 module.exports = class CommandStatsCommand extends Command {
 	constructor() {
 		super({
-			name: 'commandants',
+			name: 'commandstats',
 			description: "Permet d'avoir des statistiques sur le nombre de commandes utilisées par le bot durant les 30 derniers jours.",
 			aliases: ['cs', 'sm', 'statsmessages'],
 		});
