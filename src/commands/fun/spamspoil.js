@@ -18,14 +18,14 @@ module.exports = class SpamSpoilCommand extends Command {
 		let text = args.join(' ');
 		let finalText = '';
 
-		if (/[^\\]-?-copier\s*/g.test(message.content)) text = text.replace(/-?-copier\s*/g, '');
-
+		if (/[^\\]?-?-copier\s*/g.test(message.content)) text = text.replace(/-?-copier\s*/g, '');
 		if (args.length === 0) return argError(message, this, 'Veuillez mettre du texte.');
 
 		for (let i = 0; i < text.length; i++) {
 			finalText += `||${text.charAt(i)}||`;
 		}
-		if (/[^\\]-?-copier\s*/g.test(message.content)) finalText = `\`${finalText}\``;
+
+		if (/[^\\]?-?-copier\s*/g.test(message.content)) finalText = `\`${finalText}\``;
 
 		await super.send(finalText, {
 			split: {
