@@ -1,7 +1,22 @@
-const Logger = require('./Logger.js');
 const {MessageEmbed} = require('discord.js');
 
 module.exports = class Embed extends MessageEmbed {
+	static limits = {
+		author: {
+			name: 256,
+		},
+		title: 256,
+		description: 2048,
+		footer: {
+			text: 2048,
+		},
+		fields: {
+			size: 25,
+			name: 256,
+			value: 1024,
+		},
+	};
+
 	static templates = {
 		basic: {
 			footer: {
@@ -19,14 +34,6 @@ module.exports = class Embed extends MessageEmbed {
 				text: '${client.user.username}',
 				iconURL: '${client.user.displayAvatarURL()}',
 			},
-		},
-		fields: {
-			fields: [
-				{
-					name: 'bite',
-					value: '${client.user.username}',
-				},
-			],
 		},
 	};
 
@@ -53,30 +60,14 @@ module.exports = class Embed extends MessageEmbed {
 	}
 
 	checkSize() {
-		const limits = {
-			author: {
-				name: 256,
-			},
-			title: 256,
-			description: 2048,
-			footer: {
-				text: 2048,
-			},
-			fields: {
-				size: 25,
-				name: 256,
-				value: 1024,
-			},
-		};
-
-		if (this.title?.length > limits.title) throw new RangeError(`embed.title is too long (${limits.title}).`);
-		if (this.author?.name.length > limits.author.name) throw new RangeError(`embed.author.name is too long (${limits.author.name}).`);
-		if (this.description?.length > limits.description) throw new RangeError(`embed.description is too long (${limits.description}).`);
-		if (this.title?.length > limits.title) throw new RangeError(`embed.title is too long (${limits.title}).`);
-		if (this.fields?.length > limits.fields.size) throw new RangeError(`Too much fields is too long (${limits.fields.size}).`);
+		if (this.title?.length > Embed.limits.title) throw new RangeError(`embed.title is too long (${Embed.limits.title}).`);
+		if (this.author?.name.length > Embed.limits.author.name) throw new RangeError(`embed.author.name is too long (${Embed.limits.author.name}).`);
+		if (this.description?.length > Embed.limits.description) throw new RangeError(`embed.description is too long (${Embed.limits.description}).`);
+		if (this.title?.length > Embed.limits.title) throw new RangeError(`embed.title is too long (${Embed.limits.title}).`);
+		if (this.fields?.length > Embed.limits.fields.size) throw new RangeError(`Too much fields is too long (${Embed.limits.fields.size}).`);
 		this.fields.forEach(field => {
-			if (field.name?.length > limits.fields.name) throw new RangeError(`embed.fields[${this.fields.indexOf(field)}].name is too long (${limits.fields.name}).`);
-			if (field.value?.length > limits.fields.value) throw new RangeError(`embed.fields[${this.fields.indexOf(field)}].value is too long (${limits.fields.value}).`);
+			if (field.name?.length > Embed.limits.fields.name) throw new RangeError(`embed.fields[${this.fields.indexOf(field)}].name is too long (${Embed.limits.fields.name}).`);
+			if (field.value?.length > Embed.limits.fields.value) throw new RangeError(`embed.fields[${this.fields.indexOf(field)}].value is too long (${Embed.limits.fields.value}).`);
 		});
 	}
 };
