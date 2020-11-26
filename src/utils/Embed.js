@@ -28,7 +28,7 @@ module.exports = class Embed extends MessageEmbed {
 		},
 		image: {
 			title: '${title}',
-			description: 'Hey : ${description}',
+			description: '${description}',
 			image: {
 				url: '${image}',
 			},
