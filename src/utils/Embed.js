@@ -24,6 +24,7 @@ module.exports = class Embed extends MessageEmbed {
 				text: '${client.user.username}',
 				iconURL: '${client.user.displayAvatarURL()}',
 			},
+			timestamp: new Date(),
 		},
 		image: {
 			title: '${title}',
@@ -40,7 +41,9 @@ module.exports = class Embed extends MessageEmbed {
 
 	static fromTemplate(template, values = {}) {
 		if (!template) throw new Error(`Template '${template}' not found.`);
-		if (typeof template === 'string') Embed.templates[template] ? (template = Embed.templates[template]) : throw new Error(`Template '${template}' now found.`);
+		if (typeof template === 'string')
+			if (Embed.templates[template]) template = Embed.templates[template];
+			else throw new Error(`Template '${template}' now found.`);
 
 		function setValues(object, values) {
 			for (const [name, value] of Object.entries(object)) {
