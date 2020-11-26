@@ -36,6 +36,8 @@ module.exports = class Embed extends MessageEmbed {
 				text: '${client.user.username}',
 				iconURL: '${client.user.displayAvatarURL()}',
 			},
+			timestamp: new Date(),
+			color: '#4b5afd',
 		},
 	};
 
