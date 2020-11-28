@@ -49,7 +49,7 @@ module.exports = class ChannelInfoCommand extends Command {
 		embed.setColor('#4b5afd');
 		embed.addField('🆔 ID :', channel.id, true);
 		embed.addField('<:textuel:635159053630308391> Nom :', channel.name, true);
-		embed.addField('<:blocnote:613703973345689610> Date de création :', formatDate('dd/MM/yyyy hh:mm', channel.createdAt), true);
+		embed.addField('<:bnote:635163385645760523> Date de création :', formatDate('dd/MM/yyyy hh:mm', channel.createdAt), true);
 		embed.addField('<:category:635159053298958366> Type de salon :', type, true);
 		if (type === 'Textuel') embed.addField('<a:cecia:635159108080631854> Sujet :', topic, true);
 

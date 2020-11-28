@@ -20,15 +20,6 @@ module.exports = class CommandManager {
 	}
 
 	/**
-	 * La même chose que {@link CommandManager.findCommand}.
-	 * @param {string} name - Nom ou alias de la commande.
-	 * @returns {Command} - La commande trouvée.
-	 */
-	findCommand(name) {
-		return CommandManager.findCommand(name);
-	}
-
-	/**
 	 * Charge une commande.
 	 * @param {Command} command - La commande à charger.
 	 * @returns {void}

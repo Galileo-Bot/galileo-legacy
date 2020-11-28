@@ -41,7 +41,7 @@ module.exports = class ListerStaffCommand extends Command {
 
 	/**
 	 * Ajoute un field via la collection.
-	 * @param {module:"discord.js".MessageEmbed} embed - L'embed.
+	 * @param {Embed} embed - L'embed.
 	 * @param {string} text - Le titre du field.
 	 * @param {Collection<module:"discord.js".Snowflake, module:"discord.js".GuildMember>} collection - La collection de membres.
 	 */
