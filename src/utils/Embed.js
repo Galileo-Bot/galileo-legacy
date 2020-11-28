@@ -26,47 +26,40 @@ module.exports = class Embed extends MessageEmbed {
 			},
 			timestamp: new Date(),
 		},
-		image: {
-			title: '${title}',
-			description: '${description}',
-			image: {
-				url: '${image}',
-			},
-			footer: {
-				text: '${client.user.username}',
-				iconURL: '${client.user.displayAvatarURL()}',
-			},
-			timestamp: new Date(),
+		color: {
 			color: '#4b5afd',
 		},
-		complete: {
-			title: '${title}',
-			description: '${description}',
-			footer: {
-				text: '${client.user.username}',
-				iconURL: '${client.user.displayAvatarURL()}',
-			},
-			timestamp: new Date(),
-			color: '#4b5afd',
+		get complete() {
+			return {
+				...this.basic,
+				...this.color,
+				title: '${title}',
+				description: '${description}',
+			};
 		},
-		author: {
-			author: {
-				name: '${author}',
-				iconURL: '${authorURL}',
-			},
-			description: '${description}',
-			footer: {
-				text: '${client.user.username}',
-				iconURL: '${client.user.displayAvatarURL()}',
-			},
-			timestamp: new Date(),
-			color: '#4b5afd',
+		get image() {
+			return {
+				...this.complete,
+				image: {
+					url: '${image}',
+				},
+			};
+		},
+		get author() {
+			return {
+				...this.basic,
+				...this.color,
+				author: {
+					name: '${author}',
+					iconURL: '${authorURL}',
+				},
+			};
 		},
 	};
 
 	/**
 	 * Créé un embed suivant une template.
-	 * @param {Embed.templates | string} template - Le nom ou directement la template à inscrire.
+	 * @param {Object | 'basic' | 'image' | 'complete' | 'author'} template - Le nom ou directement la template à inscrire.
 	 * @param {{any}} values - Les valeurs par défaut de l'embed.
 	 * @returns {Embed} - L'embed.
 	 */
