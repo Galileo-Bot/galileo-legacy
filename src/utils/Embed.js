@@ -76,6 +76,8 @@ module.exports = class Embed extends MessageEmbed {
 			if (Embed.templates[template]) template = Embed.templates[template];
 			else throw new Error(`Template '${template}' not found.`);
 
+		template = JSON.parse(JSON.stringify(template));
+
 		function setValues(object, values) {
 			for (const [name, value] of Object.entries(object)) {
 				if (!object.hasOwnProperty(name)) continue;
