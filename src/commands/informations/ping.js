@@ -7,7 +7,6 @@ module.exports = class PingCommand extends Command {
 		super({
 			name: 'ping',
 			description: "Permet de connaître le ping du bot de l'API.",
-			tags: [tags.owner_only],
 		});
 	}
 
