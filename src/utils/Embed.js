@@ -64,6 +64,12 @@ module.exports = class Embed extends MessageEmbed {
 		},
 	};
 
+	/**
+	 * Créé un embed suivant une template.
+	 * @param {Embed.templates | string} template - Le nom ou directement la template à inscrire.
+	 * @param {{any}} values - Les valeurs par défaut de l'embed.
+	 * @returns {Embed} - L'embed.
+	 */
 	static fromTemplate(template, values = {}) {
 		if (!template) throw new Error(`Template '${template}' not found.`);
 		if (typeof template === 'string')
@@ -89,6 +95,9 @@ module.exports = class Embed extends MessageEmbed {
 		return new Embed(setValues(template, values));
 	}
 
+	/**
+	 * Check la taille des fields de l'embed, renvoie une erreur si une est trop grande.
+	 */
 	checkSize() {
 		if (this.title?.length > Embed.limits.title) throw new RangeError(`embed.title is too long (${Embed.limits.title}).`);
 		if (this.author?.name.length > Embed.limits.author.name) throw new RangeError(`embed.author.name is too long (${Embed.limits.author.name}).`);
@@ -101,6 +110,18 @@ module.exports = class Embed extends MessageEmbed {
 		});
 	}
 
+	/**
+	 * Les données à inclure de base dans un embed.
+	 * @param {module:"discord.js".MessageEmbedOptions | MessageEmbed} data
+	 */
+	constructor(data) {
+		super(data);
+		this.checkSize();
+	}
+
+	/**
+	 * Check la taile des fields de l'embed, le coupe automatiquement si un est trop grand.
+	 */
 	cutIfTooLong() {
 		if (this.author?.name) this.author.name = formatWithRange(this.author.name ?? '', Embed.limits.author.name);
 		this.description = formatWithRange(this.description ?? '', Embed.limits.description);
