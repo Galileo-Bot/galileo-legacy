@@ -1,6 +1,7 @@
 const Command = require('../../entities/Command.js');
 const {random} = require('../../utils/Utils.js');
 const fetch = require('node-fetch');
+const Embed = require('../../utils/Embed.js');
 module.exports = class MemeCommand extends Command {
 	constructor() {
 		super({
@@ -21,6 +22,15 @@ module.exports = class MemeCommand extends Command {
 		const subreddit = args[0] ? args[0].toLowerCase() : 'meme';
 
 		const meme = await MemeCommand.getRandomMemeFromSubreddit(subreddit);
-		super.send(meme ?? (await MemeCommand.getRandomMemeFromSubreddit('meme')));
+		const embed = Embed.fromTemplate('image', {
+			client,
+			title: 'Voici votre mème :',
+			description: `Mème venant du [subreddit \`${subreddit}\`](https://www.reddit.com/r/${subreddit}).\n${
+				meme ? '' : `(Subreddit \`${subreddit}\` non trouvé.)`
+			}\n\n[Cliquez ici pour avoir le lien.](${meme})`,
+			image: meme ?? (await MemeCommand.getRandomMemeFromSubreddit('meme')),
+		});
+
+		await super.send(embed);
 	}
 };
