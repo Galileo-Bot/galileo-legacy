@@ -32,7 +32,13 @@ module.exports = class RateLimitEvent extends Event {
 		const embed = Embed.fromTemplate('author', {
 			client,
 			author: `Rate limit :`,
-			authorURL: '',
+			authorURL:
+				message.guild.iconURL({
+					dynamic: true,
+				}) ??
+				client.user.displayAvatarURL({
+					dynamic: true,
+				}),
 			description: `Le bot est en rate limit sur la route : \`\`\`js\n${rateLimitInfo.route}\`\`\`\nAvec le chemin : \`\`\`js\n${decodeURI(rateLimitInfo.path)}\`\`\``,
 		});
 

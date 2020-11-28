@@ -1,3 +1,4 @@
+const Embed = require('../utils/Embed.js');
 const {formatWithRange} = require('../utils/FormatUtils.js');
 const {sendLogMessage} = require('../utils/Utils.js');
 
@@ -46,7 +47,7 @@ module.exports = class Command {
 		const embed = Embed.fromTemplate('author', {
 			client,
 			author: `La commande ${this.name} a été exécutée :`,
-			authorUrl: message.author.displayAvatarURL({
+			authorURL: message.author.displayAvatarURL({
 				dynamic: true,
 			}),
 			description: `Envoyé ${message.guild ? `sur : **${message.guild.name}** (\`${message.guild.id}\`)\nDans : ${message.channel} (\`${message.channel.id}\`)` : 'en privé'}\nEnvoyé par : ${
