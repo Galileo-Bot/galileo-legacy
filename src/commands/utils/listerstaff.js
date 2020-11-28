@@ -1,5 +1,5 @@
-const {MessageEmbed} = require('discord.js');
 const Command = require('../../entities/Command.js');
+const Embed = require('../../utils/Embed.js');
 const {tags} = require('../../constants.js');
 
 module.exports = class ListerStaffCommand extends Command {
@@ -63,10 +63,11 @@ module.exports = class ListerStaffCommand extends Command {
 		const mods = ListerStaffCommand.getMods(message);
 		const bots = ListerStaffCommand.getBots(message);
 
-		const embed = new MessageEmbed();
-		embed.setTimestamp();
-		embed.setFooter(client.user.username, client.user.displayAvatarURL());
-		embed.setDescription(`<:owner:577839458393784320> **Créateur : **${message.guild.owner}`);
+		const embed = Embed.fromTemplate('complete', {
+			client,
+			description: `<:owner:577839458393784320> **Créateur : **${message.guild.owner}`,
+			title: 'Voici la liste du staff du serveur :',
+		});
 		embed.setColor('#0faf2f');
 
 		this.addField(embed, '<:inventaire:635159040510656512> Administrateurs :', admins);

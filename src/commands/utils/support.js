@@ -1,6 +1,6 @@
-const {MessageEmbed} = require('discord.js');
 const {argError} = require('../../utils/Errors.js');
 const Command = require('../../entities/Command.js');
+const Embed = require('../../utils/Embed.js');
 const {channels} = require('../../constants.js');
 
 module.exports = class SupportCommand extends Command {
@@ -20,17 +20,15 @@ module.exports = class SupportCommand extends Command {
 		if (args.length === 0) return argError(message, this, 'Veuillez mettre du texte.');
 		const text = args.join(' ');
 
-		const embed = new MessageEmbed();
-		embed.setTimestamp();
-		embed.setFooter(client.user.username, client.user.displayAvatarURL());
-		embed.setAuthor(
-			`${message.author.tag} (${message.author.id}) nous contacte pour :`,
-			message.author.displayAvatarURL({
+		const embed = Embed.fromTemplate('author', {
+			client,
+			author: `${message.author.tag} (${message.author.id}) nous contacte pour :`,
+			authorURL: message.author.displayAvatarURL({
 				dynamic: true,
 				format: 'png',
-			})
-		);
-		embed.setDescription(text);
+			}),
+			description: text,
+		});
 		embed.setFooter(message.guild ? `Du serveur : ${message.guild.name} (${message.guild.id})` : 'Envoyé en messages privés.');
 		if (message.attachments.array()[0]?.height) embed.setImage(message.attachments.array()[0].url);
 

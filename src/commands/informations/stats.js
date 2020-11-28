@@ -1,6 +1,6 @@
-const {MessageEmbed} = require('discord.js');
 const Command = require('../../entities/Command.js');
 const os = require('os');
+const Embed = require('../../utils/Embed.js');
 const {formatDate, formatRelativeDate} = require('../../utils/FormatUtils.js');
 const {Octokit} = require('@octokit/core');
 
@@ -120,10 +120,11 @@ module.exports = class StatsCommand extends Command {
 			repo: 'galileo',
 		});
 
-		const embed = new MessageEmbed();
+		const embed = Embed.fromTemplate('basic', {
+			client,
+		});
 		embed.setColor('DARKER_GREY');
 		embed.setThumbnail(client.user.displayAvatarURL());
-		embed.setFooter(client.user.username, client.user.displayAvatarURL());
 		embed.setAuthor('Statistiques du bot', client.user.displayAvatarURL());
 		embed.addField('🖥 Nombre de serveurs :', client.guilds.cache.size, true);
 		embed.addField("👥 Nombre d'utilisateurs :", await this.getCountUsers(), true);

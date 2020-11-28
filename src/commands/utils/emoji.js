@@ -1,7 +1,7 @@
-const {MessageEmbed} = require('discord.js');
 const {argError} = require('../../utils/Errors.js');
 const {formatDate} = require('../../utils/FormatUtils.js');
 const Command = require('../../entities/Command.js');
+const Embed = require('../../utils/Embed.js');
 
 module.exports = class EmojiCommand extends Command {
 	constructor() {
@@ -26,9 +26,16 @@ module.exports = class EmojiCommand extends Command {
 		let name;
 		let id;
 		const emoji = args[0] || null;
-		const embed = new MessageEmbed();
-		embed.setTimestamp();
-		embed.setFooter(client.user.username, client.user.displayAvatarURL());
+		const embed = Embed.fromTemplate('basic', {
+			client,
+		});
+		embed.setColor('#1ae831');
+		embed.setAuthor(
+			"Information sur l'émoji :",
+			message.author.displayAvatarURL({
+				dynamic: true,
+			})
+		);
 
 		if (!emoji) return argError(message, this, 'Veuillez mettre un émoji ou `liste`.');
 
@@ -72,8 +79,6 @@ module.exports = class EmojiCommand extends Command {
 					emojiFind.createdAt ? `<:richtext:635163364875698215> Créé le : **${formatDate('dd/MM/yyyy** à **hh:mm', emojiFind.createdAt)}**` : ''
 				}`
 			);
-			embed.setAuthor("Information sur l'émoji :", message.author.displayAvatarURL());
-			embed.setColor('#1ae831');
 
 			await super.send(embed);
 		}

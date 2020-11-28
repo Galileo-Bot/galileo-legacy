@@ -1,13 +1,13 @@
-const {MessageEmbed} = require('discord.js');
+const SlowCommand = require('../../classes/SlowCommand.js');
 const imgur = require('imgur');
 const Jimp = require('jimp');
 const {argTypes, tags, permissions} = require('../../constants.js');
 const {getArg} = require('../../utils/ArgUtils.js');
 const {argError} = require('../../utils/Errors.js');
 const {formatDate} = require('../../utils/FormatUtils.js');
-const Command = require('../../entities/Command.js');
+const Embed = require('../../utils/Embed.js');
 
-module.exports = class RoleInfoCommand extends Command {
+module.exports = class RoleInfoCommand extends SlowCommand {
 	constructor() {
 		super({
 			name: 'roleinfo',
@@ -22,14 +22,13 @@ module.exports = class RoleInfoCommand extends Command {
 		await super.run(client, message, args);
 
 		let thumbnailColor;
-		const waitEmoji = client.emojis.cache.get('638831506126536718');
 		const role = getArg(message, 1, argTypes.role);
 		if (!args[0]) return argError(message, this, 'Veuillez mettre un rôle.');
 		if (!role) return argError(message, this, "Le rôle n'a pas été trouvé ou n'existe pas.");
 
 		const color = role.hexColor === '#000000' ? '#7289da' : role.hexColor;
 
-		await message.react(waitEmoji);
+		await this.startWait();
 		const image = await new Jimp(256, 256, color);
 		await image.write('./assets/images/colorRole.png');
 
@@ -37,11 +36,11 @@ module.exports = class RoleInfoCommand extends Command {
 			thumbnailColor = await imgur.uploadFile('./assets/images/colorRole.png');
 		}
 
-		const embed = new MessageEmbed();
-		embed.setTimestamp();
-		embed.setColor('#4b5afd');
+		const embed = Embed.fromTemplate('basic', {
+			client,
+		});
+
 		embed.setThumbnail(thumbnailColor.data.link);
-		embed.setFooter(client.user.username, client.user.displayAvatarURL());
 		embed.setTitle(`<a:cecia:635159108080631854> Informations sur le rôle : ${role.name}`);
 		embed.addField('🆔 :', role.id, true);
 		embed.addField('<:textuel:635159053630308391> Nom :', role, true);
@@ -65,6 +64,6 @@ module.exports = class RoleInfoCommand extends Command {
 			);
 
 		await super.send(embed);
-		await message.reactions.cache.find(reaction => reaction.emoji === waitEmoji).users.remove(message.client.user.id);
+		await this.stopWait();
 	}
 };

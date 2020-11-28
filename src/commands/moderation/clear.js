@@ -9,7 +9,7 @@ module.exports = class ClearCommand extends Command {
 		super({
 			name: 'clear',
 			description: 'Permet de supprimer un nombre de messages.',
-			usage: 'clear <Nombre> [Nom/ID/Mention de membre]',
+			usage: 'clear <Nombre>\nclear <Nombre> [Nom/ID/Mention de membre]',
 			aliases: ['supprimer', 'purge', 'clr', 'delete'],
 			userPermissions: ['KICK_MEMBERS', 'BAN_MEMBERS'],
 			clientPermissions: ['MANAGE_MESSAGES'],
@@ -30,10 +30,7 @@ module.exports = class ClearCommand extends Command {
 		if (nbr < 1) return argError(message, this, 'Veuillez mettre un nombre entre 1 et 100.');
 		nbr++;
 
-		if (person) {
-			const messages = await message.channel.messages.fetch();
-			nbr = messages.filter(m => m.author.id === person.id).length;
-		}
+		if (person) nbr = (await message.channel.messages.fetch()).messages.filter(m => m.author.id === person.id).length;
 
 		try {
 			while (nbr > 100) {

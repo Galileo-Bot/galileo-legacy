@@ -39,13 +39,36 @@ module.exports = class Embed extends MessageEmbed {
 			timestamp: new Date(),
 			color: '#4b5afd',
 		},
+		complete: {
+			title: '${title}',
+			description: '${description}',
+			footer: {
+				text: '${client.user.username}',
+				iconURL: '${client.user.displayAvatarURL()}',
+			},
+			timestamp: new Date(),
+			color: '#4b5afd',
+		},
+		author: {
+			author: {
+				name: '${author}',
+				iconURL: '${authorURL}',
+			},
+			description: '${description}',
+			footer: {
+				text: '${client.user.username}',
+				iconURL: '${client.user.displayAvatarURL()}',
+			},
+			timestamp: new Date(),
+			color: '#4b5afd',
+		},
 	};
 
 	static fromTemplate(template, values = {}) {
 		if (!template) throw new Error(`Template '${template}' not found.`);
 		if (typeof template === 'string')
 			if (Embed.templates[template]) template = Embed.templates[template];
-			else throw new Error(`Template '${template}' now found.`);
+			else throw new Error(`Template '${template}' not found.`);
 
 		function setValues(object, values) {
 			for (const [name, value] of Object.entries(object)) {

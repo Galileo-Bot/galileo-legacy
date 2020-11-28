@@ -1,10 +1,10 @@
+const SlowCommand = require('../../classes/SlowCommand.js');
 const Logger = require('../../utils/Logger.js');
-const {MessageEmbed} = require('discord.js');
 const imgur = require('imgur');
-const Command = require('../../entities/Command.js');
+const Embed = require('../../utils/Embed.js');
 const {exec} = require('child_process');
 
-module.exports = class CommandStatsCommand extends Command {
+module.exports = class CommandStatsCommand extends SlowCommand {
 	constructor() {
 		super({
 			name: 'commandstats',
@@ -16,29 +16,24 @@ module.exports = class CommandStatsCommand extends Command {
 	async run(client, message, args) {
 		super.run(client, message, args);
 
-		const waitEmoji = client.emojis.cache.get('638831506126536718');
+		await super.startWait();
 		try {
 			exec('py assets/generateGraph.py');
 			exec('python3 assets/generateGraph.py');
 		} catch (ignored) {}
 
-		await message.react(waitEmoji);
-
 		imgur
 			.uploadFile('./assets/images/graphMessages.png')
 			.then(json => {
-				const embed = new MessageEmbed();
-				embed.setFooter(client.user.username, client.user.displayAvatarURL());
-				embed.setTitle("Statistiques sur l'utilisation du bot.");
-				embed.setImage(json.data.link);
-				embed.setColor('#4b5afd');
-				embed.setTimestamp();
+				const embed = Embed.fromTemplate('title', {
+					client,
+					image: json.data.link,
+					title: "Statistiques sur l'utilisation du bot.",
+				});
 
 				super.send(embed);
-				message.reactions.cache.find(reaction => reaction.emoji === waitEmoji).users.remove(message.client.user.id);
+				super.stopWait();
 			})
-			.catch(e => {
-				Logger.error(e.stack);
-			});
+			.catch(e => Logger.error(e.stack));
 	}
 };

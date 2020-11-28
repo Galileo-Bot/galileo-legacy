@@ -1,6 +1,6 @@
-const {MessageEmbed} = require('discord.js');
 const toEmbed = require('godembed');
 const Command = require('../../entities/Command.js');
+const Embed = require('../../utils/Embed.js');
 const {tryDeleteMessage} = require('../../utils/CommandUtils.js');
 const {argError} = require('../../utils/Errors.js');
 const {isOwner} = require('../../utils/Utils.js');
@@ -24,11 +24,11 @@ module.exports = class SayEmbedCommand extends Command {
 		if (args.length === 0) return argError(message, this, "Veuillez mettre du texte pour l'embed ! ");
 
 		if (args[0] === 'info') {
-			const embed = new MessageEmbed();
-			embed.setTimestamp();
-			embed.setAuthor("Informations en plus sur la génération d'embeds :");
-			embed.setFooter(client.user.username, client.user.displayAvatarURL());
-			embed.setDescription("> __**Page d'aide complète : https://www.npmjs.com/package/godembed**__");
+			const embed = Embed.fromTemplate('complete', {
+				client,
+				title: "Informations supplémentaires sur la génération d'embeds :",
+				description: "> __**Page d'aide complète : https://www.npmjs.com/package/godembed**__",
+			});
 			embed.addField(
 				'Variables :',
 				`

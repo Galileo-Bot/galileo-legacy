@@ -1,5 +1,5 @@
+const Embed = require('../../utils/Embed.js');
 const Logger = require('../../utils/Logger.js');
-const {MessageEmbed} = require('discord.js');
 const {argTypes} = require('../../constants.js');
 const {getArg} = require('../../utils/ArgUtils.js');
 const Command = require('../../entities/Command.js');
@@ -25,7 +25,7 @@ module.exports = class ServeurListeCommand extends Command {
 		 */
 		const pageNumberArg = getArg(this.message, 1, argTypes.number);
 		let page = pageNumber;
-		const embed = new MessageEmbed();
+		const embed = new Embed();
 		const pageMax = Math.ceil(this.client.guilds.cache.size / 20);
 		if (!pageNumber && (!pageNumberArg || pageNumberArg > pageMax || pageNumberArg < 1)) page = pageMax;
 

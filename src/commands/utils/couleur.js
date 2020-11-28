@@ -1,8 +1,8 @@
-const {MessageEmbed} = require('discord.js');
 const Jimp = require('jimp');
 const Command = require('../../entities/Command.js');
+const Embed = require('../../utils/Embed.js');
 const {argError} = require('../../utils/Errors.js');
-const {random, readJSON} = require('../../utils/Utils.js');
+const {random} = require('../../utils/Utils.js');
 const {colors} = require('../../assets/jsons/constants.json');
 
 module.exports = class CouleurCommand extends Command {
@@ -19,7 +19,9 @@ module.exports = class CouleurCommand extends Command {
 		super.run(client, message, args);
 
 		const hexColors = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
-		const embed = new MessageEmbed();
+		const embed = Embed.fromTemplate('basic', {
+			client,
+		});
 		let color = '';
 		let image = null;
 
@@ -54,8 +56,6 @@ module.exports = class CouleurCommand extends Command {
 			});
 		} while (!image);
 
-		embed.setTimestamp();
-		embed.setFooter(client.user.username, client.user.displayAvatarURL());
 		embed.setTitle(`Couleur : ${color}`);
 		embed.setColor(color);
 

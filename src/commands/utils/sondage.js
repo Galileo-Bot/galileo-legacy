@@ -1,7 +1,7 @@
-const {MessageEmbed} = require('discord.js');
 const {tryDeleteMessage} = require('../../utils/CommandUtils.js');
 const {argError} = require('../../utils/Errors.js');
 const Command = require('../../entities/Command.js');
+const Embed = require('../../utils/Embed.js');
 
 module.exports = class SondageCommand extends Command {
 	constructor() {
@@ -22,11 +22,13 @@ module.exports = class SondageCommand extends Command {
 		const text = args.join(' ');
 		const emotes = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'keycap_ten'];
 		const question = `**${text.slice(0, text.indexOf(' ; ')).toString()}**\n\n`;
-		const embed = new MessageEmbed();
-		embed.setTimestamp();
-		embed.setFooter(client.user.username, client.user.displayAvatarURL());
-		embed.setColor('#4b5afd');
-		embed.setAuthor(`Question de ${message.author.tag} :`, message.author.displayAvatarURL());
+		const embed = Embed.fromTemplate('author', {
+			client,
+			author: `Question de ${message.author.tag} :`,
+			authorURL: message.author.displayAvatarURL({
+				dynamic: true,
+			}),
+		});
 
 		if (question === '****\n\n') return argError(message, this, 'Veuillez mettre une question.');
 		if (message.attachments.size > 0 && message.attachments.first().height) image = message.attachments.first().url;
@@ -49,8 +51,8 @@ module.exports = class SondageCommand extends Command {
 		});
 
 		embed.setDescription(question + description);
-		const m = await super.send(embed);
 
+		const m = await super.send(embed);
 		for (let i = 0; i < choices.length; i++) {
 			const emoji = client.guilds.cache.get('561646328317476866').emojis.cache.find(e => e.name === emotes[i]);
 			await m.react(emoji);
