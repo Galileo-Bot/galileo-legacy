@@ -2,8 +2,8 @@ const {formatWithRange} = require('../utils/FormatUtils.js');
 const CommandManager = require('../entities/CommandManager.js');
 const Logger = require('../utils/Logger.js');
 const Event = require('../entities/Event.js');
+const Embed = require('../utils/Embed.js');
 const {getPrefixFromMessage, sendLogMessage} = require('../utils/Utils.js');
-const {MessageEmbed} = require('discord.js');
 
 module.exports = class RateLimitEvent extends Event {
 	constructor() {
@@ -29,12 +29,12 @@ module.exports = class RateLimitEvent extends Event {
 
 		const informations = message ? `[Message](${message.url})\nChannel : ${channel}\`#${channel.name}\`(\`${channel.id}\`)` : null;
 
-		const embed = new MessageEmbed();
-		embed.setTimestamp();
-		embed.setAuthor(`Rate limit :`);
-		embed.setDescription(`Le bot est en rate limit sur la route : \`\`\`js\n${rateLimitInfo.route}\`\`\`\nAvec le chemin : \`\`\`js\n${decodeURI(rateLimitInfo.path)}\`\`\``);
-		embed.addField('Temps à attendre : ', `**${rateLimitInfo.timeout}** ms`);
-		embed.setFooter(client.user.username, client.user.displayAvatarURL());
+		const embed = Embed.fromTemplate('author', {
+			client,
+			author: `Rate limit :`,
+			authorURL: '',
+			description: `Le bot est en rate limit sur la route : \`\`\`js\n${rateLimitInfo.route}\`\`\`\nAvec le chemin : \`\`\`js\n${decodeURI(rateLimitInfo.path)}\`\`\``,
+		});
 
 		if (informations) {
 			embed.addField('Informations : ', informations);

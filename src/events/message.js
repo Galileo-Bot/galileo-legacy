@@ -1,10 +1,11 @@
-const {Collection, MessageEmbed, MessageFlags} = require('discord.js');
+const {Collection, MessageFlags} = require('discord.js');
 const {tags} = require('../constants.js');
 const CommandManager = require('../entities/CommandManager.js');
 const Event = require('../entities/Event.js');
 const {verifyCommand, processCommandFail} = require('../utils/CommandUtils.js');
 const {runError} = require('../utils/Errors.js');
 const Logger = require('../utils/Logger.js');
+const Embed = require('../utils/Embed.js');
 const {getPrefixFromMessage, isOwner, sendLogMessage} = require('../utils/Utils.js');
 
 module.exports = class MessageEvent extends Event {
@@ -34,12 +35,15 @@ module.exports = class MessageEvent extends Event {
 
 		if (!prefix) {
 			if (message.guild === null) {
-				const embed = new MessageEmbed();
-				embed.setAuthor(`Message reçu de ${message.author.tag} (${message.author.id})`, message.author.displayAvatarURL());
-				embed.setDescription(message);
+				const embed = Embed.fromTemplate('author', {
+					client,
+					author: `Message reçu de ${message.author.tag} (${message.author.id})`,
+					authorURL: message.author.displayAvatarURL({
+						dynamic: true,
+					}),
+					description: '',
+				});
 				embed.setColor('RANDOM');
-				embed.setTimestamp();
-				embed.setFooter(client.user.username, client.user.displayAvatarURL());
 				if (message.attachments.array()[0]?.height) embed.setImage(message.attachments.array()[0].url);
 				if (!embed.image && message.embeds[0]?.image?.height) embed.setImage(message.embeds[0].image.url);
 				await sendLogMessage(client, 'mp', embed);

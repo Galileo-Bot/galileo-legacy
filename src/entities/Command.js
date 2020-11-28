@@ -1,6 +1,5 @@
 const {formatWithRange} = require('../utils/FormatUtils.js');
 const {sendLogMessage} = require('../utils/Utils.js');
-const {MessageEmbed} = require('discord.js');
 
 module.exports = class Command {
 	aliases;
@@ -44,18 +43,19 @@ module.exports = class Command {
 		this.message = message;
 		this.args = args;
 
-		const embed = new MessageEmbed();
-		embed.setAuthor(`La commande ${this.name} a été exécutée :`, message.author.displayAvatarURL());
-		embed.addField(
-			'Informations :',
-			`Envoyé ${message.guild ? `sur : **${message.guild.name}** (\`${message.guild.id}\`)\nDans : ${message.channel} (\`${message.channel.id}\`)` : 'en privé'}\nEnvoyé par : ${
+		const embed = Embed.fromTemplate('author', {
+			client,
+			author: `La commande ${this.name} a été exécutée :`,
+			authorUrl: message.author.displayAvatarURL({
+				dynamic: true,
+			}),
+			description: `Envoyé ${message.guild ? `sur : **${message.guild.name}** (\`${message.guild.id}\`)\nDans : ${message.channel} (\`${message.channel.id}\`)` : 'en privé'}\nEnvoyé par : ${
 				message.author
-			} (\`${message.author.id}\`)`
-		);
+			} (\`${message.author.id}\`)`,
+		});
 		embed.addField('Message :', formatWithRange(message.content, 1024));
 		embed.setColor('RANDOM');
-		embed.setFooter(client.user.username, client.user.displayAvatarURL());
-		embed.setTimestamp();
+
 		if (message.attachments.array()[0]?.height) embed.setImage(message.attachments.array()[0].url);
 		if (!embed.image && message.embeds[0]?.image?.height) embed.setImage(message.embeds[0].image.url);
 		if (message.guild) embed.setThumbnail(message.guild.iconURL());

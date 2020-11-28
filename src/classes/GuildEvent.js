@@ -27,7 +27,7 @@ module.exports = class GuildEvent extends Event {
 
 	/**
 	 * Renvoie l'Embed d'un GuildEvent.
-	 * @returns {module:"discord.js".MessageEmbed | null} - L'embed.
+	 * @returns {Embed} - L'embed.
 	 */
 	embed() {
 		if (!this.guild.available) return null;
