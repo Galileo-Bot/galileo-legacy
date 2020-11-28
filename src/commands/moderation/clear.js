@@ -20,30 +20,36 @@ module.exports = class ClearCommand extends Command {
 	async run(client, message, args) {
 		super.run(client, message, args);
 
-		const person = getArg(message, 2, argTypes.member);
+		const person = getArg(message, 1, argTypes.user) ?? getArg(message, 2, argTypes.user);
 		/**
 		 * @type {number}
 		 */
-		let nbr = getArg(message, 1, argTypes.number);
+		let nbr = getArg(message, 1, argTypes.number) ?? getArg(message, 2, argTypes.number);
 
 		if (!nbr) return argError(message, this, 'Veuillez mettre un nombre.');
 		if (nbr < 1) return argError(message, this, 'Veuillez mettre un nombre entre 1 et 100.');
 		nbr++;
 
-		if (person) nbr = (await message.channel.messages.fetch()).messages.filter(m => m.author.id === person.id).length;
-
-		try {
-			while (nbr > 100) {
-				await message.channel.bulkDelete(100);
-				nbr -= 100;
+		if (person) {
+			(await message.channel.messages.fetch())
+				.filter(m => m.author.id === person.id)
+				.array()
+				.slice(0, nbr)
+				.forEach(m => tryDeleteMessage(m));
+		} else {
+			try {
+				while (nbr > 100) {
+					await message.channel.bulkDelete(100);
+					nbr -= 100;
+				}
+				await message.channel.bulkDelete(nbr);
+			} catch (error) {
+				if (error.message.includes('You can only bulk delete messages that are under 14 days old')) return;
 			}
-			await message.channel.bulkDelete(nbr);
-		} catch (error) {
-			if (error.message.includes('You can only bulk delete messages that are under 14 days old')) return;
 		}
 
-		const m = await super.send(`<a:valid:638509756188983296> **${nbr - 1}** messages ont bien été supprimés.`);
+		const m = await super.send(`<a:valid:638509756188983296> **${nbr - 1}** messages${person ? ` de ${person}` : ''} ont bien été supprimés.`);
 		tryDeleteMessage(message);
-		tryDeleteMessage(m, 5000);
+		tryDeleteMessage(m, 6000);
 	}
 };
