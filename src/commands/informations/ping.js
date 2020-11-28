@@ -1,4 +1,3 @@
-const {tags} = require('../../constants.js');
 const Command = require('../../entities/Command.js');
 const Embed = require('../../utils/Embed.js');
 
