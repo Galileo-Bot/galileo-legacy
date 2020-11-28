@@ -22,6 +22,7 @@ module.exports = class RoleInfoCommand extends SlowCommand {
 		await super.run(client, message, args);
 
 		let thumbnailColor;
+		await message.guild.members.fetch();
 		const role = getArg(message, 1, argTypes.role);
 		if (!args[0]) return argError(message, this, 'Veuillez mettre un rôle.');
 		if (!role) return argError(message, this, "Le rôle n'a pas été trouvé ou n'existe pas.");
@@ -46,7 +47,7 @@ module.exports = class RoleInfoCommand extends SlowCommand {
 		embed.addField('<:textuel:635159053630308391> Nom :', role, true);
 		embed.addField(
 			'<:richtext:635163364875698215> Nombre de membres ayant le rôle :',
-			`${role.members.size} (${Math.round((role.members.size / message.guild.members.cache.size) * 1000) / 10}% des membres du serveur)`
+			`${role.members.size} (${Math.round((role.members.size / (await message.guild.members.fetch()).size) * 1000) / 10}% des membres du serveur)`
 		);
 		embed.addField('<:hey:635159039831048202> Mentionable :', role.mentionable ? '<:enablevert:635159048639086592>' : '<:disable:635255629694369812>', true);
 		embed.addField('<:richtext:635163364875698215> Rôle affiché séparément :', role.hoist ? '<:enablevert:635159048639086592>' : '<:disable:635255629694369812>', true);

@@ -25,7 +25,6 @@ module.exports = class SupportCommand extends Command {
 			author: `${message.author.tag} (${message.author.id}) nous contacte pour :`,
 			authorURL: message.author.displayAvatarURL({
 				dynamic: true,
-				format: 'png',
 			}),
 			description: text,
 		});
