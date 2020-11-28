@@ -53,6 +53,7 @@ module.exports = class Embed extends MessageEmbed {
 					name: '${author}',
 					iconURL: '${authorURL}',
 				},
+				description: '${description}',
 			};
 		},
 	};

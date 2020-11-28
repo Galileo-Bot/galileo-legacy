@@ -1,8 +1,10 @@
 const SlowCommand = require('./SlowCommand.js');
+const Embed = require('../utils/Embed.js');
+const {argError} = require('../utils/Errors.js');
 const ImgFlip = require('imgflip').default;
 
 module.exports = class IMGFlipCommand extends SlowCommand {
-	argsMaxLength = 20;
+	argsMaxLength = 30;
 	argsNumber = 2;
 	font;
 	templateID;
@@ -47,8 +49,10 @@ module.exports = class IMGFlipCommand extends SlowCommand {
 
 		args = args.join(' ').split(' ; ');
 
+		if (args.length < this.argsNumber) return argError(message, this, `Veuillez mettre ${this.argsNumber} arguments (séparés par des \`;\`) comme le rappel ci-dessous :arrow_down:.`);
+
 		for (let i = 0; i < this.argsNumber; i++) {
-			texts[i] = args[i] ? args[i] || message.mentions.members?.first() : message.guild?.members.cache.random()?.displayName || message.member?.displayName || message.author.username;
+			texts[i] = args[i];
 			if (texts[i].length > this.argsMaxLength) {
 				return message.channel?.send(`<a:attention:613714368647135245> **L'argument numéro ${i + 1} est trop long ${message.author}** _(${this.argsMaxLength} caractères maximum)_ **!**`);
 			}
@@ -64,13 +68,12 @@ module.exports = class IMGFlipCommand extends SlowCommand {
 	}
 
 	async sendMeme(memeURL) {
-		await super.send('Voici votre image :', {
-			files: [
-				{
-					attachment: memeURL,
-					name: 'meme.png',
-				},
-			],
+		const embed = Embed.fromTemplate('image', {
+			client: this.client,
+			title: 'Voici votre mème : ',
+			image: memeURL,
+			description: `[Cliquez ici pour avoir le lien.](${memeURL})`,
 		});
+		await super.send(embed);
 	}
 };
