@@ -1,6 +1,6 @@
-const {MessageEmbed} = require('discord.js');
 const {formatWithRange} = require('./FormatUtils.js');
 const Logger = require('./Logger.js');
+const Embed = require('./Embed.js');
 const {permissions} = require('../constants.js');
 const {getPrefixFromMessage, isOwner, sendLogMessage} = require('./Utils.js');
 
@@ -13,18 +13,20 @@ const {getPrefixFromMessage, isOwner, sendLogMessage} = require('./Utils.js');
  */
 function argError(message, command, error) {
 	const {verifyCommand} = require('./CommandUtils.js');
-	const embed = new MessageEmbed();
+	const embed = Embed.fromTemplate('author', {
+		client: message.client,
+		author: 'Vous avez fait une erreur au niveau des arguments.',
+		authorURL: message.author.displayAvatarURL({
+			dynamic: true,
+		}),
+		description: `Erreur : ${error}`,
+	});
 
 	embed.setColor('#ff792a');
-	embed.setAuthor('Vous avez fait une erreur au niveau des arguments.', message.author.displayAvatarURL());
-	embed.setTitle(`Commande : ${command.name} `);
-	embed.setDescription(`Erreur : ${error}`);
 	const verification = verifyCommand(command, message);
 	if (verification.tags.length === 0 && verification.missingPermissions.user.length === 0 && verification.missingPermissions.client.length === 0)
 		embed.addField("Rappel d'utilisation :", `\`${command.usage}\``);
 	embed.setFooter(`Faites ${getPrefixFromMessage(message)}help ${command} pour avoir plus d'aide.`);
-	embed.setFooter(message.client.user.username, message.client.user.displayAvatarURL());
-	embed.setTimestamp();
 
 	message.channel?.send(embed);
 	Logger.info(`'${message.author.tag}' (${message.author.id} a raté la commande '${command.name}', raison : ${error}`, 'MessageEvent');
@@ -39,26 +41,21 @@ function argError(message, command, error) {
  * @returns {void}
  */
 function permsError(message, command, missingPermissions, fromBot = false) {
-	const embed = new MessageEmbed();
-	embed.setColor('#ffc843');
-	embed.setAuthor(
-		`Permissions ${fromBot ? 'du bot' : ''} manquantes.`,
-		message.author.displayAvatarURL({
+	const embed = Embed.fromTemplate('author', {
+		client: message.client,
+		author: `Permissions ${fromBot ? 'du bot' : ''} manquantes.`,
+		authorURL: message.author.displayAvatarURL({
 			dynamic: true,
-			format: 'png',
-		})
-	);
-	embed.setTitle(`Commande : ${command.name}`);
-	embed.setDescription(
-		`\`${missingPermissions
+		}),
+		description: `\`${missingPermissions
 			.map(perm => permissions[perm])
 			.sort(new Intl.Collator().compare)
-			.join(', ')}\``
-	);
+			.join(', ')}\``,
+	});
+	embed.setColor('#ffc843');
+	embed.setTitle(`Commande : ${command.name}`);
 	embed.addField("Rappel d'utilisation :", `\`${command.usage}\``);
 	embed.setFooter(`Faites ${getPrefixFromMessage(message)}help ${command} pour récupérer les permissions de la commande.`);
-	embed.setFooter(message.client.user.username, message.client.user.displayAvatarURL());
-	embed.setTimestamp();
 
 	message.channel?.send(embed);
 }
@@ -71,11 +68,13 @@ function permsError(message, command, missingPermissions, fromBot = false) {
  * @returns {any} - Je sais pas xD
  */
 async function runError(message, command, error) {
-	const embed = new MessageEmbed();
-	const embedLog = new MessageEmbed();
+	const embedLog = Embed.fromTemplate('basic', {
+		client: message.client,
+	});
+	const embed = Embed.fromTemplate('basic', {
+		client: message.client,
+	});
 	embedLog.setColor('#dd0000');
-
-	// En cas d'erreur avec une commande et que l'auteur du message est un créateur.
 	embedLog.setDescription(`Une erreur a eu lieu avec la commande : **${command.name}**.`);
 	embedLog.addField(
 		'Informations :',
@@ -86,8 +85,6 @@ async function runError(message, command, error) {
 
 	embedLog.addField('Erreur :', formatWithRange(error.stack, 1024));
 	embedLog.addField('Message :', formatWithRange(message.content, 1024));
-	embed.setFooter(message.client.user.username, message.client.user.displayAvatarURL());
-	embed.setTimestamp();
 	if (message.attachments.array()[0]?.height) embed.setImage(message.attachments.array()[0].url);
 	if (!embed.image && message.embeds[0]?.image?.height) embed.setImage(message.embeds[0].image.url);
 	if (message.guild) embed.setThumbnail(message.guild.iconURL());
@@ -97,7 +94,7 @@ async function runError(message, command, error) {
 	embed.setDescription(`> Une erreur a eu lieu avec la commande : **${command.name}**.\n\n**__L'erreur a été avertie aux développeurs.__**`);
 	embed.setColor('RANDOM');
 
-	message.channel?.send(embed);
+	await message.channel?.send(embed);
 	await sendLogMessage(message.client, 'bug', embedLog);
 }
 

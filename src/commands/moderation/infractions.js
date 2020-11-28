@@ -23,7 +23,7 @@ module.exports = class InfractionsCommand extends Command {
 	 * @param {UserInfo} userData - Les données de l'utilisateur.
 	 * @param {number} pageNumber - La page par défaut à charger.
 	 * @param {module:"discord.js".User} user - L'utilisateur.
-	 * @param {module:"discord.js".MessageEmbed} embed - L'embed.
+	 * @param {Embed} embed - L'embed.
 	 */
 	createPage(userData, pageNumber, user, embed) {
 		const pageMax = Math.floor(userData.sanctions.length / 10) + 1;

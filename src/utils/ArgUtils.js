@@ -159,5 +159,4 @@ function getArg(content, index, argType) {
 
 module.exports = {
 	getArg,
-	getArgWithContent,
 };

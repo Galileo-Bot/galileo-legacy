@@ -107,9 +107,9 @@ module.exports = class Embed extends MessageEmbed {
 
 	/**
 	 * Les données à inclure de base dans un embed.
-	 * @param {module:"discord.js".MessageEmbedOptions | MessageEmbed} data
+	 * @param {module:"discord.js".MessageEmbedOptions | MessageEmbed | Object} [data = {}] - Les données.
 	 */
-	constructor(data) {
+	constructor(data = {}) {
 		super(data);
 		this.checkSize();
 	}
