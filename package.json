@@ -10,7 +10,7 @@
 	"dependencies": {
 		"@octokit/core": "^3.2.0",
 		"better-sqlite-pool": "^0.3.0",
-		"discord.js": "^12.5.0",
+		"discord.js": "^12.5.1",
 		"enmap": "^5.8.0",
 		"figlet": "^1.5.0",
 		"godembed": "^1.0.4",
@@ -21,17 +21,9 @@
 	},
 	"description": "A discord bot.",
 	"devDependencies": {
-		"prettier": "^2.1.2"
+		"prettier": "^2.2.1"
 	},
 	"engineStrict": true,
-	"eslintConfig": {
-		"ecmaFeatures": {
-			"impliedStrict": true
-		},
-		"parserOptions": {
-			"ecmaVersion": 2020
-		}
-	},
 	"keywords": [
 		"galileo",
 		"discord",
