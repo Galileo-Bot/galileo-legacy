@@ -1,8 +1,8 @@
 const SlowCommand = require('./SlowCommand.js');
-const {MessageEmbed} = require('discord.js');
 const Logger = require('../utils/Logger.js');
 const Jimp = require('jimp');
 const imgur = require('imgur');
+const Embed = require('../utils/Embed.js');
 const {isOwner} = require('../utils/Utils.js');
 const {runError} = require('../utils/Errors.js');
 const {argTypes} = require('../constants.js');
@@ -28,17 +28,16 @@ module.exports = class ImageCommand extends SlowCommand {
 				image.write(`./assets/images/${imageFunction}.png`);
 			})
 			.then(() =>
-				imgur.uploadFile(`./assets/images/${imageFunction}.png`).then(json => {
-					const embed = new MessageEmbed();
-					embed.setTitle('Image traitée : ');
-					embed.setDescription(`[Cliquez pour ouvrir l'image.](${json.data.link})`);
-					embed.setColor('#4b5afd');
-					embed.setTimestamp();
-					embed.setImage(json.data.link);
-					embed.setFooter(message.client.user.username, message.client.user.displayAvatarURL());
+				imgur.uploadFile(`./assets/images/${imageFunction}.png`).then(async json => {
+					const embed = Embed.fromTemplate('image', {
+						client: message.client,
+						image: json.data.link,
+						description: `[Cliquez pour ouvrir l'image.](${json.data.link})`,
+						title: 'Image traitée : ',
+					});
 
-					message.channel?.send(embed);
-					this.stopWait();
+					await super.send(embed);
+					await this.stopWait();
 				})
 			)
 			.catch(async error => {

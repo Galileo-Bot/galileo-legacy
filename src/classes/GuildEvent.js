@@ -1,6 +1,6 @@
 const Logger = require('../utils/Logger.js');
 const Event = require('../entities/Event.js');
-const {MessageEmbed} = require('discord.js');
+const Embed = require('../utils/Embed.js');
 
 module.exports = class GuildEvent extends Event {
 	/**
@@ -32,15 +32,16 @@ module.exports = class GuildEvent extends Event {
 	embed() {
 		if (!this.guild.available) return null;
 
-		const embed = new MessageEmbed();
-		embed.setTitle(`Le bot a ${this.type === 'remove' ? 'quitté' : 'rejoint'} un serveur.`);
+		const embed = Embed.fromTemplate('complete', {
+			client: this.client,
+			title: `Le bot a ${this.type === 'remove' ? 'quitté' : 'rejoint'} un serveur.`,
+			description: `**${this.guild.name}** (\`${this.guild.id}\`)`,
+			color: this.type === 'remove' ? '#dd2211' : '#14dd10',
+		});
+
 		embed.setThumbnail(this.guild.iconURL());
-		embed.setDescription(`**${this.guild.name}** (\`${this.guild.id}\`)`);
 		embed.addField('Créateur :', `${this.owner?.user ?? this.owner} (\`${this.guild.ownerID}\`)`);
 		embed.addField('Nombre de membres :', `**${this.guild.memberCount}** dont **${this.guild.members.cache.filter(m => m.user.bot).size}** bots.`);
-		embed.setColor(this.type === 'remove' ? '#dd2211' : '#14dd10');
-		embed.setFooter(this.client.user.username, this.client.user.displayAvatarURL());
-		embed.setTimestamp();
 
 		return embed;
 	}

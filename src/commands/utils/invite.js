@@ -1,5 +1,5 @@
-const {MessageEmbed} = require('discord.js');
 const Command = require('../../entities/Command.js');
+const Embed = require('../../utils/Embed.js');
 
 module.exports = class InviteCommand extends Command {
 	constructor() {
@@ -13,9 +13,9 @@ module.exports = class InviteCommand extends Command {
 	async run(client, message, args) {
 		super.run(client, message, args);
 
-		const embed = new MessageEmbed();
-		embed.setTimestamp();
-		embed.setFooter(client.user.username, client.user.displayAvatarURL());
+		const embed = Embed.fromTemplate('basic', {
+			client,
+		});
 		embed.setAuthor(
 			"🔗 Voici le lien d'invitation pour inviter le bot",
 			`${message.author.displayAvatarURL({

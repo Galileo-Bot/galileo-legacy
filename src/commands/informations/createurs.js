@@ -1,4 +1,4 @@
-const {MessageEmbed} = require('discord.js');
+const Embed = require('../../utils/Embed.js');
 const Command = require('../../entities/Command.js');
 
 module.exports = class CreateursCommand extends Command {
@@ -22,7 +22,7 @@ module.exports = class CreateursCommand extends Command {
 	}
 
 	async sendCreator(user, creator) {
-		const embed = new MessageEmbed();
+		const embed = new Embed();
 		embed.setTitle(`Informations sur ${user.username} :`);
 		embed.setColor('#4b5afd');
 		embed.setThumbnail(user.displayAvatarURL());

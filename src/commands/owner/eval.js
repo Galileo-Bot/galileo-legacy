@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const Embed = require('../../utils/Embed.js');
 const constants = require('../../constants.js');
 const Command = require('../../entities/Command.js');
 const {formatByteSize} = require('../../utils/FormatUtils.js');

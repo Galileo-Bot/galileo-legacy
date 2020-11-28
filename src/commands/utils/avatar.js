@@ -1,7 +1,7 @@
-const {MessageEmbed} = require('discord.js');
 const {argTypes} = require('../../constants.js');
 const {getArg} = require('../../utils/ArgUtils.js');
 const Command = require('../../entities/Command.js');
+const Embed = require('../../utils/Embed.js');
 
 module.exports = class AvatarCommand extends Command {
 	constructor() {
@@ -17,22 +17,17 @@ module.exports = class AvatarCommand extends Command {
 		super.run(client, message, args);
 
 		const person = getArg(message, 1, argTypes.user) ?? message.author;
-		const embed = new MessageEmbed();
-		embed.setTitle(`Avatar de ${person.username}`);
-		embed.setDescription(
-			`<:link:539121207543595008> [Lien de l'avatar.](${person.displayAvatarURL({
-				dynamic: true,
-			})})`
-		);
-		embed.setImage(
-			person.displayAvatarURL({
-				dynamic: true,
-				format: 'png',
-			})
-		);
-		embed.setFooter(client.user.username, client.user.displayAvatarURL());
+		const link = person.displayAvatarURL({
+			dynamic: true,
+			format: 'png',
+		});
+		const embed = Embed.fromTemplate('image', {
+			client,
+			title: `Avatar de ${person.username} :`,
+			description: `<:link:539121207543595008> [Lien de l'avatar.](${link})`,
+			image: link,
+		});
 		embed.setColor('#0faf2f');
-		embed.setTimestamp();
 
 		await super.send(embed);
 	}

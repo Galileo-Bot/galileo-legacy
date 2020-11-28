@@ -1,6 +1,6 @@
-const {MessageEmbed} = require('discord.js');
 const {argError} = require('../../utils/Errors.js');
 const Command = require('../../entities/Command.js');
+const Embed = require('../../utils/Embed.js');
 
 module.exports = class DocCommand extends Command {
 	constructor() {
@@ -15,9 +15,9 @@ module.exports = class DocCommand extends Command {
 		super.run(client, message, args);
 
 		const {languages} = require('../../assets/jsons/constants.json');
-		const embed = new MessageEmbed();
-		embed.setTimestamp();
-		embed.setFooter(client.user.username, client.user.displayAvatarURL());
+		const embed = Embed.fromTemplate('basic', {
+			client,
+		});
 		embed.setColor('#0faf2f');
 
 		let list = '<:etiquette:635159045187174410> Cliquez sur les langages/librairies pour accéder à leur documentation :\n\n';

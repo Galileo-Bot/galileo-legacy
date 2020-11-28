@@ -1,6 +1,6 @@
-const {MessageEmbed} = require('discord.js');
 const {tags} = require('../../constants.js');
 const Command = require('../../entities/Command.js');
+const Embed = require('../../utils/Embed.js');
 
 module.exports = class PingCommand extends Command {
 	constructor() {
@@ -15,11 +15,10 @@ module.exports = class PingCommand extends Command {
 		super.run(client, message, args);
 
 		const m = await super.send('Ping :thinking: ?');
-		const embed = new MessageEmbed();
+		const embed = Embed.fromTemplate('basic', {
+			client,
+		});
 
-		embed.setTimestamp();
-		embed.setFooter(client.user.username, client.user.displayAvatarURL());
-		embed.setColor('RANDOM');
 		embed.setColor('#36393e');
 		embed.setTitle('🏓 Pong !');
 		embed.setThumbnail(client.user.avatarURL());

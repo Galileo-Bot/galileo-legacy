@@ -1,6 +1,6 @@
-const {MessageEmbed} = require('discord.js');
 const {formatDate} = require('../../utils/FormatUtils.js');
 const Command = require('../../entities/Command.js');
+const Embed = require('../../utils/Embed.js');
 const {guildFeatures, tags} = require('../../constants.js');
 
 module.exports = class ServeurInfoCommand extends Command {
@@ -35,8 +35,9 @@ module.exports = class ServeurInfoCommand extends Command {
 		const {size: categoryChannelsSize} = channels.cache.filter(c => c.type === 'category');
 		const {size: newsChannelsSize} = channels.cache.filter(c => c.type === 'news');
 
-		const embed = new MessageEmbed();
-		embed.setTimestamp();
+		const embed = Embed.fromTemplate('basic', {
+			client,
+		});
 		embed.setColor('#21fd20');
 		embed.setThumbnail(
 			message.guild.iconURL({

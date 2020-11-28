@@ -1,9 +1,9 @@
 const Command = require('../entities/Command.js');
+const Embed = require('../utils/Embed.js');
 const {argTypes} = require('../constants.js');
 const {getArg} = require('../utils/ArgUtils.js');
 const {argError} = require('../utils/Errors.js');
 const {tryDeleteMessage} = require('../utils/CommandUtils.js');
-const {MessageEmbed} = require('discord.js');
 
 module.exports = class SanctionCommand extends Command {
 	type;
@@ -49,16 +49,13 @@ module.exports = class SanctionCommand extends Command {
 			`${person.user.id}.sanctions`
 		);
 
-		const embed = new MessageEmbed();
-		embed.setTimestamp();
-		embed.setFooter(this.client.user.username, this.client.user.displayAvatarURL());
-		embed.setTitle(`Bannissement (sanction numéro ${this.client.dbManager.userInfos.get(this.message.guild.id, person.user.id).sanctions.length}) :`);
-		embed.setDescription(
-			`${this.type === 'ban' ? 'Utilisez la commande `infractions` pour dé-bannir la personne.\n\n' : ''}Membre : ${person}\nID : ${person.user.id}\nServeur : \`${this.message.guild.name}\``
-		);
-		embed.addField('Raison : ', reason);
-		embed.setColor('#4b5afd');
-
+		const embed = Embed.fromTemplate('complete', {
+			client: this.client,
+			description: `${this.type === 'ban' ? 'Utilisez la commande `infractions` pour dé-bannir la personne.\n\n' : ''}Membre : ${person}\nID : ${person.user.id}\nServeur : \`${
+				this.message.guild.name
+			}\``,
+			title: `Bannissement (sanction numéro ${this.client.dbManager.userInfos.get(this.message.guild.id, person.user.id).sanctions.length}) :`,
+		});
 		person.user.send(embed).catch(() => {});
 
 		/* todo SERVCONFIG :

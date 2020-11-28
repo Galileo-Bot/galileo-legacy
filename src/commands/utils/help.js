@@ -1,5 +1,5 @@
-const {MessageEmbed} = require('discord.js');
 const Command = require('../../entities/Command.js');
+const Embed = require('../../utils/Embed.js');
 const {verifyCommand} = require('../../utils/CommandUtils.js');
 const {argTypes, categories, permissions, tags} = require('../../constants.js');
 const {getArg} = require('../../utils/ArgUtils.js');
@@ -31,9 +31,9 @@ module.exports = class HelpCommand extends Command {
 			command = getArg(message, 1, argTypes.command);
 		}
 
-		const embed = new MessageEmbed();
-		embed.setTimestamp();
-		embed.setFooter(client.user.username, client.user.displayAvatarURL());
+		const embed = Embed.fromTemplate('basic', {
+			client,
+		});
 		embed.setColor('#36393e');
 
 		if (['toutes', 'all'].includes(args[0]) || !args[0]) {

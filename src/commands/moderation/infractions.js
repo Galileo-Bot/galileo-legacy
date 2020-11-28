@@ -1,7 +1,6 @@
-const {MessageEmbed} = require('discord.js');
 const Command = require('../../entities/Command.js');
 const SanctionCommand = require('../../classes/SanctionCommand.js');
-const {readJSON} = require('../../utils/Utils.js');
+const Embed = require('../../utils/Embed.js');
 const {argTypes, tags} = require('../../constants.js');
 const {getArg} = require('../../utils/ArgUtils.js');
 const {argError} = require('../../utils/Errors.js');
@@ -59,9 +58,9 @@ module.exports = class InfractionsCommand extends Command {
 		await super.run(client, message, args);
 
 		const person = getArg(message, 1, argTypes.member) ?? message.member;
-		const embed = new MessageEmbed();
-		embed.setTimestamp();
-		embed.setFooter(client.user.username, client.user.displayAvatarURL());
+		const embed = Embed.fromTemplate('basic', {
+			client,
+		});
 		embed.setColor('#4b5afd');
 
 		const page = getArg(message, 1, argTypes.number);
@@ -102,8 +101,10 @@ module.exports = class InfractionsCommand extends Command {
 					if (args.length === 3) return argError(message, this, 'Veuillez mettre la nouvelle raison de cette sanction.');
 					const sanctions = client.dbManager.userInfos.get(message.guild.id, `${person.user.id}.sanctions`);
 					const reason = args.slice(3).join(' ');
+
 					sanctions.find(s => s.case.toString() === args[2]).reason = reason;
 					client.dbManager.userInfos.set(message.guild.id, sanctions, `${person.user.id}.sanctions`);
+
 					return super.send(`La sanction ${args[2]} a bien été modifiée en \`${reason}\`.\n\`(${sanction.type})\``);
 				} else return argError(message, this, `La sanction ${args[2]} n'a pas été trouvée ou n'est pas valide.`);
 			}
