@@ -1,5 +1,5 @@
-const {MessageEmbed} = require('discord.js');
 const Command = require('../../entities/Command.js');
+const Embed = require('../../utils/Embed.js');
 const {argTypes, channels} = require('../../constants.js');
 const {getArg} = require('../../utils/ArgUtils.js');
 
@@ -16,7 +16,7 @@ module.exports = class BugsCommand extends Command {
 	/**
 	 * Retourne un bug en le cherchant dans le salon des bugs.
 	 * @param {number | null} bugNumber - Le numéro du bug.
-	 * @param {module:"discord.js".Collection<string, module:"discord.js".Message>} messages - Les messages dans lesquels rechercher le bug.
+	 * @param {{number: number, content: string, since: Date}[]} messages - Les messages dans lesquels rechercher le bug.
 	 * @param {module:"discord.js".MessageEmbed} embed - L'embed.
 	 * @returns {string} - L'embed.
 	 */
@@ -31,7 +31,7 @@ module.exports = class BugsCommand extends Command {
 			embed.addField('Présent depuis : ', `${Math.round((Date.now() - bug.since.getTime()) / (1000 * 60 * 60 * 24))} jours.`);
 		} else {
 			embed.setTitle('Liste des bugs existants :');
-			messages = messages.sort((a, b) => parseInt(a.number) - parseInt(b.number));
+			messages = messages.sort((a, b) => a.number - b.number);
 			description = messages.map(message => message.content).join('\n\n');
 		}
 
@@ -43,26 +43,23 @@ module.exports = class BugsCommand extends Command {
 
 		const bugNumber = getArg(message, 1, argTypes.number);
 		const channelBugs = client.channels.cache.get(channels.bugChannel);
-		const embed = new MessageEmbed();
-
 		if (!client.channels.cache.has(channelBugs.id)) {
 			return super.send("Le bot n'a pas le salon bugs dans ses salon, contactez un créateur pour en savoir plus.");
 		}
 
-		let messages = await channelBugs.messages.fetch();
-		messages = messages
+		const messages = (await channelBugs.messages.fetch())
 			.filter(m => m.content.includes('<:non:515670765820182528>'))
 			.map(msg => ({
 				content: msg.content,
-				number: msg.content.replace(/.+[*]{0,2}g\.(\d+)[*]{0,2}/, '$1'),
+				number: parseInt(msg.content.replace(/.+[*]{0,2}g\.(\d+)[*]{0,2}/, '$1')),
 				since: msg.createdAt,
 			}));
 
+		const embed = Embed.fromTemplate('complete', {
+			client,
+		});
 		const description = this.getBugOrBugs(bugNumber, messages, embed);
 		embed.setDescription(description);
-		embed.setColor('#4b5afd');
-		embed.setTimestamp();
-		embed.setFooter(client.user.username, client.user.displayAvatarURL());
 		await super.send(embed);
 	}
 };
