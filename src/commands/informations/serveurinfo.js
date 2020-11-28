@@ -94,7 +94,7 @@ module.exports = class ServeurInfoCommand extends Command {
 				'Fonctionnalités :',
 				features
 					.map(feature => guildFeatures[feature])
-					.sort()
+					.sort(new Intl.Collator().compare)
 					.join('\n')
 			);
 

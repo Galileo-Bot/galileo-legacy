@@ -111,7 +111,7 @@ module.exports = class UserInfoCommand extends Command {
 				flags
 					.toArray()
 					.map(flag => userFlags[flag])
-					.sort()
+					.sort(new Intl.Collator().compare)
 					.join('\n')
 			);
 		}

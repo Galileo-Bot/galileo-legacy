@@ -18,7 +18,7 @@ module.exports = class MajCommand extends Command {
 		 Object.keys(update).forEach((version) => {
 		 versions.push(version);
 		 });
-		 versions = versions.sort().reverse();
+		 versions = versions.sort(new Intl.Collator().compare).reverse();
 		 if (arg === 'liste' || !update.hasOwnProperty(arg)) {
 		 if (message.guild.me.hasPermissionClient('MANAGE_MESSAGES', true, false, false)) message.delete();
 		 let embedGenerated = new RichEmbed();

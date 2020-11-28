@@ -52,7 +52,7 @@ module.exports = class HelpCommand extends Command {
 				const categoriesCommandsString = `\`${commands
 					.array()
 					.map(c => c.name)
-					.sort()
+					.sort(new Intl.Collator().compare)
 					.join('` ** | ** `')}\``;
 
 				if (categoriesCommandsString.length !== 2) {
@@ -69,11 +69,11 @@ module.exports = class HelpCommand extends Command {
 		const isAllowed = verifyCommand(command, message);
 		const userPermissions = command.userPermissions
 			.map(perm => permissions[perm])
-			.sort()
+			.sort(new Intl.Collator().compare)
 			.join('\n');
 		const clientPermissions = command.clientPermissions
 			.map(perm => permissions[perm])
-			.sort()
+			.sort(new Intl.Collator().compare)
 			.join('\n');
 
 		embed.setAuthor(`Aide de la commande ${command.name}`, client.user.displayAvatarURL());
