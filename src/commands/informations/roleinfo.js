@@ -59,7 +59,7 @@ module.exports = class RoleInfoCommand extends SlowCommand {
 				role.permissions
 					.toArray()
 					.map(perm => permissions[perm])
-					.sort()
+					.sort(new Intl.Collator().compare)
 					.join('\n')
 			);
 

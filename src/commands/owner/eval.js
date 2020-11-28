@@ -91,13 +91,13 @@ module.exports = class EvalCommand extends Command {
 	static listKeys(channel, object) {
 		if (EvalCommand.log) EvalCommand.functionsPassages.push('listKeys');
 		if (typeof object !== 'object') return EvalCommand.sendJS(`ConvertError : ${object} is not an object.`);
-		return EvalCommand.sendJS(channel, Object.keys(object).sort().join('\n'));
+		return EvalCommand.sendJS(channel, Object.keys(object).sort(new Intl.Collator().compare).join('\n'));
 	}
 
 	static listProps(channel, object, lang = 'js') {
 		if (EvalCommand.log) EvalCommand.functionsPassages.push('listProps');
 		let toSend = '';
-		for (const key of Object.getOwnPropertyNames(object).sort()) {
+		for (const key of Object.getOwnPropertyNames(object).sort(new Intl.Collator().compare)) {
 			let classOfObject = 'void',
 				value = object[key];
 			if (value !== null && value.constructor) classOfObject = value.constructor.name;
@@ -312,7 +312,7 @@ module.exports = class EvalCommand extends Command {
 				'stringify',
 				'verifyText',
 			];
-			return EvalCommand.sendJS(channel, functions.sort().join('\n'));
+			return EvalCommand.sendJS(channel, functions.sort(new Intl.Collator().compare).join('\n'));
 		}
 
 		try {

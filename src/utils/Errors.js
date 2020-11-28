@@ -52,7 +52,7 @@ function permsError(message, command, missingPermissions, fromBot = false) {
 	embed.setDescription(
 		`\`${missingPermissions
 			.map(perm => permissions[perm])
-			.sort()
+			.sort(new Intl.Collator().compare)
 			.join(', ')}\``
 	);
 	embed.addField("Rappel d'utilisation :", `\`${command.usage}\``);
