@@ -41,7 +41,7 @@ function getArgWithContent(content, argType) {
 			break;
 
 		case argTypes.channel_name:
-			result = client.channels.cache.filter(channel => !channel.deleted && channel instanceof GuildChannel).find(channel => channel.name?.toLowerCase().includes(content.toLowerCase()));
+			result = client.channels.cache.filter(channel => !channel.deleted).find(channel => channel.name?.toLowerCase().includes(content.toLowerCase()));
 			break;
 
 		case argTypes.guild_id:
