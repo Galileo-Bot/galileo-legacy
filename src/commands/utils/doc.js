@@ -14,7 +14,7 @@ module.exports = class DocCommand extends Command {
 	async run(client, message, args) {
 		super.run(client, message, args);
 
-		const {languages} = require('../../assets/jsons/constants.json');
+		const {languages} = require('../../assets/jsons/data.json');
 		const embed = Embed.fromTemplate('basic', {
 			client,
 		});

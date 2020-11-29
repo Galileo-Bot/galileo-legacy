@@ -3,7 +3,7 @@ const Command = require('../../entities/Command.js');
 const Embed = require('../../utils/Embed.js');
 const {argError} = require('../../utils/Errors.js');
 const {random} = require('../../utils/Utils.js');
-const {colors} = require('../../assets/jsons/constants.json');
+const {colors} = require('../../assets/jsons/data.json');
 
 module.exports = class CouleurCommand extends Command {
 	constructor() {
