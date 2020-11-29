@@ -1,7 +1,7 @@
 const fs = require('fs');
 const Logger = require('./Logger.js');
 const {channels} = require('../constants.js');
-const {owners, prefixes} = require('../assets/jsons/config.json');
+const yaml = require('yaml');
 
 /**
  * Récupère le préfixe du message par rapport à la config.
@@ -9,9 +9,8 @@ const {owners, prefixes} = require('../assets/jsons/config.json');
  * @returns {null|string} - Return null s’il trouve rien, sinon String.
  */
 function getPrefixFromMessage(message) {
-	const {isCanary} = require('../main.js');
 	let prefix = null;
-	const possiblePrefixes = isCanary ? prefixes.canary : prefixes.prod;
+	const possiblePrefixes = process.env.IS_CANARY === 'true' ? process.env.CANARY_PREFIXES.split(', ') : process.env.PROD_PREFIXES.split(', ');
 	possiblePrefixes.push(message.client.user.toString());
 	possiblePrefixes.push(`<@!${message.client.user.id}>`);
 
@@ -28,7 +27,7 @@ function getPrefixFromMessage(message) {
  * @returns {boolean} - Si il est owner.
  */
 function isOwner(userId) {
-	return owners.includes(userId);
+	return process.env.OWNERS.split(', ').includes(userId);
 }
 
 /**
@@ -91,9 +90,7 @@ function random(array) {
  * @returns {void}
  */
 async function sendLogMessage(client, channelType, content) {
-	const {isCanary} = require('../main.js');
-
-	if (isCanary) {
+	if (process.env.IS_CANARY === 'true') {
 		const channel = await client.channels.fetch(channels.canaryChannels[channelType]);
 		if (channel && channel.isText()) channel.send(content);
 	} else {
