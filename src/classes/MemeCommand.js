@@ -22,8 +22,8 @@ module.exports = class IMGFlipCommand extends SlowCommand {
 	}
 
 	connectAPI() {
-		const username = 'Ayfri';
-		const password = 'galileo_optifdp';
+		const username = process.env.IMGUR_USERNAME;
+		const password = process.env.IMGUR_PASSWORD;
 		const texts = [];
 		const imgFlip = new ImgFlip({
 			username,

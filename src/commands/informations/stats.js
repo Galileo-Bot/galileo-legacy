@@ -113,7 +113,7 @@ module.exports = class StatsCommand extends Command {
 		await super.run(client, message, args);
 
 		const octokit = new Octokit({
-			auth: '06defe331eba34a2d747b5ba8950921b616d2961',
+			auth: process.env.OCTOKIT_TOKEN,
 		});
 		const lastRelease = await octokit.request('GET /repos/{owner}/{repo}/releases/latest', {
 			owner: 'Galileo-Bot',

@@ -1,4 +1,3 @@
-const {isCanary} = require('./main.js');
 const {version} = require('../package.json');
 
 const argTypes = {
@@ -118,7 +117,7 @@ const permissions = {
 };
 
 const randomActivities = [
-	`[${isCanary ? 'g!' : 'g/'}help] Alpha`,
+	`[${process.env.IS_CANARY === 'true' ? process.env.CANARY_PREFIXES.split(', ')[0] : process.env.PROD_PREFIXES.split(', ')[0]}help] Alpha`,
 	"😷 N'oubliez pas votre masque !",
 	'💻 Développeurs : Ayfri, Antow.',
 	'Support disponible ici : https://discord.gg/n7HWd4P',

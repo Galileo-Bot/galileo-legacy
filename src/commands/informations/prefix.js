@@ -1,7 +1,5 @@
 const Command = require('../../entities/Command.js');
-const {isCanary} = require('../../main.js');
 const {tags} = require('../../constants.js');
-const {readJSON} = require('../../utils/Utils.js');
 
 module.exports = class PrefixCommand extends Command {
 	constructor() {
@@ -16,9 +14,7 @@ module.exports = class PrefixCommand extends Command {
 	async run(client, message, args) {
 		super.run(client, message, args);
 
-		let {prefixes} = readJSON('./assets/jsons/config.json');
-		prefixes = isCanary ? prefixes.canary : prefixes.prod;
-
+		const prefixes = process.env.IS_CANARY === 'true' ? process.env.CANARY_PREFIXES.split(', ') : process.env.PROD_PREFIXES.split(', ');
 		prefixes.push(client.user.toString());
 
 		await super.send(`Voici les préfixes du bot : \n\n${prefixes.join('\n')}`);

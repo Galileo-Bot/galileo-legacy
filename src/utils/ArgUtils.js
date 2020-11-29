@@ -1,4 +1,4 @@
-const {GuildChannel, Message} = require('discord.js');
+const {Message} = require('discord.js');
 const {getPrefixFromMessage} = require('./Utils.js');
 const {argTypes} = require('../constants.js');
 const CommandManager = require('../entities/CommandManager.js');
@@ -41,7 +41,7 @@ function getArgWithContent(content, argType) {
 			break;
 
 		case argTypes.channel_name:
-			result = client.channels.cache.filter(channel => !channel.deleted).find(channel => channel.name?.toLowerCase().includes(content.toLowerCase()));
+			result = client.channels.cache.filter(channel => !channel.deleted && channel.hasOwnProperty('name')).find(channel => channel.name?.toLowerCase().includes(content.toLowerCase()));
 			break;
 
 		case argTypes.guild_id:
