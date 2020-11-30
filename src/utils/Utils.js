@@ -1,7 +1,6 @@
 const fs = require('fs');
 const Logger = require('./Logger.js');
 const {channels} = require('../constants.js');
-const yaml = require('yaml');
 
 /**
  * Récupère le préfixe du message par rapport à la config.

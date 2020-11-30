@@ -5,7 +5,7 @@ module.exports = class SlowCommand extends Command {
 
 	async run(client, message, args) {
 		await super.run(client, message, args);
-		this.waitEmoji = this.message.client.emojis.resolve('638831506126536718');
+		this.waitEmoji = client.emojis.resolve('638831506126536718');
 	}
 
 	async startWait() {
