@@ -84,7 +84,9 @@ module.exports = class ReadyEvent extends Event {
 		if (!client.dbManager.messages.has('stats')) client.dbManager.messages.set('stats', new Array(30).fill(0));
 		if (client.dbManager.messages.get('today') !== formattedDate) {
 			client.dbManager.messages.set('today', formattedDate);
-			client.dbManager.messages.get('stats').shift();
+			const stats = client.dbManager.messages.get('stats');
+			stats.shift();
+			client.dbManager.messages.set('stats', stats);
 			client.dbManager.messages.push('stats', 0);
 		}
 	}
