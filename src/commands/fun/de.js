@@ -14,7 +14,7 @@ module.exports = class DeCommand extends Command {
 	}
 
 	async run(client, message, args) {
-		super.run(client, message, args);
+		await super.run(client, message, args);
 
 		/**
 		 * @type {number}

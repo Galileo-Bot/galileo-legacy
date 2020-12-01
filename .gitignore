@@ -1,5 +1,4 @@
 node_modules
 .idea
-src/assets/jsons/data.json
 src/assets/images/*
 src/assets/db/*
