@@ -1,4 +1,4 @@
-const DBManager = require('../classes/DBManager.js');
+const DBManager = require('./DBManager.js');
 const {Client} = require('discord.js');
 const CommandManager = require('./CommandManager.js');
 const EventManager = require('./EventManager.js');

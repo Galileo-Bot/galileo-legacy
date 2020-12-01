@@ -1,4 +1,4 @@
-const SlowCommand = require('../../classes/SlowCommand.js');
+const SlowCommand = require('../../entities/custom_commands/SlowCommand.js');
 const imgur = require('imgur');
 const Jimp = require('jimp');
 const {argTypes, tags, permissions} = require('../../constants.js');

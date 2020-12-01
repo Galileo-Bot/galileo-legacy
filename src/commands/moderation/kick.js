@@ -1,4 +1,4 @@
-const SanctionCommand = require('../../classes/SanctionCommand.js');
+const SanctionCommand = require('../../entities/custom_commands/SanctionCommand.js');
 const {tags} = require('../../constants.js');
 
 module.exports = class KickCommand extends SanctionCommand {

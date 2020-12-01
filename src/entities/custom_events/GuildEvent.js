@@ -1,6 +1,6 @@
-const Logger = require('../utils/Logger.js');
-const Event = require('../entities/Event.js');
-const Embed = require('../utils/Embed.js');
+const Logger = require('../../utils/Logger.js');
+const Event = require('../Event.js');
+const Embed = require('../../utils/Embed.js');
 
 module.exports = class GuildEvent extends Event {
 	/**

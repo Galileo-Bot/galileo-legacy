@@ -1,12 +1,12 @@
 const SlowCommand = require('./SlowCommand.js');
-const Logger = require('../utils/Logger.js');
+const Logger = require('../../utils/Logger.js');
 const Jimp = require('jimp');
 const imgur = require('imgur');
-const Embed = require('../utils/Embed.js');
-const {isOwner} = require('../utils/Utils.js');
-const {runError} = require('../utils/Errors.js');
-const {argTypes} = require('../constants.js');
-const {getArg} = require('../utils/ArgUtils.js');
+const Embed = require('../../utils/Embed.js');
+const {isOwner} = require('../../utils/Utils.js');
+const {runError} = require('../../utils/Errors.js');
+const {argTypes} = require('../../constants.js');
+const {getArg} = require('../../utils/ArgUtils.js');
 
 module.exports = class ImageCommand extends SlowCommand {
 	/**

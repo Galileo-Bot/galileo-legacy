@@ -1,9 +1,9 @@
-const Command = require('../entities/Command.js');
-const Embed = require('../utils/Embed.js');
-const {argTypes} = require('../constants.js');
-const {getArg} = require('../utils/ArgUtils.js');
-const {argError} = require('../utils/Errors.js');
-const {tryDeleteMessage} = require('../utils/CommandUtils.js');
+const Command = require('../Command.js');
+const Embed = require('../../utils/Embed.js');
+const {argTypes} = require('../../constants.js');
+const {getArg} = require('../../utils/ArgUtils.js');
+const {argError} = require('../../utils/Errors.js');
+const {tryDeleteMessage} = require('../../utils/CommandUtils.js');
 
 module.exports = class SanctionCommand extends Command {
 	type;
