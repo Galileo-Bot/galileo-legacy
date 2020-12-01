@@ -1,4 +1,5 @@
 const Command = require('../../entities/Command.js');
+const {getShortPrefix} = require('../../utils/Utils.js');
 const {tags} = require('../../constants.js');
 
 module.exports = class PrefixCommand extends Command {
@@ -14,7 +15,7 @@ module.exports = class PrefixCommand extends Command {
 	async run(client, message, args) {
 		super.run(client, message, args);
 
-		const prefixes = process.env.IS_CANARY === 'true' ? process.env.CANARY_PREFIXES.split(', ') : process.env.PROD_PREFIXES.split(', ');
+		const prefixes = getShortPrefix();
 		prefixes.push(client.user.toString());
 
 		await super.send(`Voici les préfixes du bot : \n\n${prefixes.join('\n')}`);

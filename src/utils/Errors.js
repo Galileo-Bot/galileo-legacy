@@ -2,7 +2,7 @@ const {formatWithRange} = require('./FormatUtils.js');
 const Logger = require('./Logger.js');
 const Embed = require('./Embed.js');
 const {permissions} = require('../constants.js');
-const {getPrefixFromMessage, isOwner, sendLogMessage} = require('./Utils.js');
+const {isOwner, sendLogMessage, getShortPrefix} = require('./Utils.js');
 
 /**
  * Envoie une erreur d'argument.
@@ -26,7 +26,7 @@ function argError(message, command, error) {
 	const verification = verifyCommand(command, message);
 	if (verification.tags.length === 0 && verification.missingPermissions.user.length === 0 && verification.missingPermissions.client.length === 0)
 		embed.addField("Rappel d'utilisation :", `\`${command.usage}\``);
-	embed.setFooter(`Faites ${process.canary[0]}help ${command.name} pour avoir plus d'aide.`);
+	embed.setFooter(`Faites ${getShortPrefix()}help ${command.name} pour avoir plus d'aide.`);
 
 	message.channel?.send(embed);
 	Logger.info(`'${message.author.tag}' (${message.author.id} a raté la commande '${command.name}', raison : ${error}`, 'MessageEvent');
@@ -55,7 +55,7 @@ function permsError(message, command, missingPermissions, fromBot = false) {
 	embed.setColor('#ffc843');
 	embed.setTitle(`Commande : ${command.name}`);
 	embed.addField("Rappel d'utilisation :", `\`${command.usage}\``);
-	embed.setFooter(`Faites ${getPrefixFromMessage(message)}help ${command} pour récupérer les permissions de la commande.`);
+	embed.setFooter(`Faites ${getShortPrefix()}help ${command} pour récupérer les permissions de la commande.`);
 
 	message.channel?.send(embed);
 }
