@@ -13,8 +13,7 @@ module.exports = class GaliClient extends Client {
 	constructor() {
 		super({
 			messageCacheLifetime: 60 * 20,
-			messageSweepInterval: 60 * 5,
-			// ! todo This will be reactived once we reach 100 guilds :
+			messageSweepInterval: 60 * 5, // ! todo This will be reactived once we reach 100 guilds :
 			/*
 			 ws: isCanary
 			 ? {}
@@ -36,6 +35,6 @@ module.exports = class GaliClient extends Client {
 		this.commands = CommandManager.commands;
 		this.events = EventManager.events;
 
-		this.dbManager.prepareDB();
+		this.dbManager.prepare();
 	}
 };

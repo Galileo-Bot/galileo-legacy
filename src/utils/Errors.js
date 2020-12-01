@@ -3,7 +3,6 @@ const Logger = require('./Logger.js');
 const Embed = require('./Embed.js');
 const {permissions} = require('../constants.js');
 const {getPrefixFromMessage, isOwner, sendLogMessage} = require('./Utils.js');
-const {prefixes} = require('../assets/jsons/config.json');
 
 /**
  * Envoie une erreur d'argument.
@@ -27,7 +26,7 @@ function argError(message, command, error) {
 	const verification = verifyCommand(command, message);
 	if (verification.tags.length === 0 && verification.missingPermissions.user.length === 0 && verification.missingPermissions.client.length === 0)
 		embed.addField("Rappel d'utilisation :", `\`${command.usage}\``);
-	embed.setFooter(`Faites ${prefixes.canary[0]}help ${command.name} pour avoir plus d'aide.`);
+	embed.setFooter(`Faites ${process.canary[0]}help ${command.name} pour avoir plus d'aide.`);
 
 	message.channel?.send(embed);
 	Logger.info(`'${message.author.tag}' (${message.author.id} a raté la commande '${command.name}', raison : ${error}`, 'MessageEvent');

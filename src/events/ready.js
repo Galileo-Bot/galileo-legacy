@@ -3,7 +3,7 @@ const Logger = require('../utils/Logger.js');
 const StatsCommand = require('../commands/informations/stats.js');
 const {formatDate} = require('../utils/FormatUtils.js');
 const {randomActivities} = require('../constants.js');
-const {random, readJSON} = require('../utils/Utils.js');
+const {random} = require('../utils/Utils.js');
 
 module.exports = class ReadyEvent extends Event {
 	constructor() {
@@ -28,23 +28,27 @@ module.exports = class ReadyEvent extends Event {
 		this.setRandomPresence();
 		setInterval(() => this.setRandomPresence(), 10 * 1000);
 
-		const config = readJSON('./assets/jsons/config.json');
-		if (config.statut === 'reboot') {
-			if (client.channels.cache.has(config.cacheChannel)) client.channels.cache.get(config.cacheChannel).send('Relancement du bot fini.');
-			else if (client.users.cache.has(config.cacheChannel)) client.users.cache.get(config.cacheChannel).send('Relancement du bot fini.');
+		client.dbManager.cache.ensure('status', 'starting');
+		client.dbManager.cache.ensure('rebootingChannel', '');
 
-			config.statut = 'started';
-			config.cacheChannel = 'Aucun';
-		}
+		switch (client.dbManager.cache.get('status')) {
+			case 'reboot':
+				const rebootingChannel = client.dbManager.cache.get('rebootingChannel');
+				if (client.channels.cache.has(rebootingChannel)) client.channels.cache.get(rebootingChannel).send('Relancement du bot fini.');
+				else if (client.users.cache.has(rebootingChannel)) client.users.cache.get(rebootingChannel).send('Relancement du bot fini.');
 
-		if (config.statut === 'maintenance') {
-			await client.user.setPresence({
-				status: 'dnd',
-				activity: {
-					name: '⚠️ En Maintenance.',
-					type: 'WATCHING',
-				},
-			});
+				client.dbManager.cache.set('status', 'started');
+				client.dbManager.cache.set('rebootingChannel', '');
+				break;
+			case 'maintenance':
+				await client.user.setPresence({
+					status: 'dnd',
+					activity: {
+						name: '⚠️ En Maintenance.',
+						type: 'WATCHING',
+					},
+				});
+				break;
 		}
 
 		Logger.info(`${client.user.username} (${client.user.id}) Est allumé ! Nombre de serveurs : ${client.guilds.cache.size}.`, 'ReadyEvent');

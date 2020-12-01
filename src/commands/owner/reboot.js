@@ -1,6 +1,5 @@
 const {exec} = require('child_process');
 const {tags} = require('../../constants.js');
-const {readJSON, writeInJSON} = require('../../utils/Utils.js');
 const Logger = require('../../utils/Logger.js');
 const Command = require('../../entities/Command.js');
 
@@ -16,10 +15,8 @@ module.exports = class RebootCommand extends Command {
 	}
 
 	exit(status, stopProcess = true) {
-		const config = readJSON('./assets/jsons/config.json');
-		config.statut = status;
-		config.cacheChannel = this.message.guild ? this.message.channel.id : this.message.author.id;
-		writeInJSON('./assets/jsons/config.json', config);
+		this.client.dbManager.cache.set('status', status);
+		this.client.dbManager.cache.set('rebootingChannel', this.message.guild ? this.message.channel.id : this.message.author.id);
 
 		if (stopProcess) setTimeout(() => process.exit(0), 1000 * 4);
 	}

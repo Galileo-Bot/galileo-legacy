@@ -40,39 +40,6 @@ function getKeyByValue(object, value) {
 }
 
 /**
- * Sauvegarde un objet dans un JSON.
- * @param {string} path - Chemin du JSON.
- * @param {object} content - Contenu du JSON.
- * @returns {boolean} - Whether the file has been succesfully write.
- */
-function writeInJSON(path, content) {
-	if (!fs.existsSync(path)) {
-		Logger.warn(`Tentative d'écriture dans le fichier '${path}', le fichier n'a pas été trouvé.`, 'WriteInJSON');
-		return false;
-	}
-
-	if (content.size === 0 || JSON.stringify(content, null, 4).length === 0) {
-		Logger.warn(`L'objet que vous avez essayé de sauvegarder dans '${path}' a un problème et est vide. Le processus a été abandonné.`, 'WriteInJSON');
-		return false;
-	}
-
-	fs.writeFile(path, JSON.stringify(content, null, 4), err => {
-		if (err) return Logger.error(`Erreur sur l'enregistrement du fichier !\n${err.stack}`);
-	});
-	return true;
-}
-
-/**
- * Lis un JSON via son chemin.
- * @param {string} path - Le chemin du fichier.
- * @returns {any | any[]} Un JSON.
- */
-function readJSON(path) {
-	const bufferedData = fs.readFileSync(path);
-	return JSON.parse(bufferedData.toString('utf8'));
-}
-
-/**
  * Retourne une valeur aléatoire de l'array mis en argument.
  * @param {any[]} array - Un tableau.
  * @returns {*} - Une des valeurs random.
@@ -110,7 +77,5 @@ module.exports = {
 	getPrefixFromMessage,
 	isOwner,
 	random,
-	readJSON,
 	sendLogMessage,
-	writeInJSON,
 };
