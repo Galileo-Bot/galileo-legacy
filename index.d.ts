@@ -85,6 +85,10 @@ export class DBManager {
 	public readonly messages: Enmap<string, string | number[]>;
 
 	public readonly userInfos: Enmap<string, {[k: string]: UserInfo}>;
+
+	public readonly cache: Enmap<string, string>;
+
+	public prepare(): Promise<void>;
 }
 //#endregion classes
 
