@@ -1,5 +1,3 @@
-const fs = require('fs');
-const Logger = require('./Logger.js');
 const {channels} = require('../constants.js');
 
 /**
@@ -9,7 +7,7 @@ const {channels} = require('../constants.js');
  */
 function getPrefixFromMessage(message) {
 	let prefix = null;
-	const possiblePrefixes = process.env.IS_CANARY === 'true' ? process.env.CANARY_PREFIXES.split(', ') : process.env.PROD_PREFIXES.split(', ');
+	const possiblePrefixes = getShortPrefix();
 	possiblePrefixes.push(message.client.user.toString());
 	possiblePrefixes.push(`<@!${message.client.user.id}>`);
 
@@ -72,10 +70,15 @@ async function sendLogMessage(client, channelType, content) {
 	}
 }
 
+function getShortPrefix() {
+	return process.env.IS_CANARY === 'true' ? process.env.CANARY_PREFIXES.split(', ')[0] : process.env.PROD_PREFIXES.split(', ')[0];
+}
+
 module.exports = {
 	getKeyByValue,
 	getPrefixFromMessage,
 	isOwner,
 	random,
 	sendLogMessage,
+	getShortPrefix,
 };
