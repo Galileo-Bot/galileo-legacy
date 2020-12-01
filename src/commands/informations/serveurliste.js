@@ -16,17 +16,16 @@ module.exports = class ServeurListeCommand extends Command {
 
 	/**
 	 * Créé la page suivant le nombre.
-	 * @param {number} pageNumber
-	 * @returns {module:"discord.js".MessageEmbed}
+	 * @param {number} pageNumber - Le numéro de la page à générer.
+	 * @returns {Embed} - L'embed de retour.
 	 */
 	createPage(pageNumber) {
 		/**
 		 * @type {number}
 		 */
 		const pageNumberArg = getArg(this.message, 1, argTypes.number);
-		let page = pageNumber;
-		const embed = new Embed();
 		const pageMax = Math.ceil(this.client.guilds.cache.size / 20);
+		let page = pageNumber;
 		if (!pageNumber && (!pageNumberArg || pageNumberArg > pageMax || pageNumberArg < 1)) page = pageMax;
 
 		const embedDesc = this.client.guilds.cache
@@ -35,13 +34,12 @@ module.exports = class ServeurListeCommand extends Command {
 			.slice(pageNumber * 20 - 20, page * 20)
 			.join('\n');
 
-		embed.setAuthor(`Liste des serveurs de ${page * 20 - 19} à ${page * 20}`);
-		embed.setDescription(`Nombre de serveurs : ${this.client.guilds.cache.size}.\n\n${embedDesc}`);
-		embed.setFooter(`${this.client.user.username} • Page ${page}/${pageMax}`, this.client.user.displayAvatarURL());
-		embed.setColor('#4b5afd');
-		embed.setTimestamp();
-
-		return embed;
+		return Embed.fromTemplate('author', {
+			client: this.client,
+			author: `Liste des serveurs de ${page * 20 - 19} à ${page * 20}`,
+			description: `Nombre de serveurs : ${this.client.guilds.cache.size}.\n\n${embedDesc}`,
+			authorURL: '',
+		}).setFooter(`${this.client.user.username} • Page ${page}/${pageMax}`, this.client.user.displayAvatarURL());
 	}
 
 	async run(client, message, args) {

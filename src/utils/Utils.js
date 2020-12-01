@@ -1,5 +1,3 @@
-const {channels} = require('../constants.js');
-
 /**
  * Récupère le préfixe du message par rapport à la config.
  * @param {Message} message - Le message.
@@ -7,7 +5,7 @@ const {channels} = require('../constants.js');
  */
 function getPrefixFromMessage(message) {
 	let prefix = null;
-	const possiblePrefixes = getShortPrefix();
+	const possiblePrefixes = process.env.IS_CANARY === 'true' ? process.env.CANARY_PREFIXES.split(', ') : process.env.PROD_PREFIXES.split(', ');
 	possiblePrefixes.push(message.client.user.toString());
 	possiblePrefixes.push(`<@!${message.client.user.id}>`);
 
@@ -54,10 +52,17 @@ function random(array) {
  * @returns {void}
  */
 async function sendLogMessage(client, channelType, content) {
+	const {channels} = require('../constants.js');
 	if (process.env.IS_CANARY === 'true') {
+		/**
+		 * @type {Channel}
+		 */
 		const channel = await client.channels.fetch(channels.canaryChannels[channelType]);
 		if (channel && channel.isText()) channel.send(content);
 	} else {
+		/**
+		 * @type {Channel}
+		 */
 		const channel = await client.channels.fetch(channels.galiChannels[channelType]);
 		if (channel && channel.isText()) {
 			channel.send(content);
