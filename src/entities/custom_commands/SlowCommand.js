@@ -1,4 +1,4 @@
-const Command = require('../entities/Command.js');
+const Command = require('../Command.js');
 
 module.exports = class SlowCommand extends Command {
 	waitEmoji;

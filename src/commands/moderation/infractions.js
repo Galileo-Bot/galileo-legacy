@@ -1,5 +1,5 @@
 const Command = require('../../entities/Command.js');
-const SanctionCommand = require('../../classes/SanctionCommand.js');
+const SanctionCommand = require('../../entities/custom_commands/SanctionCommand.js');
 const Embed = require('../../utils/Embed.js');
 const {argTypes, tags} = require('../../constants.js');
 const {getArg} = require('../../utils/ArgUtils.js');

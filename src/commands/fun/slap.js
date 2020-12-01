@@ -1,4 +1,4 @@
-const MemeCommand = require('../../classes/MemeCommand.js');
+const MemeCommand = require('../../entities/custom_commands/MemeCommand.js');
 const {tags} = require('../../constants.js');
 
 module.exports = class SlapCommand extends MemeCommand {

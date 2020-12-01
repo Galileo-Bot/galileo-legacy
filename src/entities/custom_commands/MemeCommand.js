@@ -1,6 +1,6 @@
 const SlowCommand = require('./SlowCommand.js');
-const Embed = require('../utils/Embed.js');
-const {argError} = require('../utils/Errors.js');
+const Embed = require('../../utils/Embed.js');
+const {argError} = require('../../utils/Errors.js');
 const ImgFlip = require('imgflip').default;
 
 module.exports = class IMGFlipCommand extends SlowCommand {

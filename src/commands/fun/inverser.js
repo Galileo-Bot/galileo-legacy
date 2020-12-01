@@ -1,4 +1,4 @@
-const ImageCommand = require('../../classes/ImageCommand.js');
+const ImageCommand = require('../../entities/custom_commands/ImageCommand.js');
 
 module.exports = class InverserCommand extends ImageCommand {
 	constructor() {

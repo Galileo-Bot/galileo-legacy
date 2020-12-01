@@ -1,4 +1,4 @@
-const SlowCommand = require('../../classes/SlowCommand.js');
+const SlowCommand = require('../../entities/custom_commands/SlowCommand.js');
 const {tags} = require('../../constants.js');
 const {sendJS} = require('./eval.js');
 const {argError} = require('../../utils/Errors.js');

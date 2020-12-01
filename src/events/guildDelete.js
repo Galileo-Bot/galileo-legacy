@@ -1,4 +1,4 @@
-const GuildEvent = require('../classes/GuildEvent.js');
+const GuildEvent = require('../entities/custom_events/GuildEvent.js');
 const {sendLogMessage} = require('../utils/Utils.js');
 
 module.exports = class GuildDeleteEvent extends GuildEvent {

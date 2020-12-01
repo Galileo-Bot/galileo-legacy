@@ -1,4 +1,4 @@
-const SlowCommand = require('../../classes/SlowCommand.js');
+const SlowCommand = require('../../entities/custom_commands/SlowCommand.js');
 const Logger = require('../../utils/Logger.js');
 const imgur = require('imgur');
 const Embed = require('../../utils/Embed.js');
