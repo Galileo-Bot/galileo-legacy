@@ -7,3 +7,6 @@
 ![GitHub release (latest by date)](https://shieldsio-heberg.herokuapp.com/github/v/release/Galileo-Bot/galileo)
 ![GitHub commits since tagged version](https://shieldsio-heberg.herokuapp.com/github/commits-since/Galileo-Bot/galileo/1.0.0)
 ![GitHub repo size](https://shieldsio-heberg.herokuapp.com/github/repo-size/Galileo-Bot/galileo)
+
+Serveur :<br>
+![Discord](https://shieldsio-heberg.herokuapp.com/discord/515322595063627776)
