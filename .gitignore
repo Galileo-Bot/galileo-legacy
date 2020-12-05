@@ -8,5 +8,5 @@ node_modules
 .env
 
 # Assets
-src/assets/images/*
-src/assets/db/*
+src/assets/images
+src/assets/db
