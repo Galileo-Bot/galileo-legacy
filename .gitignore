@@ -1,0 +1,12 @@
+# Node
+node_modules
+
+# JetBrains
+.idea
+
+# Configuration
+.env
+
+# Assets
+src/assets/images
+src/assets/db

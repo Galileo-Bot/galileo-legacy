@@ -1,0 +1,19 @@
+{
+	"compilerOptions": {
+		"allowJs": true,
+		"allowSyntheticDefaultImports": true,
+		"checkJs": true,
+		"esModuleInterop": true,
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"pretty": true,
+		"resolveJsonModule": true,
+		"strict": true,
+		"target": "ESNext"
+	},
+	"files": ["index.d.ts"],
+	"exclude": ["node_modules"],
+	"typeAcquisition": {
+		"enable": true
+	}
+}
