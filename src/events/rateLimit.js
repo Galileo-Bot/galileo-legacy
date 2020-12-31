@@ -44,7 +44,8 @@ module.exports = class RateLimitEvent extends Event {
 
 		if (informations) {
 			embed.addField('Informations : ', informations);
-			embed.addField('Commande :', CommandManager.findCommand(message.content.slice(getPrefixFromMessage(message).length).trim().toLowerCase().split(/\s+?/gi)[0]).name);
+			if (message && !message.deleted)
+				embed.addField('Commande :', CommandManager.findCommand(message.content.slice(getPrefixFromMessage(message).length).trim().toLowerCase().split(/\s+?/gi)[0]).name);
 			embed.addField('Message :', formatWithRange(message.content, 1024));
 		}
 
