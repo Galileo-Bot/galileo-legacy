@@ -14,11 +14,11 @@ const {isOwner, sendLogMessage, getShortPrefix} = require('./Utils.js');
 function argError(message, command, error) {
 	const {verifyCommand} = require('./CommandUtils.js');
 	const embed = BetterEmbed.fromTemplate('author', {
-		client: message.client,
 		author: 'Vous avez fait une erreur au niveau des arguments.',
 		authorURL: message.author.displayAvatarURL({
 			dynamic: true,
 		}),
+		client: message.client,
 		description: `Erreur : ${error}`,
 	});
 
@@ -42,11 +42,11 @@ function argError(message, command, error) {
  */
 function permsError(message, command, missingPermissions, fromBot = false) {
 	const embed = BetterEmbed.fromTemplate('author', {
-		client: message.client,
 		author: `Permissions ${fromBot ? 'du bot' : ''} manquantes.`,
 		authorURL: message.author.displayAvatarURL({
 			dynamic: true,
 		}),
+		client: message.client,
 		description: `\`${missingPermissions
 			.map(perm => permissions[perm])
 			.sort(new Intl.Collator().compare)

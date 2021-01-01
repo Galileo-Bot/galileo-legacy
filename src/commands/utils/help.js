@@ -9,11 +9,11 @@ const {isOwner} = require('../../utils/Utils.js');
 module.exports = class HelpCommand extends Command {
 	constructor() {
 		super({
-			name: 'help',
 			aliases: ['aide', 'h', 'gh'],
 			description: "Permet d'avoir la liste des commandes ainsi que des informations sur chacune.",
-			usage: 'help <commande>\nhelp',
+			name: 'help',
 			tags: [tags.help_command],
+			usage: 'help <commande>\nhelp',
 		});
 	}
 

@@ -41,10 +41,10 @@ module.exports = class SanctionCommand extends Command {
 		this.client.dbManager.userInfos.push(
 			this.message.guild.id,
 			{
-				type: this.type,
-				reason,
-				date: Date.now(),
 				case: this.client.dbManager.userInfos.get(this.message.guild.id, person.user.id).sanctions.length + 1,
+				date: Date.now(),
+				reason,
+				type: this.type,
 			},
 			`${person.user.id}.sanctions`
 		);

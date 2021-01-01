@@ -43,11 +43,11 @@ module.exports = class ReadyEvent extends Event {
 
 			case 'maintenance':
 				await client.user.setPresence({
-					status: 'dnd',
 					activity: {
 						name: '⚠️ En Maintenance.',
 						type: 'WATCHING',
 					},
+					status: 'dnd',
 				});
 				break;
 		}

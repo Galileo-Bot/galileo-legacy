@@ -7,9 +7,9 @@ const {Octokit} = require('@octokit/core');
 module.exports = class StatsCommand extends Command {
 	constructor() {
 		super({
-			name: 'stats',
-			description: "Permet d'obtenir des informations sur le bot.",
 			aliases: ['bi', 'botinfo', 'stat'],
+			description: "Permet d'obtenir des informations sur le bot.",
+			name: 'stats',
 		});
 	}
 
@@ -29,12 +29,12 @@ module.exports = class StatsCommand extends Command {
 		const cpus = os.cpus();
 
 		const cpuStat = {
-			user: 0,
-			nice: 0,
-			sys: 0,
 			idle: 0,
 			irq: 0,
+			nice: 0,
+			sys: 0,
 			total: 0,
+			user: 0,
 		};
 
 		for (const cpu of cpus) {
@@ -64,8 +64,8 @@ module.exports = class StatsCommand extends Command {
 
 		const result = {
 			idle: 0,
-			total: 0,
 			percentage: 0,
+			total: 0,
 		};
 
 		return new Promise(resolve =>

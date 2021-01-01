@@ -5,10 +5,10 @@ const Command = require('../../entities/Command.js');
 module.exports = class TrumpTweetCommand extends Command {
 	constructor() {
 		super({
-			name: 'trumptweet',
-			description: 'Venez parler au nom de Donald Trump !',
-			usage: 'trumptweet <Texte>',
 			aliases: ['tt', 'trump'],
+			description: 'Venez parler au nom de Donald Trump !',
+			name: 'trumptweet',
+			usage: 'trumptweet <Texte>',
 		});
 	}
 

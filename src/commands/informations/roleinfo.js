@@ -10,11 +10,11 @@ const {BetterEmbed} = require('discord.js-better-embed');
 module.exports = class RoleInfoCommand extends SlowCommand {
 	constructor() {
 		super({
-			name: 'roleinfo',
-			description: "Permet d'avoir des informations sur un rôle.",
-			usage: 'roleinfo <ID/Nom de rôle>',
 			aliases: ['ri', 'role-info'],
+			description: "Permet d'avoir des informations sur un rôle.",
+			name: 'roleinfo',
 			tags: [tags.guild_only],
+			usage: 'roleinfo <ID/Nom de rôle>',
 		});
 	}
 

@@ -30,7 +30,6 @@ module.exports = class RateLimitEvent extends Event {
 		const informations = message ? `[Message](${message.url})\nChannel : ${channel}\`#${channel.name}\`(\`${channel.id}\`)` : null;
 
 		const embed = BetterEmbed.fromTemplate('author', {
-			client,
 			author: 'Rate limit :',
 			authorURL:
 				message.guild.iconURL({
@@ -39,6 +38,7 @@ module.exports = class RateLimitEvent extends Event {
 				client.user.displayAvatarURL({
 					dynamic: true,
 				}),
+			client,
 			description: `Le bot est en rate limit sur la route : \`\`\`js\n${rateLimitInfo.route}\`\`\`\nAvec le chemin : \`\`\`js\n${decodeURI(rateLimitInfo.path)}\`\`\``,
 		});
 

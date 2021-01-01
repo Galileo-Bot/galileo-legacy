@@ -5,8 +5,8 @@ const {argError} = require('../../utils/Errors.js');
 module.exports = class AsciiCommand extends Command {
 	constructor() {
 		super({
-			name: 'ascii',
 			description: 'Transforme votre message en un message ASCII, commande limitée à 20 caractères.',
+			name: 'ascii',
 			usage: 'ascii <Votre Message>',
 		});
 	}

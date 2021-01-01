@@ -5,10 +5,10 @@ const {argError} = require('../../utils/Errors.js');
 module.exports = class SpamSpoilCommand extends Command {
 	constructor() {
 		super({
-			name: 'spamspoil',
-			description: "Renvoie le texte avec 1 ||spoil|| par caractère, rajoutez `--copier` pour pouvoir récupérer le texte et l'envoyer n'importe où.",
-			usage: 'spamspoil <texte>\nspamspoil -copier <text>',
 			aliases: ['spoil', 'spoileriser', 'spam-spoil'],
+			description: "Renvoie le texte avec 1 ||spoil|| par caractère, rajoutez `--copier` pour pouvoir récupérer le texte et l'envoyer n'importe où.",
+			name: 'spamspoil',
+			usage: 'spamspoil <texte>\nspamspoil -copier <text>',
 		});
 	}
 

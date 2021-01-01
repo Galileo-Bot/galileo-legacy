@@ -6,9 +6,9 @@ const {getArg} = require('../../utils/ArgUtils.js');
 module.exports = class BugsCommand extends Command {
 	constructor() {
 		super({
-			name: 'bugs',
-			description: "Permet d'avoir la liste des bugs existants ou des informations sur un bug.",
 			aliases: ['bug', 'buglist', 'buginfo'],
+			description: "Permet d'avoir la liste des bugs existants ou des informations sur un bug.",
+			name: 'bugs',
 			usage: "bugs [Numéro d'un bug]",
 		});
 	}

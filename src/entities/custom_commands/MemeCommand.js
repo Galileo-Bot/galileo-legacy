@@ -26,12 +26,12 @@ module.exports = class IMGFlipCommand extends SlowCommand {
 		const password = process.env.IMGUR_PASSWORD;
 		const texts = [];
 		const imgFlip = new ImgFlip({
-			username,
 			password,
+			username,
 		});
 		return {
-			texts,
 			imgFlip,
+			texts,
 		};
 	}
 
@@ -70,9 +70,9 @@ module.exports = class IMGFlipCommand extends SlowCommand {
 	async sendMeme(memeURL) {
 		const embed = BetterEmbed.fromTemplate('image', {
 			client: this.client,
-			title: 'Voici votre mème : ',
-			image: memeURL,
 			description: `[Cliquez ici pour avoir le lien.](${memeURL})`,
+			image: memeURL,
+			title: 'Voici votre mème : ',
 		});
 		await super.send(embed);
 	}

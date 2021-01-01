@@ -4,8 +4,8 @@ const {BetterEmbed} = require('discord.js-better-embed');
 module.exports = class PingCommand extends Command {
 	constructor() {
 		super({
-			name: 'ping',
 			description: "Permet de connaître le ping du bot de l'API.",
+			name: 'ping',
 		});
 	}
 

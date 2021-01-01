@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const Discord = require('discord.js');
 const {BetterEmbed} = require('discord.js-better-embed');
 const constants = require('../../constants.js');
@@ -29,12 +30,12 @@ module.exports = class EvalCommand extends Command {
 
 	constructor() {
 		super({
-			name: 'eval',
-			description: 'Permet de tester du code :warning:**AUCUNE LIMITE (require permis).** :warning:.',
-			usage: 'eval <code>',
 			aliases: ['return', 'js'],
-			tags: [constants.tags.owner_only],
 			cooldown: 10,
+			description: 'Permet de tester du code :warning:**AUCUNE LIMITE (require permis).** :warning:.',
+			name: 'eval',
+			tags: [constants.tags.owner_only],
+			usage: 'eval <code>',
 		});
 	}
 
@@ -83,9 +84,9 @@ module.exports = class EvalCommand extends Command {
 	static inspect(object, depth = 2) {
 		return inspect(object, {
 			depth,
-			sorted: true,
 			maxArrayLength: 200,
 			showHidden: true,
+			sorted: true,
 		});
 	}
 
@@ -156,8 +157,8 @@ module.exports = class EvalCommand extends Command {
 		return client.channels.cache.has(id)
 			? client.channels.cache.get(id).send(text)
 			: client.users.cache.has(id)
-			? client.users.cache.get(id).send(text)
-			: EvalCommand.sendJS('GetError : Nothing found.');
+				? client.users.cache.get(id).send(text)
+				: EvalCommand.sendJS('GetError : Nothing found.');
 	}
 
 	static sizeOf(object) {

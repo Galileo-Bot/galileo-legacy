@@ -4,9 +4,9 @@ const {BetterEmbed} = require('discord.js-better-embed');
 module.exports = class InviteCommand extends Command {
 	constructor() {
 		super({
-			name: 'invite',
-			description: "Permet d'avoir le lien d'invitation du bot.",
 			aliases: ['inviter', 'iv'],
+			description: "Permet d'avoir le lien d'invitation du bot.",
+			name: 'invite',
 		});
 	}
 

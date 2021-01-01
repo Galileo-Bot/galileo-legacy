@@ -7,10 +7,10 @@ const Command = require('../../entities/Command.js');
 module.exports = class ServeurListeCommand extends Command {
 	constructor() {
 		super({
-			name: 'serveurliste',
-			description: 'Affiche la liste des serveurs en rangeant de façon décroissante des membres et à la page 1 ou celle inscrite.',
-			usage: 'serveurliste <nombre>\nserveurliste',
 			aliases: ['serverlist', 'sl', 'servlist'],
+			description: 'Affiche la liste des serveurs en rangeant de façon décroissante des membres et à la page 1 ou celle inscrite.',
+			name: 'serveurliste',
+			usage: 'serveurliste <nombre>\nserveurliste',
 		});
 	}
 
@@ -36,8 +36,8 @@ module.exports = class ServeurListeCommand extends Command {
 
 		return BetterEmbed.fromTemplate('title', {
 			client: this.client,
-			title: `Liste des serveurs de ${page * 20 - 19} à ${page * 20}`,
 			description: `Nombre de serveurs : ${this.client.guilds.cache.size}.\n\n${embedDesc}`,
+			title: `Liste des serveurs de ${page * 20 - 19} à ${page * 20}`,
 		}).setFooter(`${this.client.user.username} • Page ${page}/${pageMax}`, this.client.user.displayAvatarURL());
 	}
 

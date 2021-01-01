@@ -82,8 +82,8 @@ function getShortPrefix() {
 module.exports = {
 	getKeyByValue,
 	getPrefixFromMessage,
+	getShortPrefix,
 	isOwner,
 	random,
 	sendLogMessage,
-	getShortPrefix,
 };

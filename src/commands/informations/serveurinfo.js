@@ -6,9 +6,9 @@ const {guildFeatures, tags} = require('../../constants.js');
 module.exports = class ServeurInfoCommand extends Command {
 	constructor() {
 		super({
-			name: 'serveurinfo',
 			aliases: ['si', 'servi', 'serveur-info'],
 			description: "Permet d'avoir des informations sur le serveur où vous êtes.",
+			name: 'serveurinfo',
 			tags: [tags.guild_only],
 		});
 	}

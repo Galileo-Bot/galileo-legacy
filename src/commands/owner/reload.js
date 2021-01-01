@@ -9,11 +9,11 @@ const {join, sep} = require('path');
 module.exports = class ReloadCommand extends Command {
 	constructor() {
 		super({
-			name: 'reload',
-			description: "Permet de recharger le code d'une commande, de toutes à la fois ou de tous les évents à la fois.",
-			usage: 'reload <commande> \nreload all\nreload events',
 			aliases: ['rl'],
+			description: "Permet de recharger le code d'une commande, de toutes à la fois ou de tous les évents à la fois.",
+			name: 'reload',
 			tags: [tags.owner_only],
+			usage: 'reload <commande> \nreload all\nreload events',
 		});
 	}
 

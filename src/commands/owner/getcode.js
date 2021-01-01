@@ -8,11 +8,11 @@ const {join} = require('path');
 module.exports = class GetCodeCommand extends Command {
 	constructor() {
 		super({
-			name: 'getcode',
-			description: "Renvoie le code entier d'une commande.",
-			usage: 'getcode <commande>',
 			aliases: ['gc'],
+			description: "Renvoie le code entier d'une commande.",
+			name: 'getcode',
 			tags: [tags.owner_only],
+			usage: 'getcode <commande>',
 		});
 	}
 
@@ -31,9 +31,9 @@ module.exports = class GetCodeCommand extends Command {
 	async sendFileCode(message, path) {
 		await message.channel?.send(`\`\`\`js\n${this.getFileCode(path)}\`\`\``, {
 			split: {
+				append: '```',
 				maxLength: 1990,
 				prepend: '```js\n',
-				append: '```',
 			},
 		});
 	}

@@ -3,10 +3,10 @@ const Command = require('../../entities/Command.js');
 module.exports = class MajCommand extends Command {
 	constructor() {
 		super({
-			name: 'maj',
-			description: "Permet d'avoir des informations sur une mise à jour, la dernière en date, ou d'avoir la liste des mises à jour.",
-			usage: 'maj <version>\nmaj liste\nmaj',
 			aliases: ['màj'],
+			description: "Permet d'avoir des informations sur une mise à jour, la dernière en date, ou d'avoir la liste des mises à jour.",
+			name: 'maj',
+			usage: 'maj <version>\nmaj liste\nmaj',
 		});
 	}
 

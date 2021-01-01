@@ -7,13 +7,13 @@ const {tryDeleteMessage} = require('../../utils/CommandUtils.js');
 module.exports = class ClearCommand extends Command {
 	constructor() {
 		super({
-			name: 'clear',
-			description: 'Permet de supprimer un nombre de messages.',
-			usage: 'clear <Nombre>\nclear <Nombre> [Nom/ID/Mention de membre]',
 			aliases: ['supprimer', 'purge', 'clr', 'delete'],
-			userPermissions: ['KICK_MEMBERS', 'BAN_MEMBERS'],
 			clientPermissions: ['MANAGE_MESSAGES'],
+			description: 'Permet de supprimer un nombre de messages.',
+			name: 'clear',
 			tags: [tags.guild_only],
+			usage: 'clear <Nombre>\nclear <Nombre> [Nom/ID/Mention de membre]',
+			userPermissions: ['KICK_MEMBERS', 'BAN_MEMBERS'],
 		});
 	}
 

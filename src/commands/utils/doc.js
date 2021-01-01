@@ -5,8 +5,8 @@ const {BetterEmbed} = require('discord.js-better-embed');
 module.exports = class DocCommand extends Command {
 	constructor() {
 		super({
-			name: 'doc',
 			description: "Permet de récupérer le lien d'une documentation d'un langage de programmation ou d'une librairie.",
+			name: 'doc',
 			usage: 'doc <langage/librairie>\ndoc liste\ndoc',
 		});
 	}

@@ -4,11 +4,11 @@ const Command = require('../../entities/Command.js');
 module.exports = class CoupleCommand extends Command {
 	constructor() {
 		super({
-			name: 'couple',
-			description: "Permet de vous lier en couple avec quelqu'un !",
-			usage: 'couple <Nom/Mention de Personne> <Nom/Mention de personne>\ncouple <Nom/Mention de personne>\ncouple random\ncouple',
 			aliases: ['love'],
+			description: "Permet de vous lier en couple avec quelqu'un !",
+			name: 'couple',
 			tags: [tags.guild_only],
+			usage: 'couple <Nom/Mention de Personne> <Nom/Mention de personne>\ncouple <Nom/Mention de personne>\ncouple random\ncouple',
 		});
 	}
 
@@ -23,7 +23,7 @@ module.exports = class CoupleCommand extends Command {
 
 		await super.send(`**${personOne}** a porté son amour sur **${personTwo}**. :gift_heart:
 ${personOne === personTwo || personOne.toString() === personTwo.toString() ? 'Il est donc narcissique à' : 'Ses chances de réussites pour conclure sont de'} **${percentage
-			.toString()
-			.slice(2, 4)}**% !`);
+	.toString()
+	.slice(2, 4)}**% !`);
 	}
 };

@@ -5,9 +5,9 @@ const {tags} = require('../../constants.js');
 module.exports = class ListerStaffCommand extends Command {
 	constructor() {
 		super({
-			name: 'listerstaff',
-			description: "Permet d'avoir la liste des admins/modérateurs/bots du serveur.",
 			aliases: ['ls', 'lister-staff', ' liststaff'],
+			description: "Permet d'avoir la liste des admins/modérateurs/bots du serveur.",
+			name: 'listerstaff',
 			tags: [tags.guild_only],
 		});
 	}

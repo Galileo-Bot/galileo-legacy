@@ -4,10 +4,10 @@ const {argError} = require('../../utils/Errors.js');
 module.exports = class DevineCommand extends Command {
 	constructor() {
 		super({
-			name: 'devine',
-			description: 'Donne une réponse aux questions simples (oui/non), attention : non fiable à 100%.',
-			usage: 'devine <texte> ?',
 			aliases: ['dv', 'guess'],
+			description: 'Donne une réponse aux questions simples (oui/non), attention : non fiable à 100%.',
+			name: 'devine',
+			usage: 'devine <texte> ?',
 		});
 	}
 

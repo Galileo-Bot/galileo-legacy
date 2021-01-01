@@ -4,14 +4,14 @@ const {tags} = require('../../constants.js');
 module.exports = class BoyfriendCommand extends MemeCommand {
 	constructor() {
 		super({
-			name: 'choix',
-			description: 'Vous devez faire un choix.',
-			usage: 'choix <Choix1> ; <Choix2>',
 			aliases: ['sueur', 'choose'],
-			tags: [tags.guild_only],
-			templateID: '87743020',
 			argsMaxLength: 25,
 			argsNumber: 2,
+			description: 'Vous devez faire un choix.',
+			name: 'choix',
+			tags: [tags.guild_only],
+			templateID: '87743020',
+			usage: 'choix <Choix1> ; <Choix2>',
 		});
 	}
 

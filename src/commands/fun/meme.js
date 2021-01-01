@@ -5,9 +5,9 @@ const {BetterEmbed} = require('discord.js-better-embed');
 module.exports = class MemeCommand extends Command {
 	constructor() {
 		super({
-			name: 'meme',
-			description: "Envoie un mème aléatoire depuis le subreddit 'meme' ou celui inscrit.",
 			aliases: ['mème', 'même', 'reddit'],
+			description: "Envoie un mème aléatoire depuis le subreddit 'meme' ou celui inscrit.",
+			name: 'meme',
 			usage: 'meme\nmeme <subreddit>',
 		});
 	}
@@ -24,11 +24,11 @@ module.exports = class MemeCommand extends Command {
 		const meme = await MemeCommand.getRandomMemeFromSubreddit(subreddit);
 		const embed = BetterEmbed.fromTemplate('image', {
 			client,
-			title: 'Voici votre mème :',
 			description: `Mème venant du [subreddit \`${subreddit}\`](https://www.reddit.com/r/${subreddit}).\n${
 				meme ? '' : `(Subreddit \`${subreddit}\` non trouvé.)`
 			}\n\n[Cliquez ici pour avoir le lien.](${meme})`,
 			image: meme ?? (await MemeCommand.getRandomMemeFromSubreddit('meme')),
+			title: 'Voici votre mème :',
 		});
 
 		await super.send(embed);

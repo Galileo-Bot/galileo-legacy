@@ -37,11 +37,11 @@ module.exports = class Command {
 		this.args = args;
 
 		const embed = BetterEmbed.fromTemplate('author', {
-			client,
 			author: `La commande ${this.name} a été exécutée :`,
 			authorURL: message.author.displayAvatarURL({
 				dynamic: true,
 			}),
+			client,
 			description: `Envoyé ${message.guild ? `sur : **${message.guild.name}** (\`${message.guild.id}\`)\nDans : ${message.channel} (\`${message.channel.id}\`)` : 'en privé'}\nEnvoyé par : ${
 				message.author
 			} (\`${message.author.id}\`)`,

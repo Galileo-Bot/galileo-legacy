@@ -8,10 +8,10 @@ const Command = require('../../entities/Command.js');
 module.exports = class DireCommand extends Command {
 	constructor() {
 		super({
-			name: 'dire',
-			description: 'Permet de faire dire au bot le texte de votre choix.',
-			usage: 'dire <texte>',
 			aliases: ['say'],
+			description: 'Permet de faire dire au bot le texte de votre choix.',
+			name: 'dire',
+			usage: 'dire <texte>',
 			userPermissions: ['KICK_MEMBERS', 'BAN_MEMBERS', 'MANAGE_MESSAGES'],
 		});
 	}

@@ -34,9 +34,9 @@ module.exports = class GuildEvent extends Event {
 
 		const embed = BetterEmbed.fromTemplate('complete', {
 			client: this.client,
-			title: `Le bot a ${this.type === 'remove' ? 'quitté' : 'rejoint'} un serveur.`,
-			description: `**${this.guild.name}** (\`${this.guild.id}\`)`,
 			color: this.type === 'remove' ? '#dd2211' : '#14dd10',
+			description: `**${this.guild.name}** (\`${this.guild.id}\`)`,
+			title: `Le bot a ${this.type === 'remove' ? 'quitté' : 'rejoint'} un serveur.`,
 		});
 
 		embed.setThumbnail(this.guild.iconURL());

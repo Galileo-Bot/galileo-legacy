@@ -3,10 +3,10 @@ const ImageCommand = require('../../entities/custom_commands/ImageCommand.js');
 module.exports = class FlouterCommand extends ImageCommand {
 	constructor() {
 		super({
-			name: 'flouter',
-			description: "Permet de flouter votre avatar, la personne ou l'image que vous avez attachée au message.",
-			usage: "flouter [Nom/Mention/ID d'utilisateur]",
 			aliases: ['flou'],
+			description: "Permet de flouter votre avatar, la personne ou l'image que vous avez attachée au message.",
+			name: 'flouter',
+			usage: "flouter [Nom/Mention/ID d'utilisateur]",
 		});
 	}
 

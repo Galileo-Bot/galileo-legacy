@@ -3,10 +3,10 @@ const ImageCommand = require('../../entities/custom_commands/ImageCommand.js');
 module.exports = class NegatifCommand extends ImageCommand {
 	constructor() {
 		super({
-			name: 'negatif',
-			description: "Permet de rendre en négatif votre avatar, la personne ou l'image que vous avez attachée au message.",
-			usage: "negatif [Nom/Mention/ID d'utilisateur]",
 			aliases: ['négatif', 'negative'],
+			description: "Permet de rendre en négatif votre avatar, la personne ou l'image que vous avez attachée au message.",
+			name: 'negatif',
+			usage: "negatif [Nom/Mention/ID d'utilisateur]",
 		});
 	}
 

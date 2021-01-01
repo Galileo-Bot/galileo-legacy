@@ -36,11 +36,11 @@ module.exports = class MessageEvent extends Event {
 		if (!prefix) {
 			if (message.guild === null) {
 				const embed = BetterEmbed.fromTemplate('author', {
-					client,
 					author: `Message reçu de ${message.author.tag} (${message.author.id})`,
 					authorURL: message.author.displayAvatarURL({
 						dynamic: true,
 					}),
+					client,
 					description: '',
 				});
 				embed.setColor('RANDOM');

@@ -41,7 +41,7 @@ function getArgWithContent(content, argType) {
 			break;
 
 		case argTypes.channel_name:
-			result = client.channels.cache.filter(channel => !channel.deleted && channel.hasOwnProperty('name')).find(channel => channel.name?.toLowerCase().includes(content.toLowerCase()));
+			result = client.channels.cache.filter(channel => !channel.deleted && 'name' in channel).find(channel => channel.name?.toLowerCase().includes(content.toLowerCase()));
 			break;
 
 		case argTypes.guild_id:
@@ -135,6 +135,7 @@ function getArgWithMessage(message, argType, index = 1) {
 
 	return result;
 }
+
 /**
  * Récupère l'argument à l'index indiqué et le vérifie, si la vérification est mauvaise, le résultat sera égal à null.
  * @example

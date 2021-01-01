@@ -6,11 +6,11 @@ const Command = require('../../entities/Command.js');
 module.exports = class RebootCommand extends Command {
 	constructor() {
 		super({
-			name: 'reboot',
-			description: "Permet de relancer le bot, de l'arrêter complètement ou de le passer en maintenance.",
-			usage: 'reboot\nreboot stop\nreboot maintenance',
 			aliases: ['rb', 'restart'],
+			description: "Permet de relancer le bot, de l'arrêter complètement ou de le passer en maintenance.",
+			name: 'reboot',
 			tags: [tags.owner_only],
+			usage: 'reboot\nreboot stop\nreboot maintenance',
 		});
 	}
 

@@ -9,10 +9,10 @@ const {isOwner} = require('../../utils/Utils.js');
 module.exports = class UserInfoCommand extends Command {
 	constructor() {
 		super({
-			name: 'userinfo',
-			description: "Permet d'avoir des informations sur un membre ou sur vous même.",
-			usage: 'userinfo <Nom/ID/Mention de membre>\nuserinfo',
 			aliases: ['ui', 'mi', 'user-info'],
+			description: "Permet d'avoir des informations sur un membre ou sur vous même.",
+			name: 'userinfo',
+			usage: 'userinfo <Nom/ID/Mention de membre>\nuserinfo',
 		});
 	}
 
@@ -36,8 +36,8 @@ module.exports = class UserInfoCommand extends Command {
 				break;
 		}
 		return {
-			statusEmoji,
 			status,
+			statusEmoji,
 		};
 	}
 

@@ -4,13 +4,13 @@ const {tags} = require('../../constants.js');
 module.exports = class KickCommand extends SanctionCommand {
 	constructor() {
 		super({
+			clientPermissions: ['KICK_MEMBERS'],
+			description: "Permet d'éjecter un [membre] du serveur avec une <raison>.",
 			name: 'kick',
 			tags: [tags.guild_only],
-			description: "Permet d'éjecter un [membre] du serveur avec une <raison>.",
+			type: 'kick',
 			usage: 'kick [ID ou mention de membre] <raison>',
 			userPermissions: ['KICK_MEMBERS', 'BAN_MEMBERS'],
-			clientPermissions: ['KICK_MEMBERS'],
-			type: 'kick',
 		});
 	}
 

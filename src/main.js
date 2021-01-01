@@ -7,8 +7,8 @@ templates.author = {
 	...templates.basic,
 	...templates.color,
 	author: {
-		name: '${author}',
 		iconURL: '${authorURL}',
+		name: '${author}',
 	},
 	description: '${description}',
 };

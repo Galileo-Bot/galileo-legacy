@@ -2,30 +2,30 @@ const {getShortPrefix} = require('./utils/Utils.js');
 const {version} = require('../package.json');
 
 const argTypes = {
-	user: "Nom/Mention/ID d'utilisateur",
-	user_id: "ID d'utilisateur",
-	user_username: "Nom d'utilisateur",
-	member: 'Nom/Mention/ID de membre',
 	channel: 'Nom/Mention/ID de salon.',
 	channel_id: 'ID de salon',
 	channel_name: 'Nom de salon',
+	command: 'Commande',
 	guild: 'Nom/ID de serveur.',
 	guild_id: 'ID de serveur',
 	guild_name: 'Nom de serveur',
+	member: 'Nom/Mention/ID de membre',
+	number: 'Nombre',
 	role: 'Nom/Mention/ID de rôle',
 	role_id: 'ID de rôle',
 	role_name: 'Nom de rôle',
-	command: 'Commande',
-	number: 'Nombre',
 	string: 'Texte',
+	user: "Nom/Mention/ID d'utilisateur",
+	user_id: "ID d'utilisateur",
+	user_username: "Nom d'utilisateur",
 };
 
 const logTypes = {
 	debug: '35',
-	log: '37',
-	info: '34',
-	warn: '33',
 	error: '31',
+	info: '34',
+	log: '37',
+	warn: '33',
 };
 
 const categories = {
@@ -40,29 +40,29 @@ const categories = {
 };
 
 const tags = {
-	owner_only: 'Seulement disponible aux gérants du bot.',
-	guild_only: 'Seulement disponible sur serveur.',
 	dm_only: 'Seulement disponible en messages privés.',
-	nsfw_only: 'Seulement disponible dans un salon NSFW.',
+	guild_only: 'Seulement disponible sur serveur.',
 	guild_owner_only: 'Seulement disponible pour le propriétaire du serveur.',
 	help_command: "Commande d'aide.",
-	prefix_command: 'Commande des préfixes.',
 	hidden: 'Cachée.',
+	nsfw_only: 'Seulement disponible dans un salon NSFW.',
+	owner_only: 'Seulement disponible aux gérants du bot.',
+	prefix_command: 'Commande des préfixes.',
 	wip: 'Non finie (potentiellement instable).',
 };
 
 const userFlags = {
+	BUGHUNTER_LEVEL_1: 'Chercheur de bug de Discord niveau 1',
+	BUGHUNTER_LEVEL_2: 'Chercheur de bug de Discord niveau 2',
 	DISCORD_EMPLOYEE: 'Employé chez Discord.',
 	DISCORD_PARTNER: 'Partenaire de Discord.',
-	HYPESQUAD_EVENTS: 'Participant des évents HypeSquad.',
-	BUGHUNTER_LEVEL_1: 'Chercheur de bug de Discord niveau 1',
+	EARLY_SUPPORTER: 'A acheté Nitro dès son apparition.',
+	HOUSE_BALANCE: 'Fait partie de HypeSquad Balance.',
 	HOUSE_BRAVERY: 'Fait partie de HypeSquad Bravoure.',
 	HOUSE_BRILLIANCE: 'Fait partie de HypeSquad Brilliance.',
-	HOUSE_BALANCE: 'Fait partie de HypeSquad Balance.',
-	EARLY_SUPPORTER: 'A acheté Nitro dès son apparition.',
-	TEAM_USER: "Utilisateur d'une team de l'API.",
+	HYPESQUAD_EVENTS: 'Participant des évents HypeSquad.',
 	SYSTEM: 'Utilisateur faisant partie du système Discord.',
-	BUGHUNTER_LEVEL_2: 'Chercheur de bug de Discord niveau 2',
+	TEAM_USER: "Utilisateur d'une team de l'API.",
 	VERIFIED_BOT: 'Bot certifié ayant passé la validation.',
 	VERIFIED_DEVELOPER: 'Développeur de bot certifié ayant passé la validation.',
 };
@@ -129,21 +129,21 @@ const randomActivities = [
 const channels = {
 	addOrRemoveChannel: '544550120310439936',
 	bugChannel: '515683210798301202',
-	supportChannel: '544130287894790154',
-	updatesChannel: '515326534727237636',
-	galiChannels: {
-		addGuild: '636702915376971796',
-		bug: '635248014419820545',
-		command: '636636369984159806',
-		mp: '636711377674829835',
-		removeGuild: '636702929151328295',
-		rateLimit: '764567172839637008',
-	},
 	canaryChannels: {
 		bug: '638476019774259252',
 		command: '638476040565424178',
 		mp: '638476058416381962',
 	},
+	galiChannels: {
+		addGuild: '636702915376971796',
+		bug: '635248014419820545',
+		command: '636636369984159806',
+		mp: '636711377674829835',
+		rateLimit: '764567172839637008',
+		removeGuild: '636702929151328295',
+	},
+	supportChannel: '544130287894790154',
+	updatesChannel: '515326534727237636',
 };
 
 const emojis = {
@@ -153,12 +153,12 @@ const emojis = {
 module.exports = {
 	argTypes,
 	categories,
-	tags,
-	logTypes,
-	randomActivities,
-	userFlags,
-	guildFeatures,
-	permissions,
 	channels,
 	emojis,
+	guildFeatures,
+	logTypes,
+	permissions,
+	randomActivities,
+	tags,
+	userFlags,
 };

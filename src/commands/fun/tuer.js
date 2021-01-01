@@ -7,10 +7,10 @@ const {random} = require('../../utils/Utils.js');
 module.exports = class TuerCommand extends Command {
 	constructor() {
 		super({
-			name: 'tuer',
-			description: 'Permet de trouver une bonne façon de mourir pour vous ou une personne ou quelque chose.',
-			usage: 'tuer [Mention de membre/Texte]',
 			aliases: ['kill'],
+			description: 'Permet de trouver une bonne façon de mourir pour vous ou une personne ou quelque chose.',
+			name: 'tuer',
+			usage: 'tuer [Mention de membre/Texte]',
 		});
 	}
 

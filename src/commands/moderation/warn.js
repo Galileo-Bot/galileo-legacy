@@ -4,12 +4,12 @@ const {tags} = require('../../constants.js');
 module.exports = class WarnCommand extends SanctionCommand {
 	constructor() {
 		super({
-			name: 'warn',
 			description: "Permet d'ajouter un avertissement à un membre du serveur avec une raison.",
-			usage: 'warn <ID ou mention de membre> [raison]',
+			name: 'warn',
 			tags: [tags.guild_only],
-			userPermissions: ['KICK_MEMBERS', 'BAN_MEMBERS'],
 			type: 'warn',
+			usage: 'warn <ID ou mention de membre> [raison]',
+			userPermissions: ['KICK_MEMBERS', 'BAN_MEMBERS'],
 		});
 	}
 

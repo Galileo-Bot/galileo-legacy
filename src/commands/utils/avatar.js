@@ -6,10 +6,10 @@ const {BetterEmbed} = require('discord.js-better-embed');
 module.exports = class AvatarCommand extends Command {
 	constructor() {
 		super({
-			name: 'avatar',
-			description: "Permet d'afficher l'avatar d'une personne grâce à son ID/Nom/Mention.",
-			usage: 'avatar [ID/Nom/Mention]',
 			aliases: ['av'],
+			description: "Permet d'afficher l'avatar d'une personne grâce à son ID/Nom/Mention.",
+			name: 'avatar',
+			usage: 'avatar [ID/Nom/Mention]',
 		});
 	}
 
@@ -23,9 +23,9 @@ module.exports = class AvatarCommand extends Command {
 		});
 		const embed = BetterEmbed.fromTemplate('image', {
 			client,
-			title: `Avatar de ${person.username} :`,
 			description: `<:link:539121207543595008> [Lien de l'avatar.](${link})`,
 			image: link,
+			title: `Avatar de ${person.username} :`,
 		});
 		embed.setColor('#0faf2f');
 

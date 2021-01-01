@@ -4,9 +4,9 @@ const Command = require('../../entities/Command.js');
 module.exports = class CreateursCommand extends Command {
 	constructor() {
 		super({
-			name: 'createurs',
-			description: "Permet d'avoir des informations sur Ayfri et Antow, les développeurs et créateurs de Galileo.",
 			aliases: ['ayfri', 'createur', 'créateurs', 'antow'],
+			description: "Permet d'avoir des informations sur Ayfri et Antow, les développeurs et créateurs de Galileo.",
+			name: 'createurs',
 		});
 	}
 

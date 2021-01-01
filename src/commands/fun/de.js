@@ -6,10 +6,10 @@ const {argError} = require('../../utils/Errors.js');
 module.exports = class DeCommand extends Command {
 	constructor() {
 		super({
-			name: 'de',
-			description: 'Permet de tirer un nombre aléatoire entre 1 et le premier nombre ou entre le premier et le deuxième nombre.',
-			usage: 'de\nde <max>\nde <min> <max>',
 			aliases: ['random', 'dé'],
+			description: 'Permet de tirer un nombre aléatoire entre 1 et le premier nombre ou entre le premier et le deuxième nombre.',
+			name: 'de',
+			usage: 'de\nde <max>\nde <min> <max>',
 		});
 	}
 

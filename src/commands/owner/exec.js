@@ -7,11 +7,11 @@ const {exec} = require('child_process');
 module.exports = class ExecCommand extends SlowCommand {
 	constructor() {
 		super({
-			name: 'exec',
-			description: 'Exécute une commande bash.',
-			usage: 'exec <command>',
 			aliases: ['execute', 'bash'],
+			description: 'Exécute une commande bash.',
+			name: 'exec',
 			tags: [tags.owner_only],
+			usage: 'exec <command>',
 		});
 	}
 

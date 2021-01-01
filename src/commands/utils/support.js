@@ -6,11 +6,11 @@ const {channels} = require('../../constants.js');
 module.exports = class SupportCommand extends Command {
 	constructor() {
 		super({
-			name: 'support',
-			description: "Permet de contacter le créateur sur une suggestion ou un problème..\n**Temps d'attente entre 2 commandes : 5 minutes.**",
-			usage: 'contact <texte>',
 			aliases: ['contact', 'report'],
 			cooldown: 300,
+			description: "Permet de contacter le créateur sur une suggestion ou un problème..\n**Temps d'attente entre 2 commandes : 5 minutes.**",
+			name: 'support',
+			usage: 'contact <texte>',
 		});
 	}
 
@@ -21,11 +21,11 @@ module.exports = class SupportCommand extends Command {
 		const text = args.join(' ');
 
 		const embed = BetterEmbed.fromTemplate('author', {
-			client,
 			author: `${message.author.tag} (${message.author.id}) nous contacte pour :`,
 			authorURL: message.author.displayAvatarURL({
 				dynamic: true,
 			}),
+			client,
 			description: text,
 		});
 		embed.setFooter(message.guild ? `Du serveur : ${message.guild.name} (${message.guild.id})` : 'Envoyé en messages privés.');

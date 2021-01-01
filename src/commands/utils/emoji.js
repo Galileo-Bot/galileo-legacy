@@ -6,10 +6,10 @@ const {BetterEmbed} = require('discord.js-better-embed');
 module.exports = class EmojiCommand extends Command {
 	constructor() {
 		super({
-			name: 'emoji',
-			description: "Permet d'avoir la liste des émojis du serveur ou des informations sur un émoji.",
-			usage: 'emoji <emoji>\nemoji liste',
 			aliases: ['émojis', 'émoji', 'emoji', 'emote', 'emotes'],
+			description: "Permet d'avoir la liste des émojis du serveur ou des informations sur un émoji.",
+			name: 'emoji',
+			usage: 'emoji <emoji>\nemoji liste',
 		});
 	}
 

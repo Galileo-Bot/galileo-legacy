@@ -39,8 +39,8 @@ function verifyPermissionsFromCommand(command, message) {
 function tryDeleteMessage(message, after = 0) {
 	if (message.deletable) {
 		message.delete({
-			timeout: after,
 			reason: 'Auto-suppression.',
+			timeout: after,
 		});
 	}
 }
@@ -87,10 +87,10 @@ function verifyCommand(command, message) {
 	 * @type CommandFail
 	 */
 	const fail = {
-		missingPermissions,
-		tags: [],
 		cooldown: null,
 		isFailed: false,
+		missingPermissions,
+		tags: [],
 	};
 
 	if (missingPermissions.client.length > 0 || missingPermissions.user.length > 0) fail.isFailed = true;

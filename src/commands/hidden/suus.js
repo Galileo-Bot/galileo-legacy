@@ -5,9 +5,9 @@ const {BetterEmbed} = require('discord.js-better-embed');
 module.exports = class SuusCommand extends Command {
 	constructor() {
 		super({
-			name: 'suus',
-			description: 'Jeej, jaaj. (affiche une image aléatoire de saucisse).',
 			aliases: ['jeej', 'jaaj'],
+			description: 'Jeej, jaaj. (affiche une image aléatoire de saucisse).',
+			name: 'suus',
 		});
 	}
 
@@ -17,8 +17,8 @@ module.exports = class SuusCommand extends Command {
 		const {sausages} = require('../../assets/jsons/data.json');
 		const embed = BetterEmbed.fromTemplate('image', {
 			client: this.client,
-			image: Math.floor(Math.random() * 1000) === 666 ? 'https://cdn.discordapp.com/attachments/537627694788116490/547067318409363479/SPOILER_31Bx6VLvAqL.png' : random(sausages),
 			description: 'Suus, jeej, jaaj.',
+			image: Math.floor(Math.random() * 1000) === 666 ? 'https://cdn.discordapp.com/attachments/537627694788116490/547067318409363479/SPOILER_31Bx6VLvAqL.png' : random(sausages),
 			title: 'Voici votre image de saucisse.',
 		});
 

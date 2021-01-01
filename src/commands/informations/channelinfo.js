@@ -7,10 +7,10 @@ const {BetterEmbed} = require('discord.js-better-embed');
 module.exports = class ChannelInfoCommand extends Command {
 	constructor() {
 		super({
-			name: 'channelinfo',
-			description: "Permet d'avoir des informations sur un salon.",
-			usage: 'channelinfo <ID/Nom/Mention de salon>\nchannelinfo',
 			aliases: ['ci', 'channel-info', 'saloninfo'],
+			description: "Permet d'avoir des informations sur un salon.",
+			name: 'channelinfo',
+			usage: 'channelinfo <ID/Nom/Mention de salon>\nchannelinfo',
 		});
 	}
 

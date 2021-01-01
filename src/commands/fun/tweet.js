@@ -5,10 +5,10 @@ const {tryDeleteMessage} = require('../../utils/CommandUtils.js');
 module.exports = class TweetCommand extends Command {
 	constructor() {
 		super({
-			name: 'tweet',
-			description: 'Génère un tweet ! Parfait pour troller vos amis.',
-			usage: 'tweet <nom du compte> <contenu du tweet>',
 			aliases: ['twt'],
+			description: 'Génère un tweet ! Parfait pour troller vos amis.',
+			name: 'tweet',
+			usage: 'tweet <nom du compte> <contenu du tweet>',
 		});
 	}
 

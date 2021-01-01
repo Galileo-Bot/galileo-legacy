@@ -31,8 +31,8 @@ module.exports = class ImageCommand extends SlowCommand {
 				imgur.uploadFile(`./assets/images/${imageFunction}.png`).then(async json => {
 					const embed = BetterEmbed.fromTemplate('image', {
 						client: message.client,
-						image: json.data.link,
 						description: `[Cliquez pour ouvrir l'image.](${json.data.link})`,
+						image: json.data.link,
 						title: 'Image traitée : ',
 					});
 

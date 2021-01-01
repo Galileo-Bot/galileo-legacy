@@ -9,24 +9,24 @@ module.exports = class DBManager {
 
 	constructor() {
 		this.userInfos = new Enmap({
-			name: 'userinfos',
-			fetchAll: true,
 			autoFetch: true,
 			dataDir: './assets/db',
+			fetchAll: true,
+			name: 'userinfos',
 		});
 
 		this.messages = new Enmap({
-			name: 'messages',
-			fetchAll: true,
 			autoFetch: true,
 			dataDir: './assets/db',
+			fetchAll: true,
+			name: 'messages',
 		});
 
 		this.cache = new Enmap({
-			name: 'cache',
-			fetchAll: true,
 			autoFetch: true,
 			dataDir: './assets/db',
+			fetchAll: true,
+			name: 'cache',
 		});
 	}
 

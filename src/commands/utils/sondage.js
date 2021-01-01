@@ -6,11 +6,11 @@ const {BetterEmbed} = require('discord.js-better-embed');
 module.exports = class SondageCommand extends Command {
 	constructor() {
 		super({
-			name: 'sondage',
-			description: 'Permet de faire des sondages avec un nombre de choix personnalisé, si vous attachez une image à la commande, elle sera affiché sur le sondage.',
-			usage: 'sondage <Question> ; [choix1] ; [choix2] ; [choix3] etc...\n sondage <Question>',
 			aliases: ['vote', 'poll'],
 			clientPermissions: ['ADD_REACTIONS', 'USE_EXTERNAL_EMOJIS'],
+			description: 'Permet de faire des sondages avec un nombre de choix personnalisé, si vous attachez une image à la commande, elle sera affiché sur le sondage.',
+			name: 'sondage',
+			usage: 'sondage <Question> ; [choix1] ; [choix2] ; [choix3] etc...\n sondage <Question>',
 		});
 	}
 
@@ -23,11 +23,11 @@ module.exports = class SondageCommand extends Command {
 		const emotes = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'keycap_ten'];
 		const question = `**${text.slice(0, text.indexOf(' ; ')).toString()}**\n\n`;
 		const embed = BetterEmbed.fromTemplate('author', {
-			client,
 			author: `Question de ${message.author.tag} :`,
 			authorURL: message.author.displayAvatarURL({
 				dynamic: true,
 			}),
+			client,
 		});
 
 		if (question === '****\n\n') return argError(message, this, 'Veuillez mettre une question.');

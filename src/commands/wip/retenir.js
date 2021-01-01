@@ -4,10 +4,10 @@ const Command = require('../../entities/Command.js');
 module.exports = class RetenirCommand extends Command {
 	constructor() {
 		super({
-			name: 'retenir',
-			description: "Permet d'avoir un rappel de texte dans un temps que vous donnez.",
-			usage: 'retenir <texte> <temps> (exemple : 4h, 5j, 12m)',
 			aliases: ['rappel', 'remind', 'rmd'],
+			description: "Permet d'avoir un rappel de texte dans un temps que vous donnez.",
+			name: 'retenir',
+			usage: 'retenir <texte> <temps> (exemple : 4h, 5j, 12m)',
 		});
 	}
 

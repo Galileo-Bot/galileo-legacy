@@ -7,9 +7,9 @@ const {exec} = require('child_process');
 module.exports = class CommandStatsCommand extends SlowCommand {
 	constructor() {
 		super({
-			name: 'commandstats',
-			description: "Permet d'avoir des statistiques sur le nombre de commandes utilisées par le bot durant les 30 derniers jours.",
 			aliases: ['cs', 'sm', 'statsmessages'],
+			description: "Permet d'avoir des statistiques sur le nombre de commandes utilisées par le bot durant les 30 derniers jours.",
+			name: 'commandstats',
 		});
 	}
 
@@ -27,9 +27,9 @@ module.exports = class CommandStatsCommand extends SlowCommand {
 			.then(json => {
 				const embed = BetterEmbed.fromTemplate('image', {
 					client,
+					description: '',
 					image: json.data.link,
 					title: "Statistiques sur l'utilisation du bot.",
-					description: '',
 				});
 
 				super.send(embed);

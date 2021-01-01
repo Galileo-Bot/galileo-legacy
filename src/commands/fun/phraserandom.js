@@ -4,9 +4,9 @@ const Command = require('../../entities/Command.js');
 module.exports = class PhraseRandomCommand extends Command {
 	constructor() {
 		super({
-			name: 'phraserandom',
-			description: 'Vous renvoie une phrase générée aléatoirement et en général drôle =)',
 			aliases: ['phrase-random', 'phrase', 'pr'],
+			description: 'Vous renvoie une phrase générée aléatoirement et en général drôle =)',
+			name: 'phraserandom',
 		});
 	}
 

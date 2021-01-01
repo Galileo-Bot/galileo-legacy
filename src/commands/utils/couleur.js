@@ -8,10 +8,10 @@ const {colors} = require('../../assets/jsons/data.json');
 module.exports = class CouleurCommand extends Command {
 	constructor() {
 		super({
-			name: 'couleur',
-			description: "Permet de générer ou de voir la couleur d'un code hexadécimale.",
-			usage: 'couleur <couleur hexadécimale>\ncouleur random',
 			aliases: ['color'],
+			description: "Permet de générer ou de voir la couleur d'un code hexadécimale.",
+			name: 'couleur',
+			usage: 'couleur <couleur hexadécimale>\ncouleur random',
 		});
 	}
 

@@ -6,11 +6,11 @@ const Command = require('../../entities/Command.js');
 module.exports = class ContactMpCommand extends Command {
 	constructor() {
 		super({
-			name: 'contact-mp',
-			description: "Permet d'envoyer un message en privé à un utilisateur.",
-			usage: "contact-mp <ID/Nom/Mention d'utilisateur> <texte>",
 			aliases: ['mp', 'contactmp'],
+			description: "Permet d'envoyer un message en privé à un utilisateur.",
+			name: 'contact-mp',
 			tags: [tags.owner_only],
+			usage: "contact-mp <ID/Nom/Mention d'utilisateur> <texte>",
 		});
 	}
 

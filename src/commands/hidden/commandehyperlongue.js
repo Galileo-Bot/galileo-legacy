@@ -4,10 +4,10 @@ const Command = require('../../entities/Command.js');
 module.exports = class CommandeHyperLongueCommand extends Command {
 	constructor() {
 		super({
-			name: 'commandehyperlongue',
-			description: "GG t'as trouvé cette commande cachée x)",
 			aliases: ['mdr', 'caché'],
 			cooldown: 69,
+			description: "GG t'as trouvé cette commande cachée x)",
+			name: 'commandehyperlongue',
 		});
 	}
 

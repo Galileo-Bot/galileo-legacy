@@ -8,13 +8,13 @@ const {argError} = require('../../utils/Errors.js');
 module.exports = class InfractionsCommand extends Command {
 	constructor() {
 		super({
-			name: 'infractions',
+			aliases: ['infraction'],
 			description: "Permet de modifier/supprimer/voir les infractions d'un membre ou de vous-même.",
+			name: 'infractions',
+			tags: [tags.guild_only],
 			usage:
 				'infractions <Nom/ID/Mention de membre> modifier <numéro de cas> <nouvelle raison>\ninfractions <Nom/ID/Mention de membre> supprimer <numéro de cas>\ninfractions <Nom/ID/Mention de membre> supprimer toutes\ninfractions [Nom/ID/Mention de membre] [page]',
-			tags: [tags.guild_only],
 			userPermissions: ['KICK_MEMBERS', 'BAN_MEMBERS'],
-			aliases: ['infraction'],
 		});
 	}
 

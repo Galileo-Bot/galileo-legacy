@@ -45,16 +45,16 @@ function addMissingZeros(number, size) {
  */
 function formatDate(pattern, date = new Date(), removeOneDay = false, options = {}) {
 	const settings = {
-		year: 'numeric',
-		month: '2-digit',
 		day: '2-digit',
 		hour: '2-digit',
-		minute: '2-digit',
-		second: '2-digit',
-		weekday: 'long',
 		hour12: false,
+		minute: '2-digit',
+		month: '2-digit',
+		second: '2-digit',
 		timeZone: 'Europe/Paris',
 		timeZoneName: 'long',
+		weekday: 'long',
+		year: 'numeric',
 	};
 
 	Object.keys(options).forEach(key => (settings[key] = options[key]));
@@ -124,8 +124,8 @@ function getTime(args) {
 	}
 
 	const time = {
-		value: 0,
 		type: '',
+		value: 0,
 	};
 
 	const argsArray = (typeof args === 'string' ? args : args.join(' ')).toLowerCase().trim().split(/ +/g);
@@ -147,9 +147,9 @@ function formatByteSize(bytes) {
 }
 
 module.exports = {
-	getTime,
-	formatDate,
-	formatWithRange,
-	formatRelativeDate,
 	formatByteSize,
+	formatDate,
+	formatRelativeDate,
+	formatWithRange,
+	getTime,
 };
