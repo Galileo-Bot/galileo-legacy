@@ -48,7 +48,7 @@ function random(array) {
  * Permet d'envoyer un message de log sur le serveur de gali.
  * @param {GaliClient | Client} client - Le client pour récupérer les salons etc.
  * @param {'addGuild' | 'bug' | 'command' | 'mp' | 'removeGuild' | 'rateLimit'} channelType - Type de salon.
- * @param {string | module:"discord.js".StringResolvable | Embed} content - Le contenu.
+ * @param {BetterEmbed | string} content - Le contenu.
  * @returns {void}
  */
 async function sendLogMessage(client, channelType, content) {
