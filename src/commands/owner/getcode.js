@@ -32,8 +32,8 @@ module.exports = class GetCodeCommand extends Command {
 		await message.channel?.send(`\`\`\`js\n${this.getFileCode(path)}\`\`\``, {
 			split: {
 				maxLength: 1990,
-				prepend: `\`\`\`js\n`,
-				append: `\`\`\``,
+				prepend: '```js\n',
+				append: '```',
 			},
 		});
 	}

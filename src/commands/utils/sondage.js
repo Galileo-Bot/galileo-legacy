@@ -33,7 +33,7 @@ module.exports = class SondageCommand extends Command {
 		if (question === '****\n\n') return argError(message, this, 'Veuillez mettre une question.');
 		if (message.attachments.size > 0 && message.attachments.first().height) image = message.attachments.first().url;
 
-		const choices = text.substring(text.length + 2, question.length - 3).split(` ; `);
+		const choices = text.substring(text.length + 2, question.length - 3).split(' ; ');
 		if (image) embed.setImage(image);
 
 		if (choices.length === 1) {

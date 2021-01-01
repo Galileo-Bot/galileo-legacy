@@ -31,7 +31,7 @@ module.exports = class RateLimitEvent extends Event {
 
 		const embed = BetterEmbed.fromTemplate('author', {
 			client,
-			author: `Rate limit :`,
+			author: 'Rate limit :',
 			authorURL:
 				message.guild.iconURL({
 					dynamic: true,
