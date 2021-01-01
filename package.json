@@ -55,6 +55,7 @@
 	},
 	"scripts": {
 		"canary": "npm run start:canary",
+		"lint": "eslint . --fix",
 		"start": "npm run start:prod",
 		"start:prod": "node --trace-warnings .",
 		"start:canary": "node --trace-warnings . --canary",
