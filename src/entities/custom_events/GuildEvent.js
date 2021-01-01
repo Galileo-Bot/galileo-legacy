@@ -29,7 +29,7 @@ module.exports = class GuildEvent extends Event {
 	 * Renvoie l'Embed d'un GuildEvent.
 	 * @returns {BetterEmbed} - L'embed.
 	 */
-	embed() {
+	get embed() {
 		if (!this.guild.available) return null;
 
 		const embed = BetterEmbed.fromTemplate('complete', {

@@ -13,6 +13,6 @@ module.exports = class GuildDeleteEvent extends GuildEvent {
 		super.owner = `<@${guild.ownerID}>`;
 		await super.run(client, guild);
 		await super.log();
-		await sendLogMessage(client, 'removeGuild', super.embed());
+		await sendLogMessage(client, 'removeGuild', super.embed);
 	}
 };
