@@ -1,25 +1,16 @@
-name: Continuous Integration
+name: Prettier
 
 on:
-    pull_request:
-    push:
-        branches:
-            - new-handler
+  pull_request:
+  schedule:
+    - cron: '0 0 * * 1'
 
 jobs:
     prettier:
         runs-on: ubuntu-latest
-
         steps:
-            - name: Checkout
-              uses: actions/checkout@v2
-              with:
-                  # Make sure the actual branch is checked out when running on pull requests
-                  ref: ${{ github.head_ref }}
-
-            - name: Prettify code
-              uses: creyD/prettier_action@v3.0
-              with:
-                  # This part is also where you can pass other options, for example:
-                  prettier_options: --write **/*.{js,md,json}
-                  commit_message: Prettified code.
+            - uses: actions/checkout@v2
+            - name: Install modules
+              run: yarn
+            - name: Run Prettier
+              run: npm run prettier
