@@ -8,9 +8,17 @@ jobs:
     CI:
         runs-on: ubuntu-latest
         steps:
-            - name: Lint
-              uses: ./.github/workflows/lint
-            - name: Prettier
-              uses: ./.github/workflows/prettier,
-            - name: CodeQL Analyze
-              uses: ./.github/workflows/codeql-analysis
+            - name: Checkout
+              uses: actions/checkout@v2.3.4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v2.1.4
+
+            - name: Install Dependencies
+              run: yarn install --frozen-lockfile
+
+            - name: lint
+              run: yarn lint
+
+            - name: Prettify
+              run: yarn prettier
