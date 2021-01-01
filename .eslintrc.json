@@ -5,14 +5,44 @@
 		"es2021": true
 	},
 	"extends": "eslint:recommended",
+	"parser": "@babel/eslint-parser",
 	"parserOptions": {
-		"ecmaVersion": 12
+		"babelOptions": {
+			"plugins": ["@babel/plugin-proposal-class-properties"]
+		},
+		"ecmaVersion": 2021,
+		"ecmaFeatures": {
+			"classes": true
+		},
+		"requireConfigFile": false
 	},
 	"rules": {
-		"indent": ["error", "tab"],
+		"indent": [
+			"error",
+			"tab",
+			{
+				"SwitchCase": 1,
+				"MemberExpression": 1,
+				"flatTernaryExpressions": true
+			}
+		],
 		"linebreak-style": ["error", "unix"],
+		"no-empty": [
+			"error",
+			{
+				"allowEmptyCatch": true
+			}
+		],
+		"no-case-declarations": ["off"],
+		"no-prototype-builtins": ["off"],
 		"prefer-arrow-callback": ["error"],
-		"quotes": ["error", "single", {"avoidEscape": true}],
+		"quotes": [
+			"error",
+			"single",
+			{
+				"avoidEscape": true
+			}
+		],
 		"semi": ["error", "always"],
 		"sort-keys": ["error"]
 	}
