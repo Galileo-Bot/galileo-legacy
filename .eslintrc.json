@@ -44,6 +44,12 @@
 			}
 		],
 		"semi": ["error", "always"],
-		"sort-keys": ["error"]
+		"sort-keys": ["error"],
+		"prefer-const": [
+			"error",
+			{
+				"destructuring": "all"
+			}
+		]
 	}
 }
