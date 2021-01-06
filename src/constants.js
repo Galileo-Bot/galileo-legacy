@@ -1,57 +1,57 @@
 const {getShortPrefix} = require('./utils/Utils.js');
 const {version} = require('../package.json');
 
-const argTypes = {
-	channel: 'Nom/Mention/ID de salon.',
-	channel_id: 'ID de salon',
-	channel_name: 'Nom de salon',
-	command: 'Commande',
-	guild: 'Nom/ID de serveur.',
-	guild_id: 'ID de serveur',
-	guild_name: 'Nom de serveur',
-	member: 'Nom/Mention/ID de membre',
-	number: 'Nombre',
-	role: 'Nom/Mention/ID de rôle',
-	role_id: 'ID de rôle',
-	role_name: 'Nom de rôle',
-	string: 'Texte',
-	user: "Nom/Mention/ID d'utilisateur",
-	user_id: "ID d'utilisateur",
-	user_username: "Nom d'utilisateur",
+const ARG_TYPES = {
+	CHANNEL: 'Nom/Mention/ID de salon.',
+	CHANNEL_ID: 'ID de salon',
+	CHANNEL_NAME: 'Nom de salon',
+	COMMAND: 'Commande',
+	GUILD: 'Nom/ID de serveur.',
+	GUILD_ID: 'ID de serveur',
+	GUILD_NAME: 'Nom de serveur',
+	MEMBER: 'Nom/Mention/ID de membre',
+	NUMBER: 'Nombre',
+	ROLE: 'Nom/Mention/ID de rôle',
+	ROLE_ID: 'ID de rôle',
+	ROLE_NAME: 'Nom de rôle',
+	STRING: 'Texte',
+	USER: "Nom/Mention/ID d'utilisateur",
+	USER_ID: "ID d'utilisateur",
+	USER_USERNAME: "Nom d'utilisateur",
 };
 
-const logTypes = {
-	debug: '35',
-	error: '31',
-	info: '34',
-	log: '37',
-	warn: '33',
+const LOG_TYPES = {
+	DEBUG: '35',
+	ERROR: '31',
+	INFO: '34',
+	LOG: '37',
+	WARN: '33',
 };
 
-const categories = {
-	administration: 'Administration',
-	fun: 'Fun',
-	hidden: 'Cachées',
-	informations: 'Informations',
-	moderation: 'Modération',
-	owner: 'Gérants bot',
-	utils: 'Utilitaires',
-	wip: 'Non finies. (instables)',
+const CATEGORIES = {
+	ADMINISTRATION: 'Administration',
+	FUN: 'Fun',
+	HIDDEN: 'Cachées',
+	INFORMATIONS: 'Informations',
+	MODERATION: 'Modération',
+	OWNER: 'Gérants bot',
+	UTILS: 'Utilitaires',
+	WIP: 'Non finies. (instables)',
 };
 
-const tags = {
-	dm_only: 'Seulement disponible en messages privés.',
-	guild_only: 'Seulement disponible sur serveur.',
-	guild_owner_only: 'Seulement disponible pour le propriétaire du serveur.',
-	help_command: "Commande d'aide.",
-	hidden: 'Cachée.',
-	nsfw_only: 'Seulement disponible dans un salon NSFW.',
-	owner_only: 'Seulement disponible aux gérants du bot.',
-	prefix_command: 'Commande des préfixes.',
-	wip: 'Non finie (potentiellement instable).',
+const TAGS = {
+	DM_ONLY: 'Seulement disponible en messages privés.',
+	GUILD_ONLY: 'Seulement disponible sur serveur.',
+	GUILD_OWNER_ONLY: 'Seulement disponible pour le propriétaire du serveur.',
+	HELP_COMMAND: "Commande d'aide.",
+	HIDDEN: 'Cachée.',
+	NSFW_ONLY: 'Seulement disponible dans un salon NSFW.',
+	OWNER_ONLY: 'Seulement disponible aux gérants du bot.',
+	PREFIX_COMMAND: 'Commande des préfixes.',
+	WIP: 'Non finie (potentiellement instable).',
 };
 
-const userFlags = {
+const USER_FLAGS = {
 	BUGHUNTER_LEVEL_1: 'Chercheur de bug de Discord niveau 1',
 	BUGHUNTER_LEVEL_2: 'Chercheur de bug de Discord niveau 2',
 	DISCORD_EMPLOYEE: 'Employé chez Discord.',
@@ -67,7 +67,7 @@ const userFlags = {
 	VERIFIED_DEVELOPER: 'Développeur de bot certifié ayant passé la validation.',
 };
 
-const guildFeatures = {
+const GUILD_FEATURES = {
 	ANIMATED_ICON: "Possibilité d'avoir une icône animée.",
 	BANNER: "Possibilité d'avoir une bannière.",
 	COMMERCE: 'Possibilité de créer des salons de shopping.',
@@ -83,7 +83,7 @@ const guildFeatures = {
 	WELCOME_SCREEN_ENABLED: 'Menu de bienvenue activé.',
 };
 
-const permissions = {
+const PERMISSIONS = {
 	ADD_REACTIONS: 'Ajouter des réactions.',
 	ADMINISTRATOR: 'Administrateur',
 	ATTACH_FILES: 'Poster des fichiers.',
@@ -117,7 +117,7 @@ const permissions = {
 	VIEW_GUILD_INSIGHTS: 'Voir les informations du serveur.',
 };
 
-const randomActivities = [
+const RANDOM_ACTIVITIES = [
 	`[${getShortPrefix()}help] Alpha`,
 	"😷 N'oubliez pas votre masque !",
 	'💻 Développeurs : Ayfri, Antow.',
@@ -126,39 +126,39 @@ const randomActivities = [
 	`🚀 Version : ${version} !`,
 ];
 
-const channels = {
-	addOrRemoveChannel: '544550120310439936',
-	bugChannel: '515683210798301202',
-	canaryChannels: {
-		bug: '638476019774259252',
-		command: '638476040565424178',
-		mp: '638476058416381962',
+const CHANNELS = {
+	ADD_OR_REMOVE_CHANNEL: '544550120310439936',
+	BUG_CHANNEL: '515683210798301202',
+	CANARY_CHANNELS: {
+		BUG: '638476019774259252',
+		COMMAND: '638476040565424178',
+		MP: '638476058416381962',
 	},
-	galiChannels: {
-		addGuild: '636702915376971796',
-		bug: '635248014419820545',
-		command: '636636369984159806',
-		mp: '636711377674829835',
-		rateLimit: '764567172839637008',
-		removeGuild: '636702929151328295',
+	GALI_CHANNELS: {
+		ADD_GUILD: '636702915376971796',
+		BUG: '635248014419820545',
+		COMMAND: '636636369984159806',
+		MP: '636711377674829835',
+		RATE_LIMIT: '764567172839637008',
+		REMOVE_GUILD: '636702929151328295',
 	},
-	supportChannel: '544130287894790154',
-	updatesChannel: '515326534727237636',
+	SUPPORT_CHANNEL: '544130287894790154',
+	UPDATES_CHANNEL: '515326534727237636',
 };
 
-const emojis = {
-	wait: '638831506126536718',
+const EMOJIS = {
+	WAIT: '638831506126536718',
 };
 
 module.exports = {
-	argTypes,
-	categories,
-	channels,
-	emojis,
-	guildFeatures,
-	logTypes,
-	permissions,
-	randomActivities,
-	tags,
-	userFlags,
+	ARG_TYPES,
+	CATEGORIES,
+	CHANNELS,
+	EMOJIS,
+	GUILD_FEATURES,
+	LOG_TYPES,
+	PERMISSIONS,
+	RANDOM_ACTIVITIES,
+	TAGS,
+	USER_FLAGS,
 };
