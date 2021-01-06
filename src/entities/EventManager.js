@@ -16,7 +16,7 @@ module.exports = class EventManager {
 
 	/**
 	 * Charge un évènement.
-	 * @param {Event} event - L'évènement à charger.
+	 * @param {module.Event} event - L'évènement à charger.
 	 * @returns {void}
 	 */
 	bind(event) {
