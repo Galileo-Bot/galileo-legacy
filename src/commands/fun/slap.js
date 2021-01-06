@@ -1,5 +1,5 @@
 const MemeCommand = require('../../entities/custom_commands/MemeCommand.js');
-const {tags} = require('../../constants.js');
+const {TAGS} = require('../../constants.js');
 
 module.exports = class SlapCommand extends MemeCommand {
 	constructor() {
@@ -9,7 +9,7 @@ module.exports = class SlapCommand extends MemeCommand {
 			argsNumber: 2,
 			description: 'Vous avez dit une grosse bêtise, en voici la conséquence, une bonne baffe.',
 			name: 'slap',
-			tags: [tags.guild_only],
+			tags: [TAGS.GUILD_ONLY],
 			templateID: '438680',
 			usage: 'slap <Texte Robin> ; <Texte Batman>',
 		});

@@ -49,6 +49,6 @@ module.exports = class RateLimitEvent extends Event {
 			embed.addField('Message :', formatWithRange(message.content, 1024));
 		}
 
-		await sendLogMessage(client, 'rateLimit', embed);
+		await sendLogMessage(client, 'RATE_LIMIT', embed);
 	}
 };

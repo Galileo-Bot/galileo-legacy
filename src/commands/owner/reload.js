@@ -1,5 +1,5 @@
 const Logger = require('../../utils/Logger.js');
-const {argTypes, tags} = require('../../constants.js');
+const {ARG_TYPES, TAGS} = require('../../constants.js');
 const {getArg} = require('../../utils/ArgUtils.js');
 const {argError} = require('../../utils/Errors.js');
 const Command = require('../../entities/Command.js');
@@ -12,7 +12,7 @@ module.exports = class ReloadCommand extends Command {
 			aliases: ['rl'],
 			description: "Permet de recharger le code d'une commande, de toutes à la fois ou de tous les évents à la fois.",
 			name: 'reload',
-			tags: [tags.owner_only],
+			tags: [TAGS.OWNER_ONLY],
 			usage: 'reload <commande> \nreload all\nreload events',
 		});
 	}
@@ -79,7 +79,7 @@ module.exports = class ReloadCommand extends Command {
 	async run(client, message, args) {
 		await super.run(client, message, args);
 
-		const command = getArg(message, 1, argTypes.command);
+		const command = getArg(message, 1, ARG_TYPES.COMMAND);
 		if (!args[0]) return argError(message, this, 'Vous devez mettre une commande à recharger.');
 
 		if (['all', 'al', 'a', 'toutes', 'tout'].includes(args[0])) return await this.reloadCommands(client);

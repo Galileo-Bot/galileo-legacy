@@ -1,4 +1,4 @@
-const {argTypes} = require('../../constants.js');
+const {ARG_TYPES} = require('../../constants.js');
 const Command = require('../../entities/Command.js');
 const {getArg} = require('../../utils/ArgUtils.js');
 const {tryDeleteMessage} = require('../../utils/CommandUtils.js');
@@ -18,7 +18,7 @@ module.exports = class TuerCommand extends Command {
 		await super.run(client, message, args);
 
 		const {killMethods} = require('../../assets/jsons/data.json');
-		const person = getArg(message, 1, argTypes.user) || args.join(' ') || message.author.username;
+		const person = getArg(message, 1, ARG_TYPES.USER) || args.join(' ') || message.author.username;
 		let sentence;
 
 		do {

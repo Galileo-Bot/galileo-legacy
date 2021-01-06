@@ -1,5 +1,5 @@
 const MemeCommand = require('../../entities/custom_commands/MemeCommand.js');
-const {tags} = require('../../constants.js');
+const {TAGS} = require('../../constants.js');
 
 module.exports = class BoyfriendCommand extends MemeCommand {
 	constructor() {
@@ -9,7 +9,7 @@ module.exports = class BoyfriendCommand extends MemeCommand {
 			argsNumber: 3,
 			description: 'On dirait que ce petit ami est distrait.',
 			name: 'boyfriend',
-			tags: [tags.guild_only],
+			tags: [TAGS.GUILD_ONLY],
 			templateID: '112126428',
 			usage: 'boyfriend <Texte femme> ; <Texte home> ; <Texte femme jalouse>',
 		});

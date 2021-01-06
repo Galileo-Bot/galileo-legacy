@@ -1,6 +1,6 @@
 const Command = require('../../entities/Command.js');
 const {BetterEmbed} = require('discord.js-better-embed');
-const {argTypes, channels} = require('../../constants.js');
+const {ARG_TYPES, CHANNELS} = require('../../constants.js');
 const {getArg} = require('../../utils/ArgUtils.js');
 
 module.exports = class BugsCommand extends Command {
@@ -41,8 +41,8 @@ module.exports = class BugsCommand extends Command {
 	async run(client, message, args) {
 		await super.run(client, message, args);
 
-		const bugNumber = getArg(message, 1, argTypes.number);
-		const channelBugs = client.channels.cache.get(channels.bugChannel);
+		const bugNumber = getArg(message, 1, ARG_TYPES.NUMBER);
+		const channelBugs = client.channels.cache.get(CHANNELS.BUG_CHANNEL);
 		if (!client.channels.cache.has(channelBugs.id)) {
 			return super.send("Le bot n'a pas le salon bugs dans ses salon, contactez un créateur pour en savoir plus.");
 		}

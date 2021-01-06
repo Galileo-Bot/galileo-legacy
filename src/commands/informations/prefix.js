@@ -1,6 +1,6 @@
 const Command = require('../../entities/Command.js');
 const {getShortPrefix} = require('../../utils/Utils.js');
-const {tags} = require('../../constants.js');
+const {TAGS} = require('../../constants.js');
 
 module.exports = class PrefixCommand extends Command {
 	constructor() {
@@ -8,7 +8,7 @@ module.exports = class PrefixCommand extends Command {
 			aliases: ['prefixes', 'prefixe', 'préfix', 'préfixe'],
 			description: 'Renvoie la liste des préfixes du bot.',
 			name: 'prefix',
-			tags: [tags.prefix_command],
+			tags: [TAGS.PREFIX_COMMAND],
 		});
 	}
 

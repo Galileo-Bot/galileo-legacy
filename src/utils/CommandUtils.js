@@ -1,6 +1,6 @@
 const {argError, permsError} = require('./Errors.js');
 const {isOwner} = require('./Utils.js');
-const {tags} = require('../constants.js');
+const {TAGS} = require('../constants.js');
 
 /**
  * Renvoie les permissions menquantes d'une commande par rapport à un message (objets vide sinon).
@@ -57,13 +57,13 @@ function processCommandFail(fail, message, command) {
 
 	if (fail.missingPermissions.client.length > 0) return permsError(message, command, fail.missingPermissions.client, true);
 	else if (fail.missingPermissions.user.length > 0) return permsError(message, command, fail.missingPermissions.user);
-	else if (fail.tags.includes(tags.dm_only)) return argError(message, command, "Commande exécutée sur un serveur alors que la commande n'est autorisé qu'en privé.");
-	else if (fail.tags.includes(tags.owner_only)) return argError(message, command, 'Commande autorisée uniquement par les gérants du bot.');
+	else if (fail.tags.includes(TAGS.DM_ONLY)) return argError(message, command, "Commande exécutée sur un serveur alors que la commande n'est autorisé qu'en privé.");
+	else if (fail.tags.includes(TAGS.OWNER_ONLY)) return argError(message, command, 'Commande autorisée uniquement par les gérants du bot.');
 
 	if (message.guild) {
-		if (fail.tags.includes(tags.guild_owner_only)) return argError(message, command, 'Commande autorisée uniquement par le propriétaire du serveur.');
-		else if (fail.tags.includes(tags.nsfw_only)) return argError(message, command, 'Commande autorisée uniquement sur les salons NSFW.');
-	} else if (fail.tags.includes(tags.guild_only)) return argError(message, command, "Commande exécutée en privé alors que la commande n'est autorisé que sur serveur.");
+		if (fail.tags.includes(TAGS.GUILD_OWNER_ONLY)) return argError(message, command, 'Commande autorisée uniquement par le propriétaire du serveur.');
+		else if (fail.tags.includes(TAGS.NSFW_ONLY)) return argError(message, command, 'Commande autorisée uniquement sur les salons NSFW.');
+	} else if (fail.tags.includes(TAGS.GUILD_ONLY)) return argError(message, command, "Commande exécutée en privé alors que la commande n'est autorisé que sur serveur.");
 
 	if (fail.cooldown) {
 		const {cooldown} = require('../events/message.js');
@@ -100,29 +100,29 @@ function verifyCommand(command, message) {
 		fail.cooldown = message.author.id;
 	}
 
-	if (command.tags.includes(tags.owner_only) && !isOwner(message.author.id)) {
+	if (command.tags.includes(TAGS.OWNER_ONLY) && !isOwner(message.author.id)) {
 		fail.isFailed = true;
-		fail.tags.push(tags.owner_only);
+		fail.tags.push(TAGS.OWNER_ONLY);
 	}
 
 	if (message.guild) {
-		if (command.tags.includes(tags.guild_owner_only) && message.guild.owner.id !== message.author.id) {
+		if (command.tags.includes(TAGS.GUILD_OWNER_ONLY) && message.guild.owner.id !== message.author.id) {
 			fail.isFailed = true;
-			fail.tags.push(tags.guild_owner_only);
+			fail.tags.push(TAGS.GUILD_OWNER_ONLY);
 		}
 
-		if (command.tags.includes(tags.nsfw_only) && !message.channel.nsfw) {
+		if (command.tags.includes(TAGS.NSFW_ONLY) && !message.channel.nsfw) {
 			fail.isFailed = true;
-			fail.tags.push(tags.nsfw_only);
+			fail.tags.push(TAGS.NSFW_ONLY);
 		}
 
-		if (command.tags.includes(tags.dm_only)) {
+		if (command.tags.includes(TAGS.DM_ONLY)) {
 			fail.isFailed = true;
-			fail.tags.push(tags.dm_only);
+			fail.tags.push(TAGS.DM_ONLY);
 		}
-	} else if (command.tags.includes(tags.guild_only)) {
+	} else if (command.tags.includes(TAGS.GUILD_ONLY)) {
 		fail.isFailed = true;
-		fail.tags.push(tags.guild_only);
+		fail.tags.push(TAGS.GUILD_ONLY);
 	}
 
 	return fail;

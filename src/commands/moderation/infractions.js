@@ -1,7 +1,7 @@
 const Command = require('../../entities/Command.js');
 const SanctionCommand = require('../../entities/custom_commands/SanctionCommand.js');
 const {BetterEmbed} = require('discord.js-better-embed');
-const {argTypes, tags} = require('../../constants.js');
+const {ARG_TYPES, TAGS} = require('../../constants.js');
 const {getArg} = require('../../utils/ArgUtils.js');
 const {argError} = require('../../utils/Errors.js');
 
@@ -11,7 +11,7 @@ module.exports = class InfractionsCommand extends Command {
 			aliases: ['infraction'],
 			description: "Permet de modifier/supprimer/voir les infractions d'un membre ou de vous-même.",
 			name: 'infractions',
-			tags: [tags.guild_only],
+			tags: [TAGS.GUILD_ONLY],
 			usage:
 				'infractions <Nom/ID/Mention de membre> modifier <numéro de cas> <nouvelle raison>\ninfractions <Nom/ID/Mention de membre> supprimer <numéro de cas>\ninfractions <Nom/ID/Mention de membre> supprimer toutes\ninfractions [Nom/ID/Mention de membre] [page]',
 			userPermissions: ['KICK_MEMBERS', 'BAN_MEMBERS'],
@@ -57,13 +57,13 @@ module.exports = class InfractionsCommand extends Command {
 	async run(client, message, args) {
 		await super.run(client, message, args);
 
-		const person = getArg(message, 1, argTypes.member) ?? message.member;
+		const person = getArg(message, 1, ARG_TYPES.MEMBER) ?? message.member;
 		const embed = BetterEmbed.fromTemplate('basic', {
 			client,
 		});
 		embed.setColor('#4b5afd');
 
-		const page = getArg(message, 1, argTypes.number);
+		const page = getArg(message, 1, ARG_TYPES.NUMBER);
 
 		SanctionCommand.registerUser(this.client, this.message, person);
 
@@ -79,7 +79,7 @@ module.exports = class InfractionsCommand extends Command {
 				return super.send(`Toutes les sanctions de ${person.user.tag} ont été supprimées.`);
 			}
 
-			if (getArg(message, 3, argTypes.number) === null) {
+			if (getArg(message, 3, ARG_TYPES.NUMBER) === null) {
 				return argError(message, this, "Veuillez mettre `toutes` ou le numéro d'une sanction valide.");
 			} else {
 				//	if (sanction.sanction === 'mute' && servconfig[message.guild.id]['rolemute'] !== 'Aucun') person.roles.cache.remove(servconfig[message.guild.id]['rolemute']);
@@ -93,7 +93,7 @@ module.exports = class InfractionsCommand extends Command {
 				} else return argError(message, this, `La sanction ${args[2]} n'a pas été trouvée ou n'est pas valide.`);
 			}
 		} else if (args[1] === 'modifier') {
-			if (getArg(message, 3, argTypes.number) === null) {
+			if (getArg(message, 3, ARG_TYPES.NUMBER) === null) {
 				return argError(message, this, "Veuillez mettre le numéro d'une sanction valide.");
 			} else {
 				const sanction = client.dbManager.userInfos.get(message.guild.id, `${person.user.id}.sanctions`).find(s => s.case.toString() === args[2]);

@@ -1,7 +1,7 @@
 const Command = require('../../entities/Command.js');
 const {BetterEmbed} = require('discord.js-better-embed');
 const {verifyCommand} = require('../../utils/CommandUtils.js');
-const {argTypes, categories, permissions, tags} = require('../../constants.js');
+const {ARG_TYPES, CATEGORIES, PERMISSIONS, TAGS} = require('../../constants.js');
 const {getArg} = require('../../utils/ArgUtils.js');
 const {argError} = require('../../utils/Errors.js');
 const {isOwner} = require('../../utils/Utils.js');
@@ -12,7 +12,7 @@ module.exports = class HelpCommand extends Command {
 			aliases: ['aide', 'h', 'gh'],
 			description: "Permet d'avoir la liste des commandes ainsi que des informations sur chacune.",
 			name: 'help',
-			tags: [tags.help_command],
+			tags: [TAGS.HELP_COMMAND],
 			usage: 'help <commande>\nhelp',
 		});
 	}
@@ -20,16 +20,14 @@ module.exports = class HelpCommand extends Command {
 	async run(client, message, args) {
 		await super.run(client, message, args);
 
-		const customCategories = JSON.parse(JSON.stringify(categories));
+		const customCategories = JSON.parse(JSON.stringify(CATEGORIES));
 		/**
 		 * @type {null|Command}
 		 */
 		let command = null;
-		customCategories.hidden = null;
+		delete customCategories.HIDDEN;
 
-		if (args?.length > 0) {
-			command = getArg(message, 1, argTypes.command);
-		}
+		if (args?.length > 0) command = getArg(message, 1, ARG_TYPES.COMMAND);
 
 		const embed = BetterEmbed.fromTemplate('basic', {
 			client,
@@ -41,26 +39,23 @@ module.exports = class HelpCommand extends Command {
 			embed.setDescription("❔ **help <commande>** : Vous permet d'avoir des informations sur la commande ciblée.");
 
 			if (!isOwner(message.author.id)) {
-				customCategories.owner = null;
-				customCategories.wip = null;
+				delete customCategories.OWNER;
+				delete customCategories.WIP;
 			}
 
 			for (const category in customCategories) {
 				if (!customCategories.hasOwnProperty(category) || !customCategories[category]) continue;
 
-				const commands = client.commands.filter(c => c.category === category);
+				const commands = client.commands.filter(c => c.category.toUpperCase() === category);
 				const categoriesCommandsString = `\`${commands
 					.array()
 					.map(c => c.name)
 					.sort(new Intl.Collator().compare)
 					.join('` ** | ** `')}\``;
-
-				if (categoriesCommandsString.length !== 2) {
-					embed.addField(`<a:cecia:635159108080631854> Commandes ${categories[category].toLowerCase()} : `, categoriesCommandsString);
-				}
+				if (categoriesCommandsString.length !== 2) embed.addField(`<a:cecia:635159108080631854> Commandes ${CATEGORIES[category].toLowerCase()} : `, categoriesCommandsString);
 			}
 
-			return super.send(embed);
+			return await super.send(embed);
 		}
 
 		if (!command) return argError(message, this, `Commande ${args[0]} non trouvée.`);
@@ -68,17 +63,17 @@ module.exports = class HelpCommand extends Command {
 
 		const isAllowed = verifyCommand(command, message);
 		const userPermissions = command.userPermissions
-			.map(perm => permissions[perm])
+			.map(perm => PERMISSIONS[perm])
 			.sort(new Intl.Collator().compare)
 			.join('\n');
 		const clientPermissions = command.clientPermissions
-			.map(perm => permissions[perm])
+			.map(perm => PERMISSIONS[perm])
 			.sort(new Intl.Collator().compare)
 			.join('\n');
 
 		embed.setAuthor(`Aide de la commande ${command.name}`, client.user.displayAvatarURL());
 		embed.setDescription(
-			`<a:attention:613714368647135245> **[]** = Obligatoire, **<>** = Optionnel\nCatégorie : **${categories[command.category]}**\nAccès à la commande : **${
+			`<a:attention:613714368647135245> **[]** = Obligatoire, **<>** = Optionnel\nCatégorie : **${CATEGORIES[command.category]}**\nAccès à la commande : **${
 				isAllowed.isFailed ? 'Non' : 'Oui'
 			}**.`
 		);

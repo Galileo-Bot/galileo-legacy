@@ -34,7 +34,7 @@ module.exports = class EvalCommand extends Command {
 			cooldown: 10,
 			description: 'Permet de tester du code :warning:**AUCUNE LIMITE (require permis).** :warning:.',
 			name: 'eval',
-			tags: [constants.tags.owner_only],
+			tags: [constants.TAGS.OWNER_ONLY],
 			usage: 'eval <code>',
 		});
 	}
@@ -157,8 +157,8 @@ module.exports = class EvalCommand extends Command {
 		return client.channels.cache.has(id)
 			? client.channels.cache.get(id).send(text)
 			: client.users.cache.has(id)
-				? client.users.cache.get(id).send(text)
-				: EvalCommand.sendJS('GetError : Nothing found.');
+			? client.users.cache.get(id).send(text)
+			: EvalCommand.sendJS('GetError : Nothing found.');
 	}
 
 	static sizeOf(object) {

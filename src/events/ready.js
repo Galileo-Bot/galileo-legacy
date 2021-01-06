@@ -2,7 +2,7 @@ const Event = require('../entities/Event.js');
 const Logger = require('../utils/Logger.js');
 const StatsCommand = require('../commands/informations/stats.js');
 const {formatDate} = require('../utils/FormatUtils.js');
-const {randomActivities} = require('../constants.js');
+const {RANDOM_ACTIVITIES} = require('../constants.js');
 const {random} = require('../utils/Utils.js');
 
 module.exports = class ReadyEvent extends Event {
@@ -70,7 +70,7 @@ module.exports = class ReadyEvent extends Event {
 	setRandomPresence() {
 		this.client.user.setPresence({
 			activity: {
-				name: random(randomActivities),
+				name: random(RANDOM_ACTIVITIES),
 				type: 'STREAMING',
 				url: 'https://www.twitch.tv/Terracid',
 			},

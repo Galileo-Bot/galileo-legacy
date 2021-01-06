@@ -1,4 +1,4 @@
-const {tags} = require('../../constants.js');
+const {TAGS} = require('../../constants.js');
 const Command = require('../../entities/Command.js');
 
 module.exports = class CoupleCommand extends Command {
@@ -7,7 +7,7 @@ module.exports = class CoupleCommand extends Command {
 			aliases: ['love'],
 			description: "Permet de vous lier en couple avec quelqu'un !",
 			name: 'couple',
-			tags: [tags.guild_only],
+			tags: [TAGS.GUILD_ONLY],
 			usage: 'couple <Nom/Mention de Personne> <Nom/Mention de personne>\ncouple <Nom/Mention de personne>\ncouple random\ncouple',
 		});
 	}

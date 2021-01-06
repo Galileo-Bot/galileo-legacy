@@ -1,4 +1,4 @@
-const {argTypes} = require('../../constants.js');
+const {ARG_TYPES} = require('../../constants.js');
 const {getArg} = require('../../utils/ArgUtils.js');
 const Command = require('../../entities/Command.js');
 const {argError} = require('../../utils/Errors.js');
@@ -19,12 +19,12 @@ module.exports = class DeCommand extends Command {
 		/**
 		 * @type {number}
 		 */
-		let nbrMax = getArg(message, 1, argTypes.number) ?? 6;
+		let nbrMax = getArg(message, 1, ARG_TYPES.NUMBER) ?? 6;
 		let nbrMin = 1;
 
 		if (args.length === 2) {
-			nbrMin = getArg(message, 1, argTypes.number);
-			nbrMax = getArg(message, 2, argTypes.number);
+			nbrMin = getArg(message, 1, ARG_TYPES.NUMBER);
+			nbrMax = getArg(message, 2, ARG_TYPES.NUMBER);
 		}
 
 		if (nbrMin === nbrMax) return argError(message, this, '<a:attention:613714368647135245> **Veuillez entrer 2 nombres différents.**');

@@ -1,7 +1,7 @@
 const {formatWithRange} = require('./FormatUtils.js');
 const Logger = require('./Logger.js');
 const {BetterEmbed} = require('discord.js-better-embed');
-const {permissions} = require('../constants.js');
+const {PERMISSIONS} = require('../constants.js');
 const {isOwner, sendLogMessage, getShortPrefix} = require('./Utils.js');
 
 /**
@@ -48,7 +48,7 @@ function permsError(message, command, missingPermissions, fromBot = false) {
 		}),
 		client: message.client,
 		description: `\`${missingPermissions
-			.map(perm => permissions[perm])
+			.map(perm => PERMISSIONS[perm])
 			.sort(new Intl.Collator().compare)
 			.join(', ')}\``,
 	});
@@ -95,7 +95,7 @@ async function runError(message, command, error) {
 	embed.setColor('RANDOM');
 
 	await message.channel?.send(embed);
-	await sendLogMessage(message.client, 'bug', embedLog);
+	await sendLogMessage(message.client, 'BUG', embedLog);
 }
 
 module.exports = {

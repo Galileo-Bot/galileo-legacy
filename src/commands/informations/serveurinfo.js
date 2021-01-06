@@ -1,7 +1,7 @@
 const {formatDate} = require('../../utils/FormatUtils.js');
 const Command = require('../../entities/Command.js');
 const {BetterEmbed} = require('discord.js-better-embed');
-const {guildFeatures, tags} = require('../../constants.js');
+const {GUILD_FEATURES, TAGS} = require('../../constants.js');
 
 module.exports = class ServeurInfoCommand extends Command {
 	constructor() {
@@ -9,7 +9,7 @@ module.exports = class ServeurInfoCommand extends Command {
 			aliases: ['si', 'servi', 'serveur-info'],
 			description: "Permet d'avoir des informations sur le serveur où vous êtes.",
 			name: 'serveurinfo',
-			tags: [tags.guild_only],
+			tags: [TAGS.GUILD_ONLY],
 		});
 	}
 
@@ -93,7 +93,7 @@ module.exports = class ServeurInfoCommand extends Command {
 			embed.addField(
 				'Fonctionnalités :',
 				features
-					.map(feature => guildFeatures[feature])
+					.map(feature => GUILD_FEATURES[feature])
 					.sort(new Intl.Collator().compare)
 					.join('\n')
 			);

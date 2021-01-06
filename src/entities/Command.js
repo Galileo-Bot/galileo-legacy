@@ -53,7 +53,7 @@ module.exports = class Command {
 		if (!embed.image && message.embeds[0]?.image?.height) embed.setImage(message.embeds[0].image.url);
 		if (message.guild) embed.setThumbnail(message.guild.iconURL());
 
-		await sendLogMessage(client, 'command', embed);
+		await sendLogMessage(client, 'COMMAND', embed);
 	}
 
 	/**

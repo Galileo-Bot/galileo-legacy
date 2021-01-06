@@ -1,5 +1,5 @@
 const {exec} = require('child_process');
-const {tags} = require('../../constants.js');
+const {TAGS} = require('../../constants.js');
 const Logger = require('../../utils/Logger.js');
 const Command = require('../../entities/Command.js');
 
@@ -9,7 +9,7 @@ module.exports = class RebootCommand extends Command {
 			aliases: ['rb', 'restart'],
 			description: "Permet de relancer le bot, de l'arrêter complètement ou de le passer en maintenance.",
 			name: 'reboot',
-			tags: [tags.owner_only],
+			tags: [TAGS.OWNER_ONLY],
 			usage: 'reboot\nreboot stop\nreboot maintenance',
 		});
 	}

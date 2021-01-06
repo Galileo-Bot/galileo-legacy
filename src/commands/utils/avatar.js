@@ -1,4 +1,4 @@
-const {argTypes} = require('../../constants.js');
+const {ARG_TYPES} = require('../../constants.js');
 const {getArg} = require('../../utils/ArgUtils.js');
 const Command = require('../../entities/Command.js');
 const {BetterEmbed} = require('discord.js-better-embed');
@@ -16,7 +16,7 @@ module.exports = class AvatarCommand extends Command {
 	async run(client, message, args) {
 		await super.run(client, message, args);
 
-		const person = getArg(message, 1, argTypes.user) ?? message.author;
+		const person = getArg(message, 1, ARG_TYPES.USER) ?? message.author;
 		const link = person.displayAvatarURL({
 			dynamic: true,
 			format: 'png',

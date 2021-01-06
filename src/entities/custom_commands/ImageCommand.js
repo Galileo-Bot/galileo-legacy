@@ -5,7 +5,7 @@ const imgur = require('imgur');
 const {BetterEmbed} = require('discord.js-better-embed');
 const {isOwner} = require('../../utils/Utils.js');
 const {runError} = require('../../utils/Errors.js');
-const {argTypes} = require('../../constants.js');
+const {ARG_TYPES} = require('../../constants.js');
 const {getArg} = require('../../utils/ArgUtils.js');
 
 module.exports = class ImageCommand extends SlowCommand {
@@ -19,7 +19,7 @@ module.exports = class ImageCommand extends SlowCommand {
 	async imageCommand(message, imageFunction, ...argsFunction) {
 		await this.startWait();
 
-		let imageLink = getArg(message, 1, argTypes.user)?.displayAvatarURL({format: 'png'}) ?? message.author.displayAvatarURL({format: 'png'});
+		let imageLink = getArg(message, 1, ARG_TYPES.USER)?.displayAvatarURL({format: 'png'}) ?? message.author.displayAvatarURL({format: 'png'});
 		if (message.attachments.array()[0]?.height) imageLink = message.attachments.array()[0].url;
 
 		Jimp.read(imageLink)

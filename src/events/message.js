@@ -1,5 +1,5 @@
 const {Collection, MessageFlags} = require('discord.js');
-const {tags} = require('../constants.js');
+const {TAGS} = require('../constants.js');
 const CommandManager = require('../entities/CommandManager.js');
 const Event = require('../entities/Event.js');
 const {verifyCommand, processCommandFail} = require('../utils/CommandUtils.js');
@@ -46,7 +46,7 @@ module.exports = class MessageEvent extends Event {
 				embed.setColor('RANDOM');
 				if (message.attachments.array()[0]?.height) embed.setImage(message.attachments.array()[0].url);
 				if (!embed.image && message.embeds[0]?.image?.height) embed.setImage(message.embeds[0].image.url);
-				await sendLogMessage(client, 'mp', embed);
+				await sendLogMessage(client, 'MP', embed);
 			}
 
 			return;
@@ -54,7 +54,7 @@ module.exports = class MessageEvent extends Event {
 
 		if (message.content === prefix) {
 			return CommandManager.commands
-				.filter(command => command.tags.includes(tags.prefix_command))
+				.filter(command => command.tags.includes(TAGS.PREFIX_COMMAND))
 				.forEach(command => {
 					message.content = prefix;
 					this.logCommandExecution(message, command.name);
@@ -73,7 +73,7 @@ module.exports = class MessageEvent extends Event {
 			else this.executeCommand(client, message, args, command);
 		} else {
 			return CommandManager.commands
-				.filter(command => command.tags?.includes(tags.help_command))
+				.filter(command => command.tags?.includes(TAGS.HELP_COMMAND))
 				.forEach(command => {
 					message.content = prefix + command.name;
 					this.logCommandExecution(message, command.name);

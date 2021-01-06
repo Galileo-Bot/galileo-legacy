@@ -1,6 +1,6 @@
 const Command = require('../../entities/Command.js');
 const {BetterEmbed} = require('discord.js-better-embed');
-const {tags} = require('../../constants.js');
+const {TAGS} = require('../../constants.js');
 
 module.exports = class ListerStaffCommand extends Command {
 	constructor() {
@@ -8,7 +8,7 @@ module.exports = class ListerStaffCommand extends Command {
 			aliases: ['ls', 'lister-staff', ' liststaff'],
 			description: "Permet d'avoir la liste des admins/modérateurs/bots du serveur.",
 			name: 'listerstaff',
-			tags: [tags.guild_only],
+			tags: [TAGS.GUILD_ONLY],
 		});
 	}
 

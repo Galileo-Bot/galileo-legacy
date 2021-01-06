@@ -1,5 +1,5 @@
 const SanctionCommand = require('../../entities/custom_commands/SanctionCommand.js');
-const {tags} = require('../../constants.js');
+const {TAGS} = require('../../constants.js');
 
 module.exports = class KickCommand extends SanctionCommand {
 	constructor() {
@@ -7,7 +7,7 @@ module.exports = class KickCommand extends SanctionCommand {
 			clientPermissions: ['KICK_MEMBERS'],
 			description: "Permet d'éjecter un [membre] du serveur avec une <raison>.",
 			name: 'kick',
-			tags: [tags.guild_only],
+			tags: [TAGS.GUILD_ONLY],
 			type: 'kick',
 			usage: 'kick [ID ou mention de membre] <raison>',
 			userPermissions: ['KICK_MEMBERS', 'BAN_MEMBERS'],

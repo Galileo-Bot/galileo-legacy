@@ -1,4 +1,4 @@
-const {argTypes} = require('../../constants.js');
+const {ARG_TYPES} = require('../../constants.js');
 const {getArg} = require('../../utils/ArgUtils.js');
 const {formatDate} = require('../../utils/FormatUtils.js');
 const Command = require('../../entities/Command.js');
@@ -17,7 +17,7 @@ module.exports = class ChannelInfoCommand extends Command {
 	async run(client, message, args) {
 		await super.run(client, message, args);
 
-		const channel = getArg(message, 1, argTypes.channel) ?? message.channel;
+		const channel = getArg(message, 1, ARG_TYPES.CHANNEL) ?? message.channel;
 		let topic = 'Aucun.';
 		let type = 'Textuel';
 		switch (channel.type) {

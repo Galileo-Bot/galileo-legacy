@@ -47,28 +47,28 @@ function random(array) {
 /**
  * Permet d'envoyer un message de log sur le serveur de gali.
  * @param {GaliClient | Client} client - Le client pour récupérer les salons etc.
- * @param {'addGuild' | 'bug' | 'command' | 'mp' | 'removeGuild' | 'rateLimit'} channelType - Type de salon.
+ * @param {'ADD_GUILD' | 'BUG' | 'COMMAND' | 'MP' | 'REMOVE_GUILD' | 'RATE_LIMIT'} channelType - Type de salon.
  * @param {BetterEmbed | string} content - Le contenu.
  * @returns {void}
  */
 async function sendLogMessage(client, channelType, content) {
-	const {channels} = require('../constants.js');
+	const {CHANNELS: channels} = require('../constants.js');
 	if (process.env.IS_CANARY === 'true') {
 		/**
 		 * @type {TextChannel}
 		 */
-		const channel = await client.channels.fetch(channels.canaryChannels[channelType]);
+		const channel = await client.channels.fetch(channels.CANARY_CHANNELS[channelType]);
 		if (channel) await channel.send(content);
 	} else {
 		/**
 		 * @type {TextChannel}
 		 */
-		const channel = await client.channels.fetch(channels.galiChannels[channelType]);
+		const channel = await client.channels.fetch(channels.GALI_CHANNELS[channelType]);
 		if (channel) {
 			await channel.send(content);
 
 			if (['addGuild', 'removeGuild'].includes(channelType)) {
-				const addOrRemoveChannel = await client.channels.fetch(channels.addOrRemoveChannel);
+				const addOrRemoveChannel = await client.channels.fetch(channels.ADD_OR_REMOVE_CHANNEL);
 				await addOrRemoveChannel.send(content);
 			}
 		}

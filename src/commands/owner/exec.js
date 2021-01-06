@@ -1,5 +1,5 @@
 const SlowCommand = require('../../entities/custom_commands/SlowCommand.js');
-const {tags} = require('../../constants.js');
+const {TAGS} = require('../../constants.js');
 const {sendJS} = require('./eval.js');
 const {argError} = require('../../utils/Errors.js');
 const {exec} = require('child_process');
@@ -10,7 +10,7 @@ module.exports = class ExecCommand extends SlowCommand {
 			aliases: ['execute', 'bash'],
 			description: 'Exécute une commande bash.',
 			name: 'exec',
-			tags: [tags.owner_only],
+			tags: [TAGS.OWNER_ONLY],
 			usage: 'exec <command>',
 		});
 	}

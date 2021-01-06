@@ -1,4 +1,4 @@
-const {argTypes} = require('../../constants.js');
+const {ARG_TYPES} = require('../../constants.js');
 const {getArg} = require('../../utils/ArgUtils.js');
 const {tryDeleteMessage} = require('../../utils/CommandUtils.js');
 const {argError} = require('../../utils/Errors.js');
@@ -19,16 +19,16 @@ module.exports = class DireCommand extends Command {
 	async run(client, message, args) {
 		await super.run(client, message, args);
 
-		const channelID = getArg(message, 1, argTypes.channel);
+		const channelID = client.channels.resolve(getArg(message, 1, ARG_TYPES.CHANNEL_ID));
 		let channel = message.channel;
 
-		if (isOwner(message.author.id) && channelID) {
+		if (isOwner(message.author.id) && !!channelID && channel.name) {
 			await args.shift();
 			channel = channelID;
 		}
 
 		const text = args.join(' ');
-		text.length > 0 ? await channel.send(text) : argError(message, this, 'Veuillez mettre du texte.');
+		text.length > 0 ? await channel.send(text) : channelID ? argError(message, this, "Veuillez mettre un texte en plus de l'ID du salon.") : argError(message, this, 'Veuillez mettre du texte.');
 
 		tryDeleteMessage(message);
 	}

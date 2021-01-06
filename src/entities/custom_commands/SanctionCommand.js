@@ -1,6 +1,6 @@
 const Command = require('../Command.js');
 const {BetterEmbed} = require('discord.js-better-embed');
-const {argTypes} = require('../../constants.js');
+const {ARG_TYPES} = require('../../constants.js');
 const {getArg} = require('../../utils/ArgUtils.js');
 const {argError} = require('../../utils/Errors.js');
 const {tryDeleteMessage} = require('../../utils/CommandUtils.js');
@@ -100,7 +100,7 @@ module.exports = class SanctionCommand extends Command {
 		/**
 		 * @type {module:"discord.js".GuildMember}
 		 */
-		const person = getArg(message, 1, argTypes.member);
+		const person = getArg(message, 1, ARG_TYPES.MEMBER);
 		if (!person) return argError(message, this, "La personne n'a pas été trouvée.");
 
 		if (message.member.roles.cache.map(r => r).sort((b, a) => a.position - b.position)[0].position < person.roles.cache.map(r => r).sort((b, a) => a.position - b.position)[0].position) {

@@ -1,6 +1,6 @@
 const {BetterEmbed} = require('discord.js-better-embed');
 const Logger = require('../../utils/Logger.js');
-const {argTypes} = require('../../constants.js');
+const {ARG_TYPES} = require('../../constants.js');
 const {getArg} = require('../../utils/ArgUtils.js');
 const Command = require('../../entities/Command.js');
 
@@ -23,7 +23,7 @@ module.exports = class ServeurListeCommand extends Command {
 		/**
 		 * @type {number}
 		 */
-		const pageNumberArg = getArg(this.message, 1, argTypes.number);
+		const pageNumberArg = getArg(this.message, 1, ARG_TYPES.NUMBER);
 		const pageMax = Math.ceil(this.client.guilds.cache.size / 20);
 		let page = pageNumber;
 		if (!pageNumber && (!pageNumberArg || pageNumberArg > pageMax || pageNumberArg < 1)) page = pageMax;

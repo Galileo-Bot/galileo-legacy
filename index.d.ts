@@ -1,5 +1,6 @@
 import type {Client, ClientEvents, Collection, Message as DiscordMessage, MessageAdditions, MessageOptions, PermissionResolvable, PermissionString, Snowflake, StringResolvable} from 'discord.js';
 import type Enmap from 'enmap';
+
 //#region classes
 
 export class GaliClient extends Client {
@@ -90,58 +91,59 @@ export class DBManager {
 
 	public prepare(): Promise<void>;
 }
+
 //#endregion classes
 
 //#region enum
 
 export enum ArgType {
-	user = "Nom/Mention/ID d'utilisateur",
-	user_id = "ID d'utilisateur",
-	user_username = "Nom d'utilisateur",
-	member = 'Nom/Mention/ID de membre',
-	channel = 'Nom/Mention/ID de salon.',
-	channel_id = 'ID de salon',
-	channel_name = 'Nom de salon',
-	guild = 'Nom/ID de serveur.',
-	guild_id = 'ID de serveur',
-	guild_name = 'Nom de serveur',
-	role = 'Nom/Mention/ID de rôle',
-	role_id = 'ID de rôle',
-	role_name = 'Nom de rôle',
-	command = 'Commande',
-	number = 'Nombre',
-	string = 'Texte',
+	USER = "Nom/Mention/ID d'utilisateur",
+	USER_ID = "ID d'utilisateur",
+	USER_USERNAME = "Nom d'utilisateur",
+	MEMBER = 'Nom/Mention/ID de membre',
+	CHANNEL = 'Nom/Mention/ID de salon.',
+	CHANNEL_ID = 'ID de salon',
+	CHANNEL_NAME = 'Nom de salon',
+	GUILD = 'Nom/ID de serveur.',
+	GUILD_ID = 'ID de serveur',
+	GUILD_NAME = 'Nom de serveur',
+	ROLE = 'Nom/Mention/ID de rôle',
+	ROLE_ID = 'ID de rôle',
+	ROLE_NAME = 'Nom de rôle',
+	COMMAND = 'Commande',
+	NUMBER = 'Nombre',
+	STRING = 'Texte',
 }
 
 export enum Tag {
-	owner_only = 'Seulement disponible aux gérants du bot.',
-	guild_only = 'Seulement disponible sur serveur.',
-	dm_only = 'Seulement disponible en messages privés.',
-	nsfw_only = 'Seulement disponible dans un salon NSFW.',
-	guild_owner_only = 'Seulement disponible pour le propriétaire du serveur.',
-	help_command = "Commande d'aide.",
-	prefix_command = 'Commande des préfixes.',
-	hidden = 'Cachée.',
-	wip = 'Non finie (potentiellement instable).',
+	OWNER_ONLY = 'Seulement disponible aux gérants du bot.',
+	GUILD_ONLY = 'Seulement disponible sur serveur.',
+	DM_ONLY = 'Seulement disponible en messages privés.',
+	NSFW_ONLY = 'Seulement disponible dans un salon NSFW.',
+	GUILD_OWNER_ONLY = 'Seulement disponible pour le propriétaire du serveur.',
+	HELP_COMMAND = "Commande d'aide.",
+	PREFIX_COMMAND = 'Commande des préfixes.',
+	HIDDEN = 'Cachée.',
+	WIP = 'Non finie (potentiellement instable).',
 }
 
 export enum LogType {
-	debug = '35',
-	log = '37',
-	info = '34',
-	warn = '33',
-	error = '31',
+	DEBUG = '35',
+	LOG = '37',
+	INFO = '34',
+	WARN = '33',
+	ERROR = '31',
 }
 
 export enum Category {
-	administration = 'Administration',
-	fun = 'Fun',
-	hidden = 'Cachées',
-	informations = 'Informations',
-	moderation = 'Modération',
-	owner = 'Gérants bot',
-	utils = 'Utilitaires',
-	wip = 'Non finies. (instables)',
+	ADMINISTRATION = 'Administration',
+	FUN = 'Fun',
+	HIDDEN = 'Cachées',
+	INFORMATIONS = 'Informations',
+	MODERATION = 'Modération',
+	OWNER = 'Gérants bot',
+	UTILS = 'Utilitaires',
+	WIP = 'Non finies. (instables)',
 }
 
 //#endregion enum

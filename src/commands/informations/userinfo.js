@@ -1,5 +1,5 @@
 const {MessageEmbed, Util} = require('discord.js');
-const {argTypes, userFlags} = require('../../constants.js');
+const {ARG_TYPES, USER_FLAGS} = require('../../constants.js');
 const {getArg} = require('../../utils/ArgUtils.js');
 const {tryDeleteMessage} = require('../../utils/CommandUtils.js');
 const {formatDate} = require('../../utils/FormatUtils.js');
@@ -57,7 +57,7 @@ module.exports = class UserInfoCommand extends Command {
 		};
 
 		if (message.guild) {
-			person = await (getArg(message, 1, argTypes.member) ?? message.member).fetch();
+			person = await (getArg(message, 1, ARG_TYPES.MEMBER) ?? message.member).fetch();
 			if (person.roles.cache.has('537624009639198731')) permission = 'Testeur(se)';
 			if (person.permissions.has('KICK_MEMBERS', true)) permServer = 'Modérateur(rice)';
 			if (person.permissions.has('ADMINISTRATOR', true)) permServer = 'Administrateur(se)';
@@ -110,7 +110,7 @@ module.exports = class UserInfoCommand extends Command {
 				'Propriétés spéciales :',
 				flags
 					.toArray()
-					.map(flag => userFlags[flag])
+					.map(flag => USER_FLAGS[flag])
 					.sort(new Intl.Collator().compare)
 					.join('\n')
 			);

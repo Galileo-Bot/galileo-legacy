@@ -1,5 +1,5 @@
 const {formatDate} = require('./FormatUtils.js');
-const {logTypes} = require('../constants.js');
+const {LOG_TYPES} = require('../constants.js');
 const {getKeyByValue} = require('./Utils.js');
 
 module.exports = class Logger {
@@ -9,7 +9,7 @@ module.exports = class Logger {
 	 * @param {string} [title = ''] - Titre du log.
 	 */
 	static debug(message, title = '') {
-		Logger.process(message, logTypes.debug, title);
+		Logger.process(message, LOG_TYPES.DEBUG, title);
 	}
 
 	/**
@@ -18,7 +18,7 @@ module.exports = class Logger {
 	 * @param {string} [title = ''] - Titre du log.
 	 */
 	static error(message, title = '') {
-		Logger.process(message, logTypes.error, title);
+		Logger.process(message, LOG_TYPES.ERROR, title);
 	}
 
 	/**
@@ -27,7 +27,7 @@ module.exports = class Logger {
 	 * @param {string} [title = ''] - Titre du log.
 	 */
 	static info(message, title = '') {
-		Logger.process(message, logTypes.info, title);
+		Logger.process(message, LOG_TYPES.INFO, title);
 	}
 
 	/**
@@ -36,7 +36,7 @@ module.exports = class Logger {
 	 * @param {string} [title = ''] - Titre du log.
 	 */
 	static log(message, title = '') {
-		Logger.process(message, logTypes.log, title);
+		Logger.process(message, LOG_TYPES.LOG, title);
 	}
 
 	/**
@@ -54,7 +54,7 @@ module.exports = class Logger {
 			return `[${string}]`;
 		}
 
-		let result = `\x1b[${type}m${formatDate('[yyyy-MM-jj hh:mm:ss.SSSS]')}${addSquareBrackets(getKeyByValue(logTypes, type).toUpperCase())}`;
+		let result = `\x1b[${type}m${formatDate('[yyyy-MM-jj hh:mm:ss.SSSS]')}${addSquareBrackets(getKeyByValue(LOG_TYPES, type).toUpperCase())}`;
 		if (title) result += addSquareBrackets(title);
 		result += ` ${String(message)}\x1b[39;0m`;
 
@@ -67,6 +67,6 @@ module.exports = class Logger {
 	 * @param {string} [title = ''] - Titre du log.
 	 */
 	static warn(message, title = '') {
-		Logger.process(message, logTypes.warn, title);
+		Logger.process(message, LOG_TYPES.WARN, title);
 	}
 };

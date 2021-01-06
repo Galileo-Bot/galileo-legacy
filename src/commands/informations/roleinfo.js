@@ -1,7 +1,7 @@
 const SlowCommand = require('../../entities/custom_commands/SlowCommand.js');
 const imgur = require('imgur');
 const Jimp = require('jimp');
-const {argTypes, tags, permissions} = require('../../constants.js');
+const {ARG_TYPES, TAGS, PERMISSIONS} = require('../../constants.js');
 const {getArg} = require('../../utils/ArgUtils.js');
 const {argError} = require('../../utils/Errors.js');
 const {formatDate} = require('../../utils/FormatUtils.js');
@@ -13,7 +13,7 @@ module.exports = class RoleInfoCommand extends SlowCommand {
 			aliases: ['ri', 'role-info'],
 			description: "Permet d'avoir des informations sur un rôle.",
 			name: 'roleinfo',
-			tags: [tags.guild_only],
+			tags: [TAGS.GUILD_ONLY],
 			usage: 'roleinfo <ID/Nom de rôle>',
 		});
 	}
@@ -23,7 +23,7 @@ module.exports = class RoleInfoCommand extends SlowCommand {
 
 		let thumbnailColor;
 		await message.guild.members.fetch();
-		const role = getArg(message, 1, argTypes.role);
+		const role = getArg(message, 1, ARG_TYPES.ROLE);
 		if (!args[0]) return argError(message, this, 'Veuillez mettre un rôle.');
 		if (!role) return argError(message, this, "Le rôle n'a pas été trouvé ou n'existe pas.");
 
@@ -59,7 +59,7 @@ module.exports = class RoleInfoCommand extends SlowCommand {
 				'Permissions :',
 				role.permissions
 					.toArray()
-					.map(perm => permissions[perm])
+					.map(perm => PERMISSIONS[perm])
 					.sort(new Intl.Collator().compare)
 					.join('\n')
 			);
