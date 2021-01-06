@@ -19,5 +19,6 @@ module.exports = class Event {
 	 */
 	async run(client, ...args) {
 		this.client = client;
+		this.args = args;
 	}
 };
