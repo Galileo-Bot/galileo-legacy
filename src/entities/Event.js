@@ -14,9 +14,10 @@ module.exports = class Event {
 	/**
 	 * Execute l'évent.
 	 * @param {GaliClient} client - Le client.
+	 * @param {any} args - Les arguments supplémentaires de l'évent.
 	 * @returns {Promise<void>}
 	 */
-	async run(client) {
+	async run(client, ...args) {
 		this.client = client;
 	}
 };
