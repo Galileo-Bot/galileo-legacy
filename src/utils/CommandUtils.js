@@ -9,25 +9,16 @@ const {TAGS} = require('../constants.js');
  * @returns {MissingPermissions} - Le résultat, un objet avec 2 arrays contenant les permissions manquantes du membre et du cliebt (bot).
  */
 function verifyPermissionsFromCommand(command, message) {
-	/**
-	 * @type MissingPermissions
-	 */
-	const result = {
-		client: [],
-		user: [],
+	if (!message.guild)
+		return {
+			client: [],
+			user: [],
+		};
+
+	return {
+		client: command.clientPermissions.filter(v => !message.channel.permissionsFor(message.guild.me).has(v, false)),
+		user: command.userPermissions.filter(v => !message.channel.permissionsFor(message.member).has(v, false)),
 	};
-
-	if (!message.guild) return result;
-
-	command.clientPermissions.forEach(value => {
-		if (!message.channel.permissionsFor(message.guild.me).has(value, false)) result.client.push(value);
-	});
-
-	command.userPermissions.forEach(perm => {
-		if (!message.channel.permissionsFor(message.member).has(perm, false)) result.user.push(perm);
-	});
-
-	return result;
 }
 
 /**

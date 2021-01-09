@@ -157,8 +157,8 @@ module.exports = class EvalCommand extends Command {
 		return client.channels.cache.has(id)
 			? client.channels.cache.get(id).send(text)
 			: client.users.cache.has(id)
-			? client.users.cache.get(id).send(text)
-			: EvalCommand.sendJS('GetError : Nothing found.');
+				? client.users.cache.get(id).send(text)
+				: EvalCommand.sendJS('GetError : Nothing found.');
 	}
 
 	static sizeOf(object) {
