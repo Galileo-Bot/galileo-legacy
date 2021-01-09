@@ -42,15 +42,15 @@ function argError(message, command, error) {
  */
 function permsError(message, command, missingPermissions, fromBot = false) {
 	const embed = BetterEmbed.fromTemplate('author', {
-		author: `Permissions ${fromBot ? 'du bot' : ''} manquantes.`,
+		author: `Permissions ${fromBot ? 'du bot ' : ''}manquantes.`,
 		authorURL: message.author.displayAvatarURL({
 			dynamic: true,
 		}),
 		client: message.client,
-		description: `\`${missingPermissions
+		description: `${fromBot ? 'Le bot manque ces permissions :\n\n' : 'Vous manquez ces permissions :\n\n'}\`${missingPermissions
 			.map(perm => PERMISSIONS[perm])
 			.sort(new Intl.Collator().compare)
-			.join(', ')}\``,
+			.join('\n')}\``,
 	});
 	embed.setColor('#ffc843');
 	embed.setTitle(`Commande : ${command.name}`);
