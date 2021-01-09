@@ -40,7 +40,7 @@ module.exports = class GuildEvent extends Event {
 		});
 
 		embed.setThumbnail(this.guild.iconURL());
-		embed.addField('Créateur :', `${this.owner?.user ?? this.owner} (\`${this.guild.ownerID}\`)`);
+		embed.addField('Créateur :', `${this.guild.owner?.user ?? this.guild.owner} (\`${this.guild.ownerID}\`)`);
 		embed.addField('Nombre de membres :', `**${this.guild.memberCount}** dont **${this.guild.members.cache.filter(m => m.user.bot).size}** bots.`);
 
 		return embed;
