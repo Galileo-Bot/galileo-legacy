@@ -1,3 +1,6 @@
+/**
+ * @type {module.Event}
+ */
 module.exports = class Event {
 	client;
 	name;

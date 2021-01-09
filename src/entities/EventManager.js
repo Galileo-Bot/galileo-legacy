@@ -44,7 +44,7 @@ module.exports = class EventManager {
 
 	/**
 	 * Décharge un évènement.
-	 * @param {Event} event - L'évènement à décharger.
+	 * @param {module.Event} event - L'évènement à décharger.
 	 * @returns {void}
 	 */
 	unbind(event) {

@@ -79,9 +79,9 @@ module.exports = class Command {
 				disableMentions: 'everyone',
 			});
 
-			return await this.message.channel?.send(content, options);
+			return this.message.channel?.send(content, options);
 		}
 
-		return await this.message.channel?.send(content, options);
+		return this.message.channel?.send(content, options);
 	}
 };
