@@ -24,7 +24,7 @@ module.exports = class CommandStatsCommand extends SlowCommand {
 
 		imgur
 			.uploadFile('./assets/images/graphMessages.png')
-			.then(json => {
+			.then(async json => {
 				const embed = BetterEmbed.fromTemplate('image', {
 					client,
 					description: '',
@@ -32,8 +32,8 @@ module.exports = class CommandStatsCommand extends SlowCommand {
 					title: "Statistiques sur l'utilisation du bot.",
 				});
 
-				super.send(embed);
-				super.stopWait();
+				await super.send(embed);
+				await super.stopWait();
 			})
 			.catch(e => Logger.error(e.stack));
 	}

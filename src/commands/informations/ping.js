@@ -23,6 +23,6 @@ module.exports = class PingCommand extends Command {
 		embed.addField('🤖 Latence du bot', `${m.createdTimestamp - message.createdTimestamp} ms`, true);
 		embed.addField("📡 Latence de l'API :", `${Math.round(client.ws.ping)} ms`, true);
 
-		await m.edit('', embed);
+		await m.edit(embed);
 	}
 };

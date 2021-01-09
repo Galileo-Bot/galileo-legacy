@@ -31,7 +31,7 @@ module.exports = class SupportCommand extends Command {
 		embed.setFooter(message.guild ? `Du serveur : ${message.guild.name} (${message.guild.id})` : 'Envoyé en messages privés.');
 		if (message.attachments.array()[0]?.height) embed.setImage(message.attachments.array()[0].url);
 
-		await client.channels.cache.get(CHANNELS.supportChannel).send(embed);
+		await client.channels.cache.get(CHANNELS.SUPPORT_CHANNEL).send(embed);
 		await super.send(
 			'<:smiley:635159054989262848> **Le message a été transmit à notre équipe.**\n<a:loada:635159061179924487> *Ils se chargeront de votre demande dans les plus brefs délais, __veuillez ouvrir vos mp car ils vous contacteront sûrement__.*'
 		);

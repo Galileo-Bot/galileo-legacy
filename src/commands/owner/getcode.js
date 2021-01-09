@@ -17,7 +17,7 @@ module.exports = class GetCodeCommand extends Command {
 	}
 
 	getFileCode(path) {
-		return readFileSync(path);
+		return readFileSync(path, 'utf8');
 	}
 
 	async run(client, message, args) {

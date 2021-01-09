@@ -45,11 +45,9 @@ module.exports = class StatsCommand extends Command {
 			cpuStat.idle += cpu.times.idle;
 		}
 
-		const total = cpuStat.user + cpuStat.nice + cpuStat.sys + cpuStat.idle + cpuStat.irq;
-
 		return {
 			idle: cpuStat.idle,
-			total,
+			total: cpuStat.user + cpuStat.nice + cpuStat.sys + cpuStat.idle + cpuStat.irq,
 		};
 	}
 

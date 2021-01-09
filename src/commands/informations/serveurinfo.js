@@ -22,8 +22,7 @@ module.exports = class ServeurInfoCommand extends Command {
 	async run(client, message, args) {
 		await super.run(client, message, args);
 
-		const {premiumTier, premiumSubscriptionCount, roles, memberCount, me, name, id, channels, createdAt, owner, features} = await message.guild.fetch();
-		const members = await message.guild.members.fetch();
+		const {premiumTier, members, premiumSubscriptionCount, roles, memberCount, me, name, id, channels, createdAt, owner, features} = await message.guild.fetch();
 
 		const {size: guildMembersBot} = members.filter(m => m.presence.status === 'offline' && !m.user.bot);
 		const {size: guildMembersDnd} = members.filter(m => m.presence.status === 'dnd' && !m.user.bot);

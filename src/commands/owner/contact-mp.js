@@ -19,7 +19,7 @@ module.exports = class ContactMpCommand extends Command {
 
 		const person = getArg(message, 1, ARG_TYPES.USER);
 		if (!person) return argError(message, this, 'Veuillez préciser une personne avec son ID/Mention/Nom.');
-		args.splice(0, 1);
+		await args.shift();
 
 		const text = args.join(' ');
 		if (text?.length === 0) return argError(message, this, 'Veuillez mettre du texte.');

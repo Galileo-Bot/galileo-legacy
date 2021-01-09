@@ -25,7 +25,7 @@ module.exports = class InfractionsCommand extends Command {
 	 * @param {module:"discord.js".User} user - L'utilisateur.
 	 * @param {BetterEmbed} embed - L'embed.
 	 */
-	createPage(userData, pageNumber, user, embed) {
+	async createPage(userData, pageNumber, user, embed) {
 		const pageMax = Math.floor(userData.sanctions.length / 10) + 1;
 		let page = pageNumber ?? 0;
 		let warns = 0;
@@ -47,11 +47,16 @@ module.exports = class InfractionsCommand extends Command {
 			.slice(page * 10 - 10, page * 10)
 			.join('\n');
 
-		embed.setAuthor(`Sanctions de : ${user.tag}`, user.displayAvatarURL());
+		embed.setAuthor(
+			`Sanctions de : ${user.tag}`,
+			user.displayAvatarURL({
+				dynamic: true,
+			})
+		);
 		embed.setDescription(`Bannissements : **${bans}** Éjections : **${kicks}** Silences : **${mutes}** Avertissements : **${warns}**\n\n${embedDesc}`);
 		embed.setFooter(`${this.client.user.username} • Page ${page}/${pageMax}`, this.client.user.displayAvatarURL());
 
-		super.send(embed);
+		await super.send(embed);
 	}
 
 	async run(client, message, args) {
@@ -93,9 +98,8 @@ module.exports = class InfractionsCommand extends Command {
 				} else return argError(message, this, `La sanction ${args[2]} n'a pas été trouvée ou n'est pas valide.`);
 			}
 		} else if (args[1] === 'modifier') {
-			if (getArg(message, 3, ARG_TYPES.NUMBER) === null) {
-				return argError(message, this, "Veuillez mettre le numéro d'une sanction valide.");
-			} else {
+			if (getArg(message, 3, ARG_TYPES.NUMBER) === null) return argError(message, this, "Veuillez mettre le numéro d'une sanction valide.");
+			else {
 				const sanction = client.dbManager.userInfos.get(message.guild.id, `${person.user.id}.sanctions`).find(s => s.case.toString() === args[2]);
 				if (sanction) {
 					if (args.length === 3) return argError(message, this, 'Veuillez mettre la nouvelle raison de cette sanction.');
@@ -110,6 +114,6 @@ module.exports = class InfractionsCommand extends Command {
 			}
 		}
 
-		this.createPage(client.dbManager.userInfos.get(message.guild.id, person.user.id), page, person.user, embed);
+		await this.createPage(client.dbManager.userInfos.get(message.guild.id, person.user.id), page, person.user, embed);
 	}
 };

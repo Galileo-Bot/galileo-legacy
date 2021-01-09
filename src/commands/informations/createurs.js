@@ -25,7 +25,11 @@ module.exports = class CreateursCommand extends Command {
 		const embed = new BetterEmbed();
 		embed.setTitle(`Informations sur ${user.username} :`);
 		embed.setColor('#4b5afd');
-		embed.setThumbnail(user.displayAvatarURL());
+		embed.setThumbnail(
+			user.displayAvatarURL({
+				dynamic: true,
+			})
+		);
 		embed.setDescription(creator);
 		await super.send(embed);
 	}

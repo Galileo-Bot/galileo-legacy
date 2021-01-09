@@ -16,6 +16,10 @@ module.exports = class UserInfoCommand extends Command {
 		});
 	}
 
+	static getActivityTypeInFrench(type) {
+		return type === 'STREAMING' ? 'Stream' : type === 'LISTENING' ? 'Écoute' : type === 'WATCHING' ? 'Regarde' : type === 'COMPETE' ? 'En compétition de' : 'Joue à';
+	}
+
 	static getStatus(person, statusEmoji, status) {
 		switch (person.user.presence.status) {
 			case 'online':
@@ -41,10 +45,6 @@ module.exports = class UserInfoCommand extends Command {
 		};
 	}
 
-	static getActivityTypeInFrench(type) {
-		return type === 'STREAMING' ? 'Streame' : type === 'LISTENING' ? 'Écoute' : type === 'WATCHING' ? 'Regarde' : type === 'COMPETE' ? 'En compétition de' : 'Joue à';
-	}
-
 	async run(client, message, args) {
 		await super.run(client, message, args);
 
@@ -64,6 +64,9 @@ module.exports = class UserInfoCommand extends Command {
 			if (person === message.guild.owner) permServer = 'Créateur';
 		}
 
+		/**
+		 * @type {UserFlags}
+		 */
 		const flags = await person.user.fetchFlags();
 		if (isOwner(person.user.id)) permission = 'Créateur';
 

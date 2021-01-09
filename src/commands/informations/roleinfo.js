@@ -30,6 +30,9 @@ module.exports = class RoleInfoCommand extends SlowCommand {
 		const color = role.hexColor === '#000000' ? '#7289da' : role.hexColor;
 
 		await this.startWait();
+		/**
+		 * @type {Jimp}
+		 */
 		const image = await new Jimp(256, 256, color);
 		await image.write('./assets/images/colorRole.png');
 
@@ -47,7 +50,7 @@ module.exports = class RoleInfoCommand extends SlowCommand {
 		embed.addField('<:textuel:635159053630308391> Nom :', role, true);
 		embed.addField(
 			'<:richtext:635163364875698215> Nombre de membres ayant le rôle :',
-			`${role.members.size} (${Math.round((role.members.size / (await message.guild.members.fetch()).size) * 1000) / 10}% des membres du serveur)`
+			`${role.members.size} (${Math.round((role.members.size / message.guild.memberCount) * 1000) / 10}% des membres du serveur)`
 		);
 		embed.addField('<:hey:635159039831048202> Mentionable :', role.mentionable ? '<:enablevert:635159048639086592>' : '<:disable:635255629694369812>', true);
 		embed.addField('<:richtext:635163364875698215> Rôle affiché séparément :', role.hoist ? '<:enablevert:635159048639086592>' : '<:disable:635255629694369812>', true);
