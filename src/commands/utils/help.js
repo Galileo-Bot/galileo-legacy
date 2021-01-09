@@ -46,7 +46,7 @@ module.exports = class HelpCommand extends Command {
 			for (const category in customCategories) {
 				if (!customCategories.hasOwnProperty(category) || !customCategories[category]) continue;
 
-				const commands = client.commands.filter(c => c.category.toUpperCase() === category);
+				const commands = client.commands.filter(c => c.category.toUpperCase() === category && !c.tags.includes(TAGS.HIDDEN));
 				const categoriesCommandsString = `\`${commands
 					.array()
 					.map(c => c.name)
