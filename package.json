@@ -21,7 +21,7 @@
 		"jimp": "^0.16.1",
 		"node-fetch": "^2.6.1"
 	},
-	"description": "A discord bot.",
+	"description": "Un bot discord.",
 	"devDependencies": {
 		"@babel/core": "^7.12.10",
 		"@babel/eslint-parser": "^7.12.1",
