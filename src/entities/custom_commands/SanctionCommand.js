@@ -14,6 +14,26 @@ module.exports = class SanctionCommand extends Command {
 	}
 
 	/**
+	 * Enregistre un membre dans la DB.
+	 * @param {GaliClient} client - Le client.
+	 * @param {module:"discord.js".Message} message - Message
+	 * @param {module:"discord.js".GuildMember} person - Le membre.
+	 * @returns {void}
+	 */
+	static registerUser(client, message, person) {
+		if (!client.dbManager.userInfos.has(message.guild.id)) client.dbManager.userInfos.set(message.guild.id, {});
+		if (!client.dbManager.userInfos.has(message.guild.id, person.user.id)) {
+			client.dbManager.userInfos.set(
+				message.guild.id,
+				{
+					sanctions: [],
+				},
+				person.user.id
+			);
+		}
+	}
+
+	/**
 	 * Applique la sanction si celle-ci a un impact sur discord.
 	 * @param {GuildMember} person - La personne à sanctionner.
 	 * @param {string} reason - La raison.
@@ -72,26 +92,6 @@ module.exports = class SanctionCommand extends Command {
 	}
 
 	/**
-	 * Enregistre un membre dans la DB.
-	 * @param {GaliClient} client - Le client.
-	 * @param {module:"discord.js".Message} message - Message
-	 * @param {module:"discord.js".GuildMember} person - Le membre.
-	 * @returns {void}
-	 */
-	static registerUser(client, message, person) {
-		if (!client.dbManager.userInfos.has(message.guild.id)) client.dbManager.userInfos.set(message.guild.id, {});
-		if (!client.dbManager.userInfos.has(message.guild.id, person.user.id)) {
-			client.dbManager.userInfos.set(
-				message.guild.id,
-				{
-					sanctions: [],
-				},
-				person.user.id
-			);
-		}
-	}
-
-	/**
 	 * Récupère le membre à sanctionner.
 	 * @param {module:"discord.js".Message} message - Le message.
 	 * @returns {module:"discord.js".GuildMember|void} - Le membre ou une erreur.
@@ -103,7 +103,7 @@ module.exports = class SanctionCommand extends Command {
 		const person = getArg(message, 1, ARG_TYPES.MEMBER);
 		if (!person) return argError(message, this, "La personne n'a pas été trouvée.");
 
-		if (message.member.roles.cache.map(r => r).sort((b, a) => a.position - b.position)[0].position < person.roles.cache.map(r => r).sort((b, a) => a.position - b.position)[0].position) {
+		if (person.manageable) {
 			return argError(
 				message,
 				this,
