@@ -36,7 +36,7 @@ function getArgWithContent(content, argType) {
 			break;
 
 		case ARG_TYPES.STRING:
-			result = content.toString() === content;
+			result = content.toString();
 			break;
 
 		case ARG_TYPES.CHANNEL_ID:
