@@ -103,7 +103,7 @@ module.exports = class SanctionCommand extends Command {
 		const person = getArg(message, 1, ARG_TYPES.MEMBER);
 		if (!person) return argError(message, this, "La personne n'a pas été trouvée.");
 
-		if (person.manageable) {
+		if (!person.manageable) {
 			return argError(
 				message,
 				this,
