@@ -6,6 +6,7 @@ const ARG_TYPES = {
 	CHANNEL_ID: 'ID de salon',
 	CHANNEL_NAME: 'Nom de salon',
 	COMMAND: 'Commande',
+	DURATION: 'Durée',
 	GUILD: 'Nom/ID de serveur.',
 	GUILD_ID: 'ID de serveur',
 	GUILD_NAME: 'Nom de serveur',

@@ -2,6 +2,7 @@ const {Message} = require('discord.js');
 const {getPrefixFromMessage} = require('./Utils.js');
 const {ARG_TYPES} = require('../constants.js');
 const CommandManager = require('../entities/CommandManager.js');
+const {getTime} = require('./FormatUtils.js');
 const {client} = require('../main.js');
 
 // todo: refaire les systèmes message.mentions.truc[0] car rangé par l'API et pas forcément le contenu
@@ -52,6 +53,10 @@ function getArgWithContent(content, argType) {
 
 		case ARG_TYPES.GUILD_NAME:
 			result = client.guilds.cache.find(guild => guild.name.toLowerCase().includes(content.toLowerCase()));
+			break;
+
+		case ARG_TYPES.DURATION:
+			result = getTime(content);
 			break;
 
 		case ARG_TYPES.USER_ID:
