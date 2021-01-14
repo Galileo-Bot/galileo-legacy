@@ -88,29 +88,29 @@ function getArgWithMessage(message, argType, index = 1) {
 	let result;
 	switch (argType) {
 		case ARG_TYPES.MEMBER:
-			if (message.mentions.members.size > 0 || message.mentions.users.size > 0) result = message.mentions.members.array()[index - 1] || message.mentions.users.array()[index - 1];
+			if (message.mentions.members.size > 0 ?? message.mentions.users.size > 0) result = message.mentions.members.array()[index - 1] ?? message.mentions.users.array()[index - 1];
 			else if (arg) {
 				result = message.guild.members.cache.find(
-					m => m.user.id === arg || m.user.username.toLowerCase().includes(arg?.toLowerCase()) || m.nickname?.toLowerCase().includes(arg?.toLowerCase())
+					m => m.user.id === arg ?? m.user.username.toLowerCase().includes(arg?.toLowerCase()) ?? m.nickname?.toLowerCase().includes(arg?.toLowerCase())
 				);
 			}
 
 			break;
 
 		case ARG_TYPES.USER:
-			result = message.mentions.users.size > 0 ? message.mentions.users.array()[index - 1] : getArgWithContent(arg, ARG_TYPES.USER_USERNAME) || getArgWithContent(arg, ARG_TYPES.USER_ID);
+			result = message.mentions.users.size > 0 ? message.mentions.users.array()[index - 1] : getArgWithContent(arg, ARG_TYPES.USER_USERNAME) ?? getArgWithContent(arg, ARG_TYPES.USER_ID);
 			break;
 
 		case ARG_TYPES.GUILD:
-			result = getArgWithContent(arg, ARG_TYPES.GUILD_ID) || getArgWithContent(arg, ARG_TYPES.GUILD_NAME);
+			result = getArgWithContent(arg, ARG_TYPES.GUILD_ID) ?? getArgWithContent(arg, ARG_TYPES.GUILD_NAME);
 			break;
 
 		case ARG_TYPES.ROLE:
-			result = message.guild.roles.cache.find(r => r.id === arg || r.name.toLowerCase().includes(arg?.toLowerCase()));
+			result = message.guild.roles.cache.find(r => r.id === arg ?? r.name.toLowerCase().includes(arg?.toLowerCase()));
 			break;
 
 		case ARG_TYPES.CHANNEL:
-			result = message.mentions.channels.size > 0 ? message.mentions.channels.array()[index - 1] : getArgWithContent(arg, ARG_TYPES.CHANNEL_ID) || getArgWithContent(arg, ARG_TYPES.CHANNEL_NAME);
+			result = message.mentions.channels.size > 0 ? message.mentions.channels.array()[index - 1] : getArgWithContent(arg, ARG_TYPES.CHANNEL_ID) ?? getArgWithContent(arg, ARG_TYPES.CHANNEL_NAME);
 			break;
 
 		default:
