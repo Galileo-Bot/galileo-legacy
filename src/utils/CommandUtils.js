@@ -86,35 +86,16 @@ function verifyCommand(command, message) {
 
 	if (missingPermissions.client.length > 0 || missingPermissions.user.length > 0) fail.isFailed = true;
 
-	if (cooldown.get(message.author.id)?.find(c => c.command === command.name)) {
-		fail.isFailed = true;
-		fail.cooldown = message.author.id;
-	}
+	if (cooldown.get(message.author.id)?.find(c => c.command === command.name)) fail.cooldown = message.author.id;
 
-	if (command.tags.includes(TAGS.OWNER_ONLY) && !isOwner(message.author.id)) {
-		fail.isFailed = true;
-		fail.tags.push(TAGS.OWNER_ONLY);
-	}
-
+	if (command.tags.includes(TAGS.OWNER_ONLY) && !isOwner(message.author.id)) fail.tags.push(TAGS.OWNER_ONLY);
 	if (message.guild) {
-		if (command.tags.includes(TAGS.GUILD_OWNER_ONLY) && message.guild.owner.id !== message.author.id) {
-			fail.isFailed = true;
-			fail.tags.push(TAGS.GUILD_OWNER_ONLY);
-		}
+		if (command.tags.includes(TAGS.GUILD_OWNER_ONLY) && message.guild.owner.id !== message.author.id) fail.tags.push(TAGS.GUILD_OWNER_ONLY);
+		if (command.tags.includes(TAGS.NSFW_ONLY) && !message.channel.nsfw) fail.tags.push(TAGS.NSFW_ONLY);
+		if (command.tags.includes(TAGS.DM_ONLY)) fail.tags.push(TAGS.DM_ONLY);
+	} else if (command.tags.includes(TAGS.GUILD_ONLY)) fail.tags.push(TAGS.GUILD_ONLY);
 
-		if (command.tags.includes(TAGS.NSFW_ONLY) && !message.channel.nsfw) {
-			fail.isFailed = true;
-			fail.tags.push(TAGS.NSFW_ONLY);
-		}
-
-		if (command.tags.includes(TAGS.DM_ONLY)) {
-			fail.isFailed = true;
-			fail.tags.push(TAGS.DM_ONLY);
-		}
-	} else if (command.tags.includes(TAGS.GUILD_ONLY)) {
-		fail.isFailed = true;
-		fail.tags.push(TAGS.GUILD_ONLY);
-	}
+	if (fail.tags.length > 0 || fail.cooldown) fail.isFailed = true;
 
 	return fail;
 }
