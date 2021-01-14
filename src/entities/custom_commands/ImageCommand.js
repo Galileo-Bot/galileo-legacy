@@ -1,6 +1,6 @@
 const SlowCommand = require('./SlowCommand.js');
 const Logger = require('../../utils/Logger.js');
-const Jimp = require('jimp');
+const jimp = require('jimp');
 const imgur = require('imgur');
 const {BetterEmbed} = require('discord.js-better-embed');
 const {isOwner} = require('../../utils/Utils.js');
@@ -22,30 +22,27 @@ module.exports = class ImageCommand extends SlowCommand {
 		let imageLink = getArg(message, 1, ARG_TYPES.USER)?.displayAvatarURL({format: 'png'}) ?? message.author.displayAvatarURL({format: 'png'});
 		if (message.attachments.array()[0]?.height) imageLink = message.attachments.array()[0].url;
 
-		Jimp.read(imageLink)
-			.then(image => {
-				image[imageFunction](...argsFunction);
-				image.write(`./assets/images/${imageFunction}.png`);
-			})
-			.then(() =>
-				imgur.uploadFile(`./assets/images/${imageFunction}.png`).then(async json => {
-					const embed = BetterEmbed.fromTemplate('image', {
-						client: message.client,
-						description: `[Cliquez pour ouvrir l'image.](${json.data.link})`,
-						image: json.data.link,
-						title: 'Image traitée : ',
-					});
+		try {
+			const image = await jimp.read(imageLink);
+			image[imageFunction](...argsFunction);
+			await image.write(`./assets/images/${imageFunction}.png`);
 
-					await super.send(embed);
-					await this.stopWait();
-				})
-			)
-			.catch(async error => {
-				if (isOwner(message.author.id)) {
-					await runError(message, this, error);
-					Logger.warn(error.stack, `${super.name}Command`);
-				} else this.send("Oups !\nQuelque chose n'a pas marché, l'erreur est reportée aux dirigeants du bot. :eyes:");
+			const json = await imgur.uploadFile(`./assets/images/${imageFunction}.png`);
+			const embed = BetterEmbed.fromTemplate('image', {
+				client: message.client,
+				description: `[Cliquez pour ouvrir l'image.](${json.data.link})`,
+				image: json.data.link,
+				title: 'Image traitée : ',
 			});
+
+			await super.send(embed);
+			await this.stopWait();
+		} catch (error) {
+			if (isOwner(message.author.id)) {
+				await runError(message, this, error);
+				Logger.warn(error.stack, `${super.name}Command`);
+			} else this.send("Oups !\nQuelque chose n'a pas marché, l'erreur est reportée aux dirigeants du bot. :eyes:");
+		}
 	}
 
 	async run(client, message, args) {

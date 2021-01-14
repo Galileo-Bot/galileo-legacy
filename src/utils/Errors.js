@@ -23,6 +23,7 @@ function argError(message, command, error) {
 	});
 
 	embed.setColor('#ff792a');
+
 	const verification = verifyCommand(command, message);
 	if (verification.tags.length === 0 && verification.missingPermissions.user.length === 0 && verification.missingPermissions.client.length === 0)
 		embed.addField("Rappel d'utilisation :", `\`${command.usage}\``);
