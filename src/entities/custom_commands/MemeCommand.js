@@ -22,17 +22,10 @@ module.exports = class IMGFlipCommand extends SlowCommand {
 	}
 
 	connectAPI() {
-		const username = process.env.IMGUR_USERNAME;
-		const password = process.env.IMGUR_PASSWORD;
-		const texts = [];
-		const imgFlip = new ImgFlip({
-			password,
-			username,
+		return new ImgFlip({
+			password: process.env.IMGUR_USERNAME,
+			username: process.env.IMGUR_PASSWORD,
 		});
-		return {
-			imgFlip,
-			texts,
-		};
 	}
 
 	async createMeme(imgFlipInstance, texts) {
@@ -45,7 +38,8 @@ module.exports = class IMGFlipCommand extends SlowCommand {
 	}
 
 	async processMeme(args, message) {
-		const {texts, imgFlip} = this.connectAPI();
+		const imgFlip = this.connectAPI();
+		const texts = [];
 
 		args = args.join(' ').split(' ; ');
 
