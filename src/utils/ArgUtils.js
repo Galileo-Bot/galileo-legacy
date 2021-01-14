@@ -40,7 +40,7 @@ function getArgWithContent(content, argType) {
 			break;
 
 		case ARG_TYPES.CHANNEL_ID:
-			result = client.channels.cache.get(content);
+			result = client.channels.resolve(content);
 			break;
 
 		case ARG_TYPES.CHANNEL_NAME:
@@ -48,7 +48,7 @@ function getArgWithContent(content, argType) {
 			break;
 
 		case ARG_TYPES.GUILD_ID:
-			result = client.guilds.cache.get(content);
+			result = client.guilds.resolve(content);
 			break;
 
 		case ARG_TYPES.GUILD_NAME:
@@ -60,7 +60,7 @@ function getArgWithContent(content, argType) {
 			break;
 
 		case ARG_TYPES.USER_ID:
-			result = client.users.cache.get(content);
+			result = client.users.resolve(content);
 			break;
 
 		case ARG_TYPES.USER_USERNAME:
