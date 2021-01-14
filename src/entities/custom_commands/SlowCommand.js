@@ -13,6 +13,6 @@ module.exports = class SlowCommand extends Command {
 	}
 
 	async stopWait() {
-		await this.message.reactions.cache.find(reaction => reaction.emoji === this.waitEmoji).users.remove(this.message.client.user.id);
+		await this.message.reactions.resolve(this.waitEmoji)?.users.remove(this.message.client.user.id);
 	}
 };
