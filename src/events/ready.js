@@ -22,6 +22,10 @@ module.exports = class ReadyEvent extends Event {
 			.catch();
 	}
 
+	resetCache() {
+		Object.keys(this.client.dbManager.cache.get('images')).forEach(type => this.client.dbManager.cache.set('images', {}, type));
+	}
+
 	async run(client) {
 		await super.run(client);
 
@@ -55,11 +59,13 @@ module.exports = class ReadyEvent extends Event {
 		Logger.info(`${client.user.username} (${client.user.id}) Est allumé ! Nombre de serveurs : ${client.guilds.cache.size}.`, 'ReadyEvent');
 
 		this.logInfosOfBot();
-		this.updateCommandsStats(client);
+		this.updateCommandsStats();
+		this.resetCache();
 
 		setInterval(() => {
 			this.logInfosOfBot();
-			this.updateCommandsStats(client);
+			this.updateCommandsStats();
+			this.resetCache();
 		}, 20 * 60 * 1000);
 	}
 
@@ -82,17 +88,17 @@ module.exports = class ReadyEvent extends Event {
 	 * Met à jour le JSON contenant les utilisations de commandes.
 	 * @returns {void}
 	 */
-	updateCommandsStats(client) {
+	updateCommandsStats() {
 		const formattedDate = formatDate('dd/MM/yyyy');
 
-		if (!client.dbManager.messages.has('today') || client.dbManager.messages.get('today').length === 0) client.dbManager.messages.set('today', formattedDate);
-		if (!client.dbManager.messages.has('stats')) client.dbManager.messages.set('stats', new Array(30).fill(0));
-		if (client.dbManager.messages.get('today') !== formattedDate) {
-			client.dbManager.messages.set('today', formattedDate);
-			const stats = client.dbManager.messages.get('stats');
+		if (!this.client.dbManager.messages.has('today') || this.client.dbManager.messages.get('today').length === 0) this.client.dbManager.messages.set('today', formattedDate);
+		if (!this.client.dbManager.messages.has('stats')) this.client.dbManager.messages.set('stats', new Array(30).fill(0));
+		if (this.client.dbManager.messages.get('today') !== formattedDate) {
+			this.client.dbManager.messages.set('today', formattedDate);
+			const stats = this.client.dbManager.messages.get('stats');
 			stats.shift();
-			client.dbManager.messages.set('stats', stats);
-			client.dbManager.messages.push('stats', 0);
+			this.client.dbManager.messages.set('stats', stats);
+			this.client.dbManager.messages.push('stats', 0);
 		}
 	}
 };
