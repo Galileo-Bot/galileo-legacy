@@ -23,7 +23,7 @@
 	},
 	"description": "Un bot discord.",
 	"devDependencies": {
-		"@babel/core": "^7.12.10",
+		"@babel/core": "^7.12.13",
 		"@babel/eslint-parser": "^7.12.1",
 		"@babel/plugin-proposal-class-properties": "^7.12.1",
 		"eslint": "^7.19.0",
