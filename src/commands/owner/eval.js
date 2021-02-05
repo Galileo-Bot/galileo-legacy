@@ -48,9 +48,7 @@ module.exports = class EvalCommand extends Command {
 				for (let i = 0; i < text.length / 1990; i++) {
 					newText.push(text.slice(i * 1990, (i + 1) * 1990));
 				}
-			} else {
-				newText.push(text);
-			}
+			} else newText.push(text);
 		}
 
 		return newText;
@@ -157,8 +155,8 @@ module.exports = class EvalCommand extends Command {
 		return client.channels.cache.has(id)
 			? client.channels.cache.get(id).send(text)
 			: client.users.cache.has(id)
-				? client.users.cache.get(id).send(text)
-				: EvalCommand.sendJS('GetError : Nothing found.');
+			? client.users.cache.get(id).send(text)
+			: EvalCommand.sendJS('GetError : Nothing found.');
 	}
 
 	static sizeOf(object) {

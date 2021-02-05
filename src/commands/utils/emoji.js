@@ -23,8 +23,6 @@ module.exports = class EmojiCommand extends Command {
 	async run(client, message, args) {
 		await super.run(client, message, args);
 
-		let name;
-		let id;
 		const emoji = args[0] || null;
 		const embed = BetterEmbed.fromTemplate('basic', {
 			client,
@@ -60,17 +58,12 @@ module.exports = class EmojiCommand extends Command {
 			return super.send(embed);
 		}
 
-		let anim = emoji.includes('<a:');
-		if (emoji.includes('<')) {
-			name = String(emoji.slice(emoji.indexOf(':') + 1, emoji.lastIndexOf(':')));
-			id = emoji.slice(emoji.lastIndexOf(':') + 1, emoji.lastIndexOf('>'));
-		} else name = args[0];
-
 		const emojiFind = message.guild.emojis.cache.find(e => e.name === name);
 		if (!emojiFind) return argError(message, this, "Cet émoji n'a pas été trouvé sur le serveur ou est un émoji de base.");
 
-		id = emojiFind.id;
-		anim = emojiFind.animated;
+		const anim = emojiFind.animated;
+		const id = emojiFind.id;
+		const name = emoji.includes('<') ? emoji.slice(emoji.indexOf(':') + 1, emoji.lastIndexOf(':')) : args[0];
 
 		if (id) {
 			anim ? embed.setImage(`https://cdn.discordapp.com/emojis/${id}.gif`) : embed.setImage(`https://cdn.discordapp.com/emojis/${id}.png`);
