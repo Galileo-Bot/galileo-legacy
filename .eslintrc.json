@@ -17,15 +17,6 @@
 		"requireConfigFile": false
 	},
 	"rules": {
-		"indent": [
-			"error",
-			"tab",
-			{
-				"SwitchCase": 1,
-				"MemberExpression": 1,
-				"flatTernaryExpressions": true
-			}
-		],
 		"linebreak-style": ["error", "unix"],
 		"no-empty": [
 			"error",
