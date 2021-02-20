@@ -1,27 +1,30 @@
 const Logger = require('../utils/Logger.js');
 const Enmap = require('enmap');
 
+/**
+ * @type {import("../../index.d.ts").DBManager}
+ */
 module.exports = class DBManager {
+	cache;
 	messages;
 	ready;
 	userInfos;
-	cache;
-
+	
 	constructor() {
 		this.userInfos = new Enmap({
 			autoFetch: true,
 			dataDir: './assets/db',
 			fetchAll: true,
-			name: 'userinfos',
+			name: 'userinfos'
 		});
-
+		
 		this.messages = new Enmap({
 			autoFetch: true,
 			dataDir: './assets/db',
 			fetchAll: true,
 			name: 'messages',
 		});
-
+		
 		this.cache = new Enmap({
 			autoFetch: true,
 			dataDir: './assets/db',
@@ -29,7 +32,7 @@ module.exports = class DBManager {
 			name: 'cache',
 		});
 	}
-
+	
 	async prepare() {
 		try {
 			await this.cache.defer;
