@@ -12,8 +12,34 @@ module.exports = class SayEmbedCommand extends Command {
 			description:
 				"**Système fait par Ghom.**\nPermet de faire parler le bot avec un embedGenerated qui contient du [texte], une multitude d'options pour personnaliser l'embed sont disponibles.",
 			name: 'sayembed',
-			usage:
-				"``pf\n> Utilisation :\n\n$title Titre de l'embed\n$author Auteur\nImage de l'auteur\nLien cliquable de l'auteur\n\n$description Description de l'embed\n$color Couleur de l'embed (exemple : #ff0000 = rouge)\n$image Lien de l'image\n$thumbnail Petite image en haut à droite de l'embed\n\n$field Titre du field\nDescription du field\nfalse|true (si il est aligné avec les autres ou non)\n\n$footer Texte du footer\nImage du footer\n$end\n\nLa balise 'end' permet de mettre des commentaires entre les balises comme ici.\nFaites g/sayembed info pour avoir plus d'infos.\n\n$timestamp Temps de l'embed, 'now' permet de mettre maintenant.```\n\n`sayembed <texte>\nsayembed info",
+			usage: `\`\`pf
+> Utilisation :
+
+$title Titre de l'embed
+$author Auteur
+Image de l'auteur
+Lien cliquable de l'auteur
+
+$description Description de l'embed
+$color Couleur de l'embed (exemple : #ff0000 = rouge)
+$image Lien de l'image
+$thumbnail Petite image en haut à droite de l'embed
+
+$field Titre du field
+Description du field
+false|true (s’il est aligné avec les autres ou non)
+
+$footer Texte du footer
+Image du footer
+$end
+
+La balise 'end' permet de mettre des commentaires entre les balises comme ici.
+Faites g/sayembed info pour avoir plus d'infos.
+
+$timestamp Temps de l'embed, 'now' permet de mettre maintenant.\`\`\`
+
+\`sayembed <texte>
+sayembed info`,
 		});
 	}
 

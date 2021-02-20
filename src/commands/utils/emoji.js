@@ -29,7 +29,7 @@ module.exports = class EmojiCommand extends Command {
 		});
 		embed.setColor('#1ae831');
 		embed.setAuthor(
-			"Information sur l'émoji :",
+			"Informations sur l'émoji :",
 			message.author.displayAvatarURL({
 				dynamic: true,
 			})

@@ -22,67 +22,6 @@ module.exports = class MessageEvent extends Event {
 	}
 
 	/**
-	 * La méthode exécutée quand un message est envoyé n'importe où.
-	 * @param {GaliClient} client - Le client.
-	 * @param {Message} message - Le message.
-	 * @returns {void}
-	 */
-	async run(client, message) {
-		await super.run(client);
-		if (message.author.bot || message.system || message.flags.has(MessageFlags.FLAGS.CROSSPOSTED)) return;
-
-		const prefix = getPrefixFromMessage(message);
-
-		if (!prefix) {
-			if (message.guild === null) {
-				const embed = BetterEmbed.fromTemplate('author', {
-					author: `Message reçu de ${message.author.tag} (${message.author.id})`,
-					authorURL: message.author.displayAvatarURL({
-						dynamic: true,
-					}),
-					client,
-					description: '',
-				});
-				embed.setColor('RANDOM');
-				if (message.attachments.array()[0]?.height) embed.setImage(message.attachments.array()[0].url);
-				if (!embed.image && message.embeds[0]?.image?.height) embed.setImage(message.embeds[0].image.url);
-				await sendLogMessage(client, 'MP', embed);
-			}
-
-			return;
-		}
-
-		if (message.content === prefix) {
-			return CommandManager.commands
-				.filter(command => command.tags.includes(TAGS.PREFIX_COMMAND))
-				.forEach(command => {
-					message.content = prefix;
-					this.logCommandExecution(message, command.name);
-					this.executeCommand(client, message, [], command);
-				});
-		}
-
-		const args = message.content.slice(prefix.length).trim().split(/\s+/g);
-		const command = CommandManager.findCommand(args[0]);
-		args.shift();
-
-		if (command) {
-			this.logCommandExecution(message, command.name);
-			const fail = verifyCommand(command, message);
-			if (fail.isFailed) processCommandFail(fail, message, command);
-			else this.executeCommand(client, message, args, command);
-		} else {
-			return CommandManager.commands
-				.filter(command => command.tags?.includes(TAGS.HELP_COMMAND))
-				.forEach(command => {
-					message.content = prefix + command.name;
-					this.logCommandExecution(message, command.name);
-					this.executeCommand(client, message, [], command);
-				});
-		}
-	}
-
-	/**
 	 * Execute une commande.
 	 * @param {GaliClient} client - Le client.
 	 * @param {Message} message - Le message.
@@ -137,5 +76,66 @@ module.exports = class MessageEvent extends Event {
 			} par ${message.author.tag} (${message.author.id})`,
 			'MessageEvent'
 		);
+	}
+
+	/**
+	 * La méthode exécutée quand un message est envoyé n'importe où.
+	 * @param {GaliClient} client - Le client.
+	 * @param {Message} message - Le message.
+	 * @returns {Promise<void>}
+	 */
+	async run(client, message) {
+		await super.run(client);
+		if (message.author.bot ?? message.system ?? message.flags.has(MessageFlags.FLAGS.CROSSPOSTED)) return;
+
+		const prefix = getPrefixFromMessage(message);
+
+		if (!prefix) {
+			if (message.guild === null) {
+				const embed = BetterEmbed.fromTemplate('author', {
+					author: `Message reçu de ${message.author.tag} (${message.author.id})`,
+					authorURL: message.author.displayAvatarURL({
+						dynamic: true,
+					}),
+					client,
+					description: '',
+				});
+				embed.setColor('RANDOM');
+				if (message.attachments.array()[0]?.height) embed.setImage(message.attachments.array()[0].url);
+				if (!embed.image && message.embeds[0]?.image?.height) embed.setImage(message.embeds[0].image.url);
+				await sendLogMessage(client, 'MP', embed);
+			}
+
+			return;
+		}
+
+		if (message.content === prefix) {
+			return CommandManager.commands
+				.filter(command => command.tags.includes(TAGS.PREFIX_COMMAND))
+				.forEach(command => {
+					message.content = prefix;
+					this.logCommandExecution(message, command.name);
+					this.executeCommand(client, message, [], command);
+				});
+		}
+
+		const args = message.content.slice(prefix.length).trim().split(/\s+/g);
+		const command = CommandManager.findCommand(args[0]);
+		args.shift();
+
+		if (command) {
+			this.logCommandExecution(message, command.name);
+			const fail = verifyCommand(command, message);
+			if (fail.isFailed) processCommandFail(fail, message, command);
+			else this.executeCommand(client, message, args, command);
+		} else {
+			return CommandManager.commands
+				.filter(command => command.tags?.includes(TAGS.HELP_COMMAND))
+				.forEach(command => {
+					message.content = prefix + command.name;
+					this.logCommandExecution(message, command.name);
+					this.executeCommand(client, message, [], command);
+				});
+		}
 	}
 };

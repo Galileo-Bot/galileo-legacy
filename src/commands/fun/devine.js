@@ -17,7 +17,7 @@ module.exports = class DevineCommand extends Command {
 		const {guess} = require('../../assets/jsons/data.json');
 		const fullText = args.join(' ');
 		if (args.length === 0) return argError(message, this, '<a:attention:613714368647135245> **Veuillez mettre une question.**');
-		if (fullText === '?') return argError(message, this, '<a:attention:613714368647135245> **Une question ne contient pas que un `?` :)**');
+		if (fullText === '?') return argError(message, this, '<a:attention:613714368647135245> **Une question ne contient pas qu’un `?` <:smart_guy:547576698833600522>**');
 		if (!fullText.includes('?')) return argError(message, this, '<a:attention:613714368647135245> **Une question se termine par un `?`.**');
 
 		return super.send(`**${message.author.username}**, ${guess[Math.floor(Math.random() * guess.length)]}`);

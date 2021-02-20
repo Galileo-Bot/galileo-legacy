@@ -38,9 +38,11 @@ module.exports = class ImageCommand extends SlowCommand {
 			await this.stopWait();
 		} catch (error) {
 			if (isOwner(message.author.id) && error.stack) {
-				await runError(message, this, error);
+				runError(message, this, error);
 				Logger.warn(error.stack, `${super.name}Command`);
-			} else this.send("Oups !\nQuelque chose n'a pas marché, l'erreur est reportée aux dirigeants du bot. :eyes:");
+			} else {
+				await this.send("Oups !\nQuelque chose n'a pas marché, l'erreur est reportée aux dirigeants du bot. :eyes:");
+			}
 		}
 	}
 
@@ -52,9 +54,10 @@ module.exports = class ImageCommand extends SlowCommand {
 	 * @returns {string | void} - L'image si déjà existante.
 	 */
 	memoize(type, personID, image) {
-		this.client.dbManager.cache.ensure('images', {}, type);
-		if (this.client.dbManager.cache.has('images', `${type}.${personID}`) && this.client.dbManager.cache.get('images', `${type}.${personID}`))
+		this.client.dbManager.cache.ensure('images', '', type);
+		if (this.client.dbManager.cache.has('images', `${type}.${personID}`) && this.client.dbManager.cache.get('images', `${type}.${personID}`)) {
 			return this.client.dbManager.cache.get('images', `${type}.${personID}`);
+		}
 		this.client.dbManager.cache.set('images', image, `${type}.${personID}`);
 	}
 

@@ -5,7 +5,7 @@ const {TAGS} = require('../../constants.js');
 module.exports = class PrefixCommand extends Command {
 	constructor() {
 		super({
-			aliases: ['prefixes', 'prefixe', 'préfix', 'préfixe'],
+			aliases: ['prefixes', 'préfix', 'préfixe'],
 			description: 'Renvoie la liste des préfixes du bot.',
 			name: 'prefix',
 			tags: [TAGS.PREFIX_COMMAND],

@@ -1,4 +1,4 @@
-const figlet = require('figlet');
+const {text} = require('figlet');
 const Command = require('../../entities/Command.js');
 const {argError} = require('../../utils/Errors.js');
 
@@ -14,8 +14,8 @@ module.exports = class AsciiCommand extends Command {
 	async run(client, message, args) {
 		await super.run(client, message, args);
 
-		if (args.join(' ').length > 20) return message.reply('<a:attention:613714368647135245> **Votre messages est trop long !**');
-		figlet.text(args.join(' '), (err, data) => {
+		if (args.join(' ').length > 20) return message.reply('<a:attention:613714368647135245> **Votre message est trop long !**');
+		text(args.join(' '), (err, data) => {
 			if (data.trim().length === 0) return argError(message, this, '<a:attention:613714368647135245> **Veuillez mettre du texte.**');
 
 			if (err) message.reply('<a:attention:613714368647135245> **Une erreur a eu lieu durant la génération...**');

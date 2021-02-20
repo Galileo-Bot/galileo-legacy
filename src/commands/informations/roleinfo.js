@@ -23,6 +23,10 @@ module.exports = class RoleInfoCommand extends SlowCommand {
 
 		let thumbnailColor;
 		await message.guild.members.fetch();
+		/**
+		 *
+		 * @type {module:"discord.js".Role | null}
+		 */
 		const role = getArg(message, 1, ARG_TYPES.ROLE);
 		if (!args[0]) return argError(message, this, 'Veuillez mettre un rôle.');
 		if (!role) return argError(message, this, "Le rôle n'a pas été trouvé ou n'existe pas.");

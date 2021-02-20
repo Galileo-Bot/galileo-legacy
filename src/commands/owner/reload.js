@@ -82,19 +82,19 @@ module.exports = class ReloadCommand extends Command {
 		const command = getArg(message, 1, ARG_TYPES.COMMAND);
 		if (!args[0]) return argError(message, this, 'Vous devez mettre une commande à recharger.');
 
-		if (['all', 'al', 'a', 'toutes', 'tout'].includes(args[0])) return await this.reloadCommands(client);
+		if (['all', 'al', 'a', 'toutes', 'tout'].includes(args[0])) return this.reloadCommands(client);
 
-		if (['events', 'évents', 'e'].includes(args[0])) return await this.reloadEvents(client);
+		if (['events', 'évents', 'e'].includes(args[0])) return this.reloadEvents(client);
 
-		if (['source', 'src'].includes(args[0])) return await this.send(`${await this.reloadDir(process.cwd(), 0)} fichiers rechargés.`);
+		if (['source', 'src'].includes(args[0])) return this.send(`${await this.reloadDir(process.cwd(), 0)} fichiers rechargés.`);
 
 		const path = args.join(' ');
 		if (fs.existsSync(path)) {
 			if (fs.statSync(path).isDirectory()) {
-				return await this.send(`${await this.reloadDir(join(process.cwd(), path), 0)} fichiers rechargés.`);
+				return this.send(`${await this.reloadDir(join(process.cwd(), path), 0)} fichiers rechargés.`);
 			}
 			ReloadCommand.reloadFile(join(process.cwd(), path));
-			return await this.send(`Fichier \`${path}\` rechargé !`);
+			return this.send(`Fichier \`${path}\` rechargé !`);
 		}
 
 		command ? this.reloadCommand(command, client) : argError(message, this, `La commande \`${args[0]}\` n'a pas été trouvée.`);

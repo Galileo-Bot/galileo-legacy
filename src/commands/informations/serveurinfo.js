@@ -24,10 +24,10 @@ module.exports = class ServeurInfoCommand extends Command {
 
 		const {premiumTier, members, premiumSubscriptionCount, roles, memberCount, me, name, id, channels, createdAt, owner, features} = await message.guild.fetch();
 
-		const {size: guildMembersBot} = members.filter(m => m.presence.status === 'offline' && !m.user.bot);
-		const {size: guildMembersDnd} = members.filter(m => m.presence.status === 'dnd' && !m.user.bot);
-		const {size: guildMembersIdle} = members.filter(m => m.presence.status === 'idle' && !m.user.bot);
-		const {size: guildMembersOnline} = members.filter(m => m.presence.status === 'online' && !m.user.bot);
+		const {size: guildMembersBot} = members.cache.filter(m => m.presence.status === 'offline' && !m.user.bot);
+		const {size: guildMembersDnd} = members.cache.filter(m => m.presence.status === 'dnd' && !m.user.bot);
+		const {size: guildMembersIdle} = members.cache.filter(m => m.presence.status === 'idle' && !m.user.bot);
+		const {size: guildMembersOnline} = members.cache.filter(m => m.presence.status === 'online' && !m.user.bot);
 
 		const {size: voiceChannelsSize} = channels.cache.filter(c => c.type === 'voice');
 		const {size: textChannelsSize} = channels.cache.filter(c => c.type === 'text');
@@ -64,7 +64,7 @@ module.exports = class ServeurInfoCommand extends Command {
 <:dnd:635159040162529343> Ne pas déranger : **${guildMembersDnd}** (**${Math.round((guildMembersDnd / memberCount) * 1000) / 10}**%)
 <:offline:635159036634988594> Hors ligne : ** ${guildMembersBot}** (**${Math.round((guildMembersBot / memberCount) * 1000) / 10}**%)
 
-<:bot:638858747351007233> Bots : **${members.filter(m => m.user.bot).size}** (**${Math.round((members.filter(m => m.user.bot).size / memberCount) * 1000) / 10}**%)
+<:bot:638858747351007233> Bots : **${members.cache.filter(m => m.user.bot).size}** (**${Math.round((members.cache.filter(m => m.user.bot).size / memberCount) * 1000) / 10}**%)
 `,
 			true
 		);

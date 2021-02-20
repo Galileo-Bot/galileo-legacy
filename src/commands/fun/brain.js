@@ -5,7 +5,7 @@ module.exports = class BrainCommand extends MemeCommand {
 	constructor() {
 		super({
 			aliases: ['wtf', 'intelligent'],
-			argsMaxLength: 50,
+			argsMaxLength: 55,
 			argsNumber: 4,
 			description: 'Vous êtes absorbés par la connaissance.',
 			font: 'verdana',

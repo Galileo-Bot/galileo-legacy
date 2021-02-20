@@ -5,7 +5,7 @@ module.exports = class SlapCommand extends MemeCommand {
 	constructor() {
 		super({
 			aliases: ['tarte', 'claque', 'slape'],
-			argsMaxLength: 35,
+			argsMaxLength: 40,
 			argsNumber: 2,
 			description: 'Vous avez dit une grosse bêtise, en voici la conséquence, une bonne baffe.',
 			name: 'slap',

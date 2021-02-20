@@ -10,7 +10,7 @@ module.exports = class UserInfoCommand extends Command {
 	constructor() {
 		super({
 			aliases: ['ui', 'mi', 'user-info'],
-			description: "Permet d'avoir des informations sur un membre ou sur vous même.",
+			description: "Permet d'avoir des informations sur un membre ou sur vous-même.",
 			name: 'userinfo',
 			usage: 'userinfo <Nom/ID/Mention de membre>\nuserinfo',
 		});

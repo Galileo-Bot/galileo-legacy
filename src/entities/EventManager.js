@@ -16,7 +16,7 @@ module.exports = class EventManager {
 
 	/**
 	 * Charge un évènement.
-	 * @param {module.Event} event - L'évènement à charger.
+	 * @param {import("../../index.d.ts").Event} event - L'évènement à charger.
 	 * @returns {void}
 	 */
 	bind(event) {
@@ -44,7 +44,7 @@ module.exports = class EventManager {
 
 	/**
 	 * Décharge un évènement.
-	 * @param {module.Event} event - L'évènement à décharger.
+	 * @param {import("../../index.d.ts").Event} event - L'évènement à décharger.
 	 * @returns {void}
 	 */
 	unbind(event) {

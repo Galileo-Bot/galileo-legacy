@@ -5,7 +5,7 @@ const {sep} = require('path');
 
 module.exports = class CommandManager {
 	/**
-	 * Les commandes
+	 * Les commandes.
 	 * @type {Collection<string, Command>}
 	 */
 	static commands = new Collection();
@@ -16,7 +16,7 @@ module.exports = class CommandManager {
 	 * @returns {Command | undefined} - La commande trouvée.
 	 */
 	static findCommand(name) {
-		return CommandManager.commands.find(command => command.name?.toLowerCase() === name.toLowerCase() || command.aliases?.includes(name.toLowerCase()));
+		return CommandManager.commands.find(c => c.name.toLowerCase() === name.toLowerCase() || c.aliases?.some(arg => arg.toLowerCase() === name.toLowerCase()));
 	}
 
 	/**
@@ -46,7 +46,7 @@ module.exports = class CommandManager {
 					if (command.category === 'none') command.category = dirName.split(sep).pop();
 					this.loadCommand(command);
 				}
-			} else await this.loadCommands(`${dirName}${sep}${commandFile}`);
+			} else this.loadCommands(`${dirName}${sep}${commandFile}`);
 		}
 	}
 

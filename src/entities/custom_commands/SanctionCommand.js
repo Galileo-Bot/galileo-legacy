@@ -60,7 +60,7 @@ module.exports = class SanctionCommand extends Command {
 
 	/**
 	 * Créé la sanction, l'enregistre et envoie l'embed et renvoie la raison.
-	 * @param {GuildMember} person - La personne à sanctionner.
+	 * @param {module:"discord.js".GuildMember} person - La personne à sanctionner.
 	 * @returns {Promise<string>} - La raison.
 	 */
 	async createSanction(person) {

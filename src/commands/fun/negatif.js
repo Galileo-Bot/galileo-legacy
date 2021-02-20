@@ -1,6 +1,6 @@
 const ImageCommand = require('../../entities/custom_commands/ImageCommand.js');
 
-module.exports = class NegatifCommand extends ImageCommand {
+module.exports = class NegativeCommand extends ImageCommand {
 	constructor() {
 		super({
 			aliases: ['négatif', 'negative'],

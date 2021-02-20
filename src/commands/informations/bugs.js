@@ -42,9 +42,14 @@ module.exports = class BugsCommand extends Command {
 		await super.run(client, message, args);
 
 		const bugNumber = getArg(message, 1, ARG_TYPES.NUMBER);
+		/**
+		 * @type {module:"discord.js".TextChannel}
+		 */
 		const channelBugs = client.channels.cache.get(CHANNELS.BUG_CHANNEL);
 		if (!client.channels.cache.has(channelBugs.id)) {
-			return super.send("Le bot n'a pas le salon bugs dans ses salon, contactez un créateur pour en savoir plus.");
+			return super.send(
+				"Le salon contenant la liste des bugs n'a pas été trouvé par le bot, ceci n'étant pas normal, merci de contacter un créateur si vous voulez régler ceci."
+			);
 		}
 
 		const messages = (await channelBugs.messages.fetch())

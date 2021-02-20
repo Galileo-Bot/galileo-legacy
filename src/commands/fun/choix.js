@@ -5,7 +5,7 @@ module.exports = class BoyfriendCommand extends MemeCommand {
 	constructor() {
 		super({
 			aliases: ['sueur', 'choose'],
-			argsMaxLength: 25,
+			argsMaxLength: 30,
 			argsNumber: 2,
 			description: 'Vous devez faire un choix.',
 			name: 'choix',

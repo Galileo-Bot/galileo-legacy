@@ -21,13 +21,7 @@ module.exports = class HelpCommand extends Command {
 		await super.run(client, message, args);
 
 		const customCategories = JSON.parse(JSON.stringify(CATEGORIES));
-		/**
-		 * @type {null|Command}
-		 */
-		let command = null;
 		delete customCategories.HIDDEN;
-
-		if (args?.length > 0) command = getArg(message, 1, ARG_TYPES.COMMAND);
 
 		const embed = BetterEmbed.fromTemplate('basic', {
 			client,
@@ -59,6 +53,10 @@ module.exports = class HelpCommand extends Command {
 			return super.send(embed);
 		}
 
+		/**
+		 * @type {null|Command}
+		 */
+		const command = getArg(message, 1, ARG_TYPES.COMMAND);
 		if (!command) return argError(message, this, `Commande ${args[0]} non trouvée.`);
 		if (command.category === 'wip' && !isOwner(message.author.id)) return;
 

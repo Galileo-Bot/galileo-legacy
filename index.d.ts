@@ -7,7 +7,7 @@ import type {
 	MessageOptions,
 	PermissionResolvable,
 	Snowflake,
-	StringResolvable,
+	StringResolvable
 } from 'discord.js';
 import type Enmap from 'enmap';
 
@@ -16,9 +16,9 @@ import type Enmap from 'enmap';
 export class GaliClient extends Client {
 	public readonly dbManager: DBManager;
 	public commandManager: CommandManager;
-	public commands: Collection<string, Command>;
+	public commands: typeof CommandManager.commands;
 	public eventManager: EventManager;
-	public events: Collection<string, Event>;
+	public events: typeof EventManager.events;
 }
 
 export class CommandManager {
@@ -38,7 +38,7 @@ export class EventManager {
 
 	public readonly client: GaliClient;
 
-	constructor(client: GaliClient);
+	public constructor(client: GaliClient);
 
 	public loadEvents(dirName: string): Promise<void>;
 
@@ -70,6 +70,7 @@ export class Command {
 }
 
 export class Event {
+	public once: boolean;
 	public client: GaliClient;
 	public name: keyof ClientEvents;
 
@@ -94,13 +95,13 @@ export class Logger {
 
 export class DBManager {
 	public readonly ready: boolean;
-	
+
 	public readonly messages: Enmap<string, string | number[]>;
-	
+
 	public readonly userInfos: Enmap<Snowflake, GuildMembers>;
-	
+
 	public readonly cache: Enmap<string, string>;
-	
+
 	public prepare(): Promise<void>;
 }
 
@@ -109,9 +110,9 @@ export class DBManager {
 //#region enum
 
 export enum ArgType {
-	USER = "Nom/Mention/ID d'utilisateur",
-	USER_ID = "ID d'utilisateur",
-	USER_USERNAME = "Nom d'utilisateur",
+	USER = 'Nom/Mention/ID d\'utilisateur',
+	USER_ID = 'ID d\'utilisateur',
+	USER_USERNAME = 'Nom d\'utilisateur',
 	MEMBER = 'Nom/Mention/ID de membre',
 	CHANNEL = 'Nom/Mention/ID de salon.',
 	CHANNEL_ID = 'ID de salon',
@@ -133,7 +134,7 @@ export enum Tag {
 	DM_ONLY = 'Seulement disponible en messages privés.',
 	NSFW_ONLY = 'Seulement disponible dans un salon NSFW.',
 	GUILD_OWNER_ONLY = 'Seulement disponible pour le propriétaire du serveur.',
-	HELP_COMMAND = "Commande d'aide.",
+	HELP_COMMAND = 'Commande d\'aide.',
 	PREFIX_COMMAND = 'Commande des préfixes.',
 	HIDDEN = 'Cachée.',
 	WIP = 'Non finie (potentiellement instable).',

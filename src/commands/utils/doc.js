@@ -35,7 +35,8 @@ module.exports = class DocCommand extends Command {
 			}
 		});
 
-		if (!embed.description) return argError(message, this, "<a:attention:613714368647135245> **Le language n'a pas été trouvé ou n'est pas dans la liste actuelle.**");
+		if (!embed.description)
+			return argError(message, this, "<a:attention:613714368647135245> **Le langage/La librairie n'a pas été trouvé(e) ou n'est pas dans la liste actuelle.**");
 		await super.send(embed);
 	}
 };

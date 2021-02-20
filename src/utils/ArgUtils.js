@@ -28,7 +28,7 @@ function getArgWithContent(content, argType) {
 
 	switch (argType) {
 		case ARG_TYPES.COMMAND:
-			result = CommandManager.commands.find(c => c.name.toLowerCase() === content.toLowerCase() || c.aliases?.map(c => c.toLowerCase())?.includes(content.toLowerCase()));
+			result = CommandManager.findCommand(content);
 			break;
 
 		case ARG_TYPES.NUMBER:
@@ -146,7 +146,7 @@ function getArgWithMessage(message, argType, index = 1) {
  * @param {module:"discord.js".Message|string} content - Contenu.
  * @param {number} index - L'index, arg[0] avant est égal à l'index 1 !
  * @param {ARG_TYPES|string} argType - Type d'argument.
- * @returns {module:"discord.js".GuildMember | module:"discord.js".User | module:"discord.js".Snowflake | Command | string | number | null} - Le résultat.
+ * @returns {module:"discord.js".GuildMember | module:"discord.js".User | module:"discord.js".Role | module:"discord.js".Snowflake | Command | string | number | null} - Le résultat.
  */
 function getArg(content, index, argType) {
 	return content instanceof Message ? getArgWithMessage(content, argType, index) : getArgWithContent(content, argType);

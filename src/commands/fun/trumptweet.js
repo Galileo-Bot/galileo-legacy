@@ -16,7 +16,7 @@ module.exports = class TrumpTweetCommand extends Command {
 		await super.run(client, message, args);
 
 		const text = encodeURI(args.join(' '));
-		const m = await super.send('<a:gh:539121219987963904> **Génération de votre tweet en cours . . .**');
+		const m = await super.send('<a:gh:539121219987963904> **Génération de votre tweet en cours...**');
 
 		if (!text) return m.edit(`**Il manque un contenu ${message.author}.**`);
 		if (text.length > 280) return m.edit(`**Le tweet est trop long, 280 caractères sont le maximum ${message.author}.**`);

@@ -1,5 +1,5 @@
 /**
- * @type {module.Event}
+ * @type {import("../../index.d.ts").Event}
  */
 module.exports = class Event {
 	client;

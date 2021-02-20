@@ -14,7 +14,7 @@ module.exports = class StatsCommand extends Command {
 	}
 
 	/**
-	 * Représente l'tilisation du CPU.
+	 * Représente l'utilisation du CPU.
 	 * @typedef {object} CPUUsage
 	 * @property {number} idle - Le temps où le CPU n'a pas travaillé.
 	 * @property {number} total - Le temps où le CPU a travaillé.

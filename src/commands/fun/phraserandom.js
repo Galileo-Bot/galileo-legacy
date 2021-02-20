@@ -5,7 +5,7 @@ module.exports = class PhraseRandomCommand extends Command {
 	constructor() {
 		super({
 			aliases: ['phrase-random', 'phrase', 'pr'],
-			description: 'Vous renvoie une phrase générée aléatoirement et en général drôle =)',
+			description: 'Renvoie une phrase générée aléatoirement et en général drôle <:smart_guy:547576698833600522>',
 			name: 'phraserandom',
 		});
 	}
@@ -35,10 +35,10 @@ module.exports = class PhraseRandomCommand extends Command {
 		do {
 			sentence = sentence
 				.replace(/{randomMember}/, message.guild ? setFirstLetterUpper(message.guild.members.cache.random().displayName) : setFirstLetterUpper(random(phrase.things)))
-				.replace(/{randomRange\((\d+), (\d+)\)}/, (str, firstNumber, secondNumber) =>
+				.replace(/{randomRange\((?<first>\d+), ?(?<second>\d+)\)}/, (str, firstNumber, secondNumber) =>
 					Math.floor(Math.random() * (secondNumber - firstNumber) + Number(firstNumber)).toString()
 				);
-		} while (sentence.match(/{random(Member|Range)}/g));
+		} while (/{random(?:Member|Range)}/g.match(sentence));
 
 		await super.send(sentence);
 	}

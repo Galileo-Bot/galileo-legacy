@@ -1,4 +1,5 @@
 const SlowCommand = require('../../entities/custom_commands/SlowCommand.js');
+const os = require('os');
 const {TAGS} = require('../../constants.js');
 const {sendJS} = require('./eval.js');
 const {argError} = require('../../utils/Errors.js');
@@ -22,7 +23,7 @@ module.exports = class ExecCommand extends SlowCommand {
 
 		await this.startWait();
 		exec(
-			`@chcp 65001 & ${args.join(' ')}`,
+			`${os.platform() === 'win32' ? '@chcp 65001' : ''}${args.join(' ')}`,
 			{
 				cwd: process.cwd(),
 				encoding: 'buffer',

@@ -3,6 +3,9 @@ const {Client} = require('discord.js');
 const CommandManager = require('./CommandManager.js');
 const EventManager = require('./EventManager.js');
 
+/**
+ * @type {import("../../index.d.ts").GaliClient}
+ */
 module.exports = class GaliClient extends Client {
 	commandManager;
 	commands;

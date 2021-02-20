@@ -19,20 +19,20 @@ module.exports = class DireCommand extends Command {
 	async run(client, message, args) {
 		await super.run(client, message, args);
 
-		const channelID = client.channels.resolve(getArg(message, 1, ARG_TYPES.CHANNEL_ID));
+		/**
+		 * @type {Snowflake | null}
+		 */
+		const channelArg = getArg(message, 1, ARG_TYPES.CHANNEL_ID);
+		const resolvedChannel = client.channels.resolve(channelArg);
 		let channel = message.channel;
 
-		if (isOwner(message.author.id) && !!channelID && channel.name) {
+		if (isOwner(message.author.id) && !!resolvedChannel && channel.name) {
 			await args.shift();
-			channel = channelID;
+			channel = resolvedChannel;
 		}
 
 		const text = args.join(' ');
-		text.length > 0
-			? await channel.send(text)
-			: channelID
-			? argError(message, this, "Veuillez mettre un texte en plus de l'ID du salon.")
-			: argError(message, this, 'Veuillez mettre du texte.');
+		text.length > 0 ? await channel.send(text) : argError(message, this, resolvedChannel ? "Veuillez mettre un texte en plus de l'ID du salon." : 'Veuillez mettre du texte.');
 
 		tryDeleteMessage(message);
 	}
