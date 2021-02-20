@@ -1,7 +1,7 @@
 /**
  * Récupère le préfixe du message par rapport à la config.
  * @param {Message} message - Le message.
- * @returns {null|string} - Return null s’il trouve rien, sinon String.
+ * @returns {string | null} - Return null s’il trouve rien, sinon String.
  */
 function getPrefixFromMessage(message) {
 	let prefix = null;
@@ -19,7 +19,7 @@ function getPrefixFromMessage(message) {
 /**
  * Indique si l'id l'user est owner.
  * @param {string} userId - Id à tester.
- * @returns {boolean} - Si il est owner.
+ * @returns {boolean} - S’il est owner.
  */
 function isOwner(userId) {
 	return process.env.OWNERS.split(', ').includes(userId);
@@ -27,7 +27,7 @@ function isOwner(userId) {
 
 /**
  * Retourne la clé via la propriété de l'objet.
- * @param {object} object - L'object.
+ * @param {object} object - L'objet.
  * @param {any} value - La valeur.
  * @returns {string} - La clé.
  */
@@ -37,8 +37,10 @@ function getKeyByValue(object, value) {
 
 /**
  * Retourne une valeur aléatoire de l'array mis en argument.
- * @param {any[]} array - Un tableau.
- * @returns {*} - Une des valeurs random.
+ * @type {import("../../index.d.ts").random}
+ * @template T
+ * @param {T[]} array - Un tableau.
+ * @returns {T} - Une des valeurs random.
  */
 function random(array) {
 	return array[Math.floor(Math.random() * array.length)];
@@ -46,7 +48,7 @@ function random(array) {
 
 /**
  * Permet d'envoyer un message de log sur le serveur de gali.
- * @param {GaliClient | Client} client - Le client pour récupérer les salons etc.
+ * @param {GaliClient | Client} client - Le client pour récupérer les salons.
  * @param {'ADD_GUILD' | 'BUG' | 'COMMAND' | 'MP' | 'REMOVE_GUILD' | 'RATE_LIMIT'} channelType - Type de salon.
  * @param {BetterEmbed | string} content - Le contenu.
  * @returns {Promise<void>}
