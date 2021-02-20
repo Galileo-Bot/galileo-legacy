@@ -4,12 +4,13 @@ const {TAGS} = require('../../constants.js');
 module.exports = class BanCommand extends SanctionCommand {
 	constructor() {
 		super({
+			aliases: ['tempban', 'tempb', 'bantemp'],
 			clientPermissions: ['BAN_MEMBERS'],
 			description: 'Permet de bannir un membre du serveur définitivement avec potentiellement une raison.',
 			name: 'ban',
 			tags: [TAGS.GUILD_ONLY],
 			type: 'ban',
-			usage: "ban <ID/Nom/Mention d'un membre> [raison]",
+			usage: 'ban <ID/Nom/Mention d\'un membre> [raison]\nban <ID/NOM/Mention d\'un membre> <Temps> (ex: 2d, 5h) [Raison]',
 			userPermissions: ['KICK_MEMBERS', 'BAN_MEMBERS'],
 		});
 	}

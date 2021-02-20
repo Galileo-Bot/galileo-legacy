@@ -1,4 +1,6 @@
 const Command = require('../Command.js');
+const {formatDate} = require('../../utils/FormatUtils.js');
+const {getTime} = require('../../utils/FormatUtils.js');
 const {BetterEmbed} = require('discord.js-better-embed');
 const {ARG_TYPES} = require('../../constants.js');
 const {getArg} = require('../../utils/ArgUtils.js');
@@ -6,6 +8,9 @@ const {argError} = require('../../utils/Errors.js');
 const {tryDeleteMessage} = require('../../utils/CommandUtils.js');
 
 module.exports = class SanctionCommand extends Command {
+	/**
+	 * @type {'ban' | 'kick' | 'warn' | 'mute'}
+	 */
 	type;
 
 	constructor(options) {
@@ -40,12 +45,17 @@ module.exports = class SanctionCommand extends Command {
 	 * @returns {Promise<void>} - Rien.
 	 */
 	async applySanction(person, reason) {
-		if (this.type === 'ban') {
-			await person.ban({
-				days: 7,
-				reason,
-			});
-		} else if (this.type === 'kick') await person.kick(reason);
+		switch (this.type) {
+			case 'ban':
+				await person.ban({
+					days: 7,
+					reason,
+				});
+				break;
+			case 'kick':
+				await person.kick(reason);
+				break;
+		}
 	}
 
 	/**
@@ -55,29 +65,53 @@ module.exports = class SanctionCommand extends Command {
 	 */
 	async createSanction(person) {
 		let reason = 'Raison non spécifiée.';
-		if (this.args.length > 1) reason = this.args.slice(1, this.args.length).join(' ');
+		this.args.shift();
+		const time = getTime(this.args);
+		if (time && time.type) this.args.shift();
+		if (this.args.length) reason = this.args.join(' ');
 		SanctionCommand.registerUser(this.client, this.message, person);
 
-		this.client.dbManager.userInfos.push(
-			this.message.guild.id,
-			{
-				case: this.client.dbManager.userInfos.get(this.message.guild.id, person.user.id).sanctions.length + 1,
-				date: Date.now(),
-				reason,
-				type: this.type,
-			},
-			`${person.user.id}.sanctions`
-		);
+		this.client.dbManager.userInfos.push(this.message.guild.id, {
+			case: this.client.dbManager.userInfos.get(this.message.guild.id, person.user.id).sanctions.length + 1,
+			date: Date.now(),
+			reason,
+			time: time.value ?? undefined,
+			type: this.type,
+		}, `${person.user.id}.sanctions`);
+
+		const description = [
+			`Membre : ${person}`,
+			`ID : ${person.user.id}`,
+			`Raison : ${reason}`,
+			time.value ? `Temps: ${formatDate(time.type.repeat(2), new Date(time.value))}${time.type}` : '',
+			`Serveur : \`${this.message.guild.name}\``,
+		]
+			.filter(v => v)
+			.join('\n');
+
+		let titleSanctionName = 'Bannissement';
+		switch (this.type) {
+			case 'warn':
+				titleSanctionName = 'Avertissement';
+				break;
+			case 'kick':
+				titleSanctionName = 'Éjection';
+				break;
+			case 'mute':
+				titleSanctionName = 'Mute';
+				break;
+		}
 
 		const embed = BetterEmbed.fromTemplate('complete', {
 			client: this.client,
-			description: `${this.type === 'ban' ? 'Utilisez la commande `infractions` pour dé-bannir la personne.\n\n' : ''}Membre : ${person}\nID : ${person.user.id}\nServeur : \`${
-				this.message.guild.name
-			}\``,
-			title: `Bannissement (sanction numéro ${this.client.dbManager.userInfos.get(this.message.guild.id, person.user.id).sanctions.length}) :`,
+			description,
+			title: `${titleSanctionName} (sanction numéro ${this.client.dbManager.userInfos.get(this.message.guild.id, person.user.id).sanctions.length}) :`,
 		});
-		person.user.send(embed).catch(() => {});
 
+		try {
+			await person.user.send(embed);
+		} catch (ignore) {
+		}
 		/* todo SERVCONFIG :
 		 if ( !servconfig.hasOwnProperty(message.guild.id) || !servconfig[message.guild.id].hasOwnProperty('sanctionchannel') || servconfig[message.guild.id].sanctionchannel === 'Aucun') {
 		 await super.send(embed);
@@ -94,7 +128,7 @@ module.exports = class SanctionCommand extends Command {
 	/**
 	 * Récupère le membre à sanctionner.
 	 * @param {module:"discord.js".Message} message - Le message.
-	 * @returns {module:"discord.js".GuildMember|void} - Le membre ou une erreur.
+	 * @returns {module:"discord.js".GuildMember | Promise<module:"discord.js".Message> | void} - Le membre ou une erreur.
 	 */
 	getPerson(message) {
 		/**
@@ -104,11 +138,9 @@ module.exports = class SanctionCommand extends Command {
 		if (!person) return argError(message, this, "La personne n'a pas été trouvée.");
 
 		if (!person.manageable) {
-			return argError(
-				message,
-				this,
-				`Votre rôle est plus bas que la personne que vous tentez ${this.type === 'ban' ? 'de bannir' : this.type === 'kick' ? "d'éjecter" : "d'avertir"}, vous n'avez donc pas le droit.`
-			);
+			return argError(message, this, `Votre rôle est plus bas que la personne que vous tentez ${this.type === 'ban' ?
+			                                                                                          'de bannir' :
+			                                                                                          this.type === 'kick' ? 'd\'éjecter' : 'd\'avertir'}, vous n'avez donc pas le droit.`);
 		}
 
 		if (person.user.id === this.client.user.id && this.type !== 'warn') {

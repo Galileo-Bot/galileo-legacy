@@ -38,8 +38,11 @@ module.exports = class ReadyEvent extends Event {
 		switch (client.dbManager.cache.get('status')) {
 			case 'reboot':
 				const rebootingChannel = client.dbManager.cache.get('rebootingChannel');
-				if (client.channels.cache.has(rebootingChannel)) client.channels.cache.get(rebootingChannel).send('Relancement du bot fini.');
-				else if (client.users.cache.has(rebootingChannel)) client.users.cache.get(rebootingChannel).send('Relancement du bot fini.');
+				if (client.channels.cache.has(rebootingChannel)) {
+					await client.channels.cache.get(rebootingChannel).send('Relancement du bot fini.');
+				} else {
+					if (client.users.cache.has(rebootingChannel)) await client.users.cache.get(rebootingChannel).send('Relancement du bot fini.');
+				}
 
 				client.dbManager.cache.set('status', 'started');
 				client.dbManager.cache.set('rebootingChannel', '');
@@ -67,6 +70,24 @@ module.exports = class ReadyEvent extends Event {
 			this.updateCommandsStats();
 			this.resetCache();
 		}, 20 * 60 * 1000);
+
+		setInterval(() => {
+			if (client.dbManager.ready)
+				client.dbManager.userInfos.forEach((guild, guildID) => {
+					for (const userID in guild) {
+						if (guild.hasOwnProperty(userID)) {
+							const user = guild[userID];
+							user.sanctions?.forEach(sanction => {
+								if (sanction.time && sanction.date + sanction.time < Date.now()) {
+									user.sanctions = user.sanctions.filter(s => s !== sanction);
+									client.dbManager.userInfos.set(guildID, user, userID);
+									Logger.log(`Removed sanction '#${sanction.case}' ('${sanction.type}') from '${userID}'.`);
+								}
+							});
+						}
+					}
+				});
+		}, 5 * 1000);
 	}
 
 	/**
