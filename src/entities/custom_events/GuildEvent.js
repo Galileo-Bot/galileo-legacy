@@ -54,7 +54,9 @@ module.exports = class GuildEvent extends Event {
 		if (!this.guild.available) return;
 
 		Logger.info(
-			`Le bot a ${this.type === 'remove' ? 'quitté' : 'rejoint'} le serveur '${this.guild.name}' (${this.guild.id}), owner : ${this.owner?.user?.tag ?? this.owner} (${this.guild.ownerID})
+			`Le bot a ${this.type === 'remove' ? 'quitté' : 'rejoint'} le serveur '${this.guild.name}' (${this.guild.id}), owner : ${this.owner?.user?.tag ?? this.owner} (${
+				this.guild.ownerID
+			})
 Nombre de serveurs actuel : ${this.client.guilds.cache.size}`,
 			`Guild${this.type[0].toUpperCase() + this.type.slice(1)}Event`
 		);

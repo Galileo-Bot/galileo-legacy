@@ -49,7 +49,7 @@ function random(array) {
  * @param {GaliClient | Client} client - Le client pour récupérer les salons etc.
  * @param {'ADD_GUILD' | 'BUG' | 'COMMAND' | 'MP' | 'REMOVE_GUILD' | 'RATE_LIMIT'} channelType - Type de salon.
  * @param {BetterEmbed | string} content - Le contenu.
- * @returns {void}
+ * @returns {Promise<void>}
  */
 async function sendLogMessage(client, channelType, content) {
 	const {CHANNELS: channels} = require('../constants.js');

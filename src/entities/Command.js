@@ -2,6 +2,9 @@ const {BetterEmbed} = require('discord.js-better-embed');
 const {formatWithRange} = require('../utils/FormatUtils.js');
 const {sendLogMessage} = require('../utils/Utils.js');
 
+/**
+ * @type {import("../../index.d.ts").Command}
+ */
 module.exports = class Command {
 	aliases = [];
 	args = [];
@@ -42,9 +45,9 @@ module.exports = class Command {
 				dynamic: true,
 			}),
 			client,
-			description: `Envoyé ${message.guild ? `sur : **${message.guild.name}** (\`${message.guild.id}\`)\nDans : ${message.channel} (\`${message.channel.id}\`)` : 'en privé'}\nEnvoyé par : ${
-				message.author
-			} (\`${message.author.id}\`)`,
+			description: `Envoyé ${
+				message.guild ? `sur : **${message.guild.name}** (\`${message.guild.id}\`)\nDans : ${message.channel} (\`${message.channel.id}\`)` : 'en privé'
+			}\nEnvoyé par : ${message.author} (\`${message.author.id}\`)`,
 		});
 		embed.addField('Message :', formatWithRange(message.content, 1024));
 		embed.setColor('RANDOM');

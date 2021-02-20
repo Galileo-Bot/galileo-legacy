@@ -43,12 +43,15 @@ module.exports = class IMGFlipCommand extends SlowCommand {
 
 		args = args.join(' ').split(' ; ');
 
-		if (args.length < this.argsNumber) return argError(message, this, `Veuillez mettre ${this.argsNumber} arguments (séparés par des \`;\`) comme le rappel ci-dessous :arrow_down:.`);
+		if (args.length < this.argsNumber)
+			return argError(message, this, `Veuillez mettre ${this.argsNumber} arguments (séparés par des \`;\`) comme le rappel ci-dessous :arrow_down:.`);
 
 		for (let i = 0; i < this.argsNumber; i++) {
 			texts[i] = args[i];
 			if (texts[i].length > this.argsMaxLength) {
-				return message.channel?.send(`<a:attention:613714368647135245> **L'argument numéro ${i + 1} est trop long ${message.author}** _(${this.argsMaxLength} caractères maximum)_ **!**`);
+				return message.channel?.send(
+					`<a:attention:613714368647135245> **L'argument numéro ${i + 1} est trop long ${message.author}** _(${this.argsMaxLength} caractères maximum)_ **!**`
+				);
 			}
 		}
 

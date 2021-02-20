@@ -36,7 +36,9 @@ module.exports = class ListerStaffCommand extends Command {
 	 * @returns {Collection<module:"discord.js".Snowflake, module:"discord.js".GuildMember>} - Les modérateurs.
 	 */
 	static getMods(message) {
-		return message.guild?.members.cache.filter(m => message.guild.owner !== m && !m.user.bot && (m.permissions.has('BAN_MEMBERS', false) || m.permissions.has('KICK_MEMBERS', false)));
+		return message.guild?.members.cache.filter(
+			m => message.guild.owner !== m && !m.user.bot && (m.permissions.has('BAN_MEMBERS', false) || m.permissions.has('KICK_MEMBERS', false))
+		);
 	}
 
 	/**

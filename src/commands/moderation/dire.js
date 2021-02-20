@@ -28,7 +28,11 @@ module.exports = class DireCommand extends Command {
 		}
 
 		const text = args.join(' ');
-		text.length > 0 ? await channel.send(text) : channelID ? argError(message, this, "Veuillez mettre un texte en plus de l'ID du salon.") : argError(message, this, 'Veuillez mettre du texte.');
+		text.length > 0
+			? await channel.send(text)
+			: channelID
+			? argError(message, this, "Veuillez mettre un texte en plus de l'ID du salon.")
+			: argError(message, this, 'Veuillez mettre du texte.');
 
 		tryDeleteMessage(message);
 	}

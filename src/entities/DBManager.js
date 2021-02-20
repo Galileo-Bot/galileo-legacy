@@ -7,24 +7,24 @@ const Enmap = require('enmap');
 module.exports = class DBManager {
 	cache;
 	messages;
-	ready;
+	ready = false;
 	userInfos;
-	
+
 	constructor() {
 		this.userInfos = new Enmap({
 			autoFetch: true,
 			dataDir: './assets/db',
 			fetchAll: true,
-			name: 'userinfos'
+			name: 'userinfos',
 		});
-		
+
 		this.messages = new Enmap({
 			autoFetch: true,
 			dataDir: './assets/db',
 			fetchAll: true,
 			name: 'messages',
 		});
-		
+
 		this.cache = new Enmap({
 			autoFetch: true,
 			dataDir: './assets/db',
@@ -32,7 +32,7 @@ module.exports = class DBManager {
 			name: 'cache',
 		});
 	}
-	
+
 	async prepare() {
 		try {
 			await this.cache.defer;
@@ -42,6 +42,7 @@ module.exports = class DBManager {
 			await this.messages.defer;
 			Logger.log('Base de données Messages prête.', 'DBManager');
 			Logger.info('Les bases de données sont prêtes !', 'DBManager');
+			this.ready = true;
 		} catch (e) {
 			Logger.error(e.stack, 'DBManager');
 		}

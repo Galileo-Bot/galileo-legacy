@@ -18,7 +18,10 @@ module.exports = class SuusCommand extends Command {
 		const embed = BetterEmbed.fromTemplate('image', {
 			client: this.client,
 			description: 'Suus, jeej, jaaj.',
-			image: Math.floor(Math.random() * 1000) === 666 ? 'https://cdn.discordapp.com/attachments/537627694788116490/547067318409363479/SPOILER_31Bx6VLvAqL.png' : random(sausages),
+			image:
+				Math.floor(Math.random() * 1000) === 666
+					? 'https://cdn.discordapp.com/attachments/537627694788116490/547067318409363479/SPOILER_31Bx6VLvAqL.png'
+					: random(sausages),
 			title: 'Voici votre image de saucisse.',
 		});
 

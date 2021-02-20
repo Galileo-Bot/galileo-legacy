@@ -71,13 +71,17 @@ module.exports = class SanctionCommand extends Command {
 		if (this.args.length) reason = this.args.join(' ');
 		SanctionCommand.registerUser(this.client, this.message, person);
 
-		this.client.dbManager.userInfos.push(this.message.guild.id, {
-			case: this.client.dbManager.userInfos.get(this.message.guild.id, person.user.id).sanctions.length + 1,
-			date: Date.now(),
-			reason,
-			time: time.value ?? undefined,
-			type: this.type,
-		}, `${person.user.id}.sanctions`);
+		this.client.dbManager.userInfos.push(
+			this.message.guild.id,
+			{
+				case: this.client.dbManager.userInfos.get(this.message.guild.id, person.user.id).sanctions.length + 1,
+				date: Date.now(),
+				reason,
+				time: time.value ?? undefined,
+				type: this.type,
+			},
+			`${person.user.id}.sanctions`
+		);
 
 		const description = [
 			`Membre : ${person}`,
@@ -110,8 +114,7 @@ module.exports = class SanctionCommand extends Command {
 
 		try {
 			await person.user.send(embed);
-		} catch (ignore) {
-		}
+		} catch (ignore) {}
 		/* todo SERVCONFIG :
 		 if ( !servconfig.hasOwnProperty(message.guild.id) || !servconfig[message.guild.id].hasOwnProperty('sanctionchannel') || servconfig[message.guild.id].sanctionchannel === 'Aucun') {
 		 await super.send(embed);
@@ -138,9 +141,13 @@ module.exports = class SanctionCommand extends Command {
 		if (!person) return argError(message, this, "La personne n'a pas été trouvée.");
 
 		if (!person.manageable) {
-			return argError(message, this, `Votre rôle est plus bas que la personne que vous tentez ${this.type === 'ban' ?
-			                                                                                          'de bannir' :
-			                                                                                          this.type === 'kick' ? 'd\'éjecter' : 'd\'avertir'}, vous n'avez donc pas le droit.`);
+			return argError(
+				message,
+				this,
+				`Votre rôle est plus bas que la personne que vous tentez ${
+					this.type === 'ban' ? 'de bannir' : this.type === 'kick' ? "d'éjecter" : "d'avertir"
+				}, vous n'avez donc pas le droit.`
+			);
 		}
 
 		if (person.user.id === this.client.user.id && this.type !== 'warn') {

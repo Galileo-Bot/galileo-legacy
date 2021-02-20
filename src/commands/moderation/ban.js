@@ -10,7 +10,7 @@ module.exports = class BanCommand extends SanctionCommand {
 			name: 'ban',
 			tags: [TAGS.GUILD_ONLY],
 			type: 'ban',
-			usage: 'ban <ID/Nom/Mention d\'un membre> [raison]\nban <ID/NOM/Mention d\'un membre> <Temps> (ex: 2d, 5h) [Raison]',
+			usage: "ban <ID/Nom/Mention d'un membre> [raison]\nban <ID/NOM/Mention d'un membre> <Temps> (ex: 2d, 5h) [Raison]",
 			userPermissions: ['KICK_MEMBERS', 'BAN_MEMBERS'],
 		});
 	}

@@ -35,7 +35,9 @@ module.exports = class PhraseRandomCommand extends Command {
 		do {
 			sentence = sentence
 				.replace(/{randomMember}/, message.guild ? setFirstLetterUpper(message.guild.members.cache.random().displayName) : setFirstLetterUpper(random(phrase.things)))
-				.replace(/{randomRange\((\d+), (\d+)\)}/, (str, firstNumber, secondNumber) => Math.floor(Math.random() * (secondNumber - firstNumber) + Number(firstNumber)).toString());
+				.replace(/{randomRange\((\d+), (\d+)\)}/, (str, firstNumber, secondNumber) =>
+					Math.floor(Math.random() * (secondNumber - firstNumber) + Number(firstNumber)).toString()
+				);
 		} while (sentence.match(/{random(Member|Range)}/g));
 
 		await super.send(sentence);

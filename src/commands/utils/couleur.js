@@ -41,7 +41,8 @@ module.exports = class CouleurCommand extends Command {
 			if (color !== args[0]) {
 				if ((args[0].startsWith('#') && args[0].length === 7) || !isNaN(parseInt(args[0]))) {
 					if (args[0].startsWith('#')) args[0] = args[0].substring(1);
-					if (args[0].length !== 6 || [...args[0]].some(c => !hexColors.includes(c.toLowerCase()))) return argError(message, this, 'Veuillez mettre une couleur hexadécimale valable.');
+					if (args[0].length !== 6 || [...args[0]].some(c => !hexColors.includes(c.toLowerCase())))
+						return argError(message, this, 'Veuillez mettre une couleur hexadécimale valable.');
 					color = `#${args[0]}`;
 				}
 

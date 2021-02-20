@@ -25,7 +25,10 @@ module.exports = class GetCodeCommand extends Command {
 
 		const command = getArg(message, 1, ARG_TYPES.COMMAND);
 		if (command) await this.sendFileCode(message, join('commands', command.category, `${command.name}.js`));
-		else return existsSync(args.join(' ')) ? this.sendFileCode(message, args.join(' ')) : argError(message, this, `Fichier \`${process.cwd() + sep + args.join(' ')}\` non trouvé.`);
+		else
+			return existsSync(args.join(' '))
+				? this.sendFileCode(message, args.join(' '))
+				: argError(message, this, `Fichier \`${process.cwd() + sep + args.join(' ')}\` non trouvé.`);
 	}
 
 	async sendFileCode(message, path) {

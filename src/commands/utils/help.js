@@ -52,10 +52,11 @@ module.exports = class HelpCommand extends Command {
 					.map(c => c.name)
 					.sort(new Intl.Collator().compare)
 					.join('` ** | ** `')}\``;
-				if (categoriesCommandsString.length !== 2) embed.addField(`<a:cecia:635159108080631854> Commandes ${CATEGORIES[category].toLowerCase()} : `, categoriesCommandsString);
+				if (categoriesCommandsString.length !== 2)
+					embed.addField(`<a:cecia:635159108080631854> Commandes ${CATEGORIES[category].toLowerCase()} : `, categoriesCommandsString);
 			}
 
-			return await super.send(embed);
+			return super.send(embed);
 		}
 
 		if (!command) return argError(message, this, `Commande ${args[0]} non trouvée.`);

@@ -143,7 +143,13 @@ function getTime(args) {
  * @returns {string} - Le résultat.
  */
 function formatByteSize(bytes) {
-	return bytes < 1000 ? `${bytes} octets` : bytes < 1000000 ? `${(bytes / 1000).toFixed(3)} KB` : bytes < 1000000000 ? `${(bytes / 1000000).toFixed(3)} MB` : `${(bytes / 1000000000).toFixed(3)} GB`;
+	return bytes < 1000
+		? `${bytes} octets`
+		: bytes < 1000000
+		? `${(bytes / 1000).toFixed(3)} KB`
+		: bytes < 1000000000
+		? `${(bytes / 1000000).toFixed(3)} MB`
+		: `${(bytes / 1000000000).toFixed(3)} GB`;
 }
 
 module.exports = {
