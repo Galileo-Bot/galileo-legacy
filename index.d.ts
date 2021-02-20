@@ -1,4 +1,14 @@
-import type {Client, ClientEvents, Collection, Message as DiscordMessage, MessageAdditions, MessageOptions, PermissionResolvable, Snowflake, StringResolvable} from 'discord.js';
+import type {
+	Client,
+	ClientEvents,
+	Collection,
+	Message as DiscordMessage,
+	MessageAdditions,
+	MessageOptions,
+	PermissionResolvable,
+	Snowflake,
+	StringResolvable,
+} from 'discord.js';
 import type Enmap from 'enmap';
 
 //#region classes
@@ -84,11 +94,11 @@ export class Logger {
 
 export class DBManager {
 	public readonly messages: Enmap<string, string | number[]>;
-
-	public readonly userInfos: Enmap<string, {[k: string]: UserInfo}>;
-
+	
+	public readonly userInfos: Enmap<Snowflake, GuildMembers>;
+	
 	public readonly cache: Enmap<string, string>;
-
+	
 	public prepare(): Promise<void>;
 }
 
@@ -151,6 +161,10 @@ export enum Category {
 //#region types
 export type Message = DiscordMessage;
 export type GuildEventType = 'add' | 'remove';
+
+export type GuildMembers = {
+	[k in Snowflake]: UserInfo;
+}
 
 export type UserInfo = {
 	sanctions: Sanction[];
