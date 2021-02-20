@@ -93,6 +93,8 @@ export class Logger {
 }
 
 export class DBManager {
+	public readonly ready: boolean;
+	
 	public readonly messages: Enmap<string, string | number[]>;
 	
 	public readonly userInfos: Enmap<Snowflake, GuildMembers>;
@@ -172,7 +174,7 @@ export type UserInfo = {
 
 export type Sanction = {
 	type: 'warn' | 'ban' | 'mute';
-	duration?: number;
+	time?: number;
 	reason: string;
 	readonly case: number;
 	readonly date: number;
