@@ -128,11 +128,11 @@ function getTime(args) {
 		value: 0,
 	};
 
-	const argsArray = (typeof args === 'string' ? args : args.join(' ')).toLowerCase().trim().split(/ +/g);
-	const text = typeof args === 'string' ? argsArray[argsArray.length - 1] : args[args.length - 1];
-	setTime(text, time);
+	if (!args) return time;
 
-	if (time.value === 0) setTime(args[0], time);
+	const argsArray = (typeof args === 'string' ? args : args.join(' ')).toLowerCase().trim().split(/ +/g);
+	setTime(argsArray[argsArray.length - 1], time);
+	if (time.value === 0 || Number.isNaN(time.value)) setTime(argsArray[0], time);
 
 	return time;
 }
