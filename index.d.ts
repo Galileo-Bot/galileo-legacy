@@ -1,14 +1,4 @@
-import type {
-	Client,
-	ClientEvents,
-	Collection,
-	Message as DiscordMessage,
-	MessageAdditions,
-	MessageOptions,
-	PermissionResolvable,
-	Snowflake,
-	StringResolvable
-} from 'discord.js';
+import type {Client, ClientEvents, Collection, Message as DiscordMessage, MessageAdditions, MessageOptions, PermissionResolvable, Snowflake, StringResolvable} from 'discord.js';
 import type Enmap from 'enmap';
 
 //#region classes
@@ -110,9 +100,9 @@ export class DBManager {
 //#region enum
 
 export enum ArgType {
-	USER = 'Nom/Mention/ID d\'utilisateur',
-	USER_ID = 'ID d\'utilisateur',
-	USER_USERNAME = 'Nom d\'utilisateur',
+	USER = "Nom/Mention/ID d'utilisateur",
+	USER_ID = "ID d'utilisateur",
+	USER_USERNAME = "Nom d'utilisateur",
 	MEMBER = 'Nom/Mention/ID de membre',
 	CHANNEL = 'Nom/Mention/ID de salon.',
 	CHANNEL_ID = 'ID de salon',
@@ -134,7 +124,7 @@ export enum Tag {
 	DM_ONLY = 'Seulement disponible en messages privés.',
 	NSFW_ONLY = 'Seulement disponible dans un salon NSFW.',
 	GUILD_OWNER_ONLY = 'Seulement disponible pour le propriétaire du serveur.',
-	HELP_COMMAND = 'Commande d\'aide.',
+	HELP_COMMAND = "Commande d'aide.",
 	PREFIX_COMMAND = 'Commande des préfixes.',
 	HIDDEN = 'Cachée.',
 	WIP = 'Non finie (potentiellement instable).',
@@ -167,7 +157,7 @@ export type GuildEventType = 'add' | 'remove';
 
 export type GuildMembers = {
 	[k in Snowflake]: UserInfo;
-}
+};
 
 export type UserInfo = {
 	sanctions: Sanction[];
