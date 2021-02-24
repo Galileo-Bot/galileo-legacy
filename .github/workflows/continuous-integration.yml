@@ -1,9 +1,7 @@
 name: Continuous Integration
-on:
-    pull_request:
-    workflow_dispatch:
-    schedule:
-        - cron: '0 0 * * 1'
+
+on: [pull_request, push, workflow_dispatch]
+
 jobs:
     CI:
         runs-on: ubuntu-latest
@@ -18,7 +16,13 @@ jobs:
               run: yarn install --frozen-lockfile
 
             - name: lint
-              run: yarn lint
+              uses: stefanoeb/eslint-action@1.0.2
+              with:
+                  files: src/
 
-            - name: Prettify
-              run: yarn prettier
+            - name: Prettify code
+              uses: creyD/prettier_action@v3.1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  prettier_options: . --write
