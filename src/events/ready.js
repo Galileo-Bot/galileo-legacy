@@ -23,6 +23,7 @@ module.exports = class ReadyEvent extends Event {
 	}
 
 	resetCache() {
+		this.client.dbManager.cache.ensure('images', {});
 		Object.keys(this.client.dbManager.cache.get('images')).forEach(type => this.client.dbManager.cache.set('images', {}, type));
 	}
 
