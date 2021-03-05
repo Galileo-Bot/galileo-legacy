@@ -24,7 +24,7 @@ module.exports = class IMGFlipCommand extends SlowCommand {
 	connectAPI() {
 		return new ImgFlip({
 			password: process.env.IMGFLIP_PASSWORD,
-			username: process.env.IMGFLIP_USERNAME
+			username: process.env.IMGFLIP_USERNAME,
 		});
 	}
 
