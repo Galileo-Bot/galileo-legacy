@@ -119,11 +119,10 @@ const PERMISSIONS = {
 };
 
 const RANDOM_ACTIVITIES = [
-	`[${getShortPrefix()}help] Alpha`,
+	`[${getShortPrefix()}help]`,
 	"😷 N'oubliez pas votre masque !",
 	'💻 Développeurs : Ayfri, Antow.',
 	'Support disponible ici : https://discord.gg/n7HWd4P',
-	'💻 | https://galileo-bot.tk',
 	`🚀 Version : ${version} !`,
 ];
 
