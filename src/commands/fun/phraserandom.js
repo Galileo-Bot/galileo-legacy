@@ -38,7 +38,7 @@ module.exports = class PhraseRandomCommand extends Command {
 				.replace(/{randomRange\((?<first>\d+), ?(?<second>\d+)\)}/, (str, firstNumber, secondNumber) =>
 					Math.floor(Math.random() * (secondNumber - firstNumber) + Number(firstNumber)).toString()
 				);
-		} while (/{random(?:Member|Range)}/g.match(sentence));
+		} while (/{random(?:Member|Range)}/g.test(sentence));
 
 		await super.send(sentence);
 	}

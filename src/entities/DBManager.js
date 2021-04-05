@@ -4,7 +4,7 @@ const Enmap = require('enmap');
 /**
  * @type {import("../../index.d.ts").DBManager}
  */
-module.exports = class DBManager {
+class DBManager {
 	cache;
 	messages;
 	ready = false;
@@ -47,4 +47,6 @@ module.exports = class DBManager {
 			Logger.error(e.stack, 'DBManager');
 		}
 	}
-};
+}
+
+module.exports = DBManager;

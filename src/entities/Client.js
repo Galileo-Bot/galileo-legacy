@@ -6,7 +6,7 @@ const EventManager = require('./EventManager.js');
 /**
  * @type {import("../../index.d.ts").GaliClient}
  */
-module.exports = class GaliClient extends Client {
+class GaliClient extends Client {
 	commandManager;
 	commands;
 	dbManager;
@@ -16,7 +16,7 @@ module.exports = class GaliClient extends Client {
 	constructor() {
 		super({
 			messageCacheLifetime: 60 * 20,
-			messageSweepInterval: 60 * 5, // ! todo This will be reactived once we get the proper Intents :
+			messageSweepInterval: 60 * 5, // ! todo This will be reactive once we get the proper Intents :
 			/*
 			 ws: process.env.IS_CANARY === 'true'
 			 ? {}
@@ -40,4 +40,6 @@ module.exports = class GaliClient extends Client {
 
 		this.dbManager.prepare();
 	}
-};
+}
+
+module.exports = GaliClient;

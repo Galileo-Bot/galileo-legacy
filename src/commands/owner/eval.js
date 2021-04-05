@@ -223,7 +223,7 @@ module.exports = class EvalCommand extends Command {
 		const {guild, content, member, author, channel} = message;
 		const members = guild ? guild.members.cache : null;
 
-		if (code.includes('```')) code = code.replace(/```([a-z0-9]+)?/g, '');
+		if (code.includes('```')) code = code.replace(/```(?:[a-z0-9]+)?/g, '');
 
 		function logTime() {
 			_logTime = true;
