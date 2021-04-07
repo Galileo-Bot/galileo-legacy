@@ -1,10 +1,10 @@
 const SlowCommand = require('../../entities/custom_commands/SlowCommand.js');
 const imgur = require('imgur');
 const Jimp = require('jimp');
+const dayjs = require('dayjs');
 const {ARG_TYPES, TAGS, PERMISSIONS} = require('../../constants.js');
 const {getArg} = require('../../utils/ArgUtils.js');
 const {argError} = require('../../utils/Errors.js');
-const {formatDate} = require('../../utils/FormatUtils.js');
 const {BetterEmbed} = require('discord.js-better-embed');
 
 module.exports = class RoleInfoCommand extends SlowCommand {
@@ -52,24 +52,21 @@ module.exports = class RoleInfoCommand extends SlowCommand {
 		embed.setTitle(`<a:cecia:635159108080631854> Informations sur le rôle : ${role.name}`);
 		embed.addField('🆔 :', role.id, true);
 		embed.addField('<:textuel:635159053630308391> Nom :', role, true);
-		embed.addField(
-			'<:richtext:635163364875698215> Nombre de membres ayant le rôle :',
-			`${role.members.size} (${Math.round((role.members.size / message.guild.memberCount) * 1000) / 10}% des membres du serveur)`
-		);
+		const percentage = Math.round((role.members.size / message.guild.memberCount) * 1000) / 10;
+		embed.addField('<:richtext:635163364875698215> Nombre de membres ayant le rôle :', `${role.members.size} (${percentage}% des membres du serveur)`);
 		embed.addField('<:hey:635159039831048202> Mentionable :', role.mentionable ? '<:enablevert:635159048639086592>' : '<:disable:635255629694369812>', true);
 		embed.addField('<:richtext:635163364875698215> Rôle affiché séparément :', role.hoist ? '<:enablevert:635159048639086592>' : '<:disable:635255629694369812>', true);
 		embed.addField('🖌 Couleur hexadécimale :', color, true);
-		embed.addField('<a:join:539121286618546197> Créé le :', formatDate('dd/MM/yyyy hh:mm', role.createdAt), true);
+		embed.addField('<a:join:539121286618546197> Créé le :', dayjs(role.createdAt).format('dd/MM/YYYY hh:mm'), true);
 
-		if (role.permissions.toArray().length > 0)
-			embed.addField(
-				'Permissions :',
-				role.permissions
-					.toArray()
-					.map(perm => PERMISSIONS[perm])
-					.sort(new Intl.Collator().compare)
-					.join('\n')
-			);
+		if (role.permissions.toArray().length > 0) {
+			const permissions = role.permissions
+				.toArray()
+				.map(perm => PERMISSIONS[perm])
+				.sort(new Intl.Collator().compare)
+				.join('\n');
+			embed.addField('Permissions :', permissions);
+		}
 
 		await super.send(embed);
 		await this.stopWait();

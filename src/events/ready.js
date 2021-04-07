@@ -1,7 +1,7 @@
 const Event = require('../entities/Event.js');
 const Logger = require('../utils/Logger.js');
 const StatsCommand = require('../commands/informations/stats.js');
-const {formatDate} = require('../utils/FormatUtils.js');
+const dayjs = require('dayjs');
 const {RANDOM_ACTIVITIES} = require('../constants.js');
 const {random} = require('../utils/Utils.js');
 
@@ -111,9 +111,9 @@ module.exports = class ReadyEvent extends Event {
 	 * @returns {void}
 	 */
 	updateCommandsStats() {
-		const formattedDate = formatDate('dd/MM/yyyy');
+		const formattedDate = dayjs().format('DD/MM/YYYY');
 
-		if (!this.client.dbManager.messages.has('today') || this.client.dbManager.messages.get('today').length === 0) this.client.dbManager.messages.set('today', formattedDate);
+		if (!this.client.dbManager.messages.has('today') || this.client.dbManager.messages.get('today').length === 0) this.client.dbManager.messages.set('today');
 		if (!this.client.dbManager.messages.has('stats')) this.client.dbManager.messages.set('stats', new Array(30).fill(0));
 		if (this.client.dbManager.messages.get('today') !== formattedDate) {
 			this.client.dbManager.messages.set('today', formattedDate);

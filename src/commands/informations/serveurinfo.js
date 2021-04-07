@@ -1,5 +1,5 @@
-const {formatDate} = require('../../utils/FormatUtils.js');
 const Command = require('../../entities/Command.js');
+const dayjs = require('dayjs');
 const {BetterEmbed} = require('discord.js-better-embed');
 const {GUILD_FEATURES, TAGS} = require('../../constants.js');
 
@@ -22,7 +22,7 @@ module.exports = class ServeurInfoCommand extends Command {
 	async run(client, message, args) {
 		await super.run(client, message, args);
 
-		const {premiumTier, members, premiumSubscriptionCount, roles, memberCount, me, name, id, channels, createdAt, owner, features} = await message.guild.fetch();
+		const {channels, createdAt, features, id, me, memberCount, members, name, owner, premiumSubscriptionCount, premiumTier, roles} = await message.guild.fetch();
 
 		const {size: guildMembersBot} = members.cache.filter(m => m.presence.status === 'offline' && !m.user.bot);
 		const {size: guildMembersDnd} = members.cache.filter(m => m.presence.status === 'dnd' && !m.user.bot);
@@ -83,12 +83,12 @@ module.exports = class ServeurInfoCommand extends Command {
 		);
 
 		embed.addField('<:carte:635159034395361330> Rôles :', roles.cache.size);
-		embed.addField('<a:disload:635159109280333874> Date de création : ', `Le ${formatDate('dd/MM/yyyy à hh:mm', createdAt)}`, true);
-		embed.addField("<:richtext:635163364875698215> Date d'invitation du bot :", `Le ${formatDate('dd/MM/yyyy à hh:mm', me.joinedAt)}`);
+		embed.addField('<a:disload:635159109280333874> Date de création : ', `Le ${dayjs(createdAt).format('dd/MM/YYYY hh:mm')}`, true);
+		embed.addField("<:richtext:635163364875698215> Date d'invitation du bot :", `Le ${dayjs(me.joinedAt).format('dd/MM/YYYY à hh:mm')}`);
 
 		if (premiumTier > 0) embed.addField('Niveau de boost : ', premiumTier, true);
 		if (premiumSubscriptionCount > 0) embed.addField('Nombre de personnes boostant le serveur : ', premiumSubscriptionCount, true);
-		if (features.length > 0)
+		if (features.length > 0) {
 			embed.addField(
 				'Fonctionnalités :',
 				features
@@ -96,6 +96,7 @@ module.exports = class ServeurInfoCommand extends Command {
 					.sort(new Intl.Collator().compare)
 					.join('\n')
 			);
+		}
 
 		await super.send(embed);
 	}

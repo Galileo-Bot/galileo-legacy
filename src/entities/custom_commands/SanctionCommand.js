@@ -1,5 +1,5 @@
 const Command = require('../Command.js');
-const {formatDate} = require('../../utils/FormatUtils.js');
+const dayjs = require('dayjs');
 const {getTime} = require('../../utils/FormatUtils.js');
 const {BetterEmbed} = require('discord.js-better-embed');
 const {ARG_TYPES} = require('../../constants.js');
@@ -87,7 +87,7 @@ module.exports = class SanctionCommand extends Command {
 			`Membre : ${person}`,
 			`ID : ${person.user.id}`,
 			`Raison : ${reason}`,
-			time.value ? `Temps: ${formatDate(time.type.repeat(2), new Date(time.value))}${time.type}` : '',
+			time.value ? `Temps: ${dayjs(time.value).format(time.type.repeat(2))}${time.type}` : '',
 			`Serveur : \`${this.message.guild.name}\``,
 		]
 			.filter(v => v)
@@ -140,18 +140,13 @@ module.exports = class SanctionCommand extends Command {
 		const person = getArg(message, 1, ARG_TYPES.MEMBER);
 		if (!person) return argError(message, this, "La personne n'a pas été trouvée.");
 
-		if (!person.manageable) {
-			return argError(
-				message,
-				this,
-				`Votre rôle est plus bas que la personne que vous tentez ${
-					this.type === 'ban' ? 'de bannir' : this.type === 'kick' ? "d'éjecter" : "d'avertir"
-				}, vous n'avez donc pas le droit.`
-			);
+		if (message.member.roles.highest.comparePositionTo(person.roles.highest) > 0) {
+			const type = this.type === 'ban' ? 'de bannir' : this.type === 'kick' ? "d'éjecter" : "d'avertir";
+			return argError(message, this, `Votre rôle est plus bas que la personne que vous tentez ${type}, vous n'avez donc pas le droit.`);
 		}
 
 		if (person.user.id === this.client.user.id && this.type !== 'warn') {
-			return super.send(`Désolé mais je ne peux pas ${this.type === 'ban' ? 'me bannir' : "m'éjecter"} moi-même.`);
+			return super.send(`Désolé, mais je ne peux pas ${this.type === 'ban' ? 'me bannir' : "m'éjecter"} moi-même.`);
 		}
 
 		return person;

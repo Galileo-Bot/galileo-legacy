@@ -1,6 +1,6 @@
 const {argError} = require('../../utils/Errors.js');
-const {formatDate} = require('../../utils/FormatUtils.js');
 const Command = require('../../entities/Command.js');
+const dayjs = require('dayjs');
 const {BetterEmbed} = require('discord.js-better-embed');
 
 module.exports = class EmojiCommand extends Command {
@@ -17,7 +17,9 @@ module.exports = class EmojiCommand extends Command {
 		if (emojis.join(' ').length > 1024) {
 			embed.addField(text, emojis.slice(0, Math.floor(emojis.length / 2)).join(' '));
 			embed.addField('\u200B', emojis.slice(Math.floor(emojis.length / 2)).join(' '));
-		} else embed.addField(text, emojis.join(' '));
+		} else {
+			embed.addField(text, emojis.join(' '));
+		}
 	}
 
 	async run(client, message, args) {
@@ -38,17 +40,9 @@ module.exports = class EmojiCommand extends Command {
 		if (!emoji) return argError(message, this, 'Veuillez mettre un émoji ou `liste`.');
 
 		if (['list', 'liste', 'ls'].includes(emoji)) {
-			const emojis = message.guild.emojis.cache
-				.filter(e => {
-					if (!e.animated) return e;
-				})
-				.map(e => e.toString());
+			const emojis = message.guild.emojis.cache.filter(e => !e.animated).map(e => e.toString());
 
-			const animEmojis = message.guild.emojis.cache
-				.filter(e => {
-					if (e.animated) return e;
-				})
-				.map(e => e.toString());
+			const animEmojis = message.guild.emojis.cache.filter(e => e.animated).map(e => e.toString());
 
 			embed.setAuthor('Liste des emojis du serveur : ', message.guild.iconURL());
 			this.addEmojis('<:bnote:635163385645760523> émojis simples :', emojis, embed);
@@ -67,11 +61,8 @@ module.exports = class EmojiCommand extends Command {
 
 		if (id) {
 			anim ? embed.setImage(`https://cdn.discordapp.com/emojis/${id}.gif`) : embed.setImage(`https://cdn.discordapp.com/emojis/${id}.png`);
-			embed.setDescription(
-				`<:smiley:635159054989262848> émoji : ${emojiFind}\n🆔 ID : **${id}**\n<:carte:635159034395361330> Nom : **${name}**\n${
-					emojiFind.createdAt ? `<:richtext:635163364875698215> Créé le : **${formatDate('dd/MM/yyyy** à **hh:mm', emojiFind.createdAt)}**` : ''
-				}`
-			);
+			const emojiCreatedAt = emojiFind.createdAt ? `<:richtext:635163364875698215> Créé le : **${dayjs(emojiFind.createdAt).format('dd/MM/YYYY** à **hh:mm')}**` : '';
+			embed.setDescription(`<:smiley:635159054989262848> émoji : ${emojiFind}\n🆔 ID : **${id}**\n<:carte:635159034395361330> Nom : **${name}**\n${emojiCreatedAt}`);
 
 			await super.send(embed);
 		}

@@ -2,8 +2,8 @@ const {MessageEmbed, Util} = require('discord.js');
 const {ARG_TYPES, USER_FLAGS} = require('../../constants.js');
 const {getArg} = require('../../utils/ArgUtils.js');
 const {tryDeleteMessage} = require('../../utils/CommandUtils.js');
-const {formatDate} = require('../../utils/FormatUtils.js');
 const Command = require('../../entities/Command.js');
+const dayjs = require('dayjs');
 const {isOwner} = require('../../utils/Utils.js');
 
 module.exports = class UserInfoCommand extends Command {
@@ -75,10 +75,8 @@ module.exports = class UserInfoCommand extends Command {
 		status = statusResult.status;
 
 		if (person.user.presence.activities.length > 0) {
-			status =
-				person.user.presence.activities[0].type === 'CUSTOM_STATUS'
-					? `**${person.user.presence.activities[0].state}**`
-					: `${UserInfoCommand.getActivityTypeInFrench(person.user.presence.activities[0].type)} **${person.user.presence.activities[0].name}**`;
+			const activity = person.user.presence.activities[0];
+			status = activity.type === 'CUSTOM_STATUS' ? `**${activity.state}**` : `${UserInfoCommand.getActivityTypeInFrench(activity.type)} **${activity.name}**`;
 		}
 
 		const embed = new MessageEmbed();
@@ -96,15 +94,13 @@ module.exports = class UserInfoCommand extends Command {
 		embed.addField('<:textuel:635159053630308391> Nom : ', person.user, true);
 		if (message.guild) {
 			embed.addField('<:richtext:635163364875698215> Permission du serveur :', permServer, true);
-			embed.addField(
-				'<:category:635159053298958366> Rôles',
-				`${Util.discordSort(person.roles.cache).array().reverse().join(' | ')}\n**${person.roles.cache.size}** rôles. (**${Math.round(
-					(person.roles.cache.size / message.guild.roles.cache.size) * 100
-				)}%** des rôles du serveur)`
-			);
-			embed.addField("🛬 Date d'arrivée sur le serveur :", formatDate('dd/MM/yyyy hh:mm', person.joinedAt), true);
+
+			const roles = Util.discordSort(person.roles.cache).array().reverse().join(' | ');
+			const percentage = Math.round((person.roles.cache.size / message.guild.roles.cache.size) * 100);
+			embed.addField('<:category:635159053298958366> Rôles', `${roles}\n**${person.roles.cache.size}** rôles. (**${percentage}%** des rôles du serveur)`);
+			embed.addField("🛬 Date d'arrivée sur le serveur :", dayjs(person.joinedAt).format('dd/MM/YYYY hh:mm'), true);
 		}
-		embed.addField('🚩 Date de création du compte :', formatDate('dd/MM/yyyy hh:mm', person.user.createdAt), true);
+		embed.addField('🚩 Date de création du compte :', dayjs(person.user.createdAt).format('dd/MM/YYYY hh:mm'), true);
 		if (!person.user.bot) embed.addField('<:richtext:635163364875698215> Permissions sur le bot :', permission, true);
 		embed.addField(`${statusEmoji} Statut :`, status, true);
 
