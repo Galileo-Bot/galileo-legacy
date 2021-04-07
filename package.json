@@ -10,6 +10,7 @@
 	"dependencies": {
 		"@octokit/core": "^3.4.0",
 		"better-sqlite-pool": "^0.3.0",
+		"dayjs": "^1.10.4",
 		"discord.js": "^12.5.3",
 		"discord.js-better-embed": "^1.1.0",
 		"dotenv": "^8.2.0",
