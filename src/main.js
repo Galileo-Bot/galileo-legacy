@@ -16,6 +16,10 @@ templates.author = {
 const Logger = require('./utils/Logger.js');
 const GaliClient = require('./entities/Client.js');
 const client = new GaliClient();
+require('dayjs/locale/fr');
+const dayjs = require('dayjs');
+dayjs.locale('fr');
+
 module.exports.client = client;
 
 Logger.error(`Démarrage de Galileo${process.env.IS_CANARY === 'true' ? ' Canary' : ''}...`, 'Starting');
