@@ -9,7 +9,7 @@ const {client} = require('../main.js');
 
 /**
  * Donne les arguments depuis un message.
- * @param {module:"discord.js".Message} message - Le message.
+ * @param {Message} message - Le message.
  * @returns {string[]} - Les arguments du message.
  */
 function getArgListFromMessage(message) {
@@ -77,7 +77,7 @@ function getArgWithContent(content, argType) {
 
 /**
  * Permet de récupérer un argument avec le message (il vaut mieux utiliser {@link getArg}).
- * @param {module:"discord.js".Message} message - Le message.
+ * @param {Message} message - Le message.
  * @param {ARG_TYPES} argType - Type d'argument.
  * @param {number} [index = 1] - Index pour ensuite faire les tests sur l'argument [index].
  * @returns {any} L'argument suivant son type.
@@ -143,7 +143,7 @@ function getArgWithMessage(message, argType, index = 1) {
  * const arg3 = getArg("g/avatar Ayfri", 1, ARG_TYPES.USER_USERNAME);
  * console.log(arg3); // 'Ayfri'
  *
- * @param {module:"discord.js".Message|string} content - Contenu.
+ * @param {Message | string} content - Contenu.
  * @param {number} index - L'index, arg[0] avant est égal à l'index 1 !
  * @param {ARG_TYPES|string} argType - Type d'argument.
  * @returns {module:"discord.js".GuildMember | module:"discord.js".User | module:"discord.js".Role | module:"discord.js".Snowflake | Command | string | number | null} - Le résultat.

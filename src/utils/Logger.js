@@ -1,4 +1,4 @@
-const {formatDate} = require('./FormatUtils.js');
+const dayjs = require('dayjs');
 const {LOG_TYPES} = require('../constants.js');
 const {getKeyByValue} = require('./Utils.js');
 
@@ -50,12 +50,12 @@ module.exports = class Logger {
 	 * @param {string} [title = ''] - Titre du log.
 	 */
 	static process(message, type, title = '') {
-		function addSquareBrackets(string) {
+		function addBrackets(string) {
 			return `[${string}]`;
 		}
 
-		let result = `\x1b[${type}m${formatDate('[yyyy-MM-jj hh:mm:ss.SSSS]')}${addSquareBrackets(getKeyByValue(LOG_TYPES, type).toUpperCase())}`;
-		if (title) result += addSquareBrackets(title);
+		let result = `\x1b[${type}m${addBrackets(dayjs().format('YYYY-MM-DD hh:mm:ss.SSS'))}${addBrackets(getKeyByValue(LOG_TYPES, type).toUpperCase())}`;
+		if (title) result += addBrackets(title);
 		result += ` ${String(message)}\x1b[39;0m`;
 
 		console.log(result);
