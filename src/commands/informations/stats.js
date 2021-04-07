@@ -9,8 +9,8 @@ module.exports = class StatsCommand extends Command {
 	constructor() {
 		super({
 			aliases: ['bi', 'botinfo', 'stat'],
-			description: 'Permet d\'obtenir des informations sur le bot.',
-			name: 'stats'
+			description: "Permet d'obtenir des informations sur le bot.",
+			name: 'stats',
 		});
 	}
 
@@ -112,28 +112,31 @@ module.exports = class StatsCommand extends Command {
 		await super.run(client, message, args);
 
 		const octokit = new Octokit({
-			auth: process.env.OCTOKIT_TOKEN
+			auth: process.env.OCTOKIT_TOKEN,
 		});
 		const lastRelease = await octokit.request('GET /repos/{owner}/{repo}/releases/latest', {
 			owner: 'Galileo-Bot',
-			repo: 'galileo'
+			repo: 'galileo',
 		});
 
 		const embed = BetterEmbed.fromTemplate('basic', {
-			client
+			client,
 		});
 		const memory = (os.totalmem() / (1024 * 1024)).toFixed(0);
 		embed.setColor('DARKER_GREY');
 		embed.setThumbnail(client.user.displayAvatarURL());
 		embed.setAuthor('Statistiques du bot', client.user.displayAvatarURL());
 		embed.addField('🖥 Nombre de serveurs :', client.guilds.cache.size, true);
-		embed.addField('👥 Nombre d\'utilisateurs :', await this.getCountUsers(), true);
+		embed.addField("👥 Nombre d'utilisateurs :", await this.getCountUsers(), true);
 		embed.addField('📋 Nombre de salons : ', client.channels.cache.size, true);
-		embed.addField('💿 Utilisation de la RAM :', `> Serveur : **${StatsCommand.getMemoryUsed()}** MB / **${memory}** MB\n> Bot : **${StatsCommand.getProcessMemoryUsage()}** MB`);
+		embed.addField(
+			'💿 Utilisation de la RAM :',
+			`> Serveur : **${StatsCommand.getMemoryUsed()}** MB / **${memory}** MB\n> Bot : **${StatsCommand.getProcessMemoryUsage()}** MB`
+		);
 		embed.addField('<:cpu:736643846812729446> Utilisation du CPU :', `${(await StatsCommand.getCPUUsage()).percentage.toFixed(2)}%`);
 		embed.addField('🕦 Temps de fonctionnement', dayjs.duration(client.uptime).format('DD [jours] HH [heures] mm [minutes] ss [secondes]'));
 		embed.addField('<:bot:539121198634762261> Version du bot :', lastRelease.data.name, true);
-		embed.addField('📆 Date de l\'update :', dayjs(lastRelease.data.published_at).locale('fr').format('DD MMMM YYYY'), true);
+		embed.addField("📆 Date de l'update :", dayjs(lastRelease.data.published_at).locale('fr').format('DD MMMM YYYY'), true);
 
 		await super.send(embed);
 	}
