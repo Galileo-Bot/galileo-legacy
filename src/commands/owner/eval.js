@@ -72,19 +72,18 @@ module.exports = class EvalCommand extends Command {
 	static getMember(guild, find) {
 		if (EvalCommand.log) EvalCommand.functionsPassages.push('getMember');
 		find = find.toLowerCase();
-		return (
-			guild?.members.cache?.get(find) ||
-			guild?.members.cache?.find(m => m['displayName'].toLowerCase().includes(find) || m['user'].username.toLowerCase().includes(find)) ||
-			EvalCommand.sendJS('GetError : Nothing found.')
-		);
+		return (guild?.members.cache?.get(find) ||
+		        guild?.members.cache?.find(m => m['displayName'].toLowerCase().includes(find) || m['user'].username.toLowerCase().includes(find)) ||
+		        EvalCommand.sendJS('GetError : Nothing found.'));
 	}
 
-	static inspect(object, depth = 2) {
+	static inspect(object, depth = 2, colors = false) {
 		return inspect(object, {
+			colors,
 			depth,
 			maxArrayLength: 200,
 			showHidden: true,
-			sorted: true,
+			sorted: true
 		});
 	}
 
