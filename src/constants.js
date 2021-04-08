@@ -53,8 +53,8 @@ const TAGS = {
 };
 
 const USER_FLAGS = {
-	BUGHUNTER_LEVEL_1: 'Chercheur de bug de Discord niveau 1',
-	BUGHUNTER_LEVEL_2: 'Chercheur de bug de Discord niveau 2',
+	BUGHUNTER_LEVEL_1: 'Chercheur de bug de Discord de niveau 1',
+	BUGHUNTER_LEVEL_2: 'Chercheur de bug de Discord de niveau 2',
 	DISCORD_EMPLOYEE: 'Employé chez Discord.',
 	DISCORD_PARTNER: 'Partenaire de Discord.',
 	EARLY_SUPPORTER: 'A acheté Nitro dès son apparition.',
@@ -63,9 +63,9 @@ const USER_FLAGS = {
 	HOUSE_BRILLIANCE: 'Fait partie de HypeSquad Brilliance.',
 	HYPESQUAD_EVENTS: 'Participant des évents HypeSquad.',
 	SYSTEM: 'Utilisateur faisant partie du système Discord.',
-	TEAM_USER: "Utilisateur d'une team de l'API.",
-	VERIFIED_BOT: 'Bot certifié ayant passé la validation.',
-	VERIFIED_DEVELOPER: 'Développeur de bot certifié ayant passé la validation.',
+	TEAM_USER: 'Utilisateur d\'une team de l\'API.',
+	VERIFIED_BOT: 'Bot certifié ayant passé la validation dès le début.',
+	VERIFIED_DEVELOPER: 'Développeur de bot certifié ayant passé la validation dès le début.'
 };
 
 const GUILD_FEATURES = {
