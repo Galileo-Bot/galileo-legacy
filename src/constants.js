@@ -63,9 +63,9 @@ const USER_FLAGS = {
 	HOUSE_BRILLIANCE: 'Fait partie de HypeSquad Brilliance.',
 	HYPESQUAD_EVENTS: 'Participant des évents HypeSquad.',
 	SYSTEM: 'Utilisateur faisant partie du système Discord.',
-	TEAM_USER: 'Utilisateur d\'une team de l\'API.',
+	TEAM_USER: "Utilisateur d'une team de l'API.",
 	VERIFIED_BOT: 'Bot certifié ayant passé la validation dès le début.',
-	VERIFIED_DEVELOPER: 'Développeur de bot certifié ayant passé la validation dès le début.'
+	VERIFIED_DEVELOPER: 'Développeur de bot certifié ayant passé la validation dès le début.',
 };
 
 const GUILD_FEATURES = {
