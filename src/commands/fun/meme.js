@@ -1,7 +1,6 @@
 const Command = require('../../entities/Command.js');
 const {random} = require('../../utils/Utils.js');
 const fetch = require('node-fetch');
-const EvalCommand = require('../owner/eval.js');
 const {BetterEmbed} = require('discord.js-better-embed');
 module.exports = class MemeCommand extends Command {
 	constructor() {
@@ -39,12 +38,12 @@ module.exports = class MemeCommand extends Command {
 			client
 		});
 
-		let meme = (await MemeCommand.getRandomMemeFromSubreddit(subreddit));
+		let meme = await MemeCommand.getRandomMemeFromSubreddit(subreddit);
 		embed.setDescription(`Mème venant du [subreddit \`${meme ? subreddit : 'meme'}\`](https://www.reddit.com/r/${subreddit}).
 ${meme ? '' : `(Subreddit \`${subreddit}\` non trouvé, ou pas d'image trouvée.)\n`}
 [Cliquez ici pour avoir le lien.](${meme})`);
 		embed.setTitle('Voici votre mème :');
-		meme ??= (await MemeCommand.getRandomMemeFromSubreddit('meme'));
+		meme ??= await MemeCommand.getRandomMemeFromSubreddit('meme');
 		embed.setImage(meme);
 		embed.setURL(meme);
 
