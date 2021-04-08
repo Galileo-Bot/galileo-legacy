@@ -78,19 +78,23 @@ module.exports = class ServeurInfoCommand extends Command {
 <:vocal:635159054582284350> Vocaux : **${voiceChannelsSize}** (**${Math.round((voiceChannelsSize / channels.cache.size) * 1000) / 10}%**)
 <:category:635159053298958366> Catégories : **${categoryChannelsSize}** (**${Math.round((categoryChannelsSize / channels.cache.size) * 1000) / 10}%**)
 <:announce:738916035041820712> Annonceurs : **${newsChannelsSize}** (**${Math.round((newsChannelsSize / channels.cache.size) * 1000) / 10}%**)
-`, true);
+`,
+			true
+		);
 
 		embed.addField('<:carte:635159034395361330> Rôles :', roles.cache.size);
 		embed.addField('<a:disload:635159109280333874> Date de création : ', `Le ${dayjs(createdAt).format('DD/MM/YYYY hh:mm')}`, true);
-		embed.addField('<:richtext:635163364875698215> Date d\'invitation du bot :', `Le ${dayjs(me.joinedAt).format('DD/MM/YYYY à hh:mm')}`);
+		embed.addField("<:richtext:635163364875698215> Date d'invitation du bot :", `Le ${dayjs(me.joinedAt).format('DD/MM/YYYY à hh:mm')}`);
 
 		if (premiumTier > 0) embed.addField('Niveau de boost : ', premiumTier, true);
 		if (premiumSubscriptionCount > 0) embed.addField('Nombre de personnes boostant le serveur : ', premiumSubscriptionCount, true);
 		if (features.length > 0) {
-			embed.addField('Fonctionnalités :', features
-				.map(feature => GUILD_FEATURES[feature])
-				.sort(new Intl.Collator().compare)
-				.join('\n')
+			embed.addField(
+				'Fonctionnalités :',
+				features
+					.map(feature => GUILD_FEATURES[feature])
+					.sort(new Intl.Collator().compare)
+					.join('\n')
 			);
 		}
 

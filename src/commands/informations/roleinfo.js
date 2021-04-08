@@ -34,10 +34,7 @@ module.exports = class RoleInfoCommand extends SlowCommand {
 		const color = role.hexColor === '#000000' ? '#7289da' : role.hexColor;
 
 		await this.startWait();
-		/**
-		 * @type {Jimp}
-		 */
-		const image = await new Jimp(256, 256, color);
+		const image = new Jimp(256, 256, color);
 		await image.write('./assets/images/colorRole.png');
 
 		while (!thumbnailColor) {
@@ -61,10 +58,10 @@ module.exports = class RoleInfoCommand extends SlowCommand {
 
 		if (role.permissions.toArray().length > 0) {
 			const permissions = role.permissions
-			                        .toArray()
-			                        .map(perm => PERMISSIONS[perm])
-			                        .sort(new Intl.Collator().compare)
-			                        .join('\n');
+				.toArray()
+				.map(perm => PERMISSIONS[perm])
+				.sort(new Intl.Collator().compare)
+				.join('\n');
 			embed.addField('Permissions :', permissions);
 		}
 

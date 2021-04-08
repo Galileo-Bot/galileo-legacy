@@ -98,17 +98,19 @@ module.exports = class UserInfoCommand extends Command {
 			const roles = Util.discordSort(person.roles.cache).array().reverse().join(' | ');
 			const percentage = Math.round((person.roles.cache.size / message.guild.roles.cache.size) * 100);
 			embed.addField('<:category:635159053298958366> Rôles', `${roles}\n**${person.roles.cache.size}** rôles. (**${percentage}%** des rôles du serveur)`);
-			embed.addField('🛬 Date d\'arrivée sur le serveur :', dayjs(person.joinedAt).format('DD/MM/YYYY hh:mm'), true);
+			embed.addField("🛬 Date d'arrivée sur le serveur :", dayjs(person.joinedAt).format('DD/MM/YYYY hh:mm'), true);
 		}
 		embed.addField('🚩 Date de création du compte :', dayjs(person.user.createdAt).format('DD/MM/YYYY hh:mm'), true);
 		if (!person.user.bot) embed.addField('<:richtext:635163364875698215> Permissions sur le bot :', permission, true);
 		embed.addField(`${statusEmoji} Statut :`, status, true);
 
 		if (flags.toArray().length > 0) {
-			embed.addField('Propriétés spéciales :', flags
-				.toArray()
-				.map(flag => USER_FLAGS[flag])
-				.sort(new Intl.Collator().compare)
+			embed.addField(
+				'Propriétés spéciales :',
+				flags
+					.toArray()
+					.map(flag => USER_FLAGS[flag])
+					.sort(new Intl.Collator().compare)
 					.join('\n')
 			);
 		}

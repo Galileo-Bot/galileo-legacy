@@ -31,6 +31,6 @@ module.exports = class DeCommand extends Command {
 		if (nbrMax === 0) return argError(message, this, '<a:attention:613714368647135245> **Veuillez entrer un nombre différent de 0.**');
 
 		const nbrFinal = Math.floor(Math.random() * (nbrMax - nbrMin) + nbrMin);
-		return super.send(`Nombre aléatoire généré entre ${nbrMin} et ${nbrMax}.\nRésultat : ${nbrFinal}.`);
+		await super.send(`Nombre aléatoire généré entre ${nbrMin} et ${nbrMax}.\nRésultat : ${nbrFinal}.`);
 	}
 };

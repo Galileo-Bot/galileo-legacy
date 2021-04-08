@@ -40,9 +40,12 @@ module.exports = class ChannelInfoCommand extends Command {
 		const embed = BetterEmbed.fromTemplate('basic', {
 			client,
 		});
-		embed.setAuthor(`Informations sur le salon : ${channel.name}`, message.guild.iconURL({
-			dynamic: true
-		}));
+		embed.setAuthor(
+			`Informations sur le salon : ${channel.name}`,
+			message.guild.iconURL({
+				dynamic: true,
+			})
+		);
 		embed.setColor('#4b5afd');
 		embed.addField('🆔 ID :', channel.id, true);
 		embed.addField('<:textuel:635159053630308391> Nom :', channel.name, true);

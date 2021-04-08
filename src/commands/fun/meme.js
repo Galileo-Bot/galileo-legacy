@@ -6,9 +6,9 @@ module.exports = class MemeCommand extends Command {
 	constructor() {
 		super({
 			aliases: ['mème', 'même', 'reddit'],
-			description: 'Envoie un mème aléatoire depuis le subreddit \'meme\' ou celui inscrit.',
+			description: "Envoie un mème aléatoire depuis le subreddit 'meme' ou celui inscrit.",
 			name: 'meme',
-			usage: 'meme\nmeme <subreddit>'
+			usage: 'meme\nmeme <subreddit>',
 		});
 	}
 
@@ -35,7 +35,7 @@ module.exports = class MemeCommand extends Command {
 		await super.run(client, message, args);
 		const subreddit = args[0] ? args[0].toLowerCase() : 'meme';
 		const embed = BetterEmbed.fromTemplate('basic', {
-			client
+			client,
 		});
 
 		let meme = await MemeCommand.getRandomMemeFromSubreddit(subreddit);

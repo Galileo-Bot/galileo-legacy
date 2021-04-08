@@ -17,16 +17,31 @@
 		"requireConfigFile": false
 	},
 	"rules": {
-		"linebreak-style": ["error", "unix"],
+		"linebreak-style": [
+			"error",
+			"unix"
+		],
+		"no-case-declarations": [
+			"off"
+		],
 		"no-empty": [
 			"error",
 			{
 				"allowEmptyCatch": true
 			}
 		],
-		"no-case-declarations": ["off"],
-		"no-prototype-builtins": ["off"],
-		"prefer-arrow-callback": ["error"],
+		"no-prototype-builtins": [
+			"off"
+		],
+		"prefer-arrow-callback": [
+			"error"
+		],
+		"prefer-const": [
+			"error",
+			{
+				"destructuring": "all"
+			}
+		],
 		"quotes": [
 			"error",
 			"single",
@@ -34,13 +49,12 @@
 				"avoidEscape": true
 			}
 		],
-		"semi": ["error", "always"],
-		"sort-keys": ["error"],
-		"prefer-const": [
+		"semi": [
 			"error",
-			{
-				"destructuring": "all"
-			}
+			"always"
+		],
+		"sort-keys": [
+			"warn"
 		]
 	}
 }
