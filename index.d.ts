@@ -1,4 +1,14 @@
-import type {Client, ClientEvents, Collection, Message as DiscordMessage, MessageAdditions, MessageOptions, PermissionResolvable, Snowflake, StringResolvable} from 'discord.js';
+import type {
+	Client,
+	ClientEvents,
+	Collection,
+	Message as DiscordMessage,
+	MessageAdditions,
+	MessageOptions,
+	PermissionResolvable,
+	Snowflake,
+	StringResolvable
+} from 'discord.js';
 import type Enmap from 'enmap';
 
 //#region classes
@@ -24,7 +34,7 @@ export class CommandManager {
 }
 
 export class EventManager {
-	public static events: Collection<string, Event>;
+	public static events: Collection<string, Event<keyof ClientEvents>>;
 
 	public readonly client: GaliClient;
 
@@ -32,9 +42,9 @@ export class EventManager {
 
 	public loadEvents(dirName: string): Promise<void>;
 
-	public bind(event: Event): void;
+	public bind(event: Event<keyof ClientEvents>): void;
 
-	public unbind(event: Event): void;
+	public unbind(event: Event<keyof ClientEvents>): void;
 }
 
 export class Command {
@@ -59,14 +69,15 @@ export class Command {
 	public send(content: StringResolvable, options?: MessageOptions | (MessageOptions & {split?: false}) | MessageAdditions): Promise<Message>;
 }
 
-export class Event {
+export class Event<T extends keyof ClientEvents> {
 	public once: boolean;
 	public client: GaliClient;
-	public name: keyof ClientEvents;
+	public name: T;
 
 	public constructor(options: EventOptions);
 
-	public run(client: GaliClient, ...args: any[]): Promise<void>;
+	public run(client: GaliClient): Promise<void>;
+	public run(client: GaliClient, ...args: ClientEvents[T]): Promise<void>;
 }
 
 export class Logger {

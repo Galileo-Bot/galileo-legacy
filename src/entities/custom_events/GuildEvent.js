@@ -7,7 +7,7 @@ module.exports = class GuildEvent extends Event {
 	 * Représente un type de GuildEvent :
 	 * * **`add`** - Le bot a rejoint un serveur.
 	 * * **`remove`** - Le bot a quitté un serveur.
-	 * @typedef {string} GuildEventType
+	 * @typedef {'add' | 'remove'} GuildEventType
 	 */
 
 	guild;
