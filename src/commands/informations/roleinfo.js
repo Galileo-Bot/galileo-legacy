@@ -57,14 +57,14 @@ module.exports = class RoleInfoCommand extends SlowCommand {
 		embed.addField('<:hey:635159039831048202> Mentionable :', role.mentionable ? '<:enablevert:635159048639086592>' : '<:disable:635255629694369812>', true);
 		embed.addField('<:richtext:635163364875698215> Rôle affiché séparément :', role.hoist ? '<:enablevert:635159048639086592>' : '<:disable:635255629694369812>', true);
 		embed.addField('🖌 Couleur hexadécimale :', color, true);
-		embed.addField('<a:join:539121286618546197> Créé le :', dayjs(role.createdAt).format('dd/MM/YYYY hh:mm'), true);
+		embed.addField('<a:join:539121286618546197> Créé le :', dayjs(role.createdAt).format('DD/MM/YYYY hh:mm'), true);
 
 		if (role.permissions.toArray().length > 0) {
 			const permissions = role.permissions
-				.toArray()
-				.map(perm => PERMISSIONS[perm])
-				.sort(new Intl.Collator().compare)
-				.join('\n');
+			                        .toArray()
+			                        .map(perm => PERMISSIONS[perm])
+			                        .sort(new Intl.Collator().compare)
+			                        .join('\n');
 			embed.addField('Permissions :', permissions);
 		}
 

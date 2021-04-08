@@ -61,7 +61,7 @@ module.exports = class EmojiCommand extends Command {
 
 		if (id) {
 			anim ? embed.setImage(`https://cdn.discordapp.com/emojis/${id}.gif`) : embed.setImage(`https://cdn.discordapp.com/emojis/${id}.png`);
-			const emojiCreatedAt = emojiFind.createdAt ? `<:richtext:635163364875698215> Créé le : **${dayjs(emojiFind.createdAt).format('dd/MM/YYYY** à **hh:mm')}**` : '';
+			const emojiCreatedAt = emojiFind.createdAt ? `<:richtext:635163364875698215> Créé le : **${dayjs(emojiFind.createdAt).format('DD/MM/YYYY** à **hh:mm')}**` : '';
 			embed.setDescription(`<:smiley:635159054989262848> émoji : ${emojiFind}\n🆔 ID : **${id}**\n<:carte:635159034395361330> Nom : **${name}**\n${emojiCreatedAt}`);
 
 			await super.send(embed);

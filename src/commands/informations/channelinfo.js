@@ -40,16 +40,13 @@ module.exports = class ChannelInfoCommand extends Command {
 		const embed = BetterEmbed.fromTemplate('basic', {
 			client,
 		});
-		embed.setAuthor(
-			`Informations sur le salon : ${channel.name}`,
-			message.guild.iconURL({
-				dynamic: true,
-			})
-		);
+		embed.setAuthor(`Informations sur le salon : ${channel.name}`, message.guild.iconURL({
+			dynamic: true
+		}));
 		embed.setColor('#4b5afd');
 		embed.addField('🆔 ID :', channel.id, true);
 		embed.addField('<:textuel:635159053630308391> Nom :', channel.name, true);
-		embed.addField('<:bnote:635163385645760523> Date de création :', dayjs(channel.createdAt).format('dd/MM/YYYY hh:mm'), true);
+		embed.addField('<:bnote:635163385645760523> Date de création :', dayjs(channel.createdAt).format('DD/MM/YYYY hh:mm'), true);
 		embed.addField('<:category:635159053298958366> Type de salon :', type, true);
 		if (type === 'Textuel') embed.addField('<a:cecia:635159108080631854> Sujet :', topic, true);
 
