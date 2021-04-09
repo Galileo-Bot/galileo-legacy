@@ -13,7 +13,7 @@ const {client} = require('../main.js');
  * @returns {string[]} - Les arguments du message.
  */
 function getArgListFromMessage(message) {
-	return message.content.slice(getPrefixFromMessage(message).length).trim().split(/\s+/g) ?? [];
+	return message.content.slice(getPrefixFromMessage(message).length).trim().split(/\s+/g) || [];
 }
 
 /**
@@ -88,11 +88,11 @@ function getArgWithMessage(message, argType, index = 1) {
 	let result;
 	switch (argType) {
 		case ARG_TYPES.MEMBER:
-			if (message.mentions.members.size > 0 ?? message.mentions.users.size > 0)
-				result = message.mentions.members.array()[index - 1] ?? message.mentions.users.array()[index - 1];
-			else if (arg) {
+			if (message.mentions.members.size > 0 ?? message.mentions.users.size > 0) {
+				result = message.mentions.members.array()[index - 1] || message.mentions.users.array()[index - 1];
+			} else if (arg) {
 				result = message.guild.members.cache.find(
-					m => m.user.id === arg ?? m.user.username.toLowerCase().includes(arg?.toLowerCase()) ?? m.nickname?.toLowerCase().includes(arg?.toLowerCase())
+					m => m.user.id === arg || m.user.username.toLowerCase().includes(arg?.toLowerCase()) || m.nickname?.toLowerCase().includes(arg?.toLowerCase())
 				);
 			}
 
@@ -110,7 +110,7 @@ function getArgWithMessage(message, argType, index = 1) {
 			break;
 
 		case ARG_TYPES.ROLE:
-			result = message.guild.roles.cache.find(r => r.id === arg ?? r.name.toLowerCase().includes(arg?.toLowerCase()));
+			result = message.guild.roles.cache.find(r => r.id === arg || r.name.toLowerCase().includes(arg?.toLowerCase()));
 			break;
 
 		case ARG_TYPES.CHANNEL:
@@ -145,7 +145,7 @@ function getArgWithMessage(message, argType, index = 1) {
  *
  * @param {Message | string} content - Contenu.
  * @param {number} index - L'index, arg[0] avant est égal à l'index 1 !
- * @param {ARG_TYPES|string} argType - Type d'argument.
+ * @param {ARG_TYPES | string} argType - Type d'argument.
  * @returns {module:"discord.js".GuildMember | module:"discord.js".User | module:"discord.js".Role | module:"discord.js".Snowflake | Command | string | number | null} - Le résultat.
  */
 function getArg(content, index, argType) {
