@@ -13,13 +13,10 @@ module.exports = class ReadyEvent extends Event {
 		});
 	}
 
-	logInfosOfBot() {
-		StatsCommand.getCPUUsage()
-			.then(result => {
-				Logger.warn(`RAM utilisée : ${StatsCommand.getProcessMemoryUsage()} MB`, 'ReadyEvent');
-				Logger.warn(`Utilisation du processeur : ${result.percentage} %`, 'ReadyEvent');
-			})
-			.catch();
+	async logInfosOfBot() {
+		const cpuUsage = await StatsCommand.getCPUUsage();
+		Logger.warn(`RAM utilisée : ${StatsCommand.getProcessMemoryUsage()} MB`, 'ReadyEvent');
+		Logger.warn(`Utilisation du processeur : ${cpuUsage.percentage} %`, 'ReadyEvent');
 	}
 
 	resetCache() {
@@ -62,12 +59,12 @@ module.exports = class ReadyEvent extends Event {
 
 		Logger.info(`${client.user.username} (${client.user.id}) Est allumé ! Nombre de serveurs : ${client.guilds.cache.size}.`, 'ReadyEvent');
 
-		this.logInfosOfBot();
+		await this.logInfosOfBot();
 		this.updateCommandsStats();
 		this.resetCache();
 
-		setInterval(() => {
-			this.logInfosOfBot();
+		setInterval(async () => {
+			await this.logInfosOfBot();
 			this.updateCommandsStats();
 			this.resetCache();
 		}, 20 * 60 * 1000);
