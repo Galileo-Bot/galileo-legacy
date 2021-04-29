@@ -1,0 +1,28 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  target-branch: master
+  reviewers:
+  - ayfri
+  labels:
+  - dependencies
+  ignore:
+  - dependency-name: "@babel/core"
+    versions:
+    - 7.12.16
+    - 7.12.17
+  - dependency-name: "@babel/eslint-parser"
+    versions:
+    - 7.12.16
+    - 7.12.17
+  - dependency-name: eslint
+    versions:
+    - 7.20.0
+  - dependency-name: typescript
+    versions:
+    - 4.1.4
+    - 4.1.5
