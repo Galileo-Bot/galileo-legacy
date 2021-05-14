@@ -1,19 +1,61 @@
 {
 	"colors": {
-		"ffffff": ["white", "blanc"],
-		"ff0000": ["red", "rouge"],
-		"ff6600": ["orange"],
-		"ffff00": ["yellow", "jaune"],
-		"00ff00": ["vert", "green"],
-		"00ffff": ["turquoise", "aqua"],
-		"0000ff": ["bleu", "blue"],
-		"bb00bb": ["violet", "purple", "magenta"],
-		"000000": ["noir", "black"],
-		"888888": ["gris", "gray", "grey"],
-		"4f280a": ["marron", "maroon", "brown"],
-		"ff77cc": ["rose", "pink"],
-		"36393e": ["transparent"],
-		"4b5afd": ["bot"]
+		"ffffff": [
+			"white",
+			"blanc"
+		],
+		"ff0000": [
+			"red",
+			"rouge"
+		],
+		"ff6600": [
+			"orange"
+		],
+		"ffff00": [
+			"yellow",
+			"jaune"
+		],
+		"00ff00": [
+			"vert",
+			"green"
+		],
+		"00ffff": [
+			"turquoise",
+			"aqua"
+		],
+		"0000ff": [
+			"bleu",
+			"blue"
+		],
+		"bb00bb": [
+			"violet",
+			"purple",
+			"magenta"
+		],
+		"000000": [
+			"noir",
+			"black"
+		],
+		"888888": [
+			"gris",
+			"gray",
+			"grey"
+		],
+		"4f280a": [
+			"marron",
+			"maroon",
+			"brown"
+		],
+		"ff77cc": [
+			"rose",
+			"pink"
+		],
+		"36393e": [
+			"transparent"
+		],
+		"4b5afd": [
+			"bot"
+		]
 	},
 	"creators": {
 		"ayfri": "Co-Fondateur et développeur du bot Galileo. \nCompte Minecraft : Ayfri\nCompte Discord : <@386893236498857985>\n\n**Liens utiles :**\n\n[Invitation à son serveur](https://discord.gg/AfTSDVz)\n[Chaîne youtube](https://www.youtube.com/c/Ayfri)\n[Map Minecraft](https://www.planetminecraft.com/project/undertalecraft-a-undertale-map-in-minecraft/)\n[GitHub](https://github.com/Ayfri)\n[Profil StackOverFlow](https://stackoverflow.com/users/12184583/ayfri)\n[Twitter](https://twitter.com/ayfri1015)",

@@ -48,7 +48,7 @@ module.exports = class ListerStaffCommand extends Command {
 	 * @param {Collection<module:"discord.js".Snowflake, module:"discord.js".GuildMember>} collection - La collection de membres.
 	 */
 	addField(embed, text, collection) {
-		if (collection.size > 0)
+		if (collection.size > 0) {
 			embed.addField(
 				text,
 				collection
@@ -56,6 +56,7 @@ module.exports = class ListerStaffCommand extends Command {
 					.sort((a, b) => a.displayName.localeCompare(b.displayName))
 					.join('\n')
 			);
+		}
 	}
 
 	async run(client, message, args) {

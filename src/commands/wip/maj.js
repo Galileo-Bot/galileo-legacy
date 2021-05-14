@@ -36,7 +36,7 @@ module.exports = class MajCommand extends Command {
 		 super.send(`Le contenu de la mise à jour ${arg} vous a été envoyé en **privé** ! :thumbsup:`);
 		 return message.author.send(update[arg]);
 		 }
-		 
+
 		 super.send("Oui mais non :^p"); */
 	}
 };

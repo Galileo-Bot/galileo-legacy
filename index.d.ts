@@ -1,14 +1,4 @@
-import type {
-	Client,
-	ClientEvents,
-	Collection,
-	Message as DiscordMessage,
-	MessageAdditions,
-	MessageOptions,
-	PermissionResolvable,
-	Snowflake,
-	StringResolvable
-} from 'discord.js';
+import type {Client, ClientEvents, Collection, Message as DiscordMessage, MessageAdditions, MessageOptions, PermissionResolvable, Snowflake, StringResolvable} from 'discord.js';
 import type Enmap from 'enmap';
 
 //#region classes

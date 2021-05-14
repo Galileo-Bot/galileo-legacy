@@ -70,7 +70,7 @@ module.exports = class ReadyEvent extends Event {
 		}, 20 * 60 * 1000);
 
 		setInterval(() => {
-			if (client.dbManager.ready)
+			if (client.dbManager.ready) {
 				client.dbManager.userInfos.forEach((guild, guildID) => {
 					for (const userID in guild) {
 						if (guild.hasOwnProperty(userID)) {
@@ -85,6 +85,7 @@ module.exports = class ReadyEvent extends Event {
 						}
 					}
 				});
+			}
 		}, 5 * 1000);
 	}
 

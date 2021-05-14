@@ -48,7 +48,9 @@ module.exports = class EvalCommand extends Command {
 				for (let i = 0; i < text.length / 1990; i++) {
 					newText.push(text.slice(i * 1990, (i + 1) * 1990));
 				}
-			} else newText.push(text);
+			} else {
+				newText.push(text);
+			}
 		}
 
 		return newText;

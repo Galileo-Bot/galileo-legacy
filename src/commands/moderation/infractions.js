@@ -12,8 +12,7 @@ module.exports = class InfractionsCommand extends Command {
 			description: "Permet de modifier/supprimer/voir les infractions d'un membre ou de vous-même.",
 			name: 'infractions',
 			tags: [TAGS.GUILD_ONLY],
-			usage:
-				'infractions <Nom/ID/Mention de membre> modifier <numéro de cas> <nouvelle raison>\ninfractions <Nom/ID/Mention de membre> supprimer <numéro de cas>\ninfractions <Nom/ID/Mention de membre> supprimer toutes\ninfractions [Nom/ID/Mention de membre] [page]',
+			usage: 'infractions <Nom/ID/Mention de membre> modifier <numéro de cas> <nouvelle raison>\ninfractions <Nom/ID/Mention de membre> supprimer <numéro de cas>\ninfractions <Nom/ID/Mention de membre> supprimer toutes\ninfractions [Nom/ID/Mention de membre] [page]',
 			userPermissions: ['KICK_MEMBERS', 'BAN_MEMBERS'],
 		});
 	}
@@ -37,10 +36,15 @@ module.exports = class InfractionsCommand extends Command {
 
 		const embedDesc = userData.sanctions
 			.map(({case: caseNumber, reason, type}) => {
-				if (type === 'warn') warns++;
-				else if (['ban', 'tempban'].includes(type)) bans++;
-				else if (type === 'kick') kicks++;
-				else if (['tempmute', 'mute'].includes(type)) mutes++;
+				if (type === 'warn') {
+					warns++;
+				} else if (['ban', 'tempban'].includes(type)) {
+					bans++;
+				} else if (type === 'kick') {
+					kicks++;
+				} else if (['tempmute', 'mute'].includes(type)) {
+					mutes++;
+				}
 
 				return `**cas ${caseNumber}** |** __${type}__**\t|\t${reason}`;
 			})
@@ -94,14 +98,19 @@ module.exports = class InfractionsCommand extends Command {
 
 				const sanction = this.client.dbManager.userInfos.get(message.guild.id, person.user.id).sanctions.find(s => s.case.toString() === args[2]);
 				if (sanction) {
-					if (sanction.type === 'ban') message.guild.members.unban(person.user.id).catch(() => {});
+					if (sanction.type === 'ban') {
+						message.guild.members.unban(person.user.id).catch(() => {});
+					}
 					this.client.dbManager.userInfos.remove(message.guild.id, s => s === sanction, `${person.user.id}.sanctions`);
 					return super.send(`La sanction ${args[2]} de ${person} a bien été supprimée. \`(${sanction.type})\``);
-				} else return argError(message, this, `La sanction ${args[2]} n'a pas été trouvée ou n'est pas valide.`);
+				} else {
+					return argError(message, this, `La sanction ${args[2]} n'a pas été trouvée ou n'est pas valide.`);
+				}
 			}
 		} else if (args[1] === 'modifier') {
-			if (getArg(message, 3, ARG_TYPES.NUMBER) === null) return argError(message, this, "Veuillez mettre le numéro d'une sanction valide.");
-			else {
+			if (getArg(message, 3, ARG_TYPES.NUMBER) === null) {
+				return argError(message, this, "Veuillez mettre le numéro d'une sanction valide.");
+			} else {
 				const sanction = client.dbManager.userInfos.get(message.guild.id, `${person.user.id}.sanctions`).find(s => s.case.toString() === args[2]);
 				if (sanction) {
 					if (args.length === 3) return argError(message, this, 'Veuillez mettre la nouvelle raison de cette sanction.');
@@ -112,7 +121,9 @@ module.exports = class InfractionsCommand extends Command {
 					client.dbManager.userInfos.set(message.guild.id, sanctions, `${person.user.id}.sanctions`);
 
 					return super.send(`La sanction ${args[2]} a bien été modifiée en \`${reason}\`.\n\`(${sanction.type})\``);
-				} else return argError(message, this, `La sanction ${args[2]} n'a pas été trouvée ou n'est pas valide.`);
+				} else {
+					return argError(message, this, `La sanction ${args[2]} n'a pas été trouvée ou n'est pas valide.`);
+				}
 			}
 		}
 

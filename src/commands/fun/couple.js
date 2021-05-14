@@ -30,8 +30,8 @@ module.exports = class CoupleCommand extends Command {
 		);
 
 		await super.send(`**${personOne}** a porté son amour sur **${personTwo}**. :gift_heart:
-${
-	personOne === personTwo || personOne.toString() === personTwo.toString() ? 'Il est donc narcissique à' : 'Ses chances de réussites pour conclure sont de'
-} **${percentage.toString().slice(2, 4)}**% !`);
+${personOne === personTwo || personOne.toString() === personTwo.toString() ? 'Il est donc narcissique à' : 'Ses chances de réussites pour conclure sont de'} **${percentage
+			.toString()
+			.slice(2, 4)}**% !`);
 	}
 };

@@ -20,10 +20,8 @@ module.exports = class RoleInfoCommand extends SlowCommand {
 	async run(client, message, args) {
 		await super.run(client, message, args);
 
-		let thumbnailColor;
 		await message.guild.members.fetch();
 		/**
-		 *
 		 * @type {module:"discord.js".Role | null}
 		 */
 		const role = getArg(message, 1, ARG_TYPES.ROLE);

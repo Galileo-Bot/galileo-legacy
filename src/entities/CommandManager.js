@@ -46,7 +46,9 @@ module.exports = class CommandManager {
 					if (command.category === 'none') command.category = dirName.split(sep).pop();
 					this.loadCommand(command);
 				}
-			} else this.loadCommands(`${dirName}${sep}${commandFile}`);
+			} else {
+				this.loadCommands(`${dirName}${sep}${commandFile}`);
+			}
 		}
 	}
 

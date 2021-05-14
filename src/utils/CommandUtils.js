@@ -9,11 +9,12 @@ const {TAGS} = require('../constants.js');
  * @returns {MissingPermissions} - Le résultat, un objet avec 2 arrays contenant les permissions manquantes du membre et du cliebt (bot).
  */
 function verifyPermissionsFromCommand(command, message) {
-	if (!message.guild)
+	if (!message.guild) {
 		return {
 			client: [],
 			user: [],
 		};
+	}
 
 	return {
 		client: command.clientPermissions.filter(v => !message.channel.permissionsFor(message.guild.me).has(v, false)),
@@ -24,7 +25,7 @@ function verifyPermissionsFromCommand(command, message) {
 /**
  * Supprime le message en vérifiant s’il peut (pour éviter les erreurs, on peut mettre un timeout aussi).
  * @param {Message} message - Le message à supprimer.
- * @param {number} [after = 0] - Le timemout (en ms).
+ * @param {number} [after = 0] - Le timeout (en ms).
  * @returns {void}
  */
 function tryDeleteMessage(message, after = 0) {
@@ -46,9 +47,11 @@ function tryDeleteMessage(message, after = 0) {
 function processCommandFail(fail, message, command) {
 	if (!fail.isFailed) return;
 
-	if (fail.missingPermissions.client.length > 0) return permsError(message, command, fail.missingPermissions.client, true);
-	else if (fail.missingPermissions.user.length > 0) return permsError(message, command, fail.missingPermissions.user);
-	else if (fail.tags.includes(TAGS.DM_ONLY)) return argError(message, command, "Commande exécutée sur un serveur alors que la commande n'est autorisé qu'en privé.");
+	if (fail.missingPermissions.client.length > 0) {
+		return permsError(message, command, fail.missingPermissions.client, true);
+	} else if (fail.missingPermissions.user.length > 0) {
+		return permsError(message, command, fail.missingPermissions.user);
+	} else if (fail.tags.includes(TAGS.DM_ONLY)) return argError(message, command, "Commande exécutée sur un serveur alors que la commande n'est autorisé qu'en privé.");
 	else if (fail.tags.includes(TAGS.OWNER_ONLY)) return argError(message, command, 'Commande autorisée uniquement par les gérants du bot.');
 
 	if (message.guild) {

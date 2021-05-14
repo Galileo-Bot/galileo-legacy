@@ -16,7 +16,7 @@ templates.author = {
 templates.title = {
 	...templates.basic,
 	...templates.color,
-	title: '${title}'
+	title: '${title}',
 };
 
 const Logger = require('./utils/Logger.js');
