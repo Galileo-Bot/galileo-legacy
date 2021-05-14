@@ -13,23 +13,23 @@
 		"dayjs": "^1.10.4",
 		"discord.js": "^12.5.3",
 		"discord.js-better-embed": "^1.1.0",
-		"dotenv": "^9.0.0",
-		"enmap": "^5.8.4",
+		"dotenv": "^9.0.2",
+		"enmap": "^5.8.5",
 		"figlet": "^1.5.0",
 		"godembed": "^1.0.4",
 		"imgflip": "^2.0.0",
-		"imgur": "^1.0.0",
+		"imgur": "^1.0.2",
 		"jimp": "^0.16.1",
 		"node-fetch": "^2.6.1"
 	},
 	"description": "Un bot discord.",
 	"devDependencies": {
-		"@babel/core": "^7.13.14",
-		"@babel/eslint-parser": "^7.13.14",
+		"@babel/core": "^7.14.2",
+		"@babel/eslint-parser": "^7.14.2",
 		"@babel/plugin-proposal-class-properties": "^7.13.0",
-		"eslint": "^7.23.0",
-		"prettier": "^2.2.1",
-		"typescript": "^4.2.3"
+		"eslint": "^7.26.0",
+		"prettier": "^2.3.0",
+		"typescript": "^4.2.4"
 	},
 	"engineStrict": true,
 	"engines": {
