@@ -13,6 +13,12 @@ templates.author = {
 	description: '${description}',
 };
 
+templates.title = {
+	...templates.basic,
+	...templates.color,
+	title: '${title}'
+};
+
 const Logger = require('./utils/Logger.js');
 const GaliClient = require('./entities/Client.js');
 const client = new GaliClient();
