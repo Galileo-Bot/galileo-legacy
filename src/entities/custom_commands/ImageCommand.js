@@ -1,7 +1,6 @@
 const SlowCommand = require('./SlowCommand.js');
 const Logger = require('../../utils/Logger.js');
 const jimp = require('jimp');
-const imgur = require('imgur');
 const {BetterEmbed} = require('discord.js-better-embed');
 const {isOwner} = require('../../utils/Utils.js');
 const {runError} = require('../../utils/Errors.js');
@@ -31,10 +30,7 @@ module.exports = class ImageCommand extends SlowCommand {
 			image[imageFunction](...argsFunction);
 			await image.write(`./assets/images/${imageFunction}.png`);
 
-			const json = await imgur.uploadFile(`./assets/images/${imageFunction}.png`);
-			this.memoize(imageFunction, user.id, json.data.link);
-
-			await this.sendEmbed(json.data.link);
+			await this.sendEmbed(`./assets/images/${imageFunction}.png`);
 			await this.stopWait();
 		} catch (error) {
 			if (isOwner(message.author.id) && error.stack) {
@@ -66,12 +62,11 @@ module.exports = class ImageCommand extends SlowCommand {
 	}
 
 	async sendEmbed(link) {
-		const embed = BetterEmbed.fromTemplate('image', {
+		const embed = BetterEmbed.fromTemplate('title', {
 			client: this.client,
-			description: `[Cliquez pour ouvrir l'image.](${link})`,
-			image: link,
 			title: 'Image traitée : ',
 		});
+		embed.setImageFromFile(link);
 
 		await super.send(embed);
 	}

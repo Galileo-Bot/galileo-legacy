@@ -1,5 +1,4 @@
 const SlowCommand = require('../../entities/custom_commands/SlowCommand.js');
-const imgur = require('imgur');
 const Jimp = require('jimp');
 const dayjs = require('dayjs');
 const {ARG_TYPES, TAGS, PERMISSIONS} = require('../../constants.js');
@@ -37,18 +36,15 @@ module.exports = class RoleInfoCommand extends SlowCommand {
 		const image = new Jimp(256, 256, color);
 		await image.write('./assets/images/colorRole.png');
 
-		while (!thumbnailColor) {
-			thumbnailColor = await imgur.uploadFile('./assets/images/colorRole.png');
-		}
-
 		const embed = BetterEmbed.fromTemplate('basic', {
 			client,
 		});
 
-		embed.setThumbnail(thumbnailColor.data.link);
+		embed.setThumbnailFromFile('./assets/images/colorRole.png');
 		embed.setTitle(`<a:cecia:635159108080631854> Informations sur le rôle : ${role.name}`);
 		embed.addField('🆔 :', role.id, true);
 		embed.addField('<:textuel:635159053630308391> Nom :', role, true);
+
 		const percentage = Math.round((role.members.size / message.guild.memberCount) * 1000) / 10;
 		embed.addField('<:richtext:635163364875698215> Nombre de membres ayant le rôle :', `${role.members.size} (${percentage}% des membres du serveur)`);
 		embed.addField('<:hey:635159039831048202> Mentionable :', role.mentionable ? '<:enablevert:635159048639086592>' : '<:disable:635255629694369812>', true);

@@ -1,6 +1,4 @@
 const SlowCommand = require('../../entities/custom_commands/SlowCommand.js');
-const Logger = require('../../utils/Logger.js');
-const imgur = require('imgur');
 const {BetterEmbed} = require('discord.js-better-embed');
 const {exec} = require('child_process');
 
@@ -22,19 +20,13 @@ module.exports = class CommandStatsCommand extends SlowCommand {
 			exec('python3 assets/generateGraph.py');
 		} catch (ignored) {}
 
-		imgur
-			.uploadFile('./assets/images/graphMessages.png')
-			.then(async json => {
-				const embed = BetterEmbed.fromTemplate('image', {
-					client,
-					description: '',
-					image: json.data.link,
-					title: "Statistiques sur l'utilisation du bot.",
-				});
+		const embed = BetterEmbed.fromTemplate('title', {
+			client,
+			title: "Statistiques sur l'utilisation du bot.",
+		});
 
-				await super.send(embed);
-				await super.stopWait();
-			})
-			.catch(e => Logger.error(e.stack));
+		embed.setImageFromFile('./assets/images/graphMessages.png');
+		await super.send(embed);
+		await super.stopWait();
 	}
 };
