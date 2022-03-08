@@ -19,7 +19,7 @@
 		"godembed": "^1.0.4",
 		"imgflip": "^3.0.0",
 		"jimp": "^0.16.1",
-		"node-fetch": "^2.6.1"
+		"node-fetch": "^3.2.2"
 	},
 	"description": "Un bot discord.",
 	"devDependencies": {
