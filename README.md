@@ -1,15 +1,14 @@
 # Galileo
 
-Galileo était un bot Discord francophone développé par [Ayfri](https://github.com/Ayfri) et géré par [Antow](https://github.com/Antoww).
+**Galileo était un bot Discord francophone** développé par  **[Ayfri](https://github.com/Ayfri)**  et géré par  **[Antow](https://github.com/Antoww)**.
 
-Ce bot résulte de la fusion entre AyBot et Bot'O'Matic, Ayfri et Antow étant amis, ils ont décidé de réunir les deux bots en un pour unir leur force.
+Ce bot **résulte de la fusion** entre __AyBot__ et __Bot'O'Matic__, Ayfri et Antow étant amis, ils ont **décidé de réunir les deux bots** en un pour unir leur force.
 
-Vous pourrez trouver dessus de nombreuses commandes de tout genre, par exemple vous pouvez générer des mèmes, avoir plein d'informations sur Discord, ses utilisateurs et ses serveurs, modérer votre serveur ou
-encore des utilitaires pour développeurs.
+Vous pourrez trouver dessus de nombreuses commandes de tout genre, par exemple vous pouvez générer des mèmes, avoir plein d'informations sur Discord, ses utilisateurs et ses serveurs, modérer votre serveur ou encore des utilitaires pour développeurs.
 
 Le bot est pour l'instant écrit en JavaScript avec son propre handler et pleins d'outils codés spécialement pour.
 
-**Le projet est arrêté depuis le 17 septembre 2021.**
+## **Le projet est arrêté depuis le 17 septembre 2021.**
 
 ## Badges
 
